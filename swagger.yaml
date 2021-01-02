@@ -1,0 +1,3978 @@
+openapi: 3.0.0
+info:
+  version: "0.1"
+  title: Blockfrost.io ~ API Documentation
+  x-logo:
+    url: https://staging.blockfrost.io/images/logo.svg
+    altText: Blockfrost
+  contact:
+    name: Blockfrost Team
+    url: "https://blockfrost.io"
+    email: contact@blockfrost.io
+  license:
+    name: MIT
+    url: "https://opensource.org/licenses/MIT"
+  termsOfService: "https://blockfrost.io/terms"
+  description: |
+    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
+
+    ## Authentication
+
+    After signing up on https://blockfrost.io, a `project_id` token is automatically generated for each project.
+    HTTP header of your request MUST include this `project_id` in order to authenticate against Blockfrost servers.
+
+    ## Available networks
+
+    At the moment, you can use the following networks. Please, note that each network has its own `project id`.
+
+    <table>
+      <tr><td><b>Network</b></td><td><b>Endpoint</b></td></tr>
+      <tr><td>Cardano mainnet</td><td><tt>https://cardano-mainnet.blockfrost.io/api/v0</td></tt></tr>
+      <tr><td>Cardano testnet</td><td><tt>https://cardano-testnet.blockfrost.io/api/v0</tt></td></tr>
+    </table>
+
+    ## Concepts
+
+    * All endpoints return either a JSON object or an array.
+    * Data is returned in *ascending* (oldest first, newest last) order.
+      * You might use the `?order=desc` query parameter to reverse this order.
+    * By default, we return 100 results at a time. You have to use `?page=2` to list through the results.
+    * All time and timestamp related fields are in milliseconds of UNIX time.
+    * All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces
+    * Addresses, accounts and pool IDs are in Bech32 format
+    * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
+
+    ## Errors
+
+    ### HTTP Status codes
+
+    The following are HTTP status code your application might receive when reaching Blockfrost's endpoints and
+    it should handle all of these cases.
+
+    * HTTP `400` return code is used when the request is not valid.
+    * HTTP `403` return code is used when the request is not authenticated.
+    * HTTP `404` return code is used when the resource doesn't exist.
+    * HTTP `429` return code is used when the project exceeded its request rate limit.
+    * HTTP `418` return code is used when the IP has been auto-banned for flooding too much after previously receiving error code `429`.
+    * HTTP `500` return code is used when our endpoints are having a problem.
+
+    ### Error codes
+
+    An internal error code number is used for better indication of the error in question. It is passed using the following payload.
+
+    ```json
+    {
+      "status_code": 403,
+      "error": "Forbidden",
+      "message": "Invalid project token"
+    }
+    ```
+    ## Limits
+
+     There are two types of limits we are enforcing. The first depends on your plan and is the number of request we allow per day. We defined
+     the day from midnight to midnight of UTC time. The second is rate limiting, where we limit an end user to 10 requests per second after a period
+     of 5 second burst. We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
+     we will make sure to take it into account as much as we can.
+
+servers:
+  - url: https://cardano-mainnet.blockfrost.io/api/v0/
+    description: Cardano Mainnet network
+  - url: https://cardano-testnet.blockfrost.io/api/v0/
+    description: Cardano Testnet network
+  - url: https://localhost:3000
+    description: local
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Health
+  - name: Blocks
+  - name: Epochs
+  - name: Transactions
+  - name: Metadata
+  - name: Pools
+  - name: Accounts
+  - name: Addresses
+
+paths:
+  /:
+    get:
+      tags:
+        - Health
+      security: []
+      summary: Root endpoint
+      description: |
+        Root endpoint has no other function than to point end users to documentation.
+      responses:
+        "200":
+          description: Information pointing to the documentation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: "https://blockfrost.io/"
+                  version:
+                    type: number
+                    example: 0.1
+                required:
+                  - url
+                  - version
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /health:
+    get:
+      tags:
+        - Health
+      security: []
+      summary: Backend health status
+      description: |
+        Return backend status as a boolean. Your application
+            should handle situations when backend for the given chain is unavailable.
+      responses:
+        "200":
+          description: Return the boolean indicating the health of the backend.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  is_healthy:
+                    type: boolean
+                    example: true
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /health/clock:
+    get:
+      tags:
+        - Health
+      security: []
+      summary: Current backend time
+      description: |
+        This endpoint provides the current UNIX time. Your application might
+        use this to verify if the client's clock is not out of sync.
+      responses:
+        "200":
+          description: Return the current UNIX time in milliseconds.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  server_time:
+                    type: integer
+                    example: 1603400958947
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /blocks/latest:
+    get:
+      tags:
+        - Blocks
+      summary: Latest block
+      description: |
+        Return the latest block available to the backends, also known as the
+        tip of the blockchain.
+      responses:
+        "200":
+          description: Return the contents of the latest block.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /blocks/{hash_or_number}:
+    get:
+      tags:
+        - Blocks
+      summary: Specific block
+      description: |
+        Return the content of a requested block.
+      parameters:
+        - in: path
+          name: hash_or_number
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string or block number.
+          description: Hash of the requested block.
+          example: "4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a"
+      responses:
+        "200":
+          description: Return the contents of the block
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /blocks/{hash_or_number}/next:
+    get:
+      tags:
+        - Blocks
+      summary: Listing of next blocks
+      description: |
+        Return the list of blocks following a specific block.
+      parameters:
+        - in: path
+          name: hash_or_number
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string or block number.
+          description: Hash of the requested block.
+          example: "5ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+      responses:
+        "200":
+          description: Return the contents of the block.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block_content_array"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /blocks/{hash_or_number}/previous:
+    get:
+      tags:
+        - Blocks
+      summary: Listing of previous blocks
+      description: |
+        Return the list of blocks preceding a specific block.
+      parameters:
+        - in: path
+          name: hash_or_number
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string or block number.
+          description: Hash of the requested block
+          example: "4873401"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+      responses:
+        "200":
+          description: Return the contents of the block
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block_content_array"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /blocks/{hash_or_number}/txs:
+    get:
+      tags:
+        - Blocks
+      summary: Block's transactions
+      description: Return the transactions within the block.
+      parameters:
+        - in: path
+          name: hash_or_number
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string or block number.
+          description: Hash of the requested block.
+          example: "4873401"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            Ordered by tx index in the block.
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the transactions within the block.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block_content_txs"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /genesis:
+    get:
+      tags:
+        - Ledger
+      summary: Blockchain's genesis
+      description: Return the information about blockchain's genesis.
+      responses:
+        "200":
+          description: Return the genesis parameters.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/genesis_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/latest:
+    get:
+      tags:
+        - Epochs
+      summary: Latest epoch
+      description: Return the information about the latest, therefore current, epoch.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}:
+    get:
+      tags:
+        - Epochs
+      summary: Specific epoch
+      description: Return the content of the requested epoch.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: string
+          description: Number of the epoch
+          example: "225"
+      responses:
+        "200":
+          description: Return the epoch data.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/next:
+    get:
+      tags:
+        - Epochs
+      summary: Listing of next epochs
+      description: Return the list of epochs following a specific epoch.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the requested epoch.
+          example: 225
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of epochs following the epoch specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_content_array"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/previous:
+    get:
+      tags:
+        - Epochs
+      summary: Listing of previous epochs
+      description: Return the list of epochs preceding a specific epoch.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the epoch
+          example: 225
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of epochs following the epoch specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results
+      responses:
+        "200":
+          description: Return the epoch data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_content_array"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/stakes:
+    get:
+      tags:
+        - Epochs
+      summary: Stake distribution
+      description: Return the stake distribution for the epoch specified.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the epoch
+          example: 225
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of stake addresses for a specific epoch.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_stake_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/stakes/{pool_id}:
+    get:
+      tags:
+        - Epochs
+      summary: Stake distribution
+      description: Return the stake distribution for the epoch specified by stake pool.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the epoch
+          example: 225
+        - in: path
+          required: true
+          name: pool_id
+          schema:
+            type: string
+          description: Stake pool ID to filter
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of stake addresses for a specific epoch.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_stake_pool_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/blocks:
+    get:
+      tags:
+        - Epochs
+      summary: Block distribution
+      description: Return the blocks minted for the epoch specified.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the epoch
+          example: 225
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of stake addresses for a specific epoch.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_block_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/blocks/{pool_id}:
+    get:
+      tags:
+        - Epochs
+      summary: Block distribution
+      description: Return the block minted for the epoch specified by stake pool.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the epoch
+          example: 225
+        - in: path
+          required: true
+          name: pool_id
+          schema:
+            type: string
+          description: Stake pool ID to filter
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of stake addresses for a specific epoch.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_block_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/{number}/parameters:
+    get:
+      tags:
+        - Epochs
+      summary: Protocol parameters
+      description: Return the protocol parameters for the epoch specified.
+      parameters:
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: integer
+          description: Number of the epoch
+          example: 225
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_param_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}:
+    get:
+      tags:
+        - Transactions
+      summary: Specific transaction
+      description: Return content of the requested transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: "6e5f825c42c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Return the contents of the transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/utxos:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's UTXOs
+      description: Return the inputs and UTXOs of the specific transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Return the contents of the transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content_utxo"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/stakes:
+    get:
+      tags:
+        - Transactions
+      summary: Trasanction's stake addresses certificates
+      description: |
+        Obtain information about (de)registration of stake addresses within a transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction.
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: |
+            Obtain information about (de)registration of stake addresses within a transaction.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tx_content_stake_addr"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/delegations:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's delegation certificates
+      description: |
+        Obtain information about delegation certificates of a specific transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string
+          description: Hash of the requested transaction.
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about delegation certificates of a specific transaction
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tx_content_delegations"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/withdrawals:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's withdrawal
+      description: Obtain information about withdrawals of a specific transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string
+          description: Hash of the requested transaction.
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about withdrawals of a specific transaction.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tx_content_withdrawals"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/pool_updates:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's stake pool registration and update certificates
+      description: |
+        Obtain information about stake pool registration and update certificates of a specific transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about stake pool certificates of a specific transaction
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tx_content_pool_certs"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/pool_retires:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's stake pool retirement certificates
+      description: |
+        Obtain information about stake pool retirements within a specific transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: |
+            Obtain information about stake pool retirements within a specific transaction.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/tx_content_pool_retires"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/metadata:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's metadata
+      description: Obtain the transaction metadata.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about stake pool retirements within a specific transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content_metadata"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/metadata/cbor:
+    get:
+      tags:
+        - Transactions
+      summary: Transaction's metadata in CBOR
+      description: Obtain the transaction metadata in CBOR.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about stake pool retirements within a specific transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content_metadata_cbor"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /tx/submit:
+    post:
+      tags:
+        - Transactions
+      summary: Submit a transaction
+      description: Submit a signed transaction message binary blob to the network.
+      parameters:
+        - in: header
+          name: Content-Type
+          required: true
+          schema:
+            type: string
+            enum: ["application/octet-stream"]
+      responses:
+        "200":
+          description: Return the ID of the submitted transaction.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: hex
+                    minLength: 64
+                    maxLength: 64
+                    example: "d1662b24fa9fe985fc2dce47455df399cb2e31e1e1819339e885801cc3578908"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}:
+    get:
+      tags:
+        - Accounts
+      summary: Specific account address
+      description: |
+        Obtain information about a specific stake account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake addresses
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+      responses:
+        "200":
+          description: Return the account content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/rewards:
+    get:
+      tags:
+        - Accounts
+      summary: Account's reward history
+      description: |
+        Obtain information about the history of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake addresses
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_reward_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/history:
+    get:
+      tags:
+        - Accounts
+      summary: Account's history
+      description: |
+        Obtain information about the history of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake addresses
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_history_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/delegations:
+    get:
+      tags:
+        - Accounts
+      summary: Account's delegation history
+      description: Obtain information about the delegation of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake addresses
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account delegations content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_delegation_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/registrations:
+    get:
+      tags:
+        - Accounts
+      summary: Account's registration history
+      description: |
+        Obtain information about the registrations and deregistrations of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake addresses
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account registration content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_registration_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /metadata/txs/labels:
+    get:
+      tags:
+        - Metadata
+      summary: Transaction metadata labels
+      description: |
+        List of all used transaction metadata labels.
+      responses:
+        "200":
+          description: Return the account delegations content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_metadata_labels"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /metadata/txs/labels/{label}:
+    get:
+      tags:
+        - Metadata
+      summary: Transaction metadata content in JSON
+      description: Transaction metadata per label.
+      parameters:
+        - in: path
+          name: label
+          required: true
+          schema:
+            type: string
+          description: Metadata label
+          example: "1990"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account delegations content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_metadata_label_json"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /metadata/txs/labels/{label}/cbor:
+    get:
+      tags:
+        - Metadata
+      summary: Transaction metadata content in CBOR
+      description: Transaction metadata per label.
+      parameters:
+        - in: path
+          name: label
+          required: true
+          schema:
+            type: string
+          description: Metadata label
+          example: "1990"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account delegations content in CBOR
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_metadata_label_cbor"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /addresses/{address}:
+    get:
+      tags:
+        - Addresses
+      summary: Specific address
+      description: Obtain information about a specific address.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 addresses.
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+      responses:
+        "200":
+          description: Return the address content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/address_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /addresses/{address}/total:
+    get:
+      tags:
+        - Addresses
+      summary: Address' details
+      description: Obtain details about an address.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 addresses.
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+      responses:
+        "200":
+          description: Return the address' details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/address_content_total"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /addresses/{address}/utxos:
+    get:
+      tags:
+        - Addresses
+      summary: Address' UTXOs
+      description: UTXOs of the address.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 addresses
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            Ordered by tx index in the block.
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the address content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/address_utxo_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /addresses/{address}/txs:
+    get:
+      tags:
+        - Addresses
+      summary: Address' transactions
+      description: Transactions on the address.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 addresses.
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of pools per page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the address content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/address_txs_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/:
+    get:
+      tags:
+        - Pools
+      summary: List of stake pools
+      description: List of active stake pools.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of pools per page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the list of pools.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_list"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/retired:
+    get:
+      tags:
+        - Pools
+      summary: List of retired stake pools
+      description: List of already retired pools.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of pools per page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the pool information content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_list_retire"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/retiring:
+    get:
+      tags:
+        - Pools
+      summary: List of retiring stake pools
+      description: List of stake pools retiring in the upcoming epochs
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the pool information content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_list_retire"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}:
+    get:
+      tags:
+        - Pools
+      summary: Specific stake pool
+      description: Pool information.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+      responses:
+        "200":
+          description: Return the pool information content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}/history:
+    get:
+      tags:
+        - Pools
+      summary: Stake pool history
+      description: |
+        History of stake pool parameters over epochs.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID.
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of epochs following the epoch specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the pool information content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_history"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}/metadata:
+    get:
+      tags:
+        - Pools
+      summary: Stake pool metadata
+      description: |
+        Stake pool registration metadata.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID.
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+      responses:
+        "200":
+          description: Return the pool metadata content.
+          content:
+            application/json:
+              schema:
+                anyOf:
+                  - $ref: "#/components/schemas/pool_metadata"
+                  - $ref: "#/components/schemas/empty_object"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}/relays:
+    get:
+      tags:
+        - Pools
+      summary: Stake pool relays
+      description: Relays of a stake pool.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID.
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+      responses:
+        "200":
+          description: Return the pool relays information content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_relays"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}/delegators:
+    get:
+      tags:
+        - Pools
+      summary: Stake pool delegators
+      description: List of current stake pools delegators.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of delegator addresses for a specific stake pool.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the pool delegations.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_delegators"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}/blocks:
+    get:
+      tags:
+        - Pools
+      summary: Stake pool blocks
+      description: List of stake pools blocks.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of stake addresses for a specific epoch.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the pool block list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_blocks"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /pools/{pool_id}/updates:
+    get:
+      tags:
+        - Pools
+      summary: Stake pool updates
+      description: List of certificate updates to the stake pool.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 pool ID
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of blocks following the block specified.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the pool updates history
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_updates"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /metrics/:
+    get:
+      tags:
+        - Metrics
+      summary: Blockfrost usage metrics
+      description: History of your Blockfrost usage metrics in the past 30 days.
+      responses:
+        "200":
+          description: Return the last 30 days of metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/metrics"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /metrics/endpoints:
+    get:
+      tags:
+        - Metrics
+      summary: Blockfrost endpoint usage metrics
+      description: |
+        History of your Blockfrost usage metrics per endpoint in the past 30 days.
+      responses:
+        "200":
+          description: Return the last 30 days of metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/metrics_endpoints"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+components:
+  responses:
+    overusage_limit:
+      description: Usage limit reached
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 429
+              error:
+                type: string
+                example: "Project Over Limit"
+              message:
+                type: string
+                example: "Usage is over limit."
+
+    autobanned:
+      description: IP has been auto-banned for extensive sending of requests after usage limit has been reached
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 418
+              error:
+                type: string
+                example: "Requested Banned"
+              message:
+                type: string
+                example: "IP has been auto-banned for flooding."
+
+    not_found:
+      description: Component not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 404
+              error:
+                type: string
+                example: "Not Found"
+              message:
+                type: string
+                example: "The requested component has not been found."
+
+    internal_server_error:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 505
+              error:
+                type: string
+                example: "Internal Server Error"
+              message:
+                type: string
+                example: "An unexpected response was received from the backend."
+
+    unauthorized_error:
+      description: Authentication secret is missing or invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 403
+              error:
+                type: string
+                example: "Forbidden"
+              message:
+                type: string
+                example: "Invalid project token."
+
+    bad_request:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 400
+              error:
+                type: string
+                example: "Bad Request"
+              message:
+                type: string
+                example: "Backend did not understand your request."
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: project_id
+
+  schemas:
+    block_content_array:
+      type: array
+      items:
+        $ref: "#/components/schemas/block_content"
+    block_content:
+      type: object
+      properties:
+        time:
+          type: integer
+          example: 1641338934
+          description: Block creation time in UNIX time
+        height:
+          type: integer
+          nullable: true
+          example: 15243593
+          description: Block number
+        hash:
+          type: string
+          example: "4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a"
+          description: Hash of the block
+        slot:
+          type: integer
+          nullable: true
+          example: 412162133
+          description: Slot number
+        epoch:
+          type: integer
+          nullable: true
+          example: 425
+          description: Epoch number
+        epoch_slot:
+          type: integer
+          nullable: true
+          example: 12
+          description: Slot within the epoch
+        slot_leader:
+          type: string
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy"
+          description: Bech32 ID of the slot leader or specific block description in case there is no slot leader
+        size:
+          type: integer
+          example: 3
+          description: Block size in Bytes
+        tx_count:
+          type: integer
+          example: 1
+          description: Number of transactions in the block
+        output:
+          type: string
+          nullable: true
+          example: "128314491794"
+          description: Total output within the block in Lovelaces
+        fees:
+          type: string
+          nullable: true
+          example: "592661"
+          description: Total fees within the block in Lovelaces
+        block_vrf:
+          type: string
+          nullable: true
+          example: "vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty"
+          description: VRF key of the block
+          minLength: 65
+          maxLength: 65
+        previous_block:
+          type: string
+          nullable: true
+          example: "43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05"
+          description: Hash of the previous block
+        next_block:
+          type: string
+          nullable: true
+          example: "8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa"
+          description: Hash of the next block
+        confirmations:
+          type: integer
+          example: 4698
+          description: Number of block confirmations
+      required:
+        - time
+        - height
+        - hash
+        - slot
+        - epoch
+        - epoch_slot
+        - slot_leader
+        - size
+        - tx_count
+        - output
+        - fees
+        - block_vrf
+        - previous_block
+        - next_block
+        - confirmations
+    block_content_txs:
+      type: array
+      items:
+        type: string
+        description: Hash of the transaction
+      example:
+        - "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
+        - "4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036"
+        - "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f"
+        - "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
+    genesis_content:
+      type: object
+      properties:
+        active_slots_coefficient:
+          type: number
+          example: 0.05
+          description: The proportion of slots in which blocks should be issued
+        update_quorum:
+          type: integer
+          example: 5
+          description: Determines the quorum needed for votes on the protocol parameter updates
+        max_lovelace_supply:
+          type: string
+          example: "45000000000000000"
+          description: The total number of lovelace in the system
+        network_magic:
+          type: integer
+          example: 764824073
+          description: Network identifier
+        epoch_length:
+          type: integer
+          example: 432000
+          description: Number of slots in an epoch
+        system_start:
+          type: integer
+          example: 1506203091
+          description: Time of slot 0 in UNIX time
+        slots_per_kes_period:
+          type: integer
+          example: 129600
+          description: Number of slots in an KES period
+        slot_length:
+          type: integer
+          example: 1
+          description: Duration of one slot in seconds
+        max_kes_evolutions:
+          type: integer
+          example: 62
+          description: The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate
+        security_param:
+          type: integer
+          example: 2160
+          description: Security parameter k
+      required:
+        - active_slots_coefficient
+        - update_quorum
+        - max_lovelace_supply
+        - network_magic
+        - epoch_length
+        - system_start
+        - slots_per_kes_period
+        - slot_length
+        - max_kes_evolutions
+        - security_param
+    epoch_content_array:
+      type: array
+      items:
+        $ref: "#/components/schemas/epoch_content"
+    epoch_content:
+      type: object
+      properties:
+        epoch:
+          type: integer
+          example: 225
+          description: Epoch number
+        start_time:
+          type: integer
+          example: 1603403091
+          description: Unix time of the start of the epoch
+        end_time:
+          type: integer
+          example: 1603835086
+          description: Unix time of the end of the epoch
+        blocks_count:
+          type: integer
+          example: 21298
+          description: Number of blocks within the epoch
+        txs_count:
+          type: integer
+          example: 17856
+          description: Number of transactions within the epoch
+        txs_sum:
+          type: string
+          example: "7849943934049314"
+          description: Sum of all the transactions within the epoch in Lovelaces
+        fees_sum:
+          type: string
+          example: "4203312194"
+          description: Sum of all the fees within the epoch in Lovelaces
+      required:
+        - epoch
+        - start_time
+        - end_time
+        - blocks_count
+        - txs_count
+        - txs_sum
+        - fees_sum
+    epoch_stake_content:
+      type: array
+      items:
+        properties:
+          stake_address:
+            type: string
+            example: "stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk"
+            description: Stake address
+          pool_id:
+            type: string
+            example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+            description: Bech32 prefix of the pool delegated to
+          amount:
+            type: string
+            example: "4440295078"
+            description: Amount of delegated stake in Lovelaces
+        required:
+          - stake_address
+          - pool_id
+          - amount
+    epoch_stake_pool_content:
+      type: array
+      items:
+        properties:
+          stake_address:
+            type: string
+            example: "stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk"
+            description: Stake address
+          amount:
+            type: string
+            example: "4440295078"
+            description: Amount of delegated stake in Lovelaces
+        required:
+          - stake_address
+          - amount
+    epoch_block_content:
+      type: array
+      items:
+        type: string
+        description: Hash of the block
+      example:
+        - "d0fa315687e99ccdc96b14cc2ea74a767405d64427b648c470731a9b69e4606e"
+        - "38bc6efb92a830a0ed22a64f979d120d26483fd3c811f6622a8c62175f530878"
+        - "f3258fcd8b975c061b4fcdcfcbb438807134d6961ec278c200151274893b6b7d"
+    epoch_param_content:
+      type: object
+      properties:
+        min_fee_a:
+          type: integer
+          example: 44
+          description: The linear factor for the minimum fee calculation for given epoch
+        min_fee_b:
+          type: integer
+          example: 155381
+          description: The constant factor for the minimum fee calculation
+        max_block_size:
+          type: integer
+          example: 65536
+          description: Maximum block body size in Bytes
+        max_tx_size:
+          type: integer
+          example: 16384
+          description: Maximum transaction size
+        max_block_header_size:
+          type: integer
+          example: 1100
+          description: Maximum block header size
+        key_deposit:
+          type: string
+          example: "2000000"
+          description: The amount of a key registration deposit in Lovelaces
+        pool_deposit:
+          type: string
+          example: "500000000"
+          description: The amount of a pool registration deposit in Lovelaces
+        e_max:
+          type: integer
+          example: 18
+          description: Epoch bound on pool retirement
+        n_opt:
+          type: integer
+          example: 150
+          description: Desired number of pools
+        a0:
+          type: number
+          example: 0.3
+          description: Pool's pledge influence
+        rho:
+          type: number
+          example: 0.003
+          description: Monetary expansion
+        tau:
+          type: number
+          example: 0.2
+          description: Treasury expansion
+        decentralisation_param:
+          type: number
+          example: 0.5
+          description: Percentage of blocks produced by federated nodes
+        extra_entropy:
+          type: object
+          nullable: true
+          example: null
+          description: Seed for extra entropy
+        protocol_major_ver:
+          type: integer
+          example: 2
+          description: Accepted protocol major version
+        protocol_minor_ver:
+          type: integer
+          example: 0
+          description: Accepted protocol minor version
+        min_utxo:
+          type: "string"
+          example: "1000000"
+          description: Minimum UTXO value
+        min_pool_cost:
+          type: string
+          example: "340000000"
+          description: Minimum stake cost forced on the pool
+        nonce:
+          type: string
+          example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
+          description: Epoch's number only used once
+      required:
+        - min_fee_a
+        - min_fee_b
+        - max_block_size
+        - max_tx_size
+        - max_block_header_size
+        - key_deposit
+        - pool_deposit
+        - e_max
+        - n_opt
+        - a0
+        - rho
+        - tau
+        - decentralisation_param
+        - extra_entropy
+        - protocol_major_ver
+        - protocol_minor_ver
+        - min_utxo
+        - min_pool_cost
+        - nonce
+    tx_content:
+      type: object
+      properties:
+        block:
+          type: string
+          example: "356b7d7dbb696ccd12775c016941057a9dc70898d87a63fc752271bb46856940"
+          description: Block hash
+        index:
+          type: integer
+          example: 1
+          description: Transaction index within the block
+        output_amount:
+          type: array
+          items:
+            type: object
+            description: The sum of all the UTXO per asset
+            properties:
+              unit:
+                type: string
+                description: The unit of the value
+              quantity:
+                type: string
+                description: The quantity of the unit
+          example:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+              quantity: "12"
+        fees:
+          type: string
+          example: "182485"
+          description: Fees of the transaction in Lovelaces
+        deposit:
+          type: string
+          example: "0"
+          description: Deposit within the transaction in Lovelaces
+        size:
+          type: integer
+          example: 433
+          description: Size of the transaction in Bytes
+        invalid_before:
+          type: integer
+          nullable: true
+          example: null
+          description: Left (included) endpoint of the timelock validity intervals
+        invalid_hereafter:
+          type: integer
+          nullable: true
+          example: 13885913
+          description: Right (excluded) endpoint of the timelock validity intervals
+        utxo_count:
+          type: integer
+          example: 4
+          description: Count of UTXOs within the transaction
+        withdrawal_count:
+          type: integer
+          example: 0
+          description: Count of the withdrawal within the transaction
+        delegation_count:
+          type: integer
+          example: 0
+          description: Count of the delegations within the transaction
+        stake_cert_count:
+          type: integer
+          example: 0
+          description: Count of the stake keys (de)registrations and delegations within the transaction
+        pool_update_count:
+          type: integer
+          example: 0
+          description: Count of the stake pool registrations and updates within the transaction
+        pool_retire_count:
+          type: integer
+          example: 0
+          description: Count of the stake pool retirements within the transaction
+      required:
+        - block
+        - index
+        - output_amount
+        - fees
+        - deposit
+        - size
+        - invalid_before
+        - invalid_hereafter
+        - utxo_count
+        - withdrawal_count
+        - delegation_count
+        - stake_cert_count
+        - pool_update_count
+        - pool_retire_count
+    tx_content_utxo:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                example: "addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv"
+                description: Input address
+              amount:
+                type: array
+                items:
+                  type: object
+                  description: The sum of all the UTXO per asset
+                  properties:
+                    unit:
+                      type: string
+                      description: The unit of the value
+                    quantity:
+                      type: string
+                      description: The quantity of the unit
+                example:
+                  - unit: "lovelace"
+                    quantity: "42000000"
+                  - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+                    quantity: "12"
+            required:
+              - address
+              - amount
+        outputs:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                example: "addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv"
+                description: Output address
+              amount:
+                type: array
+                items:
+                  type: object
+                  description: The sum of all the UTXO per asset
+                  properties:
+                    unit:
+                      type: string
+                      description: The unit of the value
+                    quantity:
+                      type: string
+                      description: The quantity of the unit
+                example:
+                  - unit: "lovelace"
+                    quantity: "42000000"
+                  - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+                    quantity: "12"
+            required:
+              - address
+              - amount
+    tx_content_stake_addr:
+      type: object
+      properties:
+        address:
+          type: string
+          example: "stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda"
+          description: Delegation stake address
+        registration:
+          type: boolean
+          example: true
+          description: Registration boolean, false if deregistration
+      required:
+        - address
+        - registration
+    tx_content_delegations:
+      type: object
+      properties:
+        index:
+          type: integer
+          example: 0
+          description: Index of the certificate within the transaction
+        address:
+          type: string
+          example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
+          description: Bech32 delegation stake address
+        pool_id:
+          type: string
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+          description: Bech32 ID of delegated stake pool
+        active_epoch:
+          type: integer
+          example: 210
+          description: Epoch in which the delegation becomes active
+      required:
+        - index
+        - address
+        - pool_id
+        - active_epoch
+    tx_content_withdrawals:
+      type: object
+      properties:
+        address:
+          type: string
+          example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
+          description: Bech32 withdrawal address
+        amount:
+          type: string
+          example: "431833601"
+          description: Withdrawal amount in Lovelaces
+      required:
+        - address
+        - amount
+    tx_content_pool_certs:
+      type: object
+      properties:
+        pool_id:
+          type: string
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+          description: Bech32 encoded pool ID
+        vrf_key:
+          type: string
+          example: "0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233"
+          description: VRF key hash
+        pledge:
+          type: string
+          example: "5000000000"
+          description: Stake pool certificate pledge in Lovelaces
+        margin_cost:
+          type: number
+          example: 0.05
+          description: Margin tax cost of the stake pool
+        fixed_cost:
+          type: string
+          example: "340000000"
+          description: Fixed tax cost of the stake pool in Lovelaces
+        reward_address:
+          type: string
+          example: "stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f"
+          description: Bech32 reward address of the stake pool
+        metadata:
+          type: object
+          nullable: true
+          properties:
+            url:
+              type: string
+              nullable: true
+              example: "https://stakenuts.com/mainnet.json"
+              description: URL to the stake pool metadata
+            hash:
+              type: string
+              nullable: true
+              example: "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+              description: Hash of the metadata file
+            ticker:
+              type: string
+              nullable: true
+              example: "NUTS"
+              description: Ticker of the stake pool
+            name:
+              type: string
+              nullable: true
+              example: "Stake Nuts"
+              description: Name of the stake pool
+            description:
+              type: string
+              nullable: true
+              example: "The best pool ever"
+              description: Description of the stake pool
+            homepage:
+              type: string
+              nullable: true
+              example: "https://stakentus.com/"
+              description: Home page of the stake pool
+          required:
+            - url
+            - hash
+            - ticker
+            - name
+            - description
+            - homepage
+        relays:
+          type: array
+          items:
+            type: object
+            properties:
+              ipv4:
+                type: string
+                nullable: true
+                example: "4.4.4.4"
+                description: IPv4 address of the relay
+              ipv6:
+                type: string
+                nullable: true
+                example: "https://stakenuts.com/mainnet.json"
+                description: IPv6 address of the relay
+              dns:
+                type: string
+                nullable: true
+                example: "relay1.stakenuts.com"
+                description: DNS name of the relay
+              dns_srv:
+                type: string
+                nullable: true
+                example: "_relays._tcp.relays.stakenuts.com"
+                description: DNS SRV entry of the relay
+              port:
+                type: integer
+                example: 3001
+                description: Network port of the relay
+            required:
+              - ipv4
+              - ipv6
+              - dns
+              - dns_srv
+              - port
+        active_epoch:
+          type: integer
+          example: 210
+          description: Epoch that the delegation becomes active
+      required:
+        - pool_id
+        - vrf_key
+        - pledge
+        - margin_cost
+        - fixed_cost
+        - reward_address
+        - metadata
+        - relays
+        - active_epoch
+    tx_content_pool_retires:
+      type: object
+      properties:
+        pool_id:
+          type: string
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+          description: Bech32 stake pool ID
+        retiring_epoch:
+          type: integer
+          example: 216
+          description: Retiring epoch
+      required:
+        - pool_id
+        - retiring_epoch
+    tx_content_metadata:
+      type: array
+      items:
+        type: object
+        properties:
+          label:
+            type: string
+            description: Metadata label
+          json_metadata:
+            oneOf:
+              - type: string
+              - type: object
+            description: Content of the metadata
+        required:
+          - label
+          - json_metadata
+      example:
+        - label: "1967"
+          json_metadata:
+            {
+              "metadata": "https://nut.link/metadata.json",
+              "hash": "6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af",
+            }
+        - label: "1968"
+          json_metadata:
+            {
+              "ADAUSD":
+                [{ "value": "0.10409800535729975", "source": "ergoOracles" }],
+            }
+    tx_content_metadata_cbor:
+      type: array
+      items:
+        type: object
+        properties:
+          label:
+            type: string
+            description: Metadata label
+          cbor_metadata:
+            type: string
+            nullable: true
+            description: Content of the CBOR metadata
+        required:
+          - label
+          - cbor_metadata
+      example:
+        - label: "1968"
+          cbor_metadata: "\\xa100a16b436f6d62696e6174696f6e8601010101010c"
+    account_content:
+      type: object
+      properties:
+        active:
+          type: boolean
+          example: true
+          description: Registration state of an account
+        active_epoch:
+          type: integer
+          example: 412
+          description: Epoch when the account became active
+        controlled_amount:
+          type: string
+          example: "619154618165"
+          description: Balance of the account in Lovelaces
+        rewards_sum:
+          type: string
+          example: "319154618165"
+          description: Sum of all rewards for the account in the Lovelaces
+        withdrawals_sum:
+          type: string
+          example: "12125369253"
+          description: Sum of all the withdrawals for the account in Lovelaces
+        reserves_sum:
+          type: string
+          example: "319154618165"
+          description: Sum of all  funds from reserves for the account in the Lovelaces
+        treasury_sum:
+          type: string
+          example: "12000000"
+          description: Sum of all funds from treasury for the account in the Lovelaces
+        withdrawable_amount:
+          type: string
+          example: "319154618165"
+          description: Sum of available rewards that haven't been withdrawn yet for the account in the Lovelaces
+        pool_id:
+          type: string
+          nullable: true
+          example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+          description: Bech32 pool ID that owns the account
+      required:
+        - active
+        - active_epoch
+        - controlled_amount
+        - rewards_sum
+        - withdrawals_sum
+        - reserves_sum
+        - treasury_sum
+        - withdrawable_amount
+        - pool_id
+    account_reward_content:
+      type: array
+      items:
+        type: object
+        properties:
+          epoch:
+            type: integer
+            description: Epoch of the associated reward
+          amount:
+            type: string
+            nullable: true
+            description: Rewards for given epoch in Lovelaces
+          pool_id:
+            type: string
+            description: Bech32 pool ID being delegated to
+        required:
+          - epoch
+          - amount
+          - pool_id
+      example:
+        - epoch: 215
+          amount: "12695385"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - epoch: 216
+          amount: "3586329"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - epoch: 217
+          amount: "0"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - epoch: 218
+          amount: "1395265"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+    account_delegation_content:
+      type: array
+      items:
+        type: object
+        properties:
+          active_epoch:
+            type: integer
+            example: 210
+            description: Epoch that the delegation becomes active
+          tx_hash:
+            type: string
+            description: Hash of the transaction containing the delegation
+          amount:
+            type: string
+            nullable: true
+            description: Rewards for given epoch in Lovelaces
+          pool_id:
+            type: string
+            description: Bech32 ID of pool being delegated to
+        required:
+          - active_epoch
+          - tx_hash
+          - amount
+          - pool_id
+      example:
+        - active_epoch: 210
+          tx_hash: "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
+          amount: "12695385"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - active_epoch: 242
+          tx_hash: "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
+          amount: "12691385"
+          pool_id: "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj"
+    account_history_content:
+      type: array
+      items:
+        type: object
+        properties:
+          epoch:
+            type: integer
+            example: 210
+            description: Epoch that the stake is active
+          amount:
+            type: string
+            nullable: true
+            description: Stake amount in Lovelaces
+          pool_id:
+            type: string
+            description: Bech32 ID of pool being delegated to
+        required:
+          - active_epoch
+          - amount
+          - pool_id
+      example:
+        - active_epoch: 210
+          amount: "12695385"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - active_epoch: 211
+          amount: "22695385"
+          pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+    account_registration_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction containing the (de)registration certificate
+          action:
+            type: string
+            enum: [registered, deregistered]
+            description: Action in the certificate
+        required:
+          - tx_hash
+          - action
+      example:
+        - tx_hash: "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
+          action: registered
+        - tx_hash: "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
+          action: deregistered
+    address_content:
+      type: object
+      properties:
+        amount:
+          type: array
+          items:
+            type: object
+            description: The sum of all the UTXO per asset
+            properties:
+              unit:
+                type: string
+                description: The unit of the value
+              quantity:
+                type: string
+                description: The quantity of the unit
+          example:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+              quantity: "12"
+        stake_address:
+          type: string
+          nullable: true
+          example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
+          description: Stake address that controls the key
+        type:
+          type: string
+          enum: [byron, shelley]
+          example: shelley
+          description: Address era
+      required:
+        - amount
+        - stake_address
+        - type
+    address_content_total:
+      type: object
+      properties:
+        received_sum:
+          type: array
+          items:
+            type: object
+            description: The sum of all the UTXO per asset
+            properties:
+              unit:
+                type: string
+                description: The unit of the value
+              quantity:
+                type: string
+                description: The quantity of the unit
+          example:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+              quantity: "12"
+        sent_sum:
+          type: array
+          items:
+            type: object
+            description: The sum of all the UTXO per asset
+            properties:
+              unit:
+                type: string
+                description: The unit of the value
+              quantity:
+                type: string
+                description: The quantity of the unit
+          example:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+              quantity: "12"
+        tx_count:
+          type: integer
+          example: 12
+          description: Count of all transactions on the address
+      required:
+        - received_sum
+        - sent_sum
+        - tx_count
+    address_utxo_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Transaction hash of the UTXO
+          tx_index:
+            type: integer
+            description: UTXO index in the transaction
+          amount:
+            type: array
+            items:
+              type: object
+              description: The sum of all the UTXO per asset
+              properties:
+                unit:
+                  type: string
+                  description: The unit of the value
+                quantity:
+                  type: string
+                  description: The quantity of the unit
+          block:
+            type: string
+            description: Block number of the UTXO
+      example:
+        - tx_hash: "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58"
+          tx_index: 0
+          amount:
+            - unit: "lovelace"
+              quantity: "42000000"
+          block: "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6"
+        - tx_hash: "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49"
+          tx_index: 0
+          amount:
+            - unit: "lovelace"
+              quantity: "729235000"
+          block: "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7"
+        - tx_hash: "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2"
+          tx_index: 1
+          amount:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "65ab82542b0ca20391caaf66a4d4d7897d281f9c136cd3513136945b.nutcoin"
+              quantity: "12"
+          block: "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7"
+    address_txs_content:
+      type: array
+      items:
+        type: string
+        description: Hash of the transaction containing the (de)registration certificate
+      example:
+        - "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
+        - "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
+    tx_metadata_labels:
+      type: array
+      properties:
+        label:
+          type: string
+          description: Metadata label
+        cip10:
+          type: string
+          nullable: true
+          description: CIP10 defined description
+        count:
+          type: string
+          description: The count of metadata entries with a specific label
+      example:
+        - { label: "1990", cip10: null, count: "1" }
+        - {
+            label: "1967",
+            cip10: "nut.link metadata oracles registry",
+            count: "3",
+          }
+        - {
+            label: "1968",
+            cip10: "nut.link metadata oracles data points",
+            count: "16321",
+          }
+    tx_metadata_label_json:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Transaction hash that contains the specific metadata
+          json_metadata:
+            oneOf:
+              - type: string
+              - type: object
+              - type: number
+              - type: array
+              - type: boolean
+            nullable: true
+            description: Content of the JSON metadata
+        required:
+          - tx_hash
+          - json_metadata
+      example:
+        - tx_hash: "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8"
+          json_metadata:
+            {
+              "ADAUSD":
+                [{ "value": "0.10409800535729975", "source": "ergoOracles" }],
+            }
+        - tx_hash: "e865f2cc01ca7381cf98dcdc4de07a5e8674b8ea16e6a18e3ed60c186fde2b9c"
+          json_metadata:
+            {
+              "ADAUSD":
+                [{ "value": "0.15409850555139935", "source": "ergoOracles" }],
+            }
+        - tx_hash: 4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be
+          json_metadata: null
+    tx_metadata_label_cbor:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Transaction hash that contains the specific metadata
+          cbor_metadata:
+            type: string
+            nullable: true
+            description: Content of the CBOR metadata
+        required:
+          - tx_hash
+          - cbor_metadata
+      example:
+        - tx_hash: "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8"
+          cbor_metadata: null
+        - tx_hash: "e865f2cc01ca7381cf98dcdc4de07a5e8674b8ea16e6a18e3ed60c186fde2b9c"
+          cbor_metadata: null
+        - tx_hash: 4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be
+          cbor_metadata: "\\xa100a16b436f6d62696e6174696f6e8601010101010c"
+    pool_list:
+      type: array
+      items:
+        type: string
+        description: Bech32 encoded pool ID
+      example:
+        - "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+        - "pool1hn7hlwrschqykupwwrtdfkvt2u4uaxvsgxyh6z63703p2knj288"
+        - "pool1ztjyjfsh432eqetadf82uwuxklh28xc85zcphpwq6mmezavzad2"
+    pool_list_retire:
+      type: array
+      items:
+        type: object
+        properties:
+          pool_id:
+            type: string
+            example: "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+            description: Bech32 encoded pool ID
+          epoch:
+            type: integer
+            example: 242
+            description: Retirement epoch number
+      example:
+        - pool_id: "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q"
+          epoch: 225
+        - pool_id: "pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx"
+          epoch: 215
+        - pool_id: "pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w"
+          epoch: 231
+    pool_history:
+      type: array
+      items:
+        type: object
+        properties:
+          epoch:
+            type: integer
+            example: 233
+            description: Epoch number
+          blocks:
+            type: integer
+            example: 22
+            description: Number of blocks created by pool
+          active_stake:
+            type: string
+            example: "20485965693569"
+            description: Active (Snapshot of live stake 2 epochs ago) stake in Lovelaces
+          active_size:
+            type: number
+            example: 1.2345
+            description: Pool size (percentage) of overall active stake at that epoch
+          delegators_count:
+            type: integer
+            example: 115
+            description: Number of delegators for epoch
+          rewards:
+            type: string
+            example: "206936253674159"
+            description: Total rewards received before distribution to delegators
+          fees:
+            type: string
+            example: "1290968354"
+            description: Pool's Operator rewards
+        required:
+          - epoch
+          - blocks
+          - active_stake
+          - active_size
+          - delegators_count
+          - rewards
+          - fees
+    pool:
+      type: object
+      properties:
+        vrf_key:
+          type: string
+          example: "0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233"
+          description: VRF key hash
+        blocks_minted:
+          type: integer
+          example: 69
+          description: Total minted blocks
+        live_stake:
+          type: string
+          example: "6900000000"
+        live_size:
+          type: number
+          example: 0.42
+        live_saturation:
+          type: number
+          example: 0.93
+        live_delegators:
+          type: number
+          example: 127
+        active_stake:
+          type: string
+          example: "4200000000"
+        active_size:
+          type: number
+          example: 0.43
+        declared_pledge:
+          type: string
+          example: "5000000000"
+          description: Stake pool certificate pledge
+        active_pledge:
+          type: string
+          example: "5000000001"
+          description: Stake pool current pledge
+        margin_cost:
+          type: number
+          example: 0.05
+          description: Margin tax cost of the stake pool
+        fixed_cost:
+          type: string
+          example: "340000000"
+          description: Fixed tax cost of the stake pool
+        reward_address:
+          type: string
+          example: "stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f"
+          description: Reward address of the stake pool
+        owners:
+          type: array
+          items:
+            type: string
+            description: Account of the pool owner
+          example:
+            - "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
+        registration:
+          type: array
+          items:
+            type: string
+            nullable: true
+          example:
+            - "9f83e5484f543e05b52e99988272a31da373f3aab4c064c76db96643a355d9dc"
+            - "7ce3b8c433bf401a190d58c8c483d8e3564dfd29ae8633c8b1b3e6c814403e95"
+            - "3e6e1200ce92977c3fe5996bd4d7d7e192bcb7e231bc762f9f240c76766535b9"
+        retirement:
+          type: array
+          items:
+            type: string
+            nullable: true
+            example: "252f622976d39e646815db75a77289cf16df4ad2b287dd8e3a889ce14c13d1a8"
+      required:
+        - vrf_key
+        - blocks_minted
+        - live_stake
+        - live_size
+        - live_saturation
+        - live_delegators
+        - active_stake
+        - active_size
+        - declared_pledge
+        - active_pledge
+        - margin_cost
+        - fixed_cost
+        - reward_address
+        - owners
+        - registration
+        - retirement
+    pool_metadata:
+      type: object
+      properties:
+        url:
+          type: string
+          nullable: true
+          example: "https://stakenuts.com/mainnet.json"
+          description: URL to the stake pool metadata
+        hash:
+          type: string
+          nullable: true
+          example: "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+          description: Hash of the metadata file
+        ticker:
+          type: string
+          nullable: true
+          example: "NUTS"
+          description: Ticker of the stake pool
+        name:
+          type: string
+          nullable: true
+          example: "Stake Nuts"
+          description: Name of the stake pool
+        description:
+          type: string
+          nullable: true
+          example: "The best pool ever"
+          description: Description of the stake pool
+        homepage:
+          type: string
+          nullable: true
+          example: "https://stakentus.com/"
+          description: Home page of the stake pool
+      required:
+        - url
+        - hash
+        - ticker
+        - name
+        - description
+        - homepage
+    pool_relays:
+      type: array
+      items:
+        type: object
+        properties:
+          ipv4:
+            type: string
+            nullable: true
+            example: "4.4.4.4"
+            description: IPv4 address of the relay
+          ipv6:
+            type: string
+            nullable: true
+            example: "https://stakenuts.com/mainnet.json"
+            description: IPv6 address of the relay
+          dns:
+            type: string
+            nullable: true
+            example: "relay1.stakenuts.com"
+            description: DNS name of the relay
+          dns_srv:
+            type: string
+            nullable: true
+            example: "_relays._tcp.relays.stakenuts.com"
+            description: DNS SRV entry of the relay
+          port:
+            type: integer
+            example: 3001
+            description: Network port of the relay
+      required:
+        - ipv4
+        - ipv6
+        - dns
+        - dns_srv
+        - port
+    pool_delegations:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Transaction ID
+          cert_index:
+            type: integer
+            description: Certificate within the transaction
+        required:
+          - tx_hash
+          - cert_index
+      example:
+        - tx_hash: "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad"
+          cert_index: 0
+        - tx_hash: "9c190bc1ac88b2ab0c05a82d7de8b71b67a9316377e865748a89d4426c0d3005"
+          cert_index: 0
+        - tx_hash: "e14a75b0eb2625de7055f1f580d70426311b78e0d36dd695a6bdc96c7b3d80e0"
+          cert_index: 1
+
+    pool_blocks:
+      type: array
+      items:
+        type: string
+        description: Block hashes
+      example:
+        - "d8982ca42cfe76b747cc681d35d671050a9e41e9cfe26573eb214e94fe6ff21d"
+        - "026436c539e2ce84c7f77ffe669f4e4bbbb3b9c53512e5857dcba8bb0b4e9a8c"
+        - "bcc8487f419b8c668a18ea2120822a05df6dfe1de1f0fac3feba88cf760f303c"
+        - "86bf7b4a274e0f8ec9816171667c1b4a0cfc661dc21563f271acea9482b62df7"
+
+    pool_updates:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Transaction ID
+          cert_index:
+            type: integer
+            description: Certificate within the transaction
+          action:
+            type: string
+            enum: [registered, deregistered]
+            description: Action in the certificate
+        required:
+          - tx_hash
+          - cert_index
+          - action
+      example:
+        - tx_hash: "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad"
+          cert_index: 0
+          action: "registered"
+        - tx_hash: "9c190bc1ac88b2ab0c05a82d7de8b71b67a9316377e865748a89d4426c0d3005"
+          cert_index: 0
+          action: "deregistered"
+        - tx_hash: "e14a75b0eb2625de7055f1f580d70426311b78e0d36dd695a6bdc96c7b3d80e0"
+          cert_index: 1
+          action: "registered"
+
+    pool_delegators:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Bech32 encoded stake addresses
+          live_stake:
+            type: string
+            description: Currently delegated amount
+        required:
+          - address
+          - live_stake
+      example:
+        - address: "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha"
+          live_stake: "1137959159981411"
+        - address: "stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u"
+          live_stake: "16958865648"
+        - address: "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck"
+          live_stake: "18605647"
+
+    metrics:
+      type: array
+      items:
+        type: object
+        properties:
+          time:
+            type: integer
+            description: Starting time of the call count interval (ends midnight UTC) in UNIX time
+          calls:
+            type: integer
+            description: Sum of all calls for a particular day
+        required:
+          - time
+          - calls
+      example:
+        - [
+            { "date": 1612543884, "calls": 42 },
+            { "date": 1614523884, "calls": 6942 },
+          ]
+
+    metrics_endpoints:
+      type: array
+      items:
+        type: object
+        properties:
+          time:
+            type: integer
+            description: Starting time of the call count interval (ends midnight UTC) in UNIX time
+          calls:
+            type: integer
+            description: Sum of all calls for a particular day and endpoint
+          endpoint:
+            type: string
+            description: Endpoint's parent name
+        required:
+          - time
+          - calls
+          - endpoint
+      example:
+        - [
+            { "date": 1612543814, "calls": 182, "endpoint": "block" },
+            { "date": 1612543814, "calls": 42, "endpoint": "epoch" },
+            { "date": 1612543812, "calls": 775, "endpoint": "block" },
+            { "date": 1612523884, "calls": 4, "endpoint": "epoch" },
+            { "date": 1612553884, "calls": 89794, "endpoint": "block" },
+          ]
+
+    empty_object:
+      type: object

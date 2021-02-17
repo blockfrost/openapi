@@ -3,7 +3,7 @@
   "version": "0.0.58",
   "description": "OpenAPI specifications for blockfrost.io",
   "repository": "git@github.com:blockfrost/openapi.git",
-  "author": "content@blockfrost.io",
+  "author": "admin@blockfrost.io",
   "license": "MIT",
   "main": "./swagger.yaml",
   "scripts": {
@@ -14,8 +14,5 @@
     "core-js": "3.1.4",
     "react-is": "16.8.0",
     "ajv": "^6"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   }
 }

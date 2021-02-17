@@ -608,7 +608,7 @@ paths:
       tags:
         - Epochs
       summary: Stake distribution
-      description: Return the stake distribution for the epoch specified.
+      description: Return the active stake distribution for the epoch specified.
       parameters:
         - in: path
           name: number
@@ -656,8 +656,8 @@ paths:
     get:
       tags:
         - Epochs
-      summary: Stake distribution
-      description: Return the stake distribution for the epoch specified by stake pool.
+      summary: Stake distribution by pool
+      description: Return the active stake distribution for the epoch specified by stake pool.
       parameters:
         - in: path
           name: number

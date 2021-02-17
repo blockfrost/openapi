@@ -3,7 +3,7 @@
   "version": "0.0.58",
   "description": "OpenAPI specifications for blockfrost.io",
   "repository": "git@github.com:blockfrost/openapi.git",
-  "author": "content@blockfrost.io",
+  "author": "admin@blockfrost.io",
   "license": "MIT",
   "main": "./swagger.yaml",
   "scripts": {

@@ -4141,7 +4141,7 @@ components:
               nullable: true
               example: "The Nut Coin"
               description: Asset description
-            acronym:
+            ticker:
               type: string
               nullable: true
               example: "nutc"

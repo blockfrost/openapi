@@ -1528,7 +1528,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of metadata labels.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false

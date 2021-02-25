@@ -282,7 +282,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -333,7 +333,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -383,7 +383,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -527,7 +527,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of epochs following the epoch specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -576,7 +576,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of epochs following the epoch specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -625,7 +625,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of stake addresses for a specific epoch.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -681,7 +681,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of stake addresses for a specific epoch.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -730,7 +730,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of stake addresses for a specific epoch.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -796,7 +796,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of stake addresses for a specific epoch.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1296,7 +1296,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1356,7 +1356,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1415,7 +1415,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1475,7 +1475,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1520,6 +1520,32 @@ paths:
       summary: Transaction metadata labels
       description: |
         List of all used transaction metadata labels.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         "200":
           description: Return the account delegations content
@@ -1561,7 +1587,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1620,7 +1646,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1747,7 +1773,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -1963,7 +1989,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -2057,7 +2083,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of epochs following the epoch specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -2187,7 +2213,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of delegator addresses for a specific stake pool.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -2246,7 +2272,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of stake addresses for a specific epoch.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -2305,7 +2331,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of blocks following the block specified.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false
@@ -2450,7 +2476,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of actions for a specific asset.
+          description: The number of results displayed on one page.
         - in: query
           name: page
           required: false

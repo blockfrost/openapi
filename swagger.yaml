@@ -3724,17 +3724,19 @@ components:
         - "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
     tx_metadata_labels:
       type: array
-      properties:
-        label:
-          type: string
-          description: Metadata label
-        cip10:
-          type: string
-          nullable: true
-          description: CIP10 defined description
-        count:
-          type: string
-          description: The count of metadata entries with a specific label
+      items:
+        type: object
+        properties:
+          label:
+            type: string
+            description: Metadata label
+          cip10:
+            type: string
+            nullable: true
+            description: CIP10 defined description
+          count:
+            type: string
+            description: The count of metadata entries with a specific label
       example:
         - { label: "1990", cip10: null, count: "1" }
         - {

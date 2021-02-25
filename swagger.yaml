@@ -3881,7 +3881,7 @@ components:
           type: string
           example: "5000000000"
           description: Stake pool certificate pledge
-        active_pledge:
+        live_pledge:
           type: string
           example: "5000000001"
           description: Stake pool current pledge
@@ -3929,7 +3929,7 @@ components:
         - active_stake
         - active_size
         - declared_pledge
-        - active_pledge
+        - live_pledge
         - margin_cost
         - fixed_cost
         - reward_address

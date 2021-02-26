@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Unify item names in `/epochs/`
+  - `blocks_count` → `block_count`
   - `txs_count` → `tx_count`
   - `txs_sum` → `output`
   - `fees_sum` → `fees`

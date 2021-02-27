@@ -8,5 +8,8 @@ stdenv.mkDerivation {
   ];
   shellHook = ''
     export PATH="$PATH:$(pwd)/node_modules/.bin"
+    npm install
+    echo "To build docs run"
+    echo "> npm run build"
   '';
 }

@@ -3762,7 +3762,6 @@ components:
               - type: string
               - type: object
               - type: number
-              - type: array
               - type: boolean
             nullable: true
             description: Content of the JSON metadata

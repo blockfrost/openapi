@@ -3758,9 +3758,12 @@ components:
             type: string
             description: Transaction hash that contains the specific metadata
           json_metadata:
-            oneOf:
+            anyOf:
               - type: string
               - type: object
+              - type: array
+                items: {}
+              - type: integer
               - type: number
               - type: boolean
             nullable: true

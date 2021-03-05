@@ -1876,7 +1876,7 @@ paths:
       tags:
         - Pools
       summary: List of stake pools
-      description: List of active stake pools.
+      description: List of registered stake pools.
       parameters:
         - in: query
           name: count
@@ -2039,7 +2039,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
       responses:
         "200":
@@ -2074,7 +2074,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID.
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
         - in: query
           name: count
@@ -2134,7 +2134,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID.
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
       responses:
         "200":
@@ -2170,7 +2170,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID.
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
       responses:
         "200":
@@ -2204,7 +2204,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
         - in: query
           name: count
@@ -2263,7 +2263,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
         - in: query
           name: count
@@ -2322,7 +2322,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 pool ID
+          description: Bech32 or hexadecimal pool ID.
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
         - in: query
           name: count

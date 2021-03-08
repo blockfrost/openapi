@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.3"
+  version: "0.1.4"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -3081,14 +3081,14 @@ components:
           example: 433
           description: Size of the transaction in Bytes
         invalid_before:
-          type: integer
+          type: string
           nullable: true
           example: null
           description: Left (included) endpoint of the timelock validity intervals
         invalid_hereafter:
-          type: integer
+          type: string
           nullable: true
-          example: 13885913
+          example: "13885913"
           description: Right (excluded) endpoint of the timelock validity intervals
         utxo_count:
           type: integer

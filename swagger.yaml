@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.4"
+  version: "0.1.5"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -3491,7 +3491,7 @@ components:
         active_epoch:
           type: integer
           example: 412
-          description: Epoch when the account became active
+          description: Epoch of the most recent action - registration or deregistration
         controlled_amount:
           type: string
           example: "619154618165"

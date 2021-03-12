@@ -4250,19 +4250,6 @@ components:
               type: string
               nullable: true
               example: "nutc"
-            unit:
-              type: object
-              nullable: true
-              properties:
-                decimals:
-                  type: integer
-                  example: 6
-                  maximum: 19
-                  description: Number of decimal places of the asset unit
-                name:
-                  type: string
-                  example: "nutlet"
-                  description: Name of the decimal unit of the asset
             url:
               type: string
               nullable: true

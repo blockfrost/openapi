@@ -9,15 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `/assets/{asset}/txs` call to list all transactions of a given asset
+- `/assets/{asset}/txs` endpoint to list all transactions of a given asset
+- Owners to `/txs/{hash}/pool_updates` endpoint
 
 ### Changed
 
 - Altered functionality and description of `active_epoch` in `/accounts/{stake_address}` to better match its changed functionality. When account is deregistered (`active` field is `false`), this field contains the epoch number of deregistration.
+- `reward_address` -> `reward_account` in `/pools/{pool_id}` and `/txs/{hash}/pool_updates` endpoints as the previous name was misleading and incorrect
+- Deprecated `unit` field of not yet used `metadata` in `/assets/{asset}` endpoint
+- Descriptions of few fields
 
 ### Fixed
 
-- Multiple endpoints impacted by https://github.com/input-output-hk/cardano-db-sync/issues/474. We have addressed these issues with a temporary fix which will be in effect until the issue is resolved in the upstream. Please note that this mostly involved retired pools and their associated reward accounts. Affected endpoints and their parameters:
+- Multiple endpoints impacted by [Cardano DB Sync issue](https://github.com/input-output-hk/cardano-db-sync/issues/474). We have addressed associated issues with a temporary fix which will be in effect until the issue is addressed in the upstream. Please note that this mostly involved retired pools and their associated reward accounts. Affected endpoints and their parameters:
   - `/pools/{pool_id}`
     - `live_stake`
     - `live_size`
@@ -28,9 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `/accounts/{stake_address}`
     - `controlled_amount`
     - `withdrawable_amount`
-- Missing treasury in calculation of `live_stake` in `/pools/{pool_id}/delegators` endpoint. Other endpoints were not affected.
-- Pool hopping account issues which were causing that some pools were displaying slightly higher `live_stake` values and thus also very slightly skewed `live_size` and `live_saturation` calculations in `/pools/{pool_id}` endpoint.
-- `active_epoch` in `/accounts/{stake_address}` was previously displaying epoch of delegation, not de/registration.
+- Missing treasury in calculation of `live_stake` in `/pools/{pool_id}/delegators` endpoint. Other endpoints were not affected
+- Pool hopping account issues which were causing that some pools were displaying slightly higher `live_stake` values and thus also very slightly skewed `live_size` and `live_saturation` calculations in `/pools/{pool_id}` endpoint
+- `active_epoch` in `/accounts/{stake_address}` was previously displaying epoch of delegation, not epoch of de/registration
 
 ## [0.1.4] - 2021-03-08
 

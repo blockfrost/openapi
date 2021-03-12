@@ -3326,10 +3326,17 @@ components:
           type: string
           example: "340000000"
           description: Fixed tax cost of the stake pool in Lovelaces
-        reward_address:
+        reward_account:
           type: string
           example: "stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f"
-          description: Bech32 reward address of the stake pool
+          description: Bech32 reward account of the stake pool
+        owners:
+          type: array
+          items:
+            type: string
+            description: Bech32 accounts of the pool owners
+          example:
+            - "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
         metadata:
           type: object
           nullable: true
@@ -3416,7 +3423,8 @@ components:
         - pledge
         - margin_cost
         - fixed_cost
-        - reward_address
+        - reward_account
+        - owners
         - metadata
         - relays
         - active_epoch
@@ -3982,15 +3990,15 @@ components:
           type: string
           example: "340000000"
           description: Fixed tax cost of the stake pool
-        reward_address:
+        reward_account:
           type: string
           example: "stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f"
-          description: Reward address of the stake pool
+          description: Bech32 reward account of the stake pool
         owners:
           type: array
           items:
             type: string
-            description: Account of the pool owner
+            description: Bech32 accounts of the pool owners
           example:
             - "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
         registration:
@@ -4021,7 +4029,7 @@ components:
         - live_pledge
         - margin_cost
         - fixed_cost
-        - reward_address
+        - reward_account
         - owners
         - registration
         - retirement

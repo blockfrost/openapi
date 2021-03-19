@@ -5,12 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.6] - unreleased
+## [0.1.6] - 2021-03-19
+
+### Added
+
+- `/accounts/{account}/addresses` which returns the list of on-chain addresses associated with a specific stake key.
+- `402` response to mark oversubscription (projects exceeded their daily subscription plan)
 
 ### Changed
 
-- The `/tx/submit` endpoint now accepts CBOR encoded serialized transaction instread of a binary blob.
-- Adding `/accounts/{account}/addresses` which returns the list of on-chain addresses associated with a specific stake key.
+- `/tx/submit` endpoint, which now accepts CBOR encoded serialized transaction instead of a binary blob.
+
+### Fixed
+
+- functionality and description of rate limiting (429), oversubscription (402) and banning (418)
 
 ## [0.1.5] - 2021-03-12
 

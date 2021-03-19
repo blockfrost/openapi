@@ -46,7 +46,7 @@ info:
 
     ### HTTP Status codes
 
-    The following are HTTP status code your application might receive when reaching Blockfrost's endpoints and
+    The following are HTTP status code your application might receive when reaching Blockfrost endpoints and
     it should handle all of these cases.
 
     * HTTP `400` return code is used when the request is not valid.
@@ -172,7 +172,7 @@ paths:
       summary: Current backend time
       description: |
         This endpoint provides the current UNIX time. Your application might
-        use this to verify if the client's clock is not out of sync.
+        use this to verify if the client clock is not out of sync.
       responses:
         "200":
           description: Return the current UNIX time in milliseconds.
@@ -365,7 +365,7 @@ paths:
     get:
       tags:
         - Blocks
-      summary: Block's transactions
+      summary: Block transactions
       description: Return the transactions within the block.
       parameters:
         - in: path
@@ -426,8 +426,8 @@ paths:
     get:
       tags:
         - Ledger
-      summary: Blockchain's genesis
-      description: Return the information about blockchain's genesis.
+      summary: Blockchain genesis
+      description: Return the information about blockchain genesis.
       responses:
         "200":
           description: Return the genesis parameters.
@@ -907,7 +907,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's UTXOs
+      summary: Transaction UTXOs
       description: Return the inputs and UTXOs of the specific transaction.
       parameters:
         - in: path
@@ -942,7 +942,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Trasanction's stake addresses certificates
+      summary: Trasanction stake addresses certificates
       description: |
         Obtain information about (de)registration of stake addresses within a transaction.
       parameters:
@@ -981,7 +981,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's delegation certificates
+      summary: Transaction delegation certificates
       description: |
         Obtain information about delegation certificates of a specific transaction.
       parameters:
@@ -1019,7 +1019,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's withdrawal
+      summary: Transaction withdrawal
       description: Obtain information about withdrawals of a specific transaction.
       parameters:
         - in: path
@@ -1056,7 +1056,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's stake pool registration and update certificates
+      summary: Transaction stake pool registration and update certificates
       description: |
         Obtain information about stake pool registration and update certificates of a specific transaction.
       parameters:
@@ -1094,7 +1094,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's stake pool retirement certificates
+      summary: Transaction stake pool retirement certificates
       description: |
         Obtain information about stake pool retirements within a specific transaction.
       parameters:
@@ -1133,7 +1133,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's metadata
+      summary: Transaction metadata
       description: Obtain the transaction metadata.
       parameters:
         - in: path
@@ -1168,7 +1168,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Transaction's metadata in CBOR
+      summary: Transaction metadata in CBOR
       description: Obtain the transaction metadata in CBOR.
       parameters:
         - in: path
@@ -1275,7 +1275,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Account's reward history
+      summary: Account reward history
       description: |
         Obtain information about the history of a specific account.
       parameters:
@@ -1335,7 +1335,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Account's history
+      summary: Account history
       description: |
         Obtain information about the history of a specific account.
       parameters:
@@ -1395,7 +1395,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Account's delegation history
+      summary: Account delegation history
       description: Obtain information about the delegation of a specific account.
       parameters:
         - in: path
@@ -1454,7 +1454,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Account's registration history
+      summary: Account registration history
       description: |
         Obtain information about the registrations and deregistrations of a specific account.
       parameters:
@@ -1497,6 +1497,65 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/account_registration_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/addresses:
+    get:
+      tags:
+        - Accounts
+      summary: Account associated addresses
+      description: Obtain information about the addresses of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake addresses
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account addresses content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_addresses_content"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3037,7 +3096,7 @@ components:
         a0:
           type: number
           example: 0.3
-          description: Pool's pledge influence
+          description: Pool pledge influence
         rho:
           type: number
           example: 0.003
@@ -3074,7 +3133,7 @@ components:
         nonce:
           type: string
           example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
-          description: Epoch's number only used once
+          description: Epoch number only used once
       required:
         - min_fee_a
         - min_fee_b
@@ -3536,6 +3595,19 @@ components:
         - treasury_sum
         - withdrawable_amount
         - pool_id
+    account_addresses_content:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Address associated with the stake key
+      example:
+        - address: "addr1qx2kd28nq8ac5prwg32hhvudlwggpgfp8utlyqxu6wqgz62f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sy0f4qd"
+        - address: "addr1qys3czp8s9thc6u2fqed9yq3h24nyw28uk0m6mkgn9dkckjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9suth4w4"
+        - address: "addr1q8j55h253zcvl326sk5qdt2n8z7eghzspe0ekxgncr796s2f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sjmd35m"
+        - address: "addr1q8f7gxrprank3drhx8k5grlux7ene0nlwun8y9thu8mc3yjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sls6vnt"
     account_reward_content:
       type: array
       items:
@@ -3933,7 +4005,7 @@ components:
           fees:
             type: string
             example: "1290968354"
-            description: Pool's Operator rewards
+            description: Pool operator rewards
         required:
           - epoch
           - blocks
@@ -4345,7 +4417,7 @@ components:
             description: Sum of all calls for a particular day and endpoint
           endpoint:
             type: string
-            description: Endpoint's parent name
+            description: Endpoint parent name
         required:
           - time
           - calls

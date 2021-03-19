@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - The `/tx/submit` endpoint now accepts CBOR encoded serialized transaction instread of a binary blob.
+- Adding `/accounts/{account}/addresses` which returns the list of on-chain addresses associated with a specific stake key.
 
 ## [0.1.5] - 2021-03-12
 

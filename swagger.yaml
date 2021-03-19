@@ -1551,7 +1551,7 @@ paths:
             not the page listing itself. By default, we return oldest first, newest last.
       responses:
         "200":
-          description: Return the account delegations content
+          description: Return the account addresses content
           content:
             application/json:
               schema:

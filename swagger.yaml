@@ -2723,9 +2723,16 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
-                description: IPFS hash of the pinned object
+                type: object
+                properties:
+                  ipfs_hash:
+                    type: string
+                    example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
+                    description: IPFS hash of the pinned object
+                  state:
+                    type: string
+                    example: "queued"
+                    description: State of the pin action
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -2765,11 +2772,11 @@ paths:
                   properties:
                     time_created:
                       type: integer
-                      description: Time of the creation of the IPFS object
+                      description: Time of the creation of the IPFS object on our backends
                       example: 1615551024
                     time_pinned:
                       type: integer
-                      description: Time of the pin of the IPFS object
+                      description: Time of the pin of the IPFS object on our backends
                       example: 1615551024
                     ipfs_hash:
                       type: string
@@ -2779,6 +2786,14 @@ paths:
                       type: string
                       description: Size of the object in Bytes
                       example: 1615551024
+                    state:
+                      type: string
+                      enum: [queued|pinned|failed|gc]
+                      description: |
+                        State of the pinned object, which is `queued` when we are retriving object. If this
+                        is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
+                        pinned item has been garbage collected due to account being over storage quota.
+                      example: "pinned"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":

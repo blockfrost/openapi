@@ -2629,18 +2629,10 @@ paths:
       tags:
         - IPFS » Add
       description: Add a file or directory to IPFS
-      parameters:
-        - in: query
-          required: false
-          name: pin
-          schema:
-            type: boolean
-            description: Pin this object when adding
-            default: false
       x-codeSamples:
         - lang: 'curl'
           source: |
-            curl "https://ipfs.blockfrost.io/api/v0/ipfs/add?pin=true" \
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
               -X POST \
               -H "project_id: $PROJECT_ID" \
               -F "file=@./README.md"
@@ -2687,7 +2679,7 @@ paths:
     get:
       tags:
         - IPFS » Gateway
-      description: Download an IPFS object
+      description: Retrieve an object from the IFPS gateway, which is useful if you do not want to rely a public gateway.
       parameters:
         - in: path
           required: true

@@ -42,6 +42,7 @@ info:
     * All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces
     * Addresses, accounts and pool IDs are in Bech32 format
     * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
+    * We allow to upload files up to 100MB of size to IPFS. This might increase in the future.
 
     ## Errors
 

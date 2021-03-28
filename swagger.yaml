@@ -2807,11 +2807,12 @@ paths:
                       example: 1615551024
                     state:
                       type: string
-                      enum: [queued|pinned|failed|gc]
+                      enum: [queued|pinned|unpinned|failed|gc]
                       description: |
                         State of the pinned object, which is `queued` when we are retriving object. If this
                         is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
-                        pinned item has been garbage collected due to account being over storage quota.
+                        pinned item has been garbage collected due to account being over storage quota or after it has
+                        been moved to `unpinned` state by removing the object pin.
                       example: "pinned"
         "400":
           $ref: "#/components/responses/bad_request"
@@ -2866,7 +2867,7 @@ paths:
                     example: 1615551024
                   state:
                     type: string
-                    enum: [queued|pinned|failed|gc]
+                    enum: [queued|pinned|unpinned|failed|gc]
                     description: |
                       State of the pinned object, which is `queued` when we are retriving object. If this
                       is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
@@ -2905,9 +2906,16 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
-                description: IPFS hash of the unpinned object
+                type: object
+                properties:
+                  ipfs_hash:
+                    type: string
+                    example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
+                    description: IPFS hash of the pinned object
+                  state:
+                    type: string
+                    example: "unpinned"
+                    description: State of the pin action
         "400":
           $ref: "#/components/responses/bad_request"
         "403":

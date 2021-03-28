@@ -40,7 +40,8 @@ info:
     * All time and timestamp related fields are in milliseconds of UNIX time.
     * All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces.
     * Addresses, accounts and pool IDs are in Bech32 format.
-    * Hex encoded values are case sensitive. You need to use lower-case hex.
+    * All values are case sensitive.
+    * All hex encoded values are lower case.
     * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
 
     ## Errors

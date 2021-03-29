@@ -2629,7 +2629,10 @@ paths:
     post:
       tags:
         - IPFS » Add
-      description: Add a file or directory to IPFS
+      summary: Add a file or directory to IPFS
+      description: |
+        You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
+        is being counted in your user account quota.
       x-codeSamples:
         - lang: 'curl'
           source: |
@@ -2680,6 +2683,7 @@ paths:
     get:
       tags:
         - IPFS » Gateway
+      summary: Relay to an IPFS gateway
       description: Retrieve an object from the IFPS gateway, which is useful if you do not want to rely a public gateway.
       parameters:
         - in: path
@@ -2710,7 +2714,8 @@ paths:
     post:
       tags:
         - IPFS » Pins
-      description: Pin an object
+      summary: Pin an object
+      description: Pinned objects are counted in your user storage quota.
       parameters:
         - in: path
           required: true

@@ -2684,14 +2684,14 @@ paths:
       tags:
         - IPFS » Gateway
       summary: Relay to an IPFS gateway
-      description: Retrieve an object from the IFPS gateway, which is useful if you do not want to rely a public gateway.
+      description: Retrieve an object from the IFPS gateway (useful if you do not want to rely on a public gateway).
       parameters:
         - in: path
           required: true
           name: IPFS_path
           schema:
             type: string
-            description: The path to the IPFS object
+            description: Path to the IPFS object
       responses:
         "200":
           description: Returns the object content
@@ -2722,10 +2722,10 @@ paths:
           name: IPFS_path
           schema:
             type: string
-            description: The path to the IPFS object
+            description: Path to the IPFS object
       responses:
         "200":
-          description: Returns the pins pinned
+          description: Returns pinned object
           content:
             application/json:
               schema:
@@ -2787,7 +2787,7 @@ paths:
             not the page listing itself. By default, we return oldest first, newest last.
       responses:
         "200":
-          description: Returns the pins pinned
+          description: Returns pinned objects
           content:
             application/json:
               schema:
@@ -2797,11 +2797,11 @@ paths:
                   properties:
                     time_created:
                       type: integer
-                      description: Time of the creation of the IPFS object on our backends
+                      description: Creation time of the IPFS object on our backends
                       example: 1615551024
                     time_pinned:
                       type: integer
-                      description: Time of the pin of the IPFS object on our backends
+                      description: Pin time of the IPFS object on our backends
                       example: 1615551024
                     ipfs_hash:
                       type: string
@@ -2875,9 +2875,11 @@ paths:
                     type: string
                     enum: [queued|pinned|unpinned|failed|gc]
                     description: |
-                      State of the pinned object, which is `queued` when we are retriving object. If this
-                      is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
-                      pinned item has been garbage collected due to account being over storage quota.
+                      State of the pinned object. We define 5 states: `queued`, `pinned`, `unpinned`, `failed`, `gc`.
+                      When the object is pending retrieval (i.e. after `/ipfs/pin/add/{IPFS_path}`), the state is `queued`.
+                      If the object is already successfully retrieved, state is changed to `pinned` or `failed` otherwise.
+                      When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
+                     State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                     example: "pinned"
         "400":
           $ref: "#/components/responses/bad_request"

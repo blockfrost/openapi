@@ -2879,7 +2879,7 @@ paths:
                       When the object is pending retrieval (i.e. after `/ipfs/pin/add/{IPFS_path}`), the state is `queued`.
                       If the object is already successfully retrieved, state is changed to `pinned` or `failed` otherwise.
                       When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
-                     State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
+                      State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                     example: "pinned"
         "400":
           $ref: "#/components/responses/bad_request"

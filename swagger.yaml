@@ -29,6 +29,7 @@ info:
       <tr><td><b>Network</b></td><td><b>Endpoint</b></td></tr>
       <tr><td>Cardano mainnet</td><td><tt>https://cardano-mainnet.blockfrost.io/api/v0</td></tt></tr>
       <tr><td>Cardano testnet</td><td><tt>https://cardano-testnet.blockfrost.io/api/v0</tt></td></tr>
+      <tr><td>InterPlanetary File System</td><td><tt>https://ipfs.blockfrost.io/api/v0</tt></td></tr>
     </table>
 
     ## Concepts
@@ -88,14 +89,18 @@ security:
 
 tags:
   - name: Health
-  - name: Blocks
-  - name: Epochs
-  - name: Transactions
-  - name: Metadata
-  - name: Pools
-  - name: Accounts
-  - name: Addresses
-  - name: Assets
+  - name: Cardano » Blocks
+  - name: Cardano » Epochs
+  - name: Cardano » Transactions
+  - name: Cardano » Metadata
+  - name: Cardano » Pools
+  - name: Cardano » Accounts
+  - name: Cardano » Addresses
+  - name: Cardano » Assets
+  - name: Cardano » Ledger
+  - name: IPFS » Add
+  - name: IPFS » Gateway
+  - name: IPFS » Pins
 
 paths:
   /:
@@ -199,7 +204,7 @@ paths:
   /blocks/latest:
     get:
       tags:
-        - Blocks
+        - Cardano » Blocks
       summary: Latest block
       description: |
         Return the latest block available to the backends, also known as the
@@ -227,7 +232,7 @@ paths:
   /blocks/{hash_or_number}:
     get:
       tags:
-        - Blocks
+        - Cardano » Blocks
       summary: Specific block
       description: |
         Return the content of a requested block.
@@ -263,7 +268,7 @@ paths:
   /blocks/{hash_or_number}/next:
     get:
       tags:
-        - Blocks
+        - Cardano » Blocks
       summary: Listing of next blocks
       description: |
         Return the list of blocks following a specific block.
@@ -314,7 +319,7 @@ paths:
   /blocks/{hash_or_number}/previous:
     get:
       tags:
-        - Blocks
+        - Cardano » Blocks
       summary: Listing of previous blocks
       description: |
         Return the list of blocks preceding a specific block.
@@ -365,7 +370,7 @@ paths:
   /blocks/{hash_or_number}/txs:
     get:
       tags:
-        - Blocks
+        - Cardano » Blocks
       summary: Block transactions
       description: Return the transactions within the block.
       parameters:
@@ -426,7 +431,7 @@ paths:
   /genesis:
     get:
       tags:
-        - Ledger
+        - Cardano » Ledger
       summary: Blockchain genesis
       description: Return the information about blockchain genesis.
       responses:
@@ -450,7 +455,7 @@ paths:
   /epochs/latest:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Latest epoch
       description: Return the information about the latest, therefore current, epoch.
       responses:
@@ -476,7 +481,7 @@ paths:
   /epochs/{number}:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Specific epoch
       description: Return the content of the requested epoch.
       parameters:
@@ -510,7 +515,7 @@ paths:
   /epochs/{number}/next:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Listing of next epochs
       description: Return the list of epochs following a specific epoch.
       parameters:
@@ -559,7 +564,7 @@ paths:
   /epochs/{number}/previous:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Listing of previous epochs
       description: Return the list of epochs preceding a specific epoch.
       parameters:
@@ -608,7 +613,7 @@ paths:
   /epochs/{number}/stakes:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Stake distribution
       description: Return the active stake distribution for the epoch specified.
       parameters:
@@ -657,7 +662,7 @@ paths:
   /epochs/{number}/stakes/{pool_id}:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Stake distribution by pool
       description: Return the active stake distribution for the epoch specified by stake pool.
       parameters:
@@ -713,7 +718,7 @@ paths:
   /epochs/{number}/blocks:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Block distribution
       description: Return the blocks minted for the epoch specified.
       parameters:
@@ -772,7 +777,7 @@ paths:
   /epochs/{number}/blocks/{pool_id}:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Block distribution
       description: Return the block minted for the epoch specified by stake pool.
       parameters:
@@ -838,7 +843,7 @@ paths:
   /epochs/{number}/parameters:
     get:
       tags:
-        - Epochs
+        - Cardano » Epochs
       summary: Protocol parameters
       description: Return the protocol parameters for the epoch specified.
       parameters:
@@ -872,7 +877,7 @@ paths:
   /txs/{hash}:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Specific transaction
       description: Return content of the requested transaction.
       parameters:
@@ -907,7 +912,7 @@ paths:
   /txs/{hash}/utxos:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction UTXOs
       description: Return the inputs and UTXOs of the specific transaction.
       parameters:
@@ -942,7 +947,7 @@ paths:
   /txs/{hash}/stakes:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Trasanction stake addresses certificates
       description: |
         Obtain information about (de)registration of stake addresses within a transaction.
@@ -981,7 +986,7 @@ paths:
   /txs/{hash}/delegations:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction delegation certificates
       description: |
         Obtain information about delegation certificates of a specific transaction.
@@ -1019,7 +1024,7 @@ paths:
   /txs/{hash}/withdrawals:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction withdrawal
       description: Obtain information about withdrawals of a specific transaction.
       parameters:
@@ -1056,7 +1061,7 @@ paths:
   /txs/{hash}/pool_updates:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction stake pool registration and update certificates
       description: |
         Obtain information about stake pool registration and update certificates of a specific transaction.
@@ -1094,7 +1099,7 @@ paths:
   /txs/{hash}/pool_retires:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction stake pool retirement certificates
       description: |
         Obtain information about stake pool retirements within a specific transaction.
@@ -1133,7 +1138,7 @@ paths:
   /txs/{hash}/metadata:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction metadata
       description: Obtain the transaction metadata.
       parameters:
@@ -1168,7 +1173,7 @@ paths:
   /txs/{hash}/metadata/cbor:
     get:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Transaction metadata in CBOR
       description: Obtain the transaction metadata in CBOR.
       parameters:
@@ -1203,7 +1208,7 @@ paths:
   /tx/submit:
     post:
       tags:
-        - Transactions
+        - Cardano » Transactions
       summary: Submit a transaction
       description: Submit a base64 encoding serialized transaction to the network.
       parameters:
@@ -1240,7 +1245,7 @@ paths:
   /accounts/{stake_address}:
     get:
       tags:
-        - Accounts
+        - Cardano » Accounts
       summary: Specific account address
       description: |
         Obtain information about a specific stake account.
@@ -1275,7 +1280,7 @@ paths:
   /accounts/{stake_address}/rewards:
     get:
       tags:
-        - Accounts
+        - Cardano » Accounts
       summary: Account reward history
       description: |
         Obtain information about the history of a specific account.
@@ -1335,7 +1340,7 @@ paths:
   /accounts/{stake_address}/history:
     get:
       tags:
-        - Accounts
+        - Cardano » Accounts
       summary: Account history
       description: |
         Obtain information about the history of a specific account.
@@ -1395,7 +1400,7 @@ paths:
   /accounts/{stake_address}/delegations:
     get:
       tags:
-        - Accounts
+        - Cardano » Accounts
       summary: Account delegation history
       description: Obtain information about the delegation of a specific account.
       parameters:
@@ -1454,7 +1459,7 @@ paths:
   /accounts/{stake_address}/registrations:
     get:
       tags:
-        - Accounts
+        - Cardano » Accounts
       summary: Account registration history
       description: |
         Obtain information about the registrations and deregistrations of a specific account.
@@ -1573,7 +1578,7 @@ paths:
   /metadata/txs/labels:
     get:
       tags:
-        - Metadata
+        - Cardano » Metadata
       summary: Transaction metadata labels
       description: |
         List of all used transaction metadata labels.
@@ -1626,7 +1631,7 @@ paths:
   /metadata/txs/labels/{label}:
     get:
       tags:
-        - Metadata
+        - Cardano » Metadata
       summary: Transaction metadata content in JSON
       description: Transaction metadata per label.
       parameters:
@@ -1685,7 +1690,7 @@ paths:
   /metadata/txs/labels/{label}/cbor:
     get:
       tags:
-        - Metadata
+        - Cardano » Metadata
       summary: Transaction metadata content in CBOR
       description: Transaction metadata per label.
       parameters:
@@ -1744,7 +1749,7 @@ paths:
   /addresses/{address}:
     get:
       tags:
-        - Addresses
+        - Cardano » Addresses
       summary: Specific address
       description: Obtain information about a specific address.
       parameters:
@@ -1778,7 +1783,7 @@ paths:
   /addresses/{address}/total:
     get:
       tags:
-        - Addresses
+        - Cardano » Addresses
       summary: Address' details
       description: Obtain details about an address.
       parameters:
@@ -1812,7 +1817,7 @@ paths:
   /addresses/{address}/utxos:
     get:
       tags:
-        - Addresses
+        - Cardano » Addresses
       summary: Address' UTXOs
       description: UTXOs of the address.
       parameters:
@@ -1872,7 +1877,7 @@ paths:
   /addresses/{address}/txs:
     get:
       tags:
-        - Addresses
+        - Cardano » Addresses
       summary: Address' transactions
       description: Transactions on the address.
       parameters:
@@ -1931,7 +1936,7 @@ paths:
   /pools/:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: List of stake pools
       description: List of registered stake pools.
       parameters:
@@ -1983,7 +1988,7 @@ paths:
   /pools/retired:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: List of retired stake pools
       description: List of already retired pools.
       parameters:
@@ -2035,7 +2040,7 @@ paths:
   /pools/retiring:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: List of retiring stake pools
       description: List of stake pools retiring in the upcoming epochs
       parameters:
@@ -2087,7 +2092,7 @@ paths:
   /pools/{pool_id}:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Specific stake pool
       description: Pool information.
       parameters:
@@ -2121,7 +2126,7 @@ paths:
   /pools/{pool_id}/history:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Stake pool history
       description: |
         History of stake pool parameters over epochs.
@@ -2181,7 +2186,7 @@ paths:
   /pools/{pool_id}/metadata:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Stake pool metadata
       description: |
         Stake pool registration metadata.
@@ -2218,7 +2223,7 @@ paths:
   /pools/{pool_id}/relays:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Stake pool relays
       description: Relays of a stake pool.
       parameters:
@@ -2252,7 +2257,7 @@ paths:
   /pools/{pool_id}/delegators:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Stake pool delegators
       description: List of current stake pools delegators.
       parameters:
@@ -2311,7 +2316,7 @@ paths:
   /pools/{pool_id}/blocks:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Stake pool blocks
       description: List of stake pools blocks.
       parameters:
@@ -2370,7 +2375,7 @@ paths:
   /pools/{pool_id}/updates:
     get:
       tags:
-        - Pools
+        - Cardano » Pools
       summary: Stake pool updates
       description: List of certificate updates to the stake pool.
       parameters:
@@ -2429,7 +2434,7 @@ paths:
   /assets:
     get:
       tags:
-        - Assets
+        - Cardano » Assets
       summary: Assets
       description: List of assets.
       parameters:
@@ -2481,7 +2486,7 @@ paths:
   /assets/{asset}:
     get:
       tags:
-        - Assets
+        - Cardano » Assets
       summary: Specific asset
       description: Information about a specific asset
       parameters:
@@ -2515,7 +2520,7 @@ paths:
   /assets/{asset}/history:
     get:
       tags:
-        - Assets
+        - Cardano » Assets
       summary: Asset history
       description: History of a specific asset
       parameters:
@@ -2617,6 +2622,207 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/asset_txs"
+  /ipfs/add:
+    servers:
+      - url: https://ipfs.blockfrost.io/
+    post:
+      tags:
+        - IPFS » Add
+      description: Add a file or directory to IPFS
+      parameters:
+        - in: query
+          required: false
+          name: pin
+          schema:
+            type: boolean
+            description: Pin this object when adding
+            default: false
+      x-codeSamples:
+        - lang: 'curl'
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/add?pin=true" \
+              -X POST \
+              -H "project_id: $PROJECT_ID" \
+              -F "file=@./README.md"
+      responses:
+        "200":
+          description: Returns information about added IPFS object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "README.md"
+                    description: Name of the file
+                  ipfs_hash:
+                    type: string
+                    example: QmZbHqiCxKEVX7QfijzJTkZiSi3WEVTcvANgNAWzDYgZDr
+                    description: IPFS hash of the file
+                  size:
+                    type: integer
+                    example: 125297
+                    description: Size of the file
+                required:
+                  - name
+                  - ipfs_hash
+                  - size
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /ipfs/gateway/{IPFS_path}:
+    servers:
+      - url: https://ipfs.blockfrost.io/
+    get:
+      tags:
+        - IPFS » Gateway
+      description: Download an IPFS object
+      parameters:
+        - in: path
+          required: true
+          name: IPFS_path
+          schema:
+            type: string
+            description: The path to the IPFS object
+      responses:
+        "200":
+          description: Returns the object content
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /ipfs/pin/add/{IPFS_path}:
+    servers:
+      - url: https://ipfs.blockfrost.io/
+    post:
+      tags:
+        - IPFS » Pins
+      description: Pin an object
+      parameters:
+        - in: path
+          required: true
+          name: IPFS_path
+          schema:
+            type: string
+            description: The path to the IPFS object
+      responses:
+        "200":
+          description: Returns the pins pinned
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
+                description: IPFS hash of the pinned object
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /ipfs/pin/list/{IPFS_path}:
+    servers:
+      - url: https://ipfs.blockfrost.io/
+    get:
+      tags:
+        - IPFS » Pins
+      description: List objects pinned to local storage
+      parameters:
+        - in: path
+          required: true
+          name: IPFS_path
+          schema:
+            type: string
+            description: The path to the IPFS object
+      responses:
+        "200":
+          description: Returns the pins pinned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    time_created:
+                      type: integer
+                      description: Time of the creation of the IPFS object
+                      example: 1615551024
+                    time_pinned:
+                      type: integer
+                      description: Time of the pin of the IPFS object
+                      example: 1615551024
+                    ipfs_hash:
+                      type: string
+                      description: IPFS hash of the pinned object
+                      example: "QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx"
+                    size:
+                      type: string
+                      description: Size of the object in Bytes
+                      example: 1615551024
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /ipfs/pin/remove/{IPFS_path}:
+    servers:
+      - url: https://ipfs.blockfrost.io/
+    post:
+      tags:
+        - IPFS » Pins
+      description: Remove pinned objects from local storage
+      parameters:
+        - in: path
+          required: true
+          name: IPFS_path
+          schema:
+            type: string
+            description: The path to the IPFS object
+      responses:
+        "200":
+          description: Returns the pins removed
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
+                description: IPFS hash of the unpinned object
         "400":
           $ref: "#/components/responses/bad_request"
         "403":

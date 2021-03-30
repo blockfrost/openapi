@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.6"
+  version: "0.1.7"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -2636,7 +2636,7 @@ paths:
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.
       x-codeSamples:
-        - lang: 'curl'
+        - lang: "curl"
           source: |
             curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
               -X POST \

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.7"
+  version: "0.1.8"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -1522,7 +1522,7 @@ paths:
   /accounts/{stake_address}/addresses:
     get:
       tags:
-        - Accounts
+        - Cardano » Accounts
       summary: Account associated addresses
       description: Obtain information about the addresses of a specific account.
       parameters:
@@ -2582,7 +2582,7 @@ paths:
   /assets/{asset}/txs:
     get:
       tags:
-        - Assets
+        - Cardano » Assets
       summary: Asset transactions
       description: List of a specific asset transactions
       parameters:
@@ -2625,6 +2625,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/asset_txs"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /ipfs/add:
     servers:
       - url: https://ipfs.blockfrost.io/

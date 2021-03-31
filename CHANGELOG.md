@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The `tx_index` in `/addresses/{address}/utxos` has been deprecated in favor of `output_index`
+- `tx_index` in `/addresses/{address}/utxos` - it has been deprecated in favour of `output_index`
+- `/` endpoint property `version` type number -> string
 
 ## [0.1.8] - 2021-03-31
 

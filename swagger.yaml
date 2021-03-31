@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.8"
+  version: "0.1.9"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -126,8 +126,8 @@ paths:
                     type: string
                     example: "https://blockfrost.io/"
                   version:
-                    type: number
-                    example: 0.1
+                    type: string
+                    example: "0.1.0"
                 required:
                   - url
                   - version

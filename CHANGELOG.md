@@ -5,22 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.7] - unreleased
+## [0.1.7] - 2021-03-31
 
 ### Added
 
-- `/ipfs/` endpoints for IPFS cluster.
+- `/ipfs/` endpoints for IPFS cluster
+
+### Changed
+
+- `/assets/{asset}` specification of `metadata` to adhere to upstream
+
+### Fixed
+
+- `/tx/submit` error handling (standardized error reply for 400)
+- `/assets/{asset}` handling of `metadata`
 
 ## [0.1.6] - 2021-03-19
 
 ### Added
 
-- `/accounts/{account}/addresses` which returns the list of on-chain addresses associated with a specific stake key.
+- `/accounts/{account}/addresses` which returns the list of on-chain addresses associated with a specific stake key
 - `402` response to mark oversubscription (projects exceeded their daily subscription plan)
 
 ### Changed
 
-- `/tx/submit` endpoint, which now accepts CBOR encoded serialized transaction instead of a binary blob.
+- `/tx/submit` endpoint, which now accepts CBOR encoded serialized transaction instead of a binary blob
 
 ### Fixed
 
@@ -35,7 +44,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Altered functionality and description of `active_epoch` in `/accounts/{stake_address}` to better match its changed functionality. When account is deregistered (`active` field is `false`), this field contains the epoch number of deregistration.
+- Altered functionality and description of `active_epoch` in `/accounts/{stake_address}` to better match its changed functionality. When account is deregistered (`active` field is `false`), this field contains the epoch number of deregistration
 - `reward_address` -> `reward_account` in `/pools/{pool_id}` and `/txs/{hash}/pool_updates` endpoints as the previous name was misleading and incorrect
 - Deprecated `unit` field of not yet used `metadata` in `/assets/{asset}` endpoint
 - Descriptions of few fields

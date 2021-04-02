@@ -2638,6 +2638,124 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /assets/{asset}/addresses:
+    get:
+      tags:
+        - Cardano » Assets
+      summary: Asset addresses
+      description: List of a addresses containing a specific asset
+      parameters:
+        - in: path
+          name: asset
+          required: true
+          schema:
+            type: string
+          description: Concatenation of the policy_id and hex-encoded asset_name
+          example: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the information about the history of a specific asset
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/asset_addresses"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /assets/policy/{policy_id}:
+    get:
+      tags:
+        - Cardano » Assets
+      summary: Assets of a specific policy
+      description: List of asset minted under a specific policy
+      parameters:
+        - in: path
+          name: policy_id
+          required: true
+          schema:
+            type: string
+          description: Specific policy_id
+          example: "476039a0949cf0b22f6a800f56780184c44533887ca6e821007840c3"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the information about a specific asset
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/asset_policy"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /ipfs/add:
     servers:
       - url: https://ipfs.blockfrost.io/
@@ -4137,6 +4255,10 @@ components:
             description: Transaction hash of the UTXO
           tx_index:
             type: integer
+            deprecated: true
+            description: UTXO index in the transaction
+          output_index:
+            type: integer
             description: UTXO index in the transaction
           amount:
             type: array
@@ -4156,19 +4278,19 @@ components:
             description: Block number of the UTXO
       example:
         - tx_hash: "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58"
-          tx_index: 0
+          output_index: 0
           amount:
             - unit: "lovelace"
               quantity: "42000000"
           block: "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6"
         - tx_hash: "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49"
-          tx_index: 0
+          output_index: 0
           amount:
             - unit: "lovelace"
               quantity: "729235000"
           block: "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7"
         - tx_hash: "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2"
-          tx_index: 1
+          output_index: 1
           amount:
             - unit: "lovelace"
               quantity: "42000000"
@@ -4709,6 +4831,50 @@ components:
         - "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
         - "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f"
         - "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
+
+    asset_addresses:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Address containing the specific asset
+          quantity:
+            type: string
+            description: Asset quantity on the specific address
+        required:
+          - address
+          - quantity
+      example:
+        - address: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+          quantity: "1"
+        - address: "addr1qyhr4exrgavdcn3qhfcc9f939fzsch2re5ry9cwvcdyh4x4re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qdpvhza"
+          quantity: "100000"
+        - address: "addr1q8zup8m9ue3p98kxlxl9q8rnyan8hw3ul282tsl9s326dfj088lvedv4zckcj24arcpasr0gua4c5gq4zw2rpcpjk2lq8cmd9l"
+          quantity: "18605647"
+
+    asset_policy:
+      type: array
+      items:
+        type: object
+        properties:
+          asset:
+            type: string
+            description: Concatenation of the policy_id and hex-encoded asset_name
+          quantity:
+            type: string
+            description: Current asset quantity
+        required:
+          - assset
+          - quantity
+      example:
+        - asset: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+          quantity: "1"
+        - asset: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a766e"
+          quantity: "100000"
+        - asset: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb574636f696e"
+          quantity: "18605647"
 
     metrics:
       type: array

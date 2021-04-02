@@ -2697,7 +2697,7 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
-  /assets/policy/{policyId}:
+  /assets/policy/{policy_id}:
     get:
       tags:
         - Cardano » Assets

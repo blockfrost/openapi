@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `/assets/{asset}/addresses` lists of the addresses holding a specific asset
-- `/assets/policy/{policyId}` lists the assets minted under a specific policy
+- `/assets/policy/{policy_id}` lists the assets minted under a specific policy
 
 ### Changed
 

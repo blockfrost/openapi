@@ -2705,7 +2705,7 @@ paths:
       description: List of asset minted under a specific policy
       parameters:
         - in: path
-          name: policyId
+          name: policy_id
           required: true
           schema:
             type: string

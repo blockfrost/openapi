@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.9] - unreleased
+## [0.1.9] - 2021-04-04
 
 ### Added
 
@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The `tx_index` in `/addresses/{address}/utxos` has been deprecated in favor of `output_index`
+- `tx_index` in `/addresses/{address}/utxos` - it has been deprecated in favour of `output_index`
+- `/` endpoint property `version` type number -> string
 
 ## [0.1.8] - 2021-03-31
 

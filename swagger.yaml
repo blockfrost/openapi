@@ -951,7 +951,7 @@ paths:
     get:
       tags:
         - Cardano » Transactions
-      summary: Trasanction stake addresses certificates
+      summary: Transaction stake addresses certificates
       description: |
         Obtain information about (de)registration of stake addresses within a transaction.
       parameters:
@@ -1258,7 +1258,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 stake addresses
+          description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
       responses:
         "200":
@@ -1293,7 +1293,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 stake addresses
+          description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
         - in: query
           name: count
@@ -1353,7 +1353,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 stake addresses
+          description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
         - in: query
           name: count
@@ -1412,7 +1412,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 stake addresses
+          description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
         - in: query
           name: count
@@ -1472,7 +1472,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 stake addresses
+          description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
         - in: query
           name: count
@@ -1531,7 +1531,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 stake addresses
+          description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
         - in: query
           name: count
@@ -1761,7 +1761,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 addresses.
+          description: Bech32 address.
           example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
       responses:
         "200":
@@ -1795,7 +1795,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 addresses.
+          description: Bech32 address.
           example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
       responses:
         "200":
@@ -1829,7 +1829,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 addresses
+          description: Bech32 address.
           example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
         - in: query
           name: count
@@ -1889,7 +1889,7 @@ paths:
           required: true
           schema:
             type: string
-          description: Bech32 addresses.
+          description: Bech32 address.
           example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
         - in: query
           name: count

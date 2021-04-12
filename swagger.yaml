@@ -3758,6 +3758,10 @@ components:
     tx_content_stake_addr:
       type: object
       properties:
+        cert_index:
+          type: integer
+          example: 0
+          description: Index of the certificate within the transaction
         address:
           type: string
           example: "stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda"
@@ -3767,12 +3771,18 @@ components:
           example: true
           description: Registration boolean, false if deregistration
       required:
+        - cert_index
         - address
         - registration
     tx_content_delegations:
       type: object
       properties:
         index:
+          type: integer
+          example: 0
+          description: Index of the certificate within the transaction
+          deprecated: true
+        cert_index:
           type: integer
           example: 0
           description: Index of the certificate within the transaction
@@ -3790,6 +3800,7 @@ components:
           description: Epoch in which the delegation becomes active
       required:
         - index
+        - cert_index
         - address
         - pool_id
         - active_epoch
@@ -3810,6 +3821,10 @@ components:
     tx_content_pool_certs:
       type: object
       properties:
+        cert_index:
+          type: integer
+          example: 0
+          description: Index of the certificate within the transaction
         pool_id:
           type: string
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
@@ -3922,6 +3937,7 @@ components:
           example: 210
           description: Epoch that the delegation becomes active
       required:
+        - cert_index
         - pool_id
         - vrf_key
         - pledge
@@ -3935,6 +3951,10 @@ components:
     tx_content_pool_retires:
       type: object
       properties:
+        cert_index:
+          type: integer
+          example: 0
+          description: Index of the certificate within the transaction
         pool_id:
           type: string
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
@@ -3944,6 +3964,7 @@ components:
           example: 216
           description: Retiring epoch
       required:
+        - cert_index
         - pool_id
         - retiring_epoch
     tx_content_metadata:

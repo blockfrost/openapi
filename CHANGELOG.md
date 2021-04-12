@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - Unreleased
 
+### Changed
+
+- deprecated `index` in favour of `cert_index` in `/txs/{hash}/delegations`
+
 ### Added
 
 - `slot` parameter to `/txs/{hash}` endpoint
+- `cert_index` parameter to all relevant endpoints:
+  - `/txs/{hash}/stakes`
+  - `/txs/{hash}/pool_updates`
+  - `/txs/{hash}/pool_retires`
 
 ## [0.1.9] - 2021-04-04
 

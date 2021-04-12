@@ -4766,11 +4766,11 @@ components:
             name:
               type: string
               description: Name of the asset
-              example: My NFT token
+              example: "My NFT token"
             image:
               type: string
               description: URI of the associated asset
-              example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+              example: "ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226"
         metadata:
           type: object
           nullable: true

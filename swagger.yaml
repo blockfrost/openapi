@@ -1936,7 +1936,7 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
-  /pools/:
+  /pools:
     get:
       tags:
         - Cardano » Pools

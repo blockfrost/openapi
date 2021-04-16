@@ -4756,6 +4756,22 @@ components:
           type: string
           example: "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad"
           description: ID of the initial minting transaction
+        onchain_metadata:
+          type: object
+          additionalProperties: true,
+          nullable: true
+          description: |
+            On-chain metadata stored in the minting transaction under label 721,
+            community discussion around the standard ongoing at https://github.com/cardano-foundation/CIPs/pull/85
+          properties:
+            name:
+              type: string
+              description: Name of the asset
+              example: "My NFT token"
+            image:
+              type: string
+              description: URI of the associated asset
+              example: "ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226"
         metadata:
           type: object
           nullable: true

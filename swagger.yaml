@@ -2758,7 +2758,7 @@ paths:
 
   /ipfs/add:
     servers:
-      - url: https://ipfs.blockfrost.io/
+      - url: https://ipfs.blockfrost.io/api/v0
     post:
       tags:
         - IPFS » Add
@@ -2812,7 +2812,7 @@ paths:
 
   /ipfs/gateway/{IPFS_path}:
     servers:
-      - url: https://ipfs.blockfrost.io/
+      - url: https://ipfs.blockfrost.io/api/v0
     get:
       tags:
         - IPFS » Gateway
@@ -2843,7 +2843,7 @@ paths:
 
   /ipfs/pin/add/{IPFS_path}:
     servers:
-      - url: https://ipfs.blockfrost.io/
+      - url: https://ipfs.blockfrost.io/api/v0
     post:
       tags:
         - IPFS » Pins
@@ -2888,7 +2888,7 @@ paths:
 
   /ipfs/pin/list/:
     servers:
-      - url: https://ipfs.blockfrost.io/
+      - url: https://ipfs.blockfrost.io/api/v0
     get:
       tags:
         - IPFS » Pins
@@ -2969,7 +2969,7 @@ paths:
 
   /ipfs/pin/list/{IPFS_path}:
     servers:
-      - url: https://ipfs.blockfrost.io/
+      - url: https://ipfs.blockfrost.io/api/v0
     get:
       tags:
         - IPFS » Pins
@@ -3030,7 +3030,7 @@ paths:
 
   /ipfs/pin/remove/{IPFS_path}:
     servers:
-      - url: https://ipfs.blockfrost.io/
+      - url: https://ipfs.blockfrost.io/api/v0
     post:
       tags:
         - IPFS » Pins

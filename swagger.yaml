@@ -4758,6 +4758,7 @@ components:
           description: ID of the initial minting transaction
         onchain_metadata:
           type: object
+          additionalProperties: true,
           nullable: true
           description: |
             On-chain metadata stored in the minting transaction under label 721,

@@ -3,13 +3,22 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches  maturity in v1.
 
-## [] - Unreleased
+## [0.1.10] - 2021-04-17
+
+### Changed
+
+- `onchain_metadata` to `/assets/{asset}` endpoint
+- deprecated `index` in favour of `cert_index` in `/txs/{hash}/delegations`
 
 ### Added
 
-- `onchain_metadata` to `/assets/{asset}` endpoint
+- `slot` parameter to `/txs/{hash}` endpoint
+- `cert_index` parameter to all relevant endpoints:
+  - `/txs/{hash}/stakes`
+  - `/txs/{hash}/pool_updates`
+  - `/txs/{hash}/pool_retires`
 
 ### Fixed
 

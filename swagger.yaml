@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.9"
+  version: "0.1.10"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -4784,7 +4784,7 @@ components:
           description: ID of the initial minting transaction
         onchain_metadata:
           type: object
-          additionalProperties: true,
+          additionalProperties: true
           nullable: true
           description: |
             On-chain metadata stored in the minting transaction under label 721,

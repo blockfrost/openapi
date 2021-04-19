@@ -1213,7 +1213,7 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Submit a transaction
-      description: Submit a base64 encoding serialized transaction to the network.
+      description: Submit an already serialized transaction to the network.
       parameters:
         - in: header
           name: Content-Type
@@ -1221,6 +1221,16 @@ paths:
           schema:
             type: string
             enum: ["application/cbor"]
+      x-code-samples:
+        - lang: "Shell"
+          label: "cURL"
+          source: |
+            # Assuming `data` is a serialized transaction on the file-system.
+            curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit" \
+              -X POST \
+              -H "Content-Type: application/cbor" \
+              -H "project_id: $PROJECT_ID" \
+              --data-binary @./data
       responses:
         "200":
           description: Return the ID of the submitted transaction.

@@ -1226,7 +1226,7 @@ paths:
           label: "cURL"
           source: |
             # Assuming `data` is a serialized transaction on the file-system.
-            curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit \
+            curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit" \
               -X POST \
               -H "Content-Type: application/cbor" \
               -H "project_id: $PROJECT_ID" \

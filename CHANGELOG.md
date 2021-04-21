@@ -9,11 +9,11 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Changed
 
-- `onchain_metadata` to `/assets/{asset}` endpoint
 - deprecated `index` in favour of `cert_index` in `/txs/{hash}/delegations`
 
 ### Added
 
+- `onchain_metadata` to `/assets/{asset}` endpoint
 - `slot` parameter to `/txs/{hash}` endpoint
 - `cert_index` parameter to all relevant endpoints:
   - `/txs/{hash}/stakes`

@@ -7,13 +7,11 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [] - Unreleased
 
-### Added
-
-- `block_height` to `/txs/{hash}` endpoint
-
 ### Fixed
 
 - all occurences of `epoch` to `active_epoch` in `/accounts/{stake_address}/history` endpoint
+- required properties of multiple endpoints and error messages
+
 
 ## [0.1.11] - 2021-04-23
 

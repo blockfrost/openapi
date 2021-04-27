@@ -4133,7 +4133,7 @@ components:
           active_epoch:
             type: integer
             example: 210
-            description: Epoch that the delegation becomes active
+            description: Epoch in which the delegation becomes active
           tx_hash:
             type: string
             description: Hash of the transaction containing the delegation
@@ -4163,10 +4163,10 @@ components:
       items:
         type: object
         properties:
-          epoch:
+          active_epoch:
             type: integer
             example: 210
-            description: Epoch that the stake is active
+            description: Epoch in which the stake was active
           amount:
             type: string
             nullable: true

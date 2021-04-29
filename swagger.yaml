@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.11"
+  version: "0.1.12"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -163,6 +163,8 @@ paths:
                   is_healthy:
                     type: boolean
                     example: true
+                required:
+                  - is_healthy
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -194,6 +196,8 @@ paths:
                   server_time:
                     type: integer
                     example: 1603400958947
+                required:
+                  - server_time
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -2884,6 +2888,9 @@ paths:
                     enum: [queued|pinned|unpinned|failed|gc]
                     example: "queued"
                     description: State of the pin action
+                required:
+                  - ipfs_hash
+                  - state
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -2965,6 +2972,12 @@ paths:
                         pinned item has been garbage collected due to account being over storage quota or after it has
                         been moved to `unpinned` state by removing the object pin.
                       example: "pinned"
+                  required:
+                    - time_created
+                    - time_pinned
+                    - ipfs_hash
+                    - size
+                    - state
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3026,6 +3039,12 @@ paths:
                       When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
                       State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                     example: "pinned"
+                required:
+                  - time_created
+                  - time_pinned
+                  - ipfs_hash
+                  - size
+                  - state
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3070,6 +3089,9 @@ paths:
                     enum: [queued|pinned|unpinned|failed|gc]
                     example: "unpinned"
                     description: State of the pin action
+                required:
+                  - ipfs_hash
+                  - state
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3154,6 +3176,10 @@ components:
               message:
                 type: string
                 example: "Usage is over limit."
+            required:
+              - status_code
+              - error
+              - message
 
     autobanned:
       description: IP has been auto-banned for extensive sending of requests after usage limit has been reached
@@ -3171,6 +3197,10 @@ components:
               message:
                 type: string
                 example: "IP has been auto-banned for flooding."
+            required:
+              - status_code
+              - error
+              - message
 
     not_found:
       description: Component not found
@@ -3188,6 +3218,10 @@ components:
               message:
                 type: string
                 example: "The requested component has not been found."
+            required:
+              - status_code
+              - error
+              - message
 
     internal_server_error:
       description: Internal Server Error
@@ -3205,6 +3239,10 @@ components:
               message:
                 type: string
                 example: "An unexpected response was received from the backend."
+            required:
+              - status_code
+              - error
+              - message
 
     unauthorized_error:
       description: Authentication secret is missing or invalid
@@ -3222,6 +3260,10 @@ components:
               message:
                 type: string
                 example: "Invalid project token."
+            required:
+              - status_code
+              - error
+              - message
 
     bad_request:
       description: Bad request
@@ -3239,6 +3281,10 @@ components:
               message:
                 type: string
                 example: "Backend did not understand your request."
+            required:
+              - status_code
+              - error
+              - message
 
   securitySchemes:
     ApiKeyAuth:
@@ -3640,6 +3686,9 @@ components:
               quantity:
                 type: string
                 description: The quantity of the unit
+            required:
+              - unit
+              - quantity
           example:
             - unit: "lovelace"
               quantity: "42000000"
@@ -3733,6 +3782,9 @@ components:
                     quantity:
                       type: string
                       description: The quantity of the unit
+                  required:
+                    - unit
+                    - quantity
                 example:
                   - unit: "lovelace"
                     quantity: "42000000"
@@ -3763,6 +3815,9 @@ components:
                     quantity:
                       type: string
                       description: The quantity of the unit
+                  required:
+                    - unit
+                    - quantity
                 example:
                   - unit: "lovelace"
                     quantity: "42000000"
@@ -3771,6 +3826,9 @@ components:
             required:
               - address
               - amount
+      required:
+        - inputs
+        - outputs
     tx_content_stake_addr:
       type: object
       properties:
@@ -4088,6 +4146,8 @@ components:
           address:
             type: string
             description: Address associated with the stake key
+        required:
+          - address
       example:
         - address: "addr1qx2kd28nq8ac5prwg32hhvudlwggpgfp8utlyqxu6wqgz62f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sy0f4qd"
         - address: "addr1qys3czp8s9thc6u2fqed9yq3h24nyw28uk0m6mkgn9dkckjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9suth4w4"
@@ -4133,7 +4193,7 @@ components:
           active_epoch:
             type: integer
             example: 210
-            description: Epoch that the delegation becomes active
+            description: Epoch in which the delegation becomes active
           tx_hash:
             type: string
             description: Hash of the transaction containing the delegation
@@ -4163,10 +4223,10 @@ components:
       items:
         type: object
         properties:
-          epoch:
+          active_epoch:
             type: integer
             example: 210
-            description: Epoch that the stake is active
+            description: Epoch in which the stake was active
           amount:
             type: string
             nullable: true
@@ -4221,6 +4281,9 @@ components:
               quantity:
                 type: string
                 description: The quantity of the unit
+            required:
+              - unit
+              - quantity
           example:
             - unit: "lovelace"
               quantity: "42000000"
@@ -4256,6 +4319,9 @@ components:
               quantity:
                 type: string
                 description: The quantity of the unit
+            required:
+              - unit
+              - quantity
           example:
             - unit: "lovelace"
               quantity: "42000000"
@@ -4274,6 +4340,9 @@ components:
               quantity:
                 type: string
                 description: The quantity of the unit
+            required:
+              - unit
+              - quantity
           example:
             - unit: "lovelace"
               quantity: "42000000"
@@ -4315,9 +4384,18 @@ components:
                 quantity:
                   type: string
                   description: The quantity of the unit
+              required:
+                - unit
+                - quantity
           block:
             type: string
             description: Block number of the UTXO
+        required:
+        - tx_hash
+        - tx_index
+        - output_index
+        - amount
+        - block
       example:
         - tx_hash: "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58"
           output_index: 0
@@ -4362,6 +4440,10 @@ components:
           count:
             type: string
             description: The count of metadata entries with a specific label
+        required:
+          - label
+          - cip10
+          - count
       example:
         - { label: "1990", cip10: null, count: "1" }
         - {
@@ -4455,6 +4537,9 @@ components:
             type: integer
             example: 242
             description: Retirement epoch number
+        required:
+          - pool_id
+          - epoch
       example:
         - pool_id: "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q"
           epoch: 225
@@ -4660,12 +4745,12 @@ components:
             type: integer
             example: 3001
             description: Network port of the relay
-      required:
-        - ipv4
-        - ipv6
-        - dns
-        - dns_srv
-        - port
+        required:
+          - ipv4
+          - ipv6
+          - dns
+          - dns_srv
+          - port
     pool_delegations:
       type: array
       items:
@@ -4843,12 +4928,17 @@ components:
           required:
             - name
             - description
+            - ticker
+            - url
+            - logo
       required:
         - policy_id
         - asset_name
+        - fingerprint
         - quantity
         - initial_mint_tx_hash
         - metadata
+        - onchain_metadata
 
     asset_history:
       type: array

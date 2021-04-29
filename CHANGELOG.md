@@ -7,6 +7,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [0.1.12] - 2021-04-29
 
+### Added
+
+- slightly improved README
+
 ### Fixed
 
 - all occurences of `epoch` to `active_epoch` in `/accounts/{stake_address}/history` endpoint

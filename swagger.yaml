@@ -975,9 +975,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/tx_content_stake_addr"
+                $ref: "#/components/schemas/tx_content_stake_addr"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -1013,9 +1011,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/tx_content_delegations"
+                $ref: "#/components/schemas/tx_content_delegations"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -1050,9 +1046,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/tx_content_withdrawals"
+                $ref: "#/components/schemas/tx_content_withdrawals"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -1088,9 +1082,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/tx_content_pool_certs"
+                $ref: "#/components/schemas/tx_content_pool_certs"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -1127,9 +1119,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/tx_content_pool_retires"
+                $ref: "#/components/schemas/tx_content_pool_retires"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3830,217 +3820,227 @@ components:
         - inputs
         - outputs
     tx_content_stake_addr:
-      type: object
-      properties:
-        cert_index:
-          type: integer
-          example: 0
-          description: Index of the certificate within the transaction
-        address:
-          type: string
-          example: "stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda"
-          description: Delegation stake address
-        registration:
-          type: boolean
-          example: true
-          description: Registration boolean, false if deregistration
-      required:
-        - cert_index
-        - address
-        - registration
-    tx_content_delegations:
-      type: object
-      properties:
-        index:
-          type: integer
-          example: 0
-          description: Index of the certificate within the transaction
-          deprecated: true
-        cert_index:
-          type: integer
-          example: 0
-          description: Index of the certificate within the transaction
-        address:
-          type: string
-          example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
-          description: Bech32 delegation stake address
-        pool_id:
-          type: string
-          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
-          description: Bech32 ID of delegated stake pool
-        active_epoch:
-          type: integer
-          example: 210
-          description: Epoch in which the delegation becomes active
-      required:
-        - index
-        - cert_index
-        - address
-        - pool_id
-        - active_epoch
-    tx_content_withdrawals:
-      type: object
-      properties:
-        address:
-          type: string
-          example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
-          description: Bech32 withdrawal address
-        amount:
-          type: string
-          example: "431833601"
-          description: Withdrawal amount in Lovelaces
-      required:
-        - address
-        - amount
-    tx_content_pool_certs:
-      type: object
-      properties:
-        cert_index:
-          type: integer
-          example: 0
-          description: Index of the certificate within the transaction
-        pool_id:
-          type: string
-          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
-          description: Bech32 encoded pool ID
-        vrf_key:
-          type: string
-          example: "0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233"
-          description: VRF key hash
-        pledge:
-          type: string
-          example: "5000000000"
-          description: Stake pool certificate pledge in Lovelaces
-        margin_cost:
-          type: number
-          example: 0.05
-          description: Margin tax cost of the stake pool
-        fixed_cost:
-          type: string
-          example: "340000000"
-          description: Fixed tax cost of the stake pool in Lovelaces
-        reward_account:
-          type: string
-          example: "stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f"
-          description: Bech32 reward account of the stake pool
-        owners:
-          type: array
-          items:
+      type: array
+      items:
+        type: object
+        properties:
+          cert_index:
+            type: integer
+            example: 0
+            description: Index of the certificate within the transaction
+          address:
             type: string
-            description: Bech32 accounts of the pool owners
-          example:
-            - "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
-        metadata:
-          type: object
-          nullable: true
-          properties:
-            url:
+            example: "stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda"
+            description: Delegation stake address
+          registration:
+            type: boolean
+            example: true
+            description: Registration boolean, false if deregistration
+        required:
+          - cert_index
+          - address
+          - registration
+    tx_content_delegations:
+      type: array
+      items:
+        type: object
+        properties:
+          index:
+            type: integer
+            example: 0
+            description: Index of the certificate within the transaction
+            deprecated: true
+          cert_index:
+            type: integer
+            example: 0
+            description: Index of the certificate within the transaction
+          address:
+            type: string
+            example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
+            description: Bech32 delegation stake address
+          pool_id:
+            type: string
+            example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+            description: Bech32 ID of delegated stake pool
+          active_epoch:
+            type: integer
+            example: 210
+            description: Epoch in which the delegation becomes active
+        required:
+          - index
+          - cert_index
+          - address
+          - pool_id
+          - active_epoch
+    tx_content_withdrawals:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
+            description: Bech32 withdrawal address
+          amount:
+            type: string
+            example: "431833601"
+            description: Withdrawal amount in Lovelaces
+        required:
+          - address
+          - amount
+    tx_content_pool_certs:
+      type: array
+      items:
+        type: object
+        properties:
+          cert_index:
+            type: integer
+            example: 0
+            description: Index of the certificate within the transaction
+          pool_id:
+            type: string
+            example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+            description: Bech32 encoded pool ID
+          vrf_key:
+            type: string
+            example: "0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233"
+            description: VRF key hash
+          pledge:
+            type: string
+            example: "5000000000"
+            description: Stake pool certificate pledge in Lovelaces
+          margin_cost:
+            type: number
+            example: 0.05
+            description: Margin tax cost of the stake pool
+          fixed_cost:
+            type: string
+            example: "340000000"
+            description: Fixed tax cost of the stake pool in Lovelaces
+          reward_account:
+            type: string
+            example: "stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f"
+            description: Bech32 reward account of the stake pool
+          owners:
+            type: array
+            items:
               type: string
-              nullable: true
-              example: "https://stakenuts.com/mainnet.json"
-              description: URL to the stake pool metadata
-            hash:
-              type: string
-              nullable: true
-              example: "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
-              description: Hash of the metadata file
-            ticker:
-              type: string
-              nullable: true
-              example: "NUTS"
-              description: Ticker of the stake pool
-            name:
-              type: string
-              nullable: true
-              example: "Stake Nuts"
-              description: Name of the stake pool
-            description:
-              type: string
-              nullable: true
-              example: "The best pool ever"
-              description: Description of the stake pool
-            homepage:
-              type: string
-              nullable: true
-              example: "https://stakentus.com/"
-              description: Home page of the stake pool
-          required:
-            - url
-            - hash
-            - ticker
-            - name
-            - description
-            - homepage
-        relays:
-          type: array
-          items:
+              description: Bech32 accounts of the pool owners
+            example:
+              - "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
+          metadata:
             type: object
+            nullable: true
             properties:
-              ipv4:
-                type: string
-                nullable: true
-                example: "4.4.4.4"
-                description: IPv4 address of the relay
-              ipv6:
+              url:
                 type: string
                 nullable: true
                 example: "https://stakenuts.com/mainnet.json"
-                description: IPv6 address of the relay
-              dns:
+                description: URL to the stake pool metadata
+              hash:
                 type: string
                 nullable: true
-                example: "relay1.stakenuts.com"
-                description: DNS name of the relay
-              dns_srv:
+                example: "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+                description: Hash of the metadata file
+              ticker:
                 type: string
                 nullable: true
-                example: "_relays._tcp.relays.stakenuts.com"
-                description: DNS SRV entry of the relay
-              port:
-                type: integer
-                example: 3001
-                description: Network port of the relay
+                example: "NUTS"
+                description: Ticker of the stake pool
+              name:
+                type: string
+                nullable: true
+                example: "Stake Nuts"
+                description: Name of the stake pool
+              description:
+                type: string
+                nullable: true
+                example: "The best pool ever"
+                description: Description of the stake pool
+              homepage:
+                type: string
+                nullable: true
+                example: "https://stakentus.com/"
+                description: Home page of the stake pool
             required:
-              - ipv4
-              - ipv6
-              - dns
-              - dns_srv
-              - port
-        active_epoch:
-          type: integer
-          example: 210
-          description: Epoch that the delegation becomes active
-      required:
-        - cert_index
-        - pool_id
-        - vrf_key
-        - pledge
-        - margin_cost
-        - fixed_cost
-        - reward_account
-        - owners
-        - metadata
-        - relays
-        - active_epoch
+              - url
+              - hash
+              - ticker
+              - name
+              - description
+              - homepage
+          relays:
+            type: array
+            items:
+              type: object
+              properties:
+                ipv4:
+                  type: string
+                  nullable: true
+                  example: "4.4.4.4"
+                  description: IPv4 address of the relay
+                ipv6:
+                  type: string
+                  nullable: true
+                  example: "https://stakenuts.com/mainnet.json"
+                  description: IPv6 address of the relay
+                dns:
+                  type: string
+                  nullable: true
+                  example: "relay1.stakenuts.com"
+                  description: DNS name of the relay
+                dns_srv:
+                  type: string
+                  nullable: true
+                  example: "_relays._tcp.relays.stakenuts.com"
+                  description: DNS SRV entry of the relay
+                port:
+                  type: integer
+                  example: 3001
+                  description: Network port of the relay
+              required:
+                - ipv4
+                - ipv6
+                - dns
+                - dns_srv
+                - port
+          active_epoch:
+            type: integer
+            example: 210
+            description: Epoch that the delegation becomes active
+        required:
+          - cert_index
+          - pool_id
+          - vrf_key
+          - pledge
+          - margin_cost
+          - fixed_cost
+          - reward_account
+          - owners
+          - metadata
+          - relays
+          - active_epoch
     tx_content_pool_retires:
-      type: object
-      properties:
-        cert_index:
-          type: integer
-          example: 0
-          description: Index of the certificate within the transaction
-        pool_id:
-          type: string
-          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
-          description: Bech32 stake pool ID
-        retiring_epoch:
-          type: integer
-          example: 216
-          description: Retiring epoch
-      required:
-        - cert_index
-        - pool_id
-        - retiring_epoch
+      type: array
+      items:
+        type: object
+        properties:
+          cert_index:
+            type: integer
+            example: 0
+            description: Index of the certificate within the transaction
+          pool_id:
+            type: string
+            example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+            description: Bech32 stake pool ID
+          retiring_epoch:
+            type: integer
+            example: 216
+            description: Retiring epoch
+        required:
+          - cert_index
+          - pool_id
+          - retiring_epoch
     tx_content_metadata:
       type: array
       items:

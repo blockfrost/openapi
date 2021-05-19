@@ -4645,7 +4645,6 @@ components:
           type: array
           items:
             type: string
-            nullable: true
           example:
             - "9f83e5484f543e05b52e99988272a31da373f3aab4c064c76db96643a355d9dc"
             - "7ce3b8c433bf401a190d58c8c483d8e3564dfd29ae8633c8b1b3e6c814403e95"
@@ -4654,7 +4653,6 @@ components:
           type: array
           items:
             type: string
-            nullable: true
             example: "252f622976d39e646815db75a77289cf16df4ad2b287dd8e3a889ce14c13d1a8"
       required:
         - vrf_key

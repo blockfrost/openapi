@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.13"
+  version: "0.1.14"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -4163,7 +4163,6 @@ components:
             description: Epoch of the associated reward
           amount:
             type: string
-            nullable: true
             description: Rewards for given epoch in Lovelaces
           pool_id:
             type: string
@@ -4199,7 +4198,6 @@ components:
             description: Hash of the transaction containing the delegation
           amount:
             type: string
-            nullable: true
             description: Rewards for given epoch in Lovelaces
           pool_id:
             type: string
@@ -4229,7 +4227,6 @@ components:
             description: Epoch in which the stake was active
           amount:
             type: string
-            nullable: true
             description: Stake amount in Lovelaces
           pool_id:
             type: string

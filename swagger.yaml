@@ -4219,7 +4219,7 @@ components:
       type: array
       items:
         type: object
-        description: The sum of all the UTXO for all addresses of a given account
+        description: The sum of all assets of all addresses associated with a given account
         properties:
           unit:
             type: string

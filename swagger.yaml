@@ -1587,7 +1587,7 @@ paths:
     get:
       tags:
         - Cardano » Accounts
-      summary: Assets associated with the account's addresses
+      summary: Assets associated with the account addresses
       description: |
         Obtain information about assets associated with addresses of a specific account.
 

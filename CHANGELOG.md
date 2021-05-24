@@ -10,6 +10,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Added
 
 - `/accounts/{stake_address}/addresses/assets` endpoint to list all assets on addresses related to a given stake_address (account)
+- `/epochs/latest/parameters` and `/blocks/latest/txs` endpoints to list the current information about latest epoch and block
 
 ## [0.1.15] - 2021-05-19
 

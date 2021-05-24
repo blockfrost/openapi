@@ -1600,6 +1600,31 @@ paths:
             type: string
           description: Bech32 stake address.
           example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         "200":
           description: Return the account addresses content
@@ -4191,29 +4216,26 @@ components:
         - address: "addr1q8j55h253zcvl326sk5qdt2n8z7eghzspe0ekxgncr796s2f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sjmd35m"
         - address: "addr1q8f7gxrprank3drhx8k5grlux7ene0nlwun8y9thu8mc3yjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sls6vnt"
     account_addresses_assets:
-      type: object
-      properties:
-        amount:
-          type: array
-          items:
-            type: object
-            description: The sum of all the UTXO for all addresses of a given account
-            properties:
-              unit:
-                type: string
-                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-                description: The unit of the value
-              quantity:
-                type: string
-                description: The quantity of the unit
-            required:
-              - unit
-              - quantity
-          example:
-            - unit: "lovelace"
-              quantity: "420000000"
-            - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
-              quantity: "125"
+      type: array
+      items:
+        type: object
+        description: The sum of all the UTXO for all addresses of a given account
+        properties:
+          unit:
+            type: string
+            format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+            description: The unit of the value
+          quantity:
+            type: string
+            description: The quantity of the unit
+        required:
+          - unit
+          - quantity
+      example:
+        - unit: "lovelace"
+          quantity: "420000000"
+        - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+          quantity: "125"
     account_reward_content:
       type: array
       items:

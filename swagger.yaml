@@ -4223,7 +4223,7 @@ components:
         properties:
           unit:
             type: string
-            format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+            format: Concatenation of asset policy_id and hex-encoded asset_name
             description: The unit of the value
           quantity:
             type: string

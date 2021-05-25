@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.15"
+  version: "0.1.16"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -74,9 +74,14 @@ info:
     ```
     ## Limits
 
-     There are two types of limits we are enforcing. The first depends on your plan and is the number of request we allow per day. We defined
-     the day from midnight to midnight of UTC time. The second is rate limiting, where we limit an end user to 10 requests per second after a period
-     of 5 second burst. We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
+     There are two types of limits we are enforcing:
+
+     The first depends on your plan and is the number of request we allow per day. We defined the day from midnight to midnight of UTC time.
+
+     The second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow
+     each user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another
+     whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
+     We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
      we will make sure to take it into account as much as we can.
 
 servers:
@@ -224,6 +229,59 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/block_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /blocks/latest/txs:
+    get:
+      tags:
+        - Cardano » Blocks
+      summary: Latest block transactions
+      description: Return the transactions within the latest block.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            Ordered by tx index in the block.
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the transactions within the block.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/block_content_txs"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -473,6 +531,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/epoch_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /epochs/latest/parameters:
+    get:
+      tags:
+        - Cardano » Epochs
+      summary: Latest epoch protocol parameters
+      description: Return the protocol parameters for the latest epoch.
+      responses:
+        "200":
+          description: Return the data about the epoch
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/epoch_param_content"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -1570,6 +1654,68 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/account_addresses_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/addresses/assets:
+    get:
+      tags:
+        - Cardano » Accounts
+      summary: Assets associated with the account addresses
+      description: |
+        Obtain information about assets associated with addresses of a specific account.
+
+        <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake address.
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account addresses content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_addresses_assets"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -4153,6 +4299,27 @@ components:
         - address: "addr1qys3czp8s9thc6u2fqed9yq3h24nyw28uk0m6mkgn9dkckjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9suth4w4"
         - address: "addr1q8j55h253zcvl326sk5qdt2n8z7eghzspe0ekxgncr796s2f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sjmd35m"
         - address: "addr1q8f7gxrprank3drhx8k5grlux7ene0nlwun8y9thu8mc3yjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sls6vnt"
+    account_addresses_assets:
+      type: array
+      items:
+        type: object
+        description: The sum of all assets of all addresses associated with a given account
+        properties:
+          unit:
+            type: string
+            format: Concatenation of asset policy_id and hex-encoded asset_name
+            description: The unit of the value
+          quantity:
+            type: string
+            description: The quantity of the unit
+        required:
+          - unit
+          - quantity
+      example:
+        - unit: "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc537061636542756433343132"
+          quantity: "1"
+        - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+          quantity: "125"
     account_reward_content:
       type: array
       items:

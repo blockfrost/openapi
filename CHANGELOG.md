@@ -5,12 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches  maturity in v1.
 
-## [] - Unreleased
+## [0.1.16] - 2021-05-25
 
 ### Added
 
 - `/accounts/{stake_address}/addresses/assets` endpoint to list all assets on addresses related to a given stake_address (account)
 - `/epochs/latest/parameters` and `/blocks/latest/txs` endpoints to list the current information about latest epoch and block
+
+### Changed
+
+- implementation (increase allowed burst) of rate limiting and clarified documentation
+
+### Fixed
+
+- `onchain_metadata` in `/assets/{asset}/total` endpoint that could have been missing in some special cases
+- `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow https://github.com/cardano-foundation/CIPs/pull/85/files
+
 
 ## [0.1.15] - 2021-05-19
 
@@ -18,13 +28,11 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `registration` and `retirement` arrays in `/pools/{pool_id}/` endpoint doesn't need to be `Nullable`
 
-
 ## [0.1.14] - 2021-05-19
 
 ### Fixed
 
 - `amount` in `/accounts/{stake_address}/rewards`, `/accounts/{stake_address}/delegations` and `/accounts/{stake_address}/history` endpoints doesn't need to be `Nullable`
-
 
 ## [0.1.13] - 2021-05-06
 
@@ -42,7 +50,6 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - all occurences of `epoch` to `active_epoch` in `/accounts/{stake_address}/history` endpoint
 - required properties of multiple endpoints and error messages
-
 
 ## [0.1.11] - 2021-04-23
 

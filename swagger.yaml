@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.15"
+  version: "0.1.16"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -74,9 +74,14 @@ info:
     ```
     ## Limits
 
-     There are two types of limits we are enforcing. The first depends on your plan and is the number of request we allow per day. We defined
-     the day from midnight to midnight of UTC time. The second is rate limiting, where we limit an end user to 10 requests per second after a period
-     of 5 second burst. We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
+     There are two types of limits we are enforcing:
+
+     The first depends on your plan and is the number of request we allow per day. We defined the day from midnight to midnight of UTC time.
+
+     The second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow
+     each user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another
+     whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
+     We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
      we will make sure to take it into account as much as we can.
 
 servers:

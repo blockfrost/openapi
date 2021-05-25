@@ -12,9 +12,15 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/accounts/{stake_address}/addresses/assets` endpoint to list all assets on addresses related to a given stake_address (account)
 - `/epochs/latest/parameters` and `/blocks/latest/txs` endpoints to list the current information about latest epoch and block
 
+### Changed
+
+- implementation (increase allowed burst) of rate limiting and clarified documentation
+
 ### Fixed
 
 - `onchain_metadata` in `/assets/{asset}/total` endpoint that could have been missing in some special cases
+- `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow https://github.com/cardano-foundation/CIPs/pull/85/files
+
 
 ## [0.1.15] - 2021-05-19
 

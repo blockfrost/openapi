@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches  maturity in v1.
 
+## [] - Unreleased
+
+### Added
+
+- `/addresses/{address}/transactions` and `/assets/{asset}/transactions` endpoints to provide more details about transactions and make the endpoint extendable (object) for future needs
+
+### Changed
+
+- `/addresses/{address}/txs` and `/assets/{asset}/txs` are deprecated (but still functional) in favour of newly added endpoints
+
 ## [0.1.16] - 2021-05-25
 
 ### Added

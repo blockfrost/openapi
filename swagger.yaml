@@ -1300,7 +1300,7 @@ paths:
           schema:
             type: string
             enum: ["application/cbor"]
-      x-code-samples:
+      x-codeSamples:
         - lang: "Shell"
           label: "cURL"
           source: |
@@ -1310,6 +1310,16 @@ paths:
               -H "Content-Type: application/cbor" \
               -H "project_id: $PROJECT_ID" \
               --data-binary @./data
+        - lang: "Shell"
+          label: "cardano-cli"
+          source: |
+            # Assuming `tx.signed` is signed transaction constructed by cardano-cli
+            xxd -r -p <<< $(jq .cborHex tx.signed) > tx.submit-api.raw
+            curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit" \
+              -X POST \
+              -H "Content-Type: application/cbor" \
+              -H "project_id: $PROJECT_ID" \
+              --data-binary @./tx.submit-api.raw
       responses:
         "200":
           description: Return the ID of the submitted transaction.

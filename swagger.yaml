@@ -3781,6 +3781,14 @@ components:
           type: integer
           example: 1603835084
           description: Unix time of the last block of the epoch
+        first_slot:
+          type: integer
+          example: 30413261
+          description: Slot number starting the epoch
+        last_slot:
+          type: integer
+          example: 30844756
+          description: Slot number ending the epoch
         block_count:
           type: integer
           example: 21298
@@ -3808,6 +3816,8 @@ components:
         - end_time
         - first_block_time
         - last_block_time
+        - first_slot
+        - last_slot
         - block_count
         - tx_count
         - output

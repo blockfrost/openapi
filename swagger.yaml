@@ -1948,7 +1948,7 @@ paths:
     get:
       tags:
         - Cardano » Addresses
-      summary: Address' details
+      summary: Address details
       description: Obtain details about an address.
       parameters:
         - in: path
@@ -1960,7 +1960,7 @@ paths:
           example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
       responses:
         "200":
-          description: Return the address' details.
+          description: Return the Address details.
           content:
             application/json:
               schema:
@@ -1982,7 +1982,7 @@ paths:
     get:
       tags:
         - Cardano » Addresses
-      summary: Address' UTXOs
+      summary: Address UTXOs
       description: UTXOs of the address.
       parameters:
         - in: path
@@ -2040,9 +2040,10 @@ paths:
 
   /addresses/{address}/txs:
     get:
+      deprecated: true
       tags:
         - Cardano » Addresses
-      summary: Address' transactions
+      summary: Address transactions
       description: Transactions on the address.
       parameters:
         - in: path
@@ -2084,6 +2085,65 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/address_txs_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /addresses/{address}/transactions:
+    get:
+      tags:
+        - Cardano » Addresses
+      summary: Address transactions
+      description: Transactions on the address.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 address.
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The numbers of pools per page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the address content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/address_transactions_content"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -2742,6 +2802,7 @@ paths:
 
   /assets/{asset}/txs:
     get:
+      deprecated: true
       tags:
         - Cardano » Assets
       summary: Asset transactions
@@ -2786,6 +2847,66 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/asset_txs"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+
+  /assets/{asset}/transactions:
+    get:
+      tags:
+        - Cardano » Assets
+      summary: Asset transactions
+      description: List of a specific asset transactions
+      parameters:
+        - in: path
+          name: asset
+          required: true
+          schema:
+            type: string
+          description: Concatenation of the policy_id and hex-encoded asset_name
+          example: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the information about the history of a specific asset
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/asset_transactions"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -4595,10 +4716,34 @@ components:
       type: array
       items:
         type: string
-        description: Hash of the transaction containing the (de)registration certificate
+        description: Hash of the transaction
       example:
         - "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
         - "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
+    address_transactions_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+          tx_index:
+            type: integer
+            description: Transaction index within the block
+          block_height:
+            type: integer
+            description: Block height
+      example:
+        - tx_hash: "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
+          tx_index: 0
+          block_height: 12454
+        - tx_hash: "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f"
+          tx_index: 6
+          block_height: 454545
+        - tx_hash: "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
+          tx_index: 9
+          block_height: 69
     tx_metadata_labels:
       type: array
       items:
@@ -5151,6 +5296,31 @@ components:
         - "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
         - "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f"
         - "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
+
+    asset_transactions:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+          tx_index:
+            type: integer
+            description: Transaction index within the block
+          block_height:
+            type: integer
+            description: Block height
+      example:
+        - tx_hash: "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
+          tx_index: 0
+          block_height: 4547
+        - tx_hash: "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f"
+          tx_index: 6
+          block_height: 564654
+        - tx_hash: "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
+          tx_index: 9
+          block_height: 69
 
     asset_addresses:
       type: array

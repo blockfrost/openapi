@@ -10,7 +10,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Added
 
 - `/addresses/{address}/transactions` and `/assets/{asset}/transactions` endpoints to provide more details about transactions and make the endpoint extendable (object) for future needs
-- `/blocks/slot/{slot_number}` endpoint to provide block details for a specific slot
+- `/blocks/slot/{slot_number}` and `/blocks/epoch/{epoch_number}/slot/{slot_number}` endpoints to provide block details for a specific slot
 
 ### Changed
 

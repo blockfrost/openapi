@@ -343,10 +343,10 @@ paths:
           name: slot_number
           required: true
           schema:
-            type: string
+            type: integer
             format: slot number
           description: Slot position for requested block.
-          example: "30895909"
+          example: 30895909
       responses:
         "200":
           description: Return the contents of the block
@@ -379,18 +379,18 @@ paths:
           name: epoch_number
           required: true
           schema:
-            type: string
+            type: integer
             format: slot number
           description: Epoch for specific epoch slot.
-          example: "219"
+          example: 219
         - in: path
           name: slot_number
           required: true
           schema:
-            type: string
+            type: integer
             format: slot number
           description: Slot position for requested block.
-          example: "30895909"
+          example: 30895909
       responses:
         "200":
           description: Return the contents of the block

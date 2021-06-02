@@ -661,9 +661,9 @@ paths:
           name: number
           required: true
           schema:
-            type: string
+            type: integer
           description: Number of the epoch
-          example: "225"
+          example: 225
       responses:
         "200":
           description: Return the epoch data.

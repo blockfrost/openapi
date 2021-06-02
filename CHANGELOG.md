@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches  maturity in v1.
+and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
 ## [] - Unreleased
 
@@ -15,6 +15,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Changed
 
 - `/addresses/{address}/txs` and `/assets/{asset}/txs` are deprecated (but still functional) in favour of newly added endpoints
+
+### Fixed
+
+- type of `number` parameter in `/epochs/{number}/` string -> integer
 
 ## [0.1.16] - 2021-05-25
 
@@ -31,7 +35,6 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `onchain_metadata` in `/assets/{asset}/total` endpoint that could have been missing in some special cases
 - `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow https://github.com/cardano-foundation/CIPs/pull/85/files
-
 
 ## [0.1.15] - 2021-05-19
 

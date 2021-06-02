@@ -3,7 +3,38 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches  maturity in v1.
+and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
+
+## [0.1.17] - 2021-06-02
+
+### Added
+
+- `/addresses/{address}/transactions` and `/assets/{asset}/transactions` endpoints to provide more details about transactions and make the endpoint extendable (object) for future needs
+- `/blocks/slot/{slot_number}` and `/blocks/epoch/{epoch_number}/slot/{slot_number}` endpoints to provide block details for a specific slot
+
+### Changed
+
+- `/addresses/{address}/txs` and `/assets/{asset}/txs` are deprecated (but still functional) in favour of newly added endpoints
+
+### Fixed
+
+- type of `number` parameter in `/epochs/{number}/` string -> integer
+
+## [0.1.16] - 2021-05-25
+
+### Added
+
+- `/accounts/{stake_address}/addresses/assets` endpoint to list all assets on addresses related to a given stake_address (account)
+- `/epochs/latest/parameters` and `/blocks/latest/txs` endpoints to list the current information about latest epoch and block
+
+### Changed
+
+- implementation (increase allowed burst) of rate limiting and clarified documentation
+
+### Fixed
+
+- `onchain_metadata` in `/assets/{asset}/total` endpoint that could have been missing in some special cases
+- `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow https://github.com/cardano-foundation/CIPs/pull/85/files
 
 ## [0.1.16] - 2021-05-25
 

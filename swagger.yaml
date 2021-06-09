@@ -3779,6 +3779,37 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /nutlink/{ticker}/addresses:
+    post:
+      tags:
+        - Nut.link
+      description: List of metadata oracle addresses for a ticker
+      parameters:
+        - in: path
+          required: true
+          name: ticker
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return the list of metadata oracle addresses for a specific ticker
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/nutlink_ticker_addresses"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
 components:
   responses:
     overusage_limit:
@@ -5880,8 +5911,9 @@ components:
             type: string
             description: Block height of the latest record
         required:
-          - assnameet
-          - quantity
+          - name
+          - count
+          - latest
       example:
         - asset: "ADAUSD"
           count: 1980038
@@ -5893,10 +5925,33 @@ components:
           count: 1980038
           latest: "2657092"
 
-    nutlink_address_ticker:
+    nutlink_ticker_addresses:
       type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Address of a metadata oracle
+            example: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0"
+          latest:
+            type: string
+            description: Block height of the latest record
+            example: "2657092"
+        required:
+          - address
+          - latest
+
+    nutlink_address_ticker:
+      type: object
       additionalProperties: true
       description: Content of the ticker
       nullable: true
+      example:
+        - [
+            { source: "coinGecko", value: "1.29" },
+            { source: "cryptoCompare", value: "1.283" },
+          ]
+
     empty_object:
       type: object

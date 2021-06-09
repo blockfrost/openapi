@@ -4109,7 +4109,7 @@ components:
         mir_count:
           type: integer
           example: 0
-          description: Count of the MIR certificates within the transaction
+          description: Count of the MIRs within the transaction
         delegation_count:
           type: integer
           example: 0

@@ -11,6 +11,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `mir_count` property to `/txs/{hash}`
 - `/txs/{hash}/mirs` endpoint to display MIR details
+- additional query parameters `from` and `to` into `/addresses/{address}/transactions` endpoint
 
 ## [0.1.18] - 2021-06-06
 

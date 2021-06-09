@@ -3688,14 +3688,46 @@ paths:
           name: address
           schema:
             type: string
-            description: Address with transaction metadata
+            description: Address of a metadata oracle
       responses:
         "200":
-          description: Return the last 30 days of metrics
+          description: Return the metadata about metadata oracle
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/nutlink_address"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /nutlink/{address}/tickers:
+    post:
+      tags:
+        - Nut.link
+      description: List tickers for a specific metadata oracle
+      parameters:
+        - in: path
+          required: true
+          name: address
+          schema:
+            type: string
+            description: Address of a metadata oracle
+      responses:
+        "200":
+          description: Return the tickers provided by the metadata oracle
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/nutlink_address_tickers"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -5794,6 +5826,34 @@ components:
       required:
         - metadata_url
         - metadata_hash
+
+    nutlink_address_tickers:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Name of the tricker
+          count:
+            type: integer
+            description: Number of ticker records
+          latest:
+            type: string
+            description: Block height of the latest record
+        required:
+          - assnameet
+          - quantity
+      example:
+        - asset: "ADAUSD"
+          count: 1980038
+          latest: "2657092"
+        - asset: "ADAEUR"
+          count: 1980038
+          latest: "2657092"
+        - asset: "ADABTC"
+          count: 1980038
+          latest: "2657092"
 
     empty_object:
       type: object

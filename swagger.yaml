@@ -4244,10 +4244,10 @@ components:
           type: integer
           example: 0
           description: Count of the withdrawal within the transaction
-        mir_count:
+        mir_cert_count:
           type: integer
           example: 0
-          description: Count of the MIRs within the transaction
+          description: Count of the MIR certificates within the transaction
         delegation_count:
           type: integer
           example: 0
@@ -4255,15 +4255,15 @@ components:
         stake_cert_count:
           type: integer
           example: 0
-          description: Count of the stake keys (de)registrations and delegations within the transaction
+          description: Count of the stake keys (de)registration and delegation certificates within the transaction
         pool_update_count:
           type: integer
           example: 0
-          description: Count of the stake pool registrations and updates within the transaction
+          description: Count of the stake pool registration and update certificates within the transaction
         pool_retire_count:
           type: integer
           example: 0
-          description: Count of the stake pool retirements within the transaction
+          description: Count of the stake pool retirement certificates within the transaction
       required:
         - block
         - block_height
@@ -4277,7 +4277,7 @@ components:
         - invalid_hereafter
         - utxo_count
         - withdrawal_count
-        - mir_count
+        - mir_cert_count
         - delegation_count
         - stake_cert_count
         - pool_update_count

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.18"
+  version: "0.1.19"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -1224,6 +1224,41 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /txs/{hash}/mirs:
+    get:
+      tags:
+        - Cardano » Transactions
+      summary: Transaction MIRs
+      description: Obtain information about Move Instantaneous Rewards (MIRs) of a specific transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string
+          description: Hash of the requested transaction.
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about Move Instantaneous Rewards (MIRs) of a specific transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content_mirs"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /txs/{hash}/pool_updates:
     get:
       tags:
@@ -1685,6 +1720,126 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/account_registration_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/withdrawals:
+    get:
+      tags:
+        - Cardano » Accounts
+      summary: Account withdrawal history
+      description: |
+        Obtain information about the withdrawals of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake address.
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account withdrawal content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_withdrawal_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /accounts/{stake_address}/mirs:
+    get:
+      tags:
+        - Cardano » Accounts
+      summary: Account MIR history
+      description: |
+        Obtain information about the MIRs of a specific account.
+      parameters:
+        - in: path
+          name: stake_address
+          required: true
+          schema:
+            type: string
+          description: Bech32 stake address.
+          example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the account MIR content.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_mir_content"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -2217,6 +2372,24 @@ paths:
           description: |
             The ordering of items from the point of view of the blockchain,
             not the page listing itself. By default, we return oldest first, newest last.
+        - in: query
+          name: from
+          required: false
+          schema:
+            type: string
+          description: |
+            The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
+            Has to be lower than or equal to `to` parameter.
+          example: "8929261"
+        - in: query
+          name: to
+          required: false
+          schema:
+            type: string
+          description: |
+            The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
+            Has to be higher than or equal to `from` parameter.
+          example: "9999269:10"
       responses:
         "200":
           description: Return the address content
@@ -4071,6 +4244,10 @@ components:
           type: integer
           example: 0
           description: Count of the withdrawal within the transaction
+        mir_cert_count:
+          type: integer
+          example: 0
+          description: Count of the MIR certificates within the transaction
         delegation_count:
           type: integer
           example: 0
@@ -4078,15 +4255,15 @@ components:
         stake_cert_count:
           type: integer
           example: 0
-          description: Count of the stake keys (de)registrations and delegations within the transaction
+          description: Count of the stake keys (de)registration and delegation certificates within the transaction
         pool_update_count:
           type: integer
           example: 0
-          description: Count of the stake pool registrations and updates within the transaction
+          description: Count of the stake pool registration and update certificates within the transaction
         pool_retire_count:
           type: integer
           example: 0
-          description: Count of the stake pool retirements within the transaction
+          description: Count of the stake pool retirement certificates within the transaction
       required:
         - block
         - block_height
@@ -4100,6 +4277,7 @@ components:
         - invalid_hereafter
         - utxo_count
         - withdrawal_count
+        - mir_cert_count
         - delegation_count
         - stake_cert_count
         - pool_update_count
@@ -4243,6 +4421,33 @@ components:
             example: "431833601"
             description: Withdrawal amount in Lovelaces
         required:
+          - address
+          - amount
+    tx_content_mirs:
+      type: array
+      items:
+        type: object
+        properties:
+          pot:
+            type: string
+            enum: [reserve, treasury]
+            example: "reserve"
+            description: Source of MIR funds
+          cert_index:
+            type: integer
+            example: 0
+            description: Index of the certificate within the transaction
+          address:
+            type: string
+            example: "stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc"
+            description: Bech32 stake address
+          amount:
+            type: string
+            example: "431833601"
+            description: MIR amount in Lovelaces
+        required:
+          - pot
+          - cert_index
           - address
           - amount
     tx_content_pool_certs:
@@ -4640,6 +4845,44 @@ components:
           action: registered
         - tx_hash: "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
           action: deregistered
+    account_withdrawal_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction containing the withdrawal
+          amount:
+            type: string
+            description: Withdrawal amount in Lovelaces
+        required:
+          - tx_hash
+          - amount
+      example:
+        - tx_hash: "48a9625c841eea0dd2bb6cf551eabe6523b7290c9ce34be74eedef2dd8f7ecc5"
+          amount: "454541212442"
+        - tx_hash: "4230b0cbccf6f449f0847d8ad1d634a7a49df60d8c142bb8cc2dbc8ca03d9e34"
+          amount: "97846969"
+    account_mir_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction containing the MIR
+          amount:
+            type: string
+            description: MIR amount in Lovelaces
+        required:
+          - tx_hash
+          - amount
+      example:
+        - tx_hash: "69705bba1d687a816ff5a04ec0c358a1f1ef075ab7f9c6cc2763e792581cec6d"
+          amount: "2193707473"
+        - tx_hash: "baaa77b63d4d7d2bb3ab02c9b85978c2092c336dede7f59e31ad65452d510c13"
+          amount: "14520198574"
     address_content:
       type: object
       properties:

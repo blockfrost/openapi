@@ -3678,7 +3678,7 @@ paths:
           $ref: "#/components/responses/internal_server_error"
 
   /nutlink/{address}:
-    post:
+    get:
       tags:
         - Nut.link
       description: List metadata about specific address
@@ -3710,7 +3710,7 @@ paths:
           $ref: "#/components/responses/internal_server_error"
 
   /nutlink/{address}/tickers:
-    post:
+    get:
       tags:
         - Nut.link
       description: List tickers for a specific metadata oracle
@@ -3767,7 +3767,7 @@ paths:
           $ref: "#/components/responses/internal_server_error"
 
   /nutlink/{address}/{ticker}:
-    post:
+    get:
       tags:
         - Nut.link
       description: List of records of a specific ticker
@@ -3830,7 +3830,7 @@ paths:
           $ref: "#/components/responses/internal_server_error"
 
   /nutlink/{ticker}/addresses:
-    post:
+    get:
       tags:
         - Nut.link
       description: List of metadata oracle addresses for a ticker
@@ -3886,7 +3886,7 @@ paths:
           $ref: "#/components/responses/internal_server_error"
 
   /nutlink/{ticker}:
-    post:
+    get:
       tags:
         - Nut.link
       description: List of records of a specific ticker
@@ -6022,11 +6022,11 @@ components:
         metadata:
           type: object
           description: The cached metadata of the `metadata_url` file.
-          additionalProperties: true
           nullable: true
       required:
         - metadata_url
         - metadata_hash
+        - metadata
 
     nutlink_address_tickers:
       type: array
@@ -6040,7 +6040,7 @@ components:
             type: integer
             description: Number of ticker records
           latest:
-            type: string
+            type: integer
             description: Block height of the latest record
         required:
           - name

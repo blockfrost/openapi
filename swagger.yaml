@@ -6040,23 +6040,23 @@ components:
           count:
             type: integer
             description: Number of ticker records
-          latest:
+          latest_block:
             type: integer
             description: Block height of the latest record
         required:
           - name
           - count
-          - latest
+          - latest_block
       example:
         - asset: "ADAUSD"
           count: 1980038
-          latest: "2657092"
+          latest_block: 2657092
         - asset: "ADAEUR"
           count: 1980038
-          latest: "2657092"
+          latest_block: 2657092
         - asset: "ADABTC"
           count: 1980038
-          latest: "2657092"
+          latest_block: 2657092
 
     nutlink_ticker_addresses:
       type: array
@@ -6067,8 +6067,8 @@ components:
             type: string
             description: Address of a metadata oracle
             example: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0"
-          latest:
-            type: string
+          latest_block:
+            type: integer
             description: Block height of the latest record
             example: "2657092"
         required:

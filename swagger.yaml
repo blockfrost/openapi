@@ -3829,7 +3829,7 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
-  /nutlink/{ticker}/addresses:
+  /nutlink/tickers/{ticker}/addresses:
     get:
       tags:
         - Nut.link
@@ -3885,7 +3885,7 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
-  /nutlink/{ticker}:
+  /nutlink/tickers/{ticker}:
     get:
       tags:
         - Nut.link
@@ -6022,6 +6022,7 @@ components:
         metadata:
           type: object
           description: The cached metadata of the `metadata_url` file.
+          additionalProperties: true
           nullable: true
       required:
         - metadata_url

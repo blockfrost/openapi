@@ -6073,7 +6073,7 @@ components:
             example: "2657092"
         required:
           - address
-          - latest
+          - latest_block
 
     nutlink_address_ticker:
       type: array

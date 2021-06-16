@@ -6076,7 +6076,7 @@ components:
           - latest
 
     nutlink_address_ticker:
-      type: object
+      type: array
       additionalProperties: true
       description: Content of the ticker
       nullable: true

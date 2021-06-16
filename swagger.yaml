@@ -6077,9 +6077,17 @@ components:
 
     nutlink_address_ticker:
       type: array
+      items:
+        anyOf:
+          - type: string
+          - type: object
+          - type: array
+            items: {}
+          - type: integer
+          - type: number
+          - type: boolean
       additionalProperties: true
       description: Content of the ticker
-      nullable: true
       example:
         - [
             { source: "coinGecko", value: "1.29" },

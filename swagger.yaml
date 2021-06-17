@@ -3752,7 +3752,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/nutlink_ticker_addresses"
+                $ref: "#/components/schemas/nutlink_address_ticker_and_tickers"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3815,7 +3815,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/nutlink_address_ticker"
+                $ref: "#/components/schemas/nutlink_address_ticker_and_tickers"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -6001,7 +6001,7 @@ components:
           count: 1980038
           latest_block: 2657092
 
-    nutlink_ticker_addresses:
+    nutlink_address_ticker_and_tickers:
       type: object
       properties:
         latest_block:

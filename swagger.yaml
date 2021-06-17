@@ -5991,6 +5991,9 @@ components:
               - type: boolean
           additionalProperties: true
           description: Content of the ticker
+      required:
+        - latest_block
+        - payload
       example:
         - {
             latest_block: 2657092,
@@ -6020,13 +6023,13 @@ components:
           - count
           - latest_block
       example:
-        - asset: "ADAUSD"
+        - name: "ADAUSD"
           count: 1980038
           latest_block: 2657092
-        - asset: "ADAEUR"
+        - name: "ADAEUR"
           count: 1980038
           latest_block: 2657092
-        - asset: "ADABTC"
+        - name: "ADABTC"
           count: 1980038
           latest_block: 2657092
 
@@ -6052,6 +6055,10 @@ components:
               - type: boolean
           additionalProperties: true
           description: Content of the ticker
+      required:
+        - address
+        - latest_block
+        - payload
       example:
         - {
             address: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0",

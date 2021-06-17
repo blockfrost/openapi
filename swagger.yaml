@@ -3828,63 +3828,6 @@ paths:
           $ref: "#/components/responses/autobanned"
         "500":
           $ref: "#/components/responses/internal_server_error"
-
-  /nutlink/tickers/{ticker}/addresses:
-    get:
-      tags:
-        - Nut.link
-      description: List of metadata oracle addresses for a ticker
-      parameters:
-        - in: path
-          required: true
-          name: ticker
-          schema:
-            type: string
-        - in: query
-          name: count
-          required: false
-          schema:
-            type: integer
-            maximum: 100
-            default: 100
-          description: The number of results displayed on one page.
-        - in: query
-          name: page
-          required: false
-          schema:
-            type: integer
-            default: 1
-          description: The page number for listing the results.
-        - in: query
-          name: order
-          required: false
-          schema:
-            type: string
-            enum: [asc, desc]
-            default: asc
-          description: |
-            The ordering of items from the point of view of the blockchain,
-            not the page listing itself. By default, we return oldest first, newest last.
-      responses:
-        "200":
-          description: Return the list of metadata oracle addresses for a specific ticker
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/nutlink_ticker_addresses"
-        "400":
-          $ref: "#/components/responses/bad_request"
-        "403":
-          $ref: "#/components/responses/unauthorized_error"
-        "404":
-          $ref: "#/components/responses/not_found"
-        "429":
-          $ref: "#/components/responses/overusage_limit"
-        "418":
-          $ref: "#/components/responses/autobanned"
-        "500":
-          $ref: "#/components/responses/internal_server_error"
-
   /nutlink/tickers/{ticker}:
     get:
       tags:
@@ -6058,41 +6001,38 @@ components:
           count: 1980038
           latest_block: 2657092
 
-    nutlink_ticker_addresses:
-      type: array
-      items:
-        type: object
-        properties:
-          address:
-            type: string
-            description: Address of a metadata oracle
-            example: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0"
-          latest_block:
-            type: integer
-            description: Block height of the latest record
-            example: "2657092"
-        required:
-          - address
-          - latest_block
-
     nutlink_address_ticker:
-      type: array
-      items:
-        anyOf:
-          - type: string
-          - type: object
-          - type: array
-            items: {}
-          - type: integer
-          - type: number
-          - type: boolean
-      additionalProperties: true
-      description: Content of the ticker
+      type: object
+      properties:
+        address:
+          type: string
+          description: Address of a metadata oracle
+        latest_block:
+          type: integer
+          description: Block height of the latest record
+        payload:
+          type: array
+          items:
+            anyOf:
+              - type: string
+              - type: object
+              - type: array
+                items: {}
+              - type: integer
+              - type: number
+              - type: boolean
+          additionalProperties: true
+          description: Content of the ticker
       example:
-        - [
-            { source: "coinGecko", value: "1.29" },
-            { source: "cryptoCompare", value: "1.283" },
-          ]
+        - {
+            address: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0",
+            latest_block: 2657092,
+            payload:
+              [
+                { source: "coinGecko", value: "1.29" },
+                { source: "cryptoCompare", value: "1.283" },
+              ],
+          }
 
     empty_object:
       type: object

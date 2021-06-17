@@ -3766,7 +3766,7 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
-  /nutlink/{address}/{ticker}:
+  /nutlink/{address}/tickers/{ticker}:
     get:
       tags:
         - Nut.link
@@ -5973,27 +5973,20 @@ components:
         - metadata
 
     nutlink_address_ticker:
-      type: object
-      properties:
-        latest_block:
-          type: integer
-          description: Block height of the latest record
-        payload:
-          type: array
-          items:
-            anyOf:
-              - type: string
-              - type: object
-              - type: array
-                items: {}
-              - type: integer
-              - type: number
-              - type: boolean
-          additionalProperties: true
-          description: Content of the ticker
-      required:
-        - latest_block
-        - payload
+      type: array
+      items:
+        type: object
+        properties:
+          latest_block:
+            type: integer
+            description: Block height of the latest record
+          payload:
+            type: array
+            additionalProperties: true
+            description: Content of the ticker
+        required:
+          - latest_block
+          - payload
       example:
         - {
             latest_block: 2657092,
@@ -6034,31 +6027,24 @@ components:
           latest_block: 2657092
 
     nutlink_tickers_ticker:
-      type: object
-      properties:
-        address:
-          type: string
-          description: Address of a metadata oracle
-        latest_block:
-          type: integer
-          description: Block height of the latest record
-        payload:
-          type: array
-          items:
-            anyOf:
-              - type: string
-              - type: object
-              - type: array
-                items: {}
-              - type: integer
-              - type: number
-              - type: boolean
-          additionalProperties: true
-          description: Content of the ticker
-      required:
-        - address
-        - latest_block
-        - payload
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Address of a metadata oracle
+          latest_block:
+            type: integer
+            description: Block height of the latest record
+          payload:
+            type: array
+            additionalProperties: true
+            description: Content of the ticker
+        required:
+          - address
+          - latest_block
+          - payload
       example:
         - {
             address: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0",

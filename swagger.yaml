@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.21"
+  version: "0.1.22"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -5977,19 +5977,19 @@ components:
       items:
         type: object
         properties:
-          latest_block:
+          block_height:
             type: integer
-            description: Block height of the latest record
+            description: Block height of the record
           payload:
             type: array
             additionalProperties: true
             description: Content of the ticker
         required:
-          - latest_block
+          - block_height
           - payload
       example:
         - {
-            latest_block: 2657092,
+            block_height: 2657092,
             payload:
               [
                 { source: "coinGecko", value: "1.29" },

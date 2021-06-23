@@ -16,7 +16,7 @@ info:
   description: |
     Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
 
-    ## Authentication
+    ## Tokens
 
     After signing up on https://blockfrost.io, a `project_id` token is automatically generated for each project.
     HTTP header of your request MUST include this `project_id` in order to authenticate against Blockfrost servers.

@@ -4018,6 +4018,10 @@ components:
       type: apiKey
       in: header
       name: project_id
+      description: |
+        There are multiple token types available based on network you choose
+        when creating a Blockfrost a project, for a list of token types
+        see [Available networks](#section/Available-networks)
 
   schemas:
     block_content_array:

@@ -5998,6 +5998,8 @@ components:
             additionalProperties: true
             description: Content of the ticker
         required:
+          - tx_hash
+          - tx_index
           - block_height
           - payload
       example:
@@ -6049,21 +6051,38 @@ components:
           address:
             type: string
             description: Address of a metadata oracle
-          latest_block:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+          block_height:
             type: integer
-            description: Block height of the latest record
+            description: Block height of the record
+          tx_index:
+            type: integer
+            description: Transaction index within the block
           payload:
-            type: array
+            anyOf:
+              - type: string
+              - type: object
+              - type: array
+                items: {}
+              - type: integer
+              - type: number
+              - type: boolean
             additionalProperties: true
             description: Content of the ticker
         required:
           - address
-          - latest_block
+          - tx_hash
+          - block_height
+          - tx_index
           - payload
       example:
         - {
             address: "addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0",
-            latest_block: 2657092,
+            tx_hash: e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b,
+            block_height: 2657092,
+            tx_index: 8,
             payload:
               [
                 { source: "coinGecko", value: "1.29" },

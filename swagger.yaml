@@ -5987,7 +5987,14 @@ components:
             type: integer
             description: Transaction index within the block
           payload:
-            type: array
+            anyOf:
+              - type: string
+              - type: object
+              - type: array
+                items: {}
+              - type: integer
+              - type: number
+              - type: boolean
             additionalProperties: true
             description: Content of the ticker
         required:

@@ -5977,6 +5977,9 @@ components:
       items:
         type: object
         properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
           block_height:
             type: integer
             description: Block height of the record
@@ -5989,6 +5992,7 @@ components:
           - payload
       example:
         - {
+            tx_hash: e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b,
             block_height: 2657092,
             payload:
               [

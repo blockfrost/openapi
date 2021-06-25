@@ -6004,7 +6004,7 @@ components:
           - payload
       example:
         - {
-            tx_hash: e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b,
+            tx_hash: "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b",
             block_height: 2657092,
             tx_index: 8,
             payload:

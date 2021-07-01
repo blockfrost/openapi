@@ -4475,6 +4475,10 @@ components:
           type: integer
           example: 0
           description: Count of the stake pool retirement certificates within the transaction
+        asset_mint_or_burn_count:
+          type: integer
+          example: 0
+          description: Count of asset mints and burns within the transaction
       required:
         - block
         - block_height
@@ -4493,6 +4497,7 @@ components:
         - stake_cert_count
         - pool_update_count
         - pool_retire_count
+        - asset_mint_or_burn_count
     tx_content_utxo:
       type: object
       properties:
@@ -5738,6 +5743,10 @@ components:
           type: string
           example: "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad"
           description: ID of the initial minting transaction
+        mint_or_burn_count:
+          type: integer
+          example: 1
+          description: Count of mint and burn transactions
         onchain_metadata:
           type: object
           additionalProperties: true
@@ -5792,6 +5801,7 @@ components:
         - fingerprint
         - quantity
         - initial_mint_tx_hash
+        - mint_or_burn_count
         - metadata
         - onchain_metadata
 

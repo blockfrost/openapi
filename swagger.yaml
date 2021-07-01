@@ -5781,6 +5781,7 @@ components:
               maximum: 255
               nullable: true
               example: 6
+              description: Number of decimal places of the asset unit
           required:
             - name
             - description

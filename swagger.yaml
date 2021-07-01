@@ -5738,6 +5738,10 @@ components:
           type: string
           example: "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad"
           description: ID of the initial minting transaction
+        mint_or_burn_count:
+          type: integer
+          example: 1
+          description: Count of mint and burn transactions
         onchain_metadata:
           type: object
           additionalProperties: true
@@ -5792,6 +5796,7 @@ components:
         - fingerprint
         - quantity
         - initial_mint_tx_hash
+        - mint_or_burn_count
         - metadata
         - onchain_metadata
 

@@ -11,6 +11,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `mint_or_burn_count` property to `/assets/{asset}` endpoint
 - `asset_mint_or_burn_count` property to `/txs/{hash}` endpoint
+- `decimals` property to `/assets/{asset}` endpoint
 
 ## [0.1.22] - 2021-07-01
 

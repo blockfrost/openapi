@@ -4897,7 +4897,7 @@ components:
         stake_address:
           type: string
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
-          description: Bech32 stake address.
+          description: Bech32 stake address
         active:
           type: boolean
           example: true
@@ -5496,7 +5496,7 @@ components:
         pool_id:
           type: string
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
-          description: Bech32 pool ID.
+          description: Bech32 pool ID
         hex:
           type: string
           example: "0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735"
@@ -5592,11 +5592,11 @@ components:
         pool_id:
           type: string
           example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
-          description: Bech32 pool ID.
+          description: Bech32 pool ID
         hex:
           type: string
           example: "0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735"
-          description: Hexadecimal pool ID.
+          description: Hexadecimal pool ID
         url:
           type: string
           nullable: true

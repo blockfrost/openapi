@@ -8,8 +8,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ## [] - Unreleased
 
 ### Added
-
 - properties `tx_hash` and `output_index` to `inputs` of `/txs/{hash}/utxos` endpoint
+
+### Fixed
+- clarified active stake `amount` in `/epochs/{number}/stakes` and `/epochs/{number}/stakes/{pool_id}`
 
 ## [0.1.23] - 2021-07-01
 

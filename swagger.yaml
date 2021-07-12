@@ -4256,7 +4256,7 @@ components:
           amount:
             type: string
             example: "4440295078"
-            description: Amount of delegated stake in Lovelaces
+            description: Amount of active delegated stake in Lovelaces
         required:
           - stake_address
           - pool_id
@@ -4272,7 +4272,7 @@ components:
           amount:
             type: string
             example: "4440295078"
-            description: Amount of delegated stake in Lovelaces
+            description: Amount of active delegated stake in Lovelaces
         required:
           - stake_address
           - amount

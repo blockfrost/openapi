@@ -4531,9 +4531,19 @@ components:
                     quantity: "42000000"
                   - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
                     quantity: "12"
+              tx_hash:
+                type: string
+                example: "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
+                description: Hash of the UTXO transaction
+              output_index:
+                type: number
+                example: 0
+                description: UTXO index in the transaction
             required:
               - address
               - amount
+              - tx_hash
+              - output_index
         outputs:
           type: array
           items:

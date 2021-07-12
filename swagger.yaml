@@ -4288,6 +4288,10 @@ components:
     epoch_param_content:
       type: object
       properties:
+        epoch:
+          type: integer
+          example: 225
+          description: Epoch number
         min_fee_a:
           type: integer
           example: 44
@@ -4366,6 +4370,7 @@ components:
           example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
           description: Epoch number only used once
       required:
+        - epoch
         - min_fee_a
         - min_fee_b
         - max_block_size
@@ -4388,6 +4393,10 @@ components:
     tx_content:
       type: object
       properties:
+        hash:
+          type: string
+          example: "1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477"
+          description: Transaction hash
         block:
           type: string
           example: "356b7d7dbb696ccd12775c016941057a9dc70898d87a63fc752271bb46856940"
@@ -4480,6 +4489,7 @@ components:
           example: 0
           description: Count of asset mints and burns within the transaction
       required:
+        - hash
         - block
         - block_height
         - slot
@@ -4501,6 +4511,10 @@ components:
     tx_content_utxo:
       type: object
       properties:
+        hash:
+          type: string
+          example: "1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477"
+          description: Transaction hash
         inputs:
           type: array
           items:
@@ -4578,6 +4592,7 @@ components:
               - address
               - amount
       required:
+        - hash
         - inputs
         - outputs
     tx_content_stake_addr:
@@ -4879,6 +4894,10 @@ components:
     account_content:
       type: object
       properties:
+        stake_address:
+          type: string
+          example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
+          description: Bech32 stake address.
         active:
           type: boolean
           example: true
@@ -4917,6 +4936,7 @@ components:
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
           description: Bech32 pool ID that owns the account
       required:
+        - stake_address
         - active
         - active_epoch
         - controlled_amount
@@ -5112,6 +5132,10 @@ components:
     address_content:
       type: object
       properties:
+        address:
+          type: string
+          description: Bech32 encoded stake addresses
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         amount:
           type: array
           items:
@@ -5144,12 +5168,17 @@ components:
           example: shelley
           description: Address era
       required:
+        - address
         - amount
         - stake_address
         - type
     address_content_total:
       type: object
       properties:
+        address:
+          type: string
+          description: Bech32 encoded stake addresses
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         received_sum:
           type: array
           items:
@@ -5197,6 +5226,7 @@ components:
           example: 12
           description: Count of all transactions on the address
       required:
+        - address
         - received_sum
         - sent_sum
         - tx_count
@@ -5463,6 +5493,14 @@ components:
     pool:
       type: object
       properties:
+        pool_id:
+          type: string
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+          description: Bech32 pool ID.
+        hex:
+          type: string
+          example: "0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735"
+          description: Hexadecimal pool ID.
         vrf_key:
           type: string
           example: "0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233"
@@ -5530,6 +5568,8 @@ components:
             type: string
             example: "252f622976d39e646815db75a77289cf16df4ad2b287dd8e3a889ce14c13d1a8"
       required:
+        - pool_id
+        - hex
         - vrf_key
         - blocks_minted
         - live_stake
@@ -5549,6 +5589,14 @@ components:
     pool_metadata:
       type: object
       properties:
+        pool_id:
+          type: string
+          example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+          description: Bech32 pool ID.
+        hex:
+          type: string
+          example: "0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735"
+          description: Hexadecimal pool ID.
         url:
           type: string
           nullable: true
@@ -5580,6 +5628,8 @@ components:
           example: "https://stakentus.com/"
           description: Home page of the stake pool
       required:
+        - pool_id
+        - hex
         - url
         - hash
         - ticker
@@ -5732,6 +5782,10 @@ components:
     asset:
       type: object
       properties:
+        asset:
+          type: string
+          example: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+          description: Hex-encoded asset full name
         policy_id:
           type: string
           example: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a7"
@@ -5813,6 +5867,7 @@ components:
             - logo
             - decimals
       required:
+        - asset
         - policy_id
         - asset_name
         - fingerprint

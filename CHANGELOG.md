@@ -8,9 +8,17 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ## [] - Unreleased
 
 ### Added
+
 - properties `tx_hash` and `output_index` to `inputs` of `/txs/{hash}/utxos` endpoint
+- `stake_address` property to `/accounts/{stake_address}` endpoint
+- `address` property to `/addresses/{address}` and `/addresses/{address}/total` endpoints
+- `asset` property to `/assets/{asset}` endpoint
+- `epoch` property to `/epochs/{number}/parameters` and `/epochs/latest/parameters` endpoints
+- `pool_id` and `hex` properties to `/pools/{pool_id}` and `/pools/{pool_id}/metadata` endpoints
+- `hash` property to `/txs/{hash}` and `/txs/{hash}/utxos` endpoints
 
 ### Fixed
+
 - clarified active stake `amount` in `/epochs/{number}/stakes` and `/epochs/{number}/stakes/{pool_id}`
 
 ## [0.1.23] - 2021-07-01

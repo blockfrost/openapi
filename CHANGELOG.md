@@ -16,6 +16,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `epoch` property to `/epochs/{number}/parameters` and `/epochs/latest/parameters` endpoints
 - `pool_id` and `hex` properties to `/pools/{pool_id}` and `/pools/{pool_id}/metadata` endpoints
 - `hash` property to `/txs/{hash}` and `/txs/{hash}/utxos` endpoints
+- `address` property to `/nutlink/{address}` endpoint
 
 ### Fixed
 

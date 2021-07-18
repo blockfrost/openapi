@@ -89,7 +89,7 @@ info:
     We support a number of SDKs that will help you in developing your application on top of Blockfrost.
 
     <table>
-      <tr><td><b>Programming language</b></td><td><b>SDL</b></td></tr>
+      <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
       <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
     </table>
 

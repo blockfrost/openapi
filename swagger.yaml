@@ -83,6 +83,16 @@ info:
      whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
      We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
      we will make sure to take it into account as much as we can.
+     
+    ## SDKs
+    
+    We support a number of SDKs that will help you in developing your application on top of Blockfrost.
+
+    <table>
+      <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
+      <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
+    </table>
+
 
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0/

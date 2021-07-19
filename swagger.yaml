@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.24"
+  version: "0.1.25"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -2295,7 +2295,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of transactions per page.
         - in: query
           name: page
           required: false

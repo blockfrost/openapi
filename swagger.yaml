@@ -2295,7 +2295,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of transactions per page.
         - in: query
           name: page
           required: false

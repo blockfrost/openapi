@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.24"
+  version: "0.1.25"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -83,6 +83,16 @@ info:
      whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
      We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
      we will make sure to take it into account as much as we can.
+     
+    ## SDKs
+    
+    We support a number of SDKs that will help you in developing your application on top of Blockfrost.
+
+    <table>
+      <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
+      <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
+    </table>
+
 
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0/
@@ -105,6 +115,7 @@ tags:
   - name: Cardano » Epochs
   - name: Cardano » Ledger
   - name: Cardano » Metadata
+  - name: Cardano » Network
   - name: Cardano » Pools
   - name: Cardano » Transactions
   - name: IPFS » Add
@@ -2295,7 +2306,7 @@ paths:
             type: integer
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of transactions per page.
         - in: query
           name: page
           required: false
@@ -3664,6 +3675,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/metrics_endpoints"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /network:
+    get:
+      tags:
+        - Cardano » Network
+      summary: Network information
+      description: Return detailed network information.
+      responses:
+        "200":
+          description: Return detailed network information.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/network"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -6180,6 +6217,46 @@ components:
                 { source: "cryptoCompare", value: "1.283" },
               ],
           }
+
+    network:
+      type: object
+      properties:
+        supply:
+          type: object
+          properties:
+            max:
+              type: string
+              description: Maximum supply in Lovelaces
+              example: "45000000000000000"
+            total:
+              type: string
+              description: Current total (max supply - reserves) supply in Lovelaces
+              example: "32890715183299160"
+            circulating:
+              type: string
+              description: Current circulating (UTXOs + withdrawables) supply in Lovelaces
+              example: "32412601976210393"
+          required:
+            - max
+            - total
+            - circulating
+        stake:
+          type: object
+          properties:
+            live:
+              type: string
+              example: "23204950463991654"
+              description: Current live stake in Lovelaces
+            active:
+              type: string
+              description: Current active stake in Lovelaces
+              example: "22210233523456321"
+          required:
+            - live
+            - active
+      required:
+        - supply
+        - stake
 
     empty_object:
       type: object

@@ -320,7 +320,7 @@ paths:
           schema:
             type: string
             format: 64-character case-sensitive hexadecimal string or block number.
-          description: Hash of the requested block.
+          description: Hash or number of the requested block.
           example: "4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a"
       responses:
         "200":
@@ -384,7 +384,7 @@ paths:
         - Cardano » Blocks
       summary: Specific block in a slot in an epoch
       description: |
-        Return the content of a requested block for a specific slot in an epoch
+        Return the content of a requested block for a specific slot in an epoch.
       parameters:
         - in: path
           name: epoch_number
@@ -1511,7 +1511,7 @@ paths:
         - Cardano » Accounts
       summary: Account reward history
       description: |
-        Obtain information about the history of a specific account.
+        Obtain information about the reward history of a specific account.
       parameters:
         - in: path
           name: stake_address

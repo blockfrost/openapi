@@ -38,7 +38,7 @@ info:
     * Data is returned in *ascending* (oldest first, newest last) order.
       * You might use the `?order=desc` query parameter to reverse this order.
     * By default, we return 100 results at a time. You have to use `?page=2` to list through the results.
-    * All time and timestamp related fields are in milliseconds of UNIX time.
+    * All time and timestamp related fields are in seconds of UNIX time.
     * All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces.
     * Addresses, accounts and pool IDs are in Bech32 format.
     * All values are case sensitive.

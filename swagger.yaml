@@ -127,7 +127,6 @@ paths:
     get:
       tags:
         - Health
-      security: []
       summary: Root endpoint
       description: |
         Root endpoint has no other function than to point end users to documentation.
@@ -163,7 +162,6 @@ paths:
     get:
       tags:
         - Health
-      security: []
       summary: Backend health status
       description: |
         Return backend status as a boolean. Your application
@@ -196,7 +194,6 @@ paths:
     get:
       tags:
         - Health
-      security: []
       summary: Current backend time
       description: |
         This endpoint provides the current UNIX time. Your application might

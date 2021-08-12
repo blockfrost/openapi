@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.25"
+  version: "0.1.26"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -38,7 +38,7 @@ info:
     * Data is returned in *ascending* (oldest first, newest last) order.
       * You might use the `?order=desc` query parameter to reverse this order.
     * By default, we return 100 results at a time. You have to use `?page=2` to list through the results.
-    * All time and timestamp related fields are in milliseconds of UNIX time.
+    * All time and timestamp related fields (except `server_time`) are in seconds of UNIX time.
     * All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces.
     * Addresses, accounts and pool IDs are in Bech32 format.
     * All values are case sensitive.
@@ -127,7 +127,6 @@ paths:
     get:
       tags:
         - Health
-      security: []
       summary: Root endpoint
       description: |
         Root endpoint has no other function than to point end users to documentation.
@@ -163,7 +162,6 @@ paths:
     get:
       tags:
         - Health
-      security: []
       summary: Backend health status
       description: |
         Return backend status as a boolean. Your application
@@ -196,7 +194,6 @@ paths:
     get:
       tags:
         - Health
-      security: []
       summary: Current backend time
       description: |
         This endpoint provides the current UNIX time. Your application might
@@ -320,7 +317,7 @@ paths:
           schema:
             type: string
             format: 64-character case-sensitive hexadecimal string or block number.
-          description: Hash of the requested block.
+          description: Hash or number of the requested block.
           example: "4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a"
       responses:
         "200":
@@ -384,7 +381,7 @@ paths:
         - Cardano » Blocks
       summary: Specific block in a slot in an epoch
       description: |
-        Return the content of a requested block for a specific slot in an epoch
+        Return the content of a requested block for a specific slot in an epoch.
       parameters:
         - in: path
           name: epoch_number
@@ -798,7 +795,7 @@ paths:
       tags:
         - Cardano » Epochs
       summary: Stake distribution
-      description: Return the active stake distribution for the epoch specified.
+      description: Return the active stake distribution for the specified epoch.
       parameters:
         - in: path
           name: number
@@ -1511,7 +1508,7 @@ paths:
         - Cardano » Accounts
       summary: Account reward history
       description: |
-        Obtain information about the history of a specific account.
+        Obtain information about the reward history of a specific account.
       parameters:
         - in: path
           name: stake_address
@@ -3996,7 +3993,7 @@ components:
             properties:
               status_code:
                 type: integer
-                example: 505
+                example: 500
               error:
                 type: string
                 example: "Internal Server Error"
@@ -6043,8 +6040,8 @@ components:
           - calls
       example:
         - [
-            { "date": 1612543884, "calls": 42 },
-            { "date": 1614523884, "calls": 6942 },
+            { "time": 1612543884, "calls": 42 },
+            { "time": 1614523884, "calls": 6942 },
           ]
 
     metrics_endpoints:
@@ -6067,11 +6064,11 @@ components:
           - endpoint
       example:
         - [
-            { "date": 1612543814, "calls": 182, "endpoint": "block" },
-            { "date": 1612543814, "calls": 42, "endpoint": "epoch" },
-            { "date": 1612543812, "calls": 775, "endpoint": "block" },
-            { "date": 1612523884, "calls": 4, "endpoint": "epoch" },
-            { "date": 1612553884, "calls": 89794, "endpoint": "block" },
+            { "time": 1612543814, "calls": 182, "endpoint": "block" },
+            { "time": 1612543814, "calls": 42, "endpoint": "epoch" },
+            { "time": 1612543812, "calls": 775, "endpoint": "block" },
+            { "time": 1612523884, "calls": 4, "endpoint": "epoch" },
+            { "time": 1612553884, "calls": 89794, "endpoint": "block" },
           ]
 
     nutlink_address:

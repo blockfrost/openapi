@@ -3332,9 +3332,9 @@ paths:
                     example: QmZbHqiCxKEVX7QfijzJTkZiSi3WEVTcvANgNAWzDYgZDr
                     description: IPFS hash of the file
                   size:
-                    type: integer
-                    example: 125297
-                    description: Size of the file
+                    type: string
+                    example: "125297"
+                    description: IPFS node size in Bytes
                 required:
                   - name
                   - ipfs_hash

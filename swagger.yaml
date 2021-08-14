@@ -3525,7 +3525,8 @@ paths:
     get:
       tags:
         - IPFS » Pins
-      description: List objects pinned to local storage
+      summary: Get details about pinned object
+      description: Get information about locally pinned IPFS object
       parameters:
         - in: path
           required: true

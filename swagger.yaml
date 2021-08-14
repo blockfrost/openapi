@@ -4497,7 +4497,7 @@ components:
         withdrawal_count:
           type: integer
           example: 0
-          description: Count of the withdrawal within the transaction
+          description: Count of the withdrawals within the transaction
         mir_cert_count:
           type: integer
           example: 0

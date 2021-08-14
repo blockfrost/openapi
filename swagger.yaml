@@ -3304,7 +3304,7 @@ paths:
     post:
       tags:
         - IPFS » Add
-      summary: Add a file or directory to IPFS
+      summary: Add a file to IPFS
       description: |
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.

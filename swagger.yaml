@@ -207,7 +207,7 @@ paths:
                 type: object
                 properties:
                   server_time:
-                    type: number
+                    type: integer
                     example: 1603400958947
                 required:
                   - server_time
@@ -6032,7 +6032,7 @@ components:
         type: object
         properties:
           time:
-            type: number
+            type: integer
             description: Starting time of the call count interval (ends midnight UTC) in UNIX time
           calls:
             type: integer
@@ -6052,7 +6052,7 @@ components:
         type: object
         properties:
           time:
-            type: number
+            type: integer
             description: Starting time of the call count interval (ends midnight UTC) in UNIX time
           calls:
             type: integer

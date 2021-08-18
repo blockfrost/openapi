@@ -207,7 +207,7 @@ paths:
                 type: object
                 properties:
                   server_time:
-                    type: integer
+                    type: number
                     example: 1603400958947
                 required:
                   - server_time
@@ -6032,7 +6032,7 @@ components:
         type: object
         properties:
           time:
-            type: integer
+            type: number
             description: Starting time of the call count interval (ends midnight UTC) in UNIX time
           calls:
             type: integer
@@ -6041,10 +6041,10 @@ components:
           - time
           - calls
       example:
-        - [
-            { "time": 1612543884, "calls": 42 },
-            { "time": 1614523884, "calls": 6942 },
-          ]
+        - time: 1612543884
+          calls": 42
+        - time: 1614523884
+          calls: 6942
 
     metrics_endpoints:
       type: array
@@ -6052,7 +6052,7 @@ components:
         type: object
         properties:
           time:
-            type: integer
+            type: number
             description: Starting time of the call count interval (ends midnight UTC) in UNIX time
           calls:
             type: integer
@@ -6065,13 +6065,21 @@ components:
           - calls
           - endpoint
       example:
-        - [
-            { "time": 1612543814, "calls": 182, "endpoint": "block" },
-            { "time": 1612543814, "calls": 42, "endpoint": "epoch" },
-            { "time": 1612543812, "calls": 775, "endpoint": "block" },
-            { "time": 1612523884, "calls": 4, "endpoint": "epoch" },
-            { "time": 1612553884, "calls": 89794, "endpoint": "block" },
-          ]
+        - time: 1612543814
+          calls: 182
+          endpoint: "block"
+        - time: 1612543814
+          calls: 42
+          endpoint: "epoch"
+        - time: 1612543812
+          calls: 775
+          endpoint: "block"
+        - time: 1612523884
+          calls: 4
+          endpoint: "epoch"
+        - time: 1612553884
+          calls: 89794
+          endpoint: "block"
 
     nutlink_address:
       type: object

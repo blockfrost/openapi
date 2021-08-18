@@ -208,6 +208,7 @@ paths:
                 properties:
                   server_time:
                     type: integer
+                    format: int64
                     example: 1603400958947
                 required:
                   - server_time

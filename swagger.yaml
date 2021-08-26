@@ -91,6 +91,7 @@ info:
     <table>
       <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
       <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
+      <tr><td>Haskell</td><td><a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a></tr>
     </table>
 
 

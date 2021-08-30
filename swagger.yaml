@@ -4750,11 +4750,16 @@ components:
                 type: number
                 example: 0
                 description: UTXO index in the transaction
+              collateral:
+                type: boolean
+                example: false
+                description: Whatever the input is a script collateral
             required:
               - address
               - amount
               - tx_hash
               - output_index
+              - collateral
         outputs:
           type: array
           items:

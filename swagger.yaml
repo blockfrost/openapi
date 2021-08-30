@@ -4562,6 +4562,58 @@ components:
           type: string
           example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
           description: Epoch number only used once
+        # cost_models:
+        # https://github.com/input-output-hk/cardano-db-sync/pull/758
+        price_mem:
+          nullable: true
+          type: number
+          example: 0.001
+          description: The per word cost of script memory usage
+        price_step:
+          nullable: true
+          type: number
+          example: 0.01
+          description: The cost of script execution step usage
+        max_tx_ex_mem:
+          nullable: true
+          type: string
+          example: "11000000000"
+          description: The maximum number of execution memory allowed to be used in a single transaction
+        max_tx_ex_steps:
+          nullable: true
+          type: string
+          example: "11000000000"
+          description: The maximum number of execution steps allowed to be used in a single transaction
+        max_block_ex_mem:
+          nullable: true
+          type: string
+          example: "110000000000"
+          description: The maximum number of execution memory allowed to be used in a single block
+        max_block_ex_steps:
+          nullable: true
+          type: string
+          example: "110000000000"
+          description: The maximum number of execution steps allowed to be used in a single block
+        max_val_size:
+          nullable: true
+          type: string
+          example: "5000"
+          description: The maximum Val size
+        collateral_percent:
+          nullable: true
+          type: number
+          example: 1.5
+          description: The percentage of the txfee which must be provided as collateral when including non-native scripts
+        max_collateral_inputs:
+          nullable: true
+          type: integer
+          example: 6
+          description: The maximum number of collateral inputs allowed in a transaction
+        coins_per_utxo_word:
+          nullable: true
+          type: string
+          example: "34482"
+          description: The cost per UTxO word
       required:
         - epoch
         - min_fee_a
@@ -4583,6 +4635,16 @@ components:
         - min_utxo
         - min_pool_cost
         - nonce
+        - price_mem
+        - price_step
+        - max_tx_ex_mem
+        - max_tx_ex_steps
+        - max_block_ex_mem
+        - max_block_ex_steps
+        - max_val_size
+        - collateral_percent
+        - max_collateral_inputs
+        - coins_per_utxo_word
     tx_content:
       type: object
       properties:

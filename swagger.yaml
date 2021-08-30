@@ -3369,7 +3369,7 @@ paths:
             not the page listing itself. By default, we return oldest first, newest last.
       responses:
         "200":
-          description: Return list of assets
+          description: Return list of scripts
           content:
             application/json:
               schema:
@@ -3403,7 +3403,7 @@ paths:
           example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
       responses:
         "200":
-          description: Return the information about a specific scripts
+          description: Return the information about a specific script
           content:
             application/json:
               schema:
@@ -3426,7 +3426,7 @@ paths:
       tags:
         - Cardano » Scripts
       summary: Redeemers of a specific script
-      description: List of redeemers of a specifc script
+      description: List of redeemers of a specific script
       parameters:
         - in: path
           name: script_hash
@@ -3437,7 +3437,7 @@ paths:
           example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
       responses:
         "200":
-          description: Return the information about redeemers of a specific scripts
+          description: Return the information about redeemers of a specific script
           content:
             application/json:
               schema:
@@ -4603,7 +4603,7 @@ components:
           nullable: true
           type: number
           example: 1.5
-          description: The percentage of the txfee which must be provided as collateral when including non-native scripts
+          description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
         max_collateral_inputs:
           nullable: true
           type: integer
@@ -4746,7 +4746,7 @@ components:
         redeemer_count:
           type: integer
           example: 0
-          description: Count of redemmers within the transaction
+          description: Count of redeemers within the transaction
       required:
         - hash
         - block
@@ -4815,7 +4815,7 @@ components:
               collateral:
                 type: boolean
                 example: false
-                description: Whatever the input is a script collateral
+                description: Whether the input is a collateral consumed on script validation failure
             required:
               - address
               - amount
@@ -5176,7 +5176,7 @@ components:
           unit_steps:
             type: string
             example: "476468"
-            description: The budget in Cpu steps to run a script
+            description: The budget in CPU steps to run a script
           fee:
             type: string
             example: "172033"
@@ -5467,7 +5467,7 @@ components:
         script:
           type: boolean
           example: false
-          description: Shows if this address is locked by a script
+          description: True if this is a script address
       required:
         - address
         - amount
@@ -6360,7 +6360,7 @@ components:
           unit_steps:
             type: string
             example: "476468"
-            description: The budget in Cpu steps to run a script
+            description: The budget in CPU steps to run a script
           fee:
             type: string
             example: "172033"

@@ -5325,11 +5325,17 @@ components:
           enum: [byron, shelley]
           example: shelley
           description: Address era
+        script:
+          type: boolean
+          example: false
+          description: Shows if this address is locked by a script
       required:
         - address
         - amount
         - stake_address
         - type
+        - script
+
     address_content_total:
       type: object
       properties:

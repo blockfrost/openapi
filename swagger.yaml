@@ -6445,10 +6445,15 @@ components:
               type: string
               description: Current circulating (UTXOs + withdrawables) supply in Lovelaces
               example: "32412601976210393"
+            locked:
+              type: string
+              description: Curent locked supply by scripts in Lovelaces
+              example: "125006953355"
           required:
             - max
             - total
             - circulating
+            - locked
         stake:
           type: object
           properties:

@@ -1377,41 +1377,6 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
-  /txs/{hash}/redeemers:
-    get:
-      tags:
-        - Cardano » Transactions
-      summary: Transaction redeemers
-      description: Obtain the transaction redeemers.
-      parameters:
-        - in: path
-          name: hash
-          required: true
-          schema:
-            type: string
-            format: 64-character case-sensitive hexadecimal string.
-          description: Hash of the requested transaction
-          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
-      responses:
-        "200":
-          description: Obtain information about redeemers within a specific transaction.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/tx_content_redeemers"
-        "400":
-          $ref: "#/components/responses/bad_request"
-        "403":
-          $ref: "#/components/responses/unauthorized_error"
-        "404":
-          $ref: "#/components/responses/not_found"
-        "429":
-          $ref: "#/components/responses/overusage_limit"
-        "418":
-          $ref: "#/components/responses/autobanned"
-        "500":
-          $ref: "#/components/responses/internal_server_error"
-
   /txs/{hash}/metadata/cbor:
     get:
       tags:
@@ -1434,6 +1399,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/tx_content_metadata_cbor"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/redeemers:
+    get:
+      tags:
+        - Cardano » Transactions
+      summary: Transaction redeemers
+      description: Obtain the transaction redeemers.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about redeemers within a specific transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content_redeemers"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3435,6 +3435,31 @@ paths:
             type: string
           description: Hash of the script
           example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         "200":
           description: Return the information about redeemers of a specific script
@@ -4767,6 +4792,7 @@ components:
         - pool_update_count
         - pool_retire_count
         - asset_mint_or_burn_count
+        - redeemer_count
     tx_content_utxo:
       type: object
       properties:
@@ -5577,6 +5603,7 @@ components:
           - output_index
           - amount
           - block
+          - data_hash
       example:
         - tx_hash: "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58"
           output_index: 0

@@ -5189,7 +5189,7 @@ components:
           tx_index:
             type: integer
             example: 0
-            description: Index of the certificate within the transaction
+            description: Index of the redeemer within the transaction
           purpose:
             type: string
             enum: [spend, mint, cert, reward]

@@ -5186,7 +5186,7 @@ components:
       items:
         type: object
         properties:
-          tx_index:
+          cert_index:
             type: integer
             example: 0
             description: Index of the certificate within the transaction

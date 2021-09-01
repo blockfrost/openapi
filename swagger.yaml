@@ -117,8 +117,8 @@ tags:
   - name: Cardano » Metadata
   - name: Cardano » Network
   - name: Cardano » Pools
-  - name: Cardano » Transactions
   - name: Cardano » Scripts
+  - name: Cardano » Transactions
   - name: IPFS » Add
   - name: IPFS » Gateway
   - name: IPFS » Pins

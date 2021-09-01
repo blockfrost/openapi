@@ -5208,7 +5208,7 @@ components:
             example: "172033"
             description: The fee consumed to run the script
         required:
-          - index
+          - cert_index
           - purpose
           - unit_mem
           - unit_steps

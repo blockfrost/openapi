@@ -960,7 +960,7 @@ paths:
     get:
       tags:
         - Cardano » Epochs
-      summary: Block distribution
+      summary: Block distribution by pool
       description: Return the block minted for the epoch specified by stake pool.
       parameters:
         - in: path

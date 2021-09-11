@@ -4772,6 +4772,10 @@ components:
           type: integer
           example: 0
           description: Count of redeemers within the transaction
+        valid_contract:
+          type: boolean
+          example: true
+          description: True if contract script passed validation
       required:
         - hash
         - block
@@ -4793,6 +4797,7 @@ components:
         - pool_retire_count
         - asset_mint_or_burn_count
         - redeemer_count
+        - valid_contract
     tx_content_utxo:
       type: object
       properties:

@@ -19,6 +19,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
   - `script` property to `/addresses/{hash}`, which is `true` when
     the address is a script address.
   - `redeemer_count` property to `/txs/{hash}` endpoint
+  - `valid_contract` property to `/txs/{hash}` endpoint, `true` when attached
+    script passed validation, `false` if it failed phase 2 validation
   - Boolean `collateral` property to `inputs` object
     of `/txs/{hash}/utxos` endpoint
   - `data_hash` property to both `inputs` and `outputs` objects of

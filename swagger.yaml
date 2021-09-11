@@ -6410,6 +6410,10 @@ components:
             enum: [spend, mint, cert, reward]
             example: "spend"
             description: Validation purpose
+          datum_hash:
+            type: string
+            example: "923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec"
+            description: Datum hash
           unit_mem:
             type: string
             example: "1700"
@@ -6426,6 +6430,7 @@ components:
           - tx_hash
           - tx_index
           - purpose
+          - datum_hash
           - unit_mem
           - unit_steps
           - fee

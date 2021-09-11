@@ -3480,6 +3480,40 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /scripts/datum/{datum_hash}:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Datum value
+      description: Query JSON value of a datum by its hash
+      parameters:
+        - in: path
+          name: datum_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the datum
+          example: "db583ad85881a96c73fbb26ab9e24d1120bb38f45385664bb9c797a2ea8d9a2d"
+      responses:
+        "200":
+          description: Return the datum value
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/script_datum"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /ipfs/add:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -6434,6 +6468,27 @@ components:
           - unit_mem
           - unit_steps
           - fee
+
+    script_datum:
+      type: object
+      properties:
+        json_value:
+          anyOf:
+            - type: string
+            - type: object
+            - type: array
+              items: {}
+            - type: integer
+            - type: number
+            - type: boolean
+          description: JSON content of the datum
+      required:
+        - json_value
+      example:
+        json_value:
+          {
+            "int": 42
+          }
 
     metrics:
       type: array

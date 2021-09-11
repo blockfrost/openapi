@@ -13,6 +13,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
   - `/scripts` endpoint for listing all scripts
   - `/scripts/{hash}` endpoint for script details
   - `/scripts/{hash}/redeemers` endpoint for listing reedemers of a script
+  - `/scripts/datum/{hash}` endpoint
   - `/txs/{hash}/redeemers` endpoint for querying transaction redeemers
   - `locked` property to `/network` endpoint, representing total supply locked
     by scripts

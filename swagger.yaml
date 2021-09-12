@@ -6172,8 +6172,10 @@ components:
               description: Name of the asset
               example: "My NFT token"
             image:
-              type: string
-              description: URI of the associated asset
+              oneOf:
+                - type: string
+                - type: array
+              description: URI(s) of the associated asset
               example: "ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226"
         metadata:
           type: object

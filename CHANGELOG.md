@@ -32,6 +32,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/ipfs/add` size response type fixed from integer to string
 - types of IPFS size examples
 - description of `ipfs/pin/list/<object>`
+- `onchain_metadata` type of `/assets/{asset}` endpoint
 
 ## [0.1.26] - 2021-08-12
 

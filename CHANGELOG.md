@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
+## [0.1.27] - 2021-09-12
+
+### Added
+
+- Alonzo support related additions
+  - `/scripts` endpoint for listing all scripts
+  - `/scripts/{hash}` endpoint for script details
+  - `/scripts/{hash}/redeemers` endpoint for listing reedemers of a script
+  - `/txs/{hash}/redeemers` endpoint for querying transaction redeemers
+  - `locked` property to `/network` endpoint, representing total supply locked
+    by scripts
+  - `script` property to `/addresses/{hash}`, which is `true` when
+    the address is a script address.
+  - `redeemer_count` property to `/txs/{hash}` endpoint
+  - Boolean `collateral` property to `inputs` object
+    of `/txs/{hash}/utxos` endpoint
+  - `data_hash` property to both `inputs` and `outputs` objects of
+    `/txs/{hash}/utxos` endpoint
+  - `data_hash` property to `/addressess/{hash}/utxos` endpoint
+  - `/epoch/latest/parameters` and `/epoch/{number}/parameters`
+    extended with cost model fields.
+
+### Fixed
+
+- `/ipfs/add` size response type fixed from integer to string
+- types of IPFS size examples
+- description of `ipfs/pin/list/<object>`
+- `onchain_metadata` type of `/assets/{asset}` endpoint
+
 ## [0.1.26] - 2021-08-12
 
 ### Fixed

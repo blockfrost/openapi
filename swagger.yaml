@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.26"
+  version: "0.1.27"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -85,14 +85,14 @@ info:
      we will make sure to take it into account as much as we can.
      
     ## SDKs
-    
+
     We support a number of SDKs that will help you in developing your application on top of Blockfrost.
 
     <table>
       <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
       <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
+      <tr><td>Haskell</td><td><a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a></tr>
     </table>
-
 
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0/
@@ -117,6 +117,7 @@ tags:
   - name: Cardano » Metadata
   - name: Cardano » Network
   - name: Cardano » Pools
+  - name: Cardano » Scripts
   - name: Cardano » Transactions
   - name: IPFS » Add
   - name: IPFS » Gateway
@@ -208,6 +209,7 @@ paths:
                 properties:
                   server_time:
                     type: integer
+                    format: int64
                     example: 1603400958947
                 required:
                   - server_time
@@ -958,7 +960,7 @@ paths:
     get:
       tags:
         - Cardano » Epochs
-      summary: Block distribution
+      summary: Block distribution by pool
       description: Return the block minted for the epoch specified by stake pool.
       parameters:
         - in: path
@@ -1397,6 +1399,41 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/tx_content_metadata_cbor"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /txs/{hash}/redeemers:
+    get:
+      tags:
+        - Cardano » Transactions
+      summary: Transaction redeemers
+      description: Obtain the transaction redeemers.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      responses:
+        "200":
+          description: Obtain information about redeemers within a specific transaction.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tx_content_redeemers"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -3298,13 +3335,158 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /scripts:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Scripts
+      description: List of scripts.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return list of scripts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/scripts"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /scripts/{script_hash}:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Specific script
+      description: Information about a specific script
+      parameters:
+        - in: path
+          name: script_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the script
+          example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+      responses:
+        "200":
+          description: Return the information about a specific script
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/script"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /scripts/{script_hash}/redeemers:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Redeemers of a specific script
+      description: List of redeemers of a specific script
+      parameters:
+        - in: path
+          name: script_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the script
+          example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the information about redeemers of a specific script
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/script_redeemers"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /ipfs/add:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
     post:
       tags:
         - IPFS » Add
-      summary: Add a file or directory to IPFS
+      summary: Add a file to IPFS
       description: |
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.
@@ -3332,9 +3514,9 @@ paths:
                     example: QmZbHqiCxKEVX7QfijzJTkZiSi3WEVTcvANgNAWzDYgZDr
                     description: IPFS hash of the file
                   size:
-                    type: integer
-                    example: 125297
-                    description: Size of the file
+                    type: string
+                    example: "125297"
+                    description: IPFS node size in Bytes
                 required:
                   - name
                   - ipfs_hash
@@ -3437,6 +3619,7 @@ paths:
     get:
       tags:
         - IPFS » Pins
+      summary: List pinned objects
       description: List objects pinned to local storage
       parameters:
         - in: query
@@ -3489,7 +3672,7 @@ paths:
                     size:
                       type: string
                       description: Size of the object in Bytes
-                      example: 1615551024
+                      example: "1615551024"
                     state:
                       type: string
                       enum: [queued|pinned|unpinned|failed|gc]
@@ -3524,7 +3707,8 @@ paths:
     get:
       tags:
         - IPFS » Pins
-      description: List objects pinned to local storage
+      summary: Get details about pinned object
+      description: Get information about locally pinned IPFS object
       parameters:
         - in: path
           required: true
@@ -3555,7 +3739,7 @@ paths:
                   size:
                     type: string
                     description: Size of the object in Bytes
-                    example: 1615551024
+                    example: "1615551024"
                   state:
                     type: string
                     enum: [queued|pinned|unpinned|failed|gc]
@@ -4403,6 +4587,58 @@ components:
           type: string
           example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
           description: Epoch number only used once
+        # cost_models:
+        # https://github.com/input-output-hk/cardano-db-sync/pull/758
+        price_mem:
+          nullable: true
+          type: number
+          example: 0.001
+          description: The per word cost of script memory usage
+        price_step:
+          nullable: true
+          type: number
+          example: 0.01
+          description: The cost of script execution step usage
+        max_tx_ex_mem:
+          nullable: true
+          type: string
+          example: "11000000000"
+          description: The maximum number of execution memory allowed to be used in a single transaction
+        max_tx_ex_steps:
+          nullable: true
+          type: string
+          example: "11000000000"
+          description: The maximum number of execution steps allowed to be used in a single transaction
+        max_block_ex_mem:
+          nullable: true
+          type: string
+          example: "110000000000"
+          description: The maximum number of execution memory allowed to be used in a single block
+        max_block_ex_steps:
+          nullable: true
+          type: string
+          example: "110000000000"
+          description: The maximum number of execution steps allowed to be used in a single block
+        max_val_size:
+          nullable: true
+          type: string
+          example: "5000"
+          description: The maximum Val size
+        collateral_percent:
+          nullable: true
+          type: number
+          example: 1.5
+          description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
+        max_collateral_inputs:
+          nullable: true
+          type: integer
+          example: 6
+          description: The maximum number of collateral inputs allowed in a transaction
+        coins_per_utxo_word:
+          nullable: true
+          type: string
+          example: "34482"
+          description: The cost per UTxO word
       required:
         - epoch
         - min_fee_a
@@ -4424,6 +4660,16 @@ components:
         - min_utxo
         - min_pool_cost
         - nonce
+        - price_mem
+        - price_step
+        - max_tx_ex_mem
+        - max_tx_ex_steps
+        - max_block_ex_mem
+        - max_block_ex_steps
+        - max_val_size
+        - collateral_percent
+        - max_collateral_inputs
+        - coins_per_utxo_word
     tx_content:
       type: object
       properties:
@@ -4497,7 +4743,7 @@ components:
         withdrawal_count:
           type: integer
           example: 0
-          description: Count of the withdrawal within the transaction
+          description: Count of the withdrawals within the transaction
         mir_cert_count:
           type: integer
           example: 0
@@ -4522,6 +4768,10 @@ components:
           type: integer
           example: 0
           description: Count of asset mints and burns within the transaction
+        redeemer_count:
+          type: integer
+          example: 0
+          description: Count of redeemers within the transaction
       required:
         - hash
         - block
@@ -4542,6 +4792,7 @@ components:
         - pool_update_count
         - pool_retire_count
         - asset_mint_or_burn_count
+        - redeemer_count
     tx_content_utxo:
       type: object
       properties:
@@ -4587,11 +4838,21 @@ components:
                 type: number
                 example: 0
                 description: UTXO index in the transaction
+              data_hash:
+                type: string
+                description: The hash of the transaction output datum
+                nullable: true
+              collateral:
+                type: boolean
+                example: false
+                description: Whether the input is a collateral consumed on script validation failure
             required:
               - address
               - amount
               - tx_hash
               - output_index
+              - data_hash
+              - collateral
         outputs:
           type: array
           items:
@@ -4614,14 +4875,20 @@ components:
                     quantity:
                       type: string
                       description: The quantity of the unit
+                    data_hash:
+                      type: string
+                      description: The hash of the transaction output datum
+                      nullable: true
                   required:
                     - unit
                     - quantity
                 example:
                   - unit: "lovelace"
                     quantity: "42000000"
+                    data_hash: null
                   - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
                     quantity: "12"
+                    data_hash: "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
             required:
               - address
               - amount
@@ -4925,6 +5192,39 @@ components:
       example:
         - label: "1968"
           cbor_metadata: "\\xa100a16b436f6d62696e6174696f6e8601010101010c"
+    tx_content_redeemers:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_index:
+            type: integer
+            example: 0
+            description: Index of the redeemer within the transaction
+          purpose:
+            type: string
+            enum: [spend, mint, cert, reward]
+            example: "spend"
+            description: Validation purpose
+          unit_mem:
+            type: string
+            example: "1700"
+            description: The budget in Memory to run a script
+          unit_steps:
+            type: string
+            example: "476468"
+            description: The budget in CPU steps to run a script
+          fee:
+            type: string
+            example: "172033"
+            description: The fee consumed to run the script
+        required:
+          - tx_index
+          - purpose
+          - unit_mem
+          - unit_steps
+          - fee
+
     account_content:
       type: object
       properties:
@@ -5201,11 +5501,17 @@ components:
           enum: [byron, shelley]
           example: shelley
           description: Address era
+        script:
+          type: boolean
+          example: false
+          description: True if this is a script address
       required:
         - address
         - amount
         - stake_address
         - type
+        - script
+
     address_content_total:
       type: object
       properties:
@@ -5297,13 +5603,18 @@ components:
                 - quantity
           block:
             type: string
-            description: Block number of the UTXO
+            description: Block hash of the UTXO
+          data_hash:
+            type: string
+            description: The hash of the transaction output datum
+            nullable: true
         required:
           - tx_hash
           - tx_index
           - output_index
           - amount
           - block
+          - data_hash
       example:
         - tx_hash: "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58"
           output_index: 0
@@ -5311,12 +5622,14 @@ components:
             - unit: "lovelace"
               quantity: "42000000"
           block: "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6"
+          data_hash: "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
         - tx_hash: "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49"
           output_index: 0
           amount:
             - unit: "lovelace"
               quantity: "729235000"
           block: "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7"
+          data_hash: null
         - tx_hash: "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2"
           output_index: 1
           amount:
@@ -5325,6 +5638,7 @@ components:
             - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
               quantity: "12"
           block: "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7"
+          data_hash: null
     address_txs_content:
       type: array
       items:
@@ -5858,8 +6172,10 @@ components:
               description: Name of the asset
               example: "My NFT token"
             image:
-              type: string
-              description: URI of the associated asset
+              oneOf:
+                - type: string
+                - type: array
+              description: URI(s) of the associated asset
               example: "ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226"
         metadata:
           type: object
@@ -6024,6 +6340,81 @@ components:
         - asset: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb574636f696e"
           quantity: "18605647"
 
+    scripts:
+      type: array
+      items:
+        type: object
+        properties:
+          script_hash:
+            type: string
+            description: Script hash
+        required:
+          - script_hash
+      example:
+        - script_hash: "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
+        - script_hash: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+        - script_hash: "a6e63c0ff05c96943d1cc30bf53112ffff0f34b45986021ca058ec54"
+
+    script:
+      type: object
+      properties:
+        script_hash:
+          type: string
+          example: "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
+          description: Script hash
+        type:
+          type: string
+          enum: [timelock, plutus]
+          example: "plutus"
+          description: Type of the script language
+        serialised_size:
+          type: integer
+          nullable: true
+          description: The size of the CBOR serialised script, if a Plutus script
+          example: 3119
+      required:
+        - script_hash
+        - type
+        - serialised_size
+
+    script_redeemers:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            example: "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
+            description: Hash of the transaction
+          tx_index:
+            type: integer
+            example: 0
+            description: The index of the redeemer pointer in the transaction
+          purpose:
+            type: string
+            enum: [spend, mint, cert, reward]
+            example: "spend"
+            description: Validation purpose
+          unit_mem:
+            type: string
+            example: "1700"
+            description: The budget in Memory to run a script
+          unit_steps:
+            type: string
+            example: "476468"
+            description: The budget in CPU steps to run a script
+          fee:
+            type: string
+            example: "172033"
+            description: The fee consumed to run the script
+        required:
+          - tx_hash
+          - tx_index
+          - purpose
+          - unit_mem
+          - unit_steps
+          - fee
+
     metrics:
       type: array
       items:
@@ -6039,10 +6430,10 @@ components:
           - time
           - calls
       example:
-        - [
-            { "time": 1612543884, "calls": 42 },
-            { "time": 1614523884, "calls": 6942 },
-          ]
+        - time: 1612543884
+          calls: 42
+        - time: 1614523884
+          calls: 6942
 
     metrics_endpoints:
       type: array
@@ -6063,13 +6454,21 @@ components:
           - calls
           - endpoint
       example:
-        - [
-            { "time": 1612543814, "calls": 182, "endpoint": "block" },
-            { "time": 1612543814, "calls": 42, "endpoint": "epoch" },
-            { "time": 1612543812, "calls": 775, "endpoint": "block" },
-            { "time": 1612523884, "calls": 4, "endpoint": "epoch" },
-            { "time": 1612553884, "calls": 89794, "endpoint": "block" },
-          ]
+        - time: 1612543814
+          calls: 182
+          endpoint: "block"
+        - time: 1612543814
+          calls: 42
+          endpoint: "epoch"
+        - time: 1612543812
+          calls: 775
+          endpoint: "block"
+        - time: 1612523884
+          calls: 4
+          endpoint: "epoch"
+        - time: 1612553884
+          calls: 89794
+          endpoint: "block"
 
     nutlink_address:
       type: object
@@ -6080,7 +6479,7 @@ components:
           example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         metadata_url:
           type: string
-          description: URL do specific metadata file
+          description: URL of the specific metadata file
           example: "https://nut.link/metadata.json"
         metadata_hash:
           type: string
@@ -6233,10 +6632,15 @@ components:
               type: string
               description: Current circulating (UTXOs + withdrawables) supply in Lovelaces
               example: "32412601976210393"
+            locked:
+              type: string
+              description: Curent locked supply by scripts in Lovelaces
+              example: "125006953355"
           required:
             - max
             - total
             - circulating
+            - locked
         stake:
           type: object
           properties:

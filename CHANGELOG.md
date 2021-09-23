@@ -9,6 +9,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Added
 
+- `output_index` to each `output` item for `/txs/{tx}/utxos` endpoint
+
 ### Changed
 
 - `/txs/{tx}/metadata/cbor` and `metadata/txs/labels/{label}/cbor` property `cbor_metadata` is now deprecated in favour of `cbor` property

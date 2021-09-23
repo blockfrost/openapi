@@ -4886,6 +4886,10 @@ components:
                     quantity: "42000000"
                   - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
                     quantity: "12"
+              output_index:
+                type: number
+                example: 0
+                description: UTXO index in the transaction
               data_hash:
                 type: string
                 description: The hash of the transaction output datum
@@ -4894,6 +4898,7 @@ components:
             required:
               - address
               - amount
+              - output_index
               - data_hash
       required:
         - hash

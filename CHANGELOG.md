@@ -9,11 +9,15 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Added
 
+- `output_index` to each `output` item for `/txs/{tx}/utxos` endpoint
+
 ### Changed
 
 - `/txs/{tx}/metadata/cbor` and `metadata/txs/labels/{label}/cbor` property `cbor_metadata` is now deprecated in favour of `cbor` property
 
 ### Fixed
+
+- `/txs/{tx}/utxos` - `data_hash` field moved up from `amount` to `output` item
 
 ## [0.1.27] - 2021-09-12
 

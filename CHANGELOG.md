@@ -18,6 +18,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Fixed
 
 - `/txs/{tx}/utxos` - `data_hash` field moved up from `amount` to `output` item
+- `/txs/{tx}/utxos` - `output_index` of `input` items switch from `number` to `integer`
 
 ## [0.1.27] - 2021-09-12
 

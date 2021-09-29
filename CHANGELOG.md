@@ -9,6 +9,14 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [0.1.28] - 2021-09-29
+
+### Added
+
 - `output_index` to each `output` item for `/txs/{hash}/utxos` endpoint
 
 ### Changed

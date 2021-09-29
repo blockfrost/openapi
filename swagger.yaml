@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.27"
+  version: "0.1.28"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -92,6 +92,8 @@ info:
       <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
       <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
       <tr><td>Haskell</td><td><a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a></tr>
+      <tr><td>Java</td><td><a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a></tr>
+      <tr><td>Ruby</td><td><a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a></tr>
     </table>
 
 servers:
@@ -4835,12 +4837,13 @@ components:
                 example: "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
                 description: Hash of the UTXO transaction
               output_index:
-                type: number
+                type: integer
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
                 type: string
                 description: The hash of the transaction output datum
+                example: "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
                 nullable: true
               collateral:
                 type: boolean
@@ -4875,23 +4878,28 @@ components:
                     quantity:
                       type: string
                       description: The quantity of the unit
-                    data_hash:
-                      type: string
-                      description: The hash of the transaction output datum
-                      nullable: true
                   required:
                     - unit
                     - quantity
                 example:
                   - unit: "lovelace"
                     quantity: "42000000"
-                    data_hash: null
                   - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
                     quantity: "12"
-                    data_hash: "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
+              output_index:
+                type: integer
+                example: 0
+                description: UTXO index in the transaction
+              data_hash:
+                type: string
+                description: The hash of the transaction output datum
+                nullable: true
+                example: "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
             required:
               - address
               - amount
+              - output_index
+              - data_hash
       required:
         - hash
         - inputs
@@ -5183,15 +5191,22 @@ components:
             type: string
             description: Metadata label
           cbor_metadata:
+            deprecated: true
             type: string
             nullable: true
             description: Content of the CBOR metadata
+          metadata:
+            type: string
+            nullable: true
+            description: Content of the CBOR metadata in hex
         required:
           - label
           - cbor_metadata
+          - metadata
       example:
         - label: "1968"
           cbor_metadata: "\\xa100a16b436f6d62696e6174696f6e8601010101010c"
+          metadata: "a100a16b436f6d62696e6174696f6e8601010101010c"
     tx_content_redeemers:
       type: array
       items:
@@ -5752,19 +5767,28 @@ components:
             type: string
             description: Transaction hash that contains the specific metadata
           cbor_metadata:
+            deprecated: true
             type: string
             nullable: true
             description: Content of the CBOR metadata
+          metadata:
+            type: string
+            nullable: true
+            description: Content of the CBOR metadata in hex
         required:
           - tx_hash
           - cbor_metadata
+          - metadata
       example:
         - tx_hash: "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8"
           cbor_metadata: null
+          metadata: null
         - tx_hash: "e865f2cc01ca7381cf98dcdc4de07a5e8674b8ea16e6a18e3ed60c186fde2b9c"
           cbor_metadata: null
+          metadata: null
         - tx_hash: 4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be
           cbor_metadata: "\\xa100a16b436f6d62696e6174696f6e8601010101010c"
+          metadata: "a100a16b436f6d62696e6174696f6e8601010101010c"
     pool_list:
       type: array
       items:
@@ -6636,11 +6660,21 @@ components:
               type: string
               description: Curent locked supply by scripts in Lovelaces
               example: "125006953355"
+            treasury:
+              type: string
+              description: Curent supply locked in treasury
+              example: "98635632000000"
+            reserves:
+              type: string
+              description: Curent supply locked in reserves
+              example: "46635632000000"
           required:
             - max
             - total
             - circulating
             - locked
+            - treasury
+            - reserves
         stake:
           type: object
           properties:

@@ -166,6 +166,7 @@ paths:
       tags:
         - Health
       summary: Backend health status
+      security: []
       description: |
         Return backend status as a boolean. Your application
             should handle situations when backend for the given chain is unavailable.

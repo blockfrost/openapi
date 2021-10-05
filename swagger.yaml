@@ -2298,7 +2298,72 @@ paths:
             enum: [asc, desc]
             default: asc
           description: |
-            Ordered by tx index in the block.
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the address content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/address_utxo_content"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /addresses/{address}/utxos/{asset}:
+    get:
+      tags:
+        - Cardano » Addresses
+      summary: Address UTXOs of a given asset
+      description: UTXOs of the address.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 address.
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+        - in: path
+          name: asset
+          required: true
+          schema:
+            type: string
+          description: Concatenation of the policy_id and hex-encoded asset_name
+          example: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
             The ordering of items from the point of view of the blockchain,
             not the page listing itself. By default, we return oldest first, newest last.
       responses:

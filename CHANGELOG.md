@@ -9,6 +9,15 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Added
 
+### Changed
+
+### Fixed
+
+
+## [0.1.29] - 2021-10-07
+
+### Added
+
 - `/addresses/{address}/utxos/{asset}` endpoint
 
 ### Changed

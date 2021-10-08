@@ -13,6 +13,19 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Fixed
 
+
+## [0.1.29] - 2021-10-07
+
+### Added
+
+- `/addresses/{address}/utxos/{asset}` endpoint
+
+### Changed
+
+### Fixed
+
+- description of `stake_cert_count` in `/txs/{hash}`
+
 ## [0.1.28] - 2021-09-29
 
 ### Added

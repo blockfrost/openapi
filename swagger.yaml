@@ -4665,32 +4665,32 @@ components:
         price_mem:
           nullable: true
           type: number
-          example: 0.001
+          example: 0.0577
           description: The per word cost of script memory usage
         price_step:
           nullable: true
           type: number
-          example: 0.01
+          example: 0.0000721
           description: The cost of script execution step usage
         max_tx_ex_mem:
           nullable: true
           type: string
-          example: "11000000000"
+          example: "10000000"
           description: The maximum number of execution memory allowed to be used in a single transaction
         max_tx_ex_steps:
           nullable: true
           type: string
-          example: "11000000000"
+          example: "10000000000"
           description: The maximum number of execution steps allowed to be used in a single transaction
         max_block_ex_mem:
           nullable: true
           type: string
-          example: "110000000000"
+          example: "50000000"
           description: The maximum number of execution memory allowed to be used in a single block
         max_block_ex_steps:
           nullable: true
           type: string
-          example: "110000000000"
+          example: "40000000000"
           description: The maximum number of execution steps allowed to be used in a single block
         max_val_size:
           nullable: true
@@ -4700,12 +4700,12 @@ components:
         collateral_percent:
           nullable: true
           type: number
-          example: 1.5
+          example: 150
           description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
         max_collateral_inputs:
           nullable: true
           type: integer
-          example: 6
+          example: 3
           description: The maximum number of collateral inputs allowed in a transaction
         coins_per_utxo_word:
           nullable: true

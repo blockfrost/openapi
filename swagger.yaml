@@ -4699,7 +4699,7 @@ components:
           description: The maximum Val size
         collateral_percent:
           nullable: true
-          type: number
+          type: integer
           example: 150
           description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
         max_collateral_inputs:

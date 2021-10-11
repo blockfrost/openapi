@@ -11,6 +11,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Changed
 
+* `/epochs/{number}/parameters` - `collateral_percent` type from `number` to `integer`
+
 ### Fixed
 
 

@@ -58,6 +58,7 @@ info:
     * HTTP `403` return code is used when the request is not authenticated.
     * HTTP `404` return code is used when the resource doesn't exist.
     * HTTP `418` return code is used when the user has been auto-banned for flooding too much after previously receiving error code `402` or `429`.
+    * HTTP `425` return code is used when the user has submitted a transaction when the mempool is already full, not accepting new txs straight away.
     * HTTP `429` return code is used when the user has sent too many requests in a given amount of time and therefore has been rate-limited.
     * HTTP `500` return code is used when our endpoints are having a problem.
 
@@ -1535,10 +1536,12 @@ paths:
           $ref: "#/components/responses/unauthorized_error"
         "404":
           $ref: "#/components/responses/not_found"
-        "429":
-          $ref: "#/components/responses/overusage_limit"
         "418":
           $ref: "#/components/responses/autobanned"
+        "425":
+          $ref: "#/components/responses/mempool_full"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
         "500":
           $ref: "#/components/responses/internal_server_error"
 
@@ -4326,6 +4329,27 @@ components:
               message:
                 type: string
                 example: "Usage is over limit."
+            required:
+              - status_code
+              - error
+              - message
+
+    mempool_full:
+      description: Mempool is already full, not accepting new txs straight away
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 425
+              error:
+                type: string
+                example: "Mempool Full"
+              message:
+                type: string
+                example: "Mempool is full, please try resubmitting again later."
             required:
               - status_code
               - error

@@ -6861,15 +6861,15 @@ components:
               example: "32412601976210393"
             locked:
               type: string
-              description: Curent locked supply by scripts in Lovelaces
+              description: Current supply locked by scripts in Lovelaces
               example: "125006953355"
             treasury:
               type: string
-              description: Curent supply locked in treasury
+              description: Current supply locked in treasury
               example: "98635632000000"
             reserves:
               type: string
-              description: Curent supply locked in reserves
+              description: Current supply locked in reserves
               example: "46635632000000"
           required:
             - max

@@ -22,6 +22,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Changed
 
+- enforce pagination limits
+
 ### Fixed
 
 - description of `stake_cert_count` in `/txs/{hash}`

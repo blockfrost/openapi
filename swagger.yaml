@@ -3614,6 +3614,74 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /scripts/{script_hash}/json:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Script JSON
+      description: JSON representation of a `timelock` script
+      parameters:
+        - in: path
+          name: script_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the script
+          example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+      responses:
+        "200":
+          description: Return the JSON representation of a `timelock` script
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/script_json"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /scripts/{script_hash}/cbor:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Script CBOR
+      description: CBOR representation of a `plutus` script
+      parameters:
+        - in: path
+          name: script_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the script
+          example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+      responses:
+        "200":
+          description: Return the CBOR representation of a `plutus` script
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/script_cbor"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /scripts/{script_hash}/redeemers:
     get:
       tags:
@@ -3663,6 +3731,40 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/script_redeemers"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
+  /scripts/datum/{datum_hash}:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Datum value
+      description: Query JSON value of a datum by its hash
+      parameters:
+        - in: path
+          name: datum_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the datum
+          example: "db583ad85881a96c73fbb26ab9e24d1120bb38f45385664bb9c797a2ea8d9a2d"
+      responses:
+        "200":
+          description: Return the datum value
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/script_datum"
         "400":
           $ref: "#/components/responses/bad_request"
         "403":
@@ -5001,6 +5103,10 @@ components:
           type: integer
           example: 0
           description: Count of redeemers within the transaction
+        valid_contract:
+          type: boolean
+          example: true
+          description: True if contract script passed validation
       required:
         - hash
         - block
@@ -5022,6 +5128,7 @@ components:
         - pool_retire_count
         - asset_mint_or_burn_count
         - redeemer_count
+        - valid_contract
     tx_content_utxo:
       type: object
       properties:
@@ -5448,6 +5555,14 @@ components:
             enum: [spend, mint, cert, reward]
             example: "spend"
             description: Validation purpose
+          script_hash:
+            type: string
+            example: "ec26b89af41bef0f7585353831cb5da42b5b37185e0c8a526143b824"
+            description: Script hash
+          datum_hash:
+            type: string
+            example: "923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec"
+            description: Datum hash
           unit_mem:
             type: string
             example: "1700"
@@ -5465,6 +5580,8 @@ components:
           - purpose
           - unit_mem
           - unit_steps
+          - script_hash
+          - datum_hash
           - fee
 
     account_content:
@@ -6646,6 +6763,10 @@ components:
             enum: [spend, mint, cert, reward]
             example: "spend"
             description: Validation purpose
+          datum_hash:
+            type: string
+            example: "923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec"
+            description: Datum hash
           unit_mem:
             type: string
             example: "1700"
@@ -6662,9 +6783,87 @@ components:
           - tx_hash
           - tx_index
           - purpose
+          - datum_hash
           - unit_mem
           - unit_steps
           - fee
+
+    script_datum:
+      type: object
+      properties:
+        json_value:
+          anyOf:
+            - type: string
+            - type: object
+            - type: array
+              items: {}
+            - type: integer
+            - type: number
+            - type: boolean
+          description: JSON content of the datum
+      required:
+        - json_value
+      example:
+        json_value:
+          {
+            "int": 42
+          }
+
+    script_json:
+      type: object
+      properties:
+        json:
+          anyOf:
+            - type: string
+            - type: object
+            - type: array
+              items: {}
+            - type: integer
+            - type: number
+            - type: boolean
+          nullable: true
+          description: JSON contents of the `timelock` script, null for `plutus` scripts
+      required:
+        - json
+      example:
+        json:
+          {
+            "type": "atLeast",
+            "scripts": [
+              {
+                "type": "sig",
+                "keyHash": "654891a4db2ea44b5263f4079a33efa0358ba90769e3d8f86a4a0f81"
+              },
+              {
+                "type": "sig",
+                "keyHash": "8685ad48f9bebb8fdb6447abbe140645e0bf743ff98da62e63e2147f"
+              },
+              {
+                "type": "sig",
+                "keyHash": "cb0f3b3f91693374ff7ce1d473cf6e721c7bab52b0737f04164e5a2d"
+              }
+            ],
+            "required": 2
+          }
+
+    script_cbor:
+      type: object
+      properties:
+        cbor:
+          anyOf:
+            - type: string
+            - type: object
+            - type: array
+              items: {}
+            - type: integer
+            - type: number
+            - type: boolean
+          nullable: true
+          description: CBOR contents of the `plutus` script, null for `timelocks`
+      required:
+        - cbor
+      example:
+        cbor: "4e4d01000033222220051200120011"
 
     metrics:
       type: array

@@ -9,6 +9,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Added
 
+- HTTP `425` - `Mempool Full` to `Errors` for better handling of full mempool in `/tx/submit` endpoint
+
 ### Changed
 
 * `/epochs/{number}/parameters` - `collateral_percent` type from `number` to `integer`
@@ -16,7 +18,6 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Fixed
 
 - `/network` supply descriptions
-
 
 ## [0.1.29] - 2021-10-07
 

@@ -10,6 +10,14 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Added
 
 - HTTP `425` - `Mempool Full` to `Errors` for better handling of full mempool in `/tx/submit` endpoint
+- Alonzo support related additions
+  - `valid_contract` property to `/txs/{hash}` endpoint, `true` when attached
+    script passed validation, `false` if it failed phase 2 validation
+  - `datum_hash` and `script_hash` properties to `/txs/{hash}/redeemers`
+  - `datum_hash` property to `/scripts/{hash}/redeemers`
+  - `/scripts/datum/{datum-hash}` endpoint
+  - `/scripts/{script_hash}/json` endpoint for dumping `timelock` scripts
+  - `/scripts/{script_hash}/cbor` endpoint for dumping `plutus` script contents
 
 ### Changed
 
@@ -55,18 +63,13 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - Alonzo support related additions
   - `/scripts` endpoint for listing all scripts
   - `/scripts/{hash}` endpoint for script details
-  - `/scripts/{script_hash}/json` endpoint for dumping `timelock` scripts
-  - `/scripts/{script_hash}/cbor` endpoint for `plutus` script contents
   - `/scripts/{hash}/redeemers` endpoint for listing reedemers of a script
-  - `/scripts/datum/{hash}` endpoint
   - `/txs/{hash}/redeemers` endpoint for querying transaction redeemers
   - `locked` property to `/network` endpoint, representing total supply locked
     by scripts
   - `script` property to `/addresses/{hash}`, which is `true` when
     the address is a script address.
   - `redeemer_count` property to `/txs/{hash}` endpoint
-  - `valid_contract` property to `/txs/{hash}` endpoint, `true` when attached
-    script passed validation, `false` if it failed phase 2 validation
   - Boolean `collateral` property to `inputs` object
     of `/txs/{hash}/utxos` endpoint
   - `data_hash` property to both `inputs` and `outputs` objects of

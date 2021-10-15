@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "./swagger.yaml",
   "scripts": {
-    "build": "redoc-cli bundle -o docs/index.html swagger.yaml"
+    "build": "redoc-cli bundle -t template.hbs -o docs/index.html swagger.yaml"
   },
   "devDependencies": {
     "ajv": "^6",

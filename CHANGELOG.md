@@ -9,7 +9,15 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Added
 
-- `block_time` property to `/addresses/{address}/transactions` and `/txs/{hash}` 
+### Changed
+
+### Fixed
+
+## [0.1.31] - 2021-10-30
+
+### Added
+
+- `block_time` property to `/addresses/{address}/transactions` and `/txs/{hash}`
 
 ## [0.1.30] - 2021-10-14
 

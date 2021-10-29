@@ -5016,6 +5016,10 @@ components:
           type: integer
           example: 123456
           description: Block number
+        block_time: 
+          type: integer
+          example: 1635505891
+          description: Block creation time in UNIX time
         slot:
           type: integer
           example: 42000000
@@ -5111,6 +5115,7 @@ components:
         - hash
         - block
         - block_height
+        - block_time
         - slot
         - index
         - output_amount
@@ -6020,10 +6025,14 @@ components:
           block_height:
             type: integer
             description: Block height
+          block_time: 
+            type: integer
+            description: Block creation time in UNIX time
         required:
           - tx_hash
           - tx_index
           - block_height
+          - block_time
       example:
         - tx_hash: "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
           tx_index: 6

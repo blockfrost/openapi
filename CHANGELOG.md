@@ -13,6 +13,16 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Fixed
 
+## [0.1.32] - 2021-10-30
+
+### Added
+
+- `block_time` property to `/assets/{asset}/transactions`
+
+### Changed
+
+### Fixed
+
 ## [0.1.31] - 2021-10-30
 
 ### Added

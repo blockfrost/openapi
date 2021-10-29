@@ -1,6 +1,6 @@
 {
   "name": "@blockfrost/openapi",
-  "version": "0.1.31",
+  "version": "0.1.32",
   "description": "OpenAPI specifications for blockfrost.io",
   "repository": "git@github.com:blockfrost/openapi.git",
   "author": "admin@blockfrost.io",

@@ -2086,6 +2086,43 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+   /accounts/{stake_address}/addresses/total:
+    get:
+      tags:
+        - Cardano » Addresses
+      summary: Detailed information about account associated addresses
+      description: |
+        Obtain summed details aboutof all addresses associated with a given account.
+
+        <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
+      parameters:
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Bech32 address.
+          example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+      responses:
+        "200":
+          description: Return the Address details.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/account_addresses_total"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /metadata/txs/labels:
     get:
       tags:
@@ -5717,6 +5754,69 @@ components:
           quantity: "1"
         - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
           quantity: "125"
+    account_addresses_content_total:
+      type: object
+      properties:
+        address:
+          type: string
+          description: Bech32 encoded address
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+        received_sum:
+          type: array
+          items:
+            type: object
+            description: The sum of all the UTXO per asset for all addresses associated with the account
+            properties:
+              unit:
+                type: string
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                description: The unit of the value
+              quantity:
+                type: string
+                description: The quantity of the unit
+            required:
+              - unit
+              - quantity
+          example:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+              quantity: "12"
+        sent_sum:
+          type: array
+          items:
+            type: object
+            description: The sum of all the UTXO per asset for all addresses associated with the account
+            properties:
+              unit:
+                type: string
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                description: The unit of the value
+              quantity:
+                type: string
+                description: The quantity of the unit
+            required:
+              - unit
+              - quantity
+          example:
+            - unit: "lovelace"
+              quantity: "42000000"
+            - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
+              quantity: "12"
+        tx_count:
+          type: integer
+          example: 12
+          description: Count of all transactions for all addresses associated with the account
+        tx_count_unique:
+          type: integer
+          example: 10
+          description: Count of all unique transactions for all addresses associated with the account
+      required:
+        - address
+        - received_sum
+        - sent_sum
+        - tx_count
+        - tx_count_unique
     account_reward_content:
       type: array
       items:

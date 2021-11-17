@@ -5933,6 +5933,7 @@ components:
                 description: The quantity of the unit
               decimals:
                 type: integer
+                nullable: true
                 description: Number of decimal places of the asset unit
               has_nft_onchain_metadata:
                 type: boolean

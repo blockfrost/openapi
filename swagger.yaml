@@ -95,6 +95,8 @@ info:
       <tr><td>Haskell</td><td><a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a></tr>
       <tr><td>Java</td><td><a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a></tr>
       <tr><td>Python</td><td><a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a></tr>
+      <tr><td>Rust</td><td><a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a></tr>
+      <tr><td>Golang</td><td><a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a></tr>
       <tr><td>Ruby</td><td><a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a></tr>
       <tr><td>Swift</td><td><a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a></tr>
       <tr><td>Kotlin</td><td><a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a></tr>

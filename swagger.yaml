@@ -5755,7 +5755,7 @@ components:
     account_addresses_total:
       type: object
       properties:
-        address:
+        stake_address:
           type: string
           description: Bech32 encoded address
           example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz

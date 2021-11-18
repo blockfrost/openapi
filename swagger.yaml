@@ -5806,7 +5806,7 @@ components:
           example: 12
           description: Count of all transactions for all addresses associated with the account
       required:
-        - address
+        - stake_address
         - received_sum
         - sent_sum
         - tx_count

@@ -18,7 +18,7 @@ Active version can be found in `released` branch and also in [GitHub releases](h
 
 Development version is in `master` branch and is being merged into `released` upon each release.
 
-Released documentation can be found [at docs.blockfrost.io](https://docs.blockfrost.io/).
+Released documentation can be found at [docs.blockfrost.io](https://docs.blockfrost.io/).
 
 ## Development
 

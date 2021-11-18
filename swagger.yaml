@@ -5805,16 +5805,11 @@ components:
           type: integer
           example: 12
           description: Count of all transactions for all addresses associated with the account
-        tx_count_unique:
-          type: integer
-          example: 10
-          description: Count of all unique transactions for all addresses associated with the account
       required:
         - address
         - received_sum
         - sent_sum
         - tx_count
-        - tx_count_unique
     account_reward_content:
       type: array
       items:

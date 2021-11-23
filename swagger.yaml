@@ -5530,7 +5530,7 @@ components:
           active_epoch:
             type: integer
             example: 210
-            description: Epoch that the delegation becomes active
+            description: Epoch in which the update becomes active
         required:
           - cert_index
           - pool_id
@@ -5559,7 +5559,7 @@ components:
           retiring_epoch:
             type: integer
             example: 216
-            description: Retiring epoch
+            description: Epoch in which the pool becomes retired
         required:
           - cert_index
           - pool_id
@@ -6478,6 +6478,7 @@ components:
           type: array
           items:
             type: string
+            description: Hash of the transaction including registration
           example:
             - "9f83e5484f543e05b52e99988272a31da373f3aab4c064c76db96643a355d9dc"
             - "7ce3b8c433bf401a190d58c8c483d8e3564dfd29ae8633c8b1b3e6c814403e95"
@@ -6486,6 +6487,7 @@ components:
           type: array
           items:
             type: string
+            description: Hash of the transaction including retirement
             example: "252f622976d39e646815db75a77289cf16df4ad2b287dd8e3a889ce14c13d1a8"
       required:
         - pool_id

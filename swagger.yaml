@@ -2733,6 +2733,61 @@ paths:
         "500":
           $ref: "#/components/responses/internal_server_error"
 
+  /pools/extended:
+    get:
+      tags:
+        - Cardano » Pools
+      summary: List of stake pools with additional information
+      description: List of registered stake pools with additional information.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The numbers of pools per page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        "200":
+          description: Return the list of pools.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pool_list_extended"
+        "400":
+          $ref: "#/components/responses/bad_request"
+        "403":
+          $ref: "#/components/responses/unauthorized_error"
+        "404":
+          $ref: "#/components/responses/not_found"
+        "429":
+          $ref: "#/components/responses/overusage_limit"
+        "418":
+          $ref: "#/components/responses/autobanned"
+        "500":
+          $ref: "#/components/responses/internal_server_error"
+
   /pools/retired:
     get:
       tags:
@@ -6346,6 +6401,37 @@ components:
         - "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
         - "pool1hn7hlwrschqykupwwrtdfkvt2u4uaxvsgxyh6z63703p2knj288"
         - "pool1ztjyjfsh432eqetadf82uwuxklh28xc85zcphpwq6mmezavzad2"
+    pool_list_extended:
+      type: array
+      items:
+        type: object
+        properties:
+          pool_id:
+            type: string
+            example: "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
+            description: Bech32 encoded pool ID
+          active_stake:
+            type: string
+            example: "4200000000"
+            description: Active delegated amount
+          live_stake:
+            type: string
+            example: "6900000000"
+            description: Currently delegated amount
+        required:
+          - pool_id
+          - active_stake
+          - live_stake
+      example:
+        - pool_id: "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q"
+          active_stake: "1541200000"
+          live_stake: "1541400000"
+        - pool_id: "pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx"
+          active_stake: "22200000"
+          live_stake: "48955550"
+        - pool_id: "pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w"
+          active_stake: "9989541215"
+          live_stake: "168445464878"
     pool_list_retire:
       type: array
       items:

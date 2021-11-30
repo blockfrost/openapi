@@ -7,6 +7,9 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Added
+- `/utils/xpub/addresses` endpoint
+
 ## [0.1.33] - 2021-11-24
 
 ### Added

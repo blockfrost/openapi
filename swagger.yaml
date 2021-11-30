@@ -7130,7 +7130,7 @@ components:
           description: Script hash
         role:
           type: integer
-          description: Acount role
+          description: Account role
         index:
           type: integer
           description: Address index

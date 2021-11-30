@@ -2088,7 +2088,7 @@ paths:
   /accounts/{stake_address}/addresses/total:
     get:
       tags:
-        - Cardano » Addresses
+        - Cardano » Accounts
       summary: Detailed information about account associated addresses
       description: |
         Obtain summed details about all addresses associated with a given account.

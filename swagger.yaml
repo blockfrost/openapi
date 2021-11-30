@@ -7136,7 +7136,7 @@ components:
           description: Address index
         address:
           type: string
-          description: Derivated address
+          description: Derived address
       required:
         - xpub
         - role

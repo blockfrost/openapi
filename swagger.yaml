@@ -3855,7 +3855,7 @@ paths:
     get:
       tags:
         - Cardano » Utilities
-      summary: Drivate an address
+      summary: Derive an address
       description: Drivate Shelley address from an xpub
       parameters:
         - in: path

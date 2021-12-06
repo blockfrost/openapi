@@ -8,6 +8,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ## [Unreleased]
 
 ### Added
+- `/pools/extended` endpoint
 - `/utils/addresses/xpub/{xpub}/{role}/{index}` endpoint
 
 ## [0.1.33] - 2021-11-24

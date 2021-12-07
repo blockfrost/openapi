@@ -6459,6 +6459,10 @@ components:
             type: string
             example: "pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt"
             description: Bech32 encoded pool ID
+          hex:
+            type: string
+            example: "0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735"
+            description: Hexadecimal pool ID.
           active_stake:
             type: string
             example: "4200000000"
@@ -6469,6 +6473,7 @@ components:
             description: Currently delegated amount
         required:
           - pool_id
+          - hex
           - active_stake
           - live_stake
       example:

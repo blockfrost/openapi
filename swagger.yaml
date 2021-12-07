@@ -6473,6 +6473,7 @@ components:
             description: Currently delegated amount
         required:
           - pool_id
+          - hex
           - active_stake
           - live_stake
       example:

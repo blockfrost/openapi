@@ -7,6 +7,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Fixed
+
+- mark `tx_hash` in `/blocks/{hash_or_number}/addresses` as required field
+
 ## [0.1.35] - 2021-12-10
 
 ### Added

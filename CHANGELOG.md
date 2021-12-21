@@ -7,6 +7,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+## [0.1.36] - 2021-12-21
+
 ### Added
 
 - `blocks_epoch` property to `/pools/{pool_id}` endpoint

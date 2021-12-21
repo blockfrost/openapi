@@ -6652,6 +6652,10 @@ components:
           type: integer
           example: 69
           description: Total minted blocks
+        blocks_epoch:
+          type: integer
+          example: 4
+          description: Blocks minted in the current epoch
         live_stake:
           type: string
           example: "6900000000"
@@ -6717,6 +6721,7 @@ components:
         - hex
         - vrf_key
         - blocks_minted
+        - blocks_epoch
         - live_stake
         - live_size
         - live_saturation

@@ -7,6 +7,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Added
+
+- `blocks_epoch` property to `/pools/{pool_id}` endpoint
+
 ### Fixed
 
 - mark `tx_hash` in `/blocks/{hash_or_number}/addresses` as required field

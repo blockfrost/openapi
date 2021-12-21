@@ -6655,7 +6655,7 @@ components:
         blocks_epoch:
           type: integer
           example: 4
-          description: Blocks minted in the current epoch
+          description: Number of blocks minted in the current epoch
         live_stake:
           type: string
           example: "6900000000"

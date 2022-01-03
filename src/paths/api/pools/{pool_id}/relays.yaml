@@ -1,0 +1,32 @@
+get:
+  tags:
+    - Cardano » Pools
+  summary: Stake pool relays
+  description: Relays of a stake pool.
+  parameters:
+    - in: path
+      name: pool_id
+      required: true
+      schema:
+        type: string
+      description: Bech32 or hexadecimal pool ID.
+      example: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+  responses:
+    "200":
+      description: Return the pool relays information content.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/pool_relays"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

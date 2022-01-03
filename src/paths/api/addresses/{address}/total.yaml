@@ -1,0 +1,32 @@
+get:
+  tags:
+    - Cardano » Addresses
+  summary: Address details
+  description: Obtain details about an address.
+  parameters:
+    - in: path
+      name: address
+      required: true
+      schema:
+        type: string
+      description: Bech32 address.
+      example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+  responses:
+    "200":
+      description: Return the Address details.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/address_content_total"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

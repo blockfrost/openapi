@@ -1,0 +1,24 @@
+get:
+  tags:
+    - Cardano » Network
+  summary: Network information
+  description: Return detailed network information.
+  responses:
+    "200":
+      description: Return detailed network information.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/network"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

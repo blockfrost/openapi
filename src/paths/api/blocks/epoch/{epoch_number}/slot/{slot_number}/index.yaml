@@ -1,0 +1,42 @@
+get:
+  tags:
+    - Cardano » Blocks
+  summary: Specific block in a slot in an epoch
+  description: |
+    Return the content of a requested block for a specific slot in an epoch.
+  parameters:
+    - in: path
+      name: epoch_number
+      required: true
+      schema:
+        type: integer
+        format: slot number
+      description: Epoch for specific epoch slot.
+      example: 219
+    - in: path
+      name: slot_number
+      required: true
+      schema:
+        type: integer
+        format: slot number
+      description: Slot position for requested block.
+      example: 30895909
+  responses:
+    "200":
+      description: Return the contents of the block
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/block_content"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

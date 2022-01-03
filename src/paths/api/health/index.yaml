@@ -1,0 +1,30 @@
+get:
+  tags:
+    - Health
+  summary: Backend health status
+  security: []
+  description: |
+    Return backend status as a boolean. Your application should handle situations when backend for the given chain is unavailable.
+  responses:
+    "200":
+      description: Return the boolean indicating the health of the backend.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              is_healthy:
+                type: boolean
+                example: true
+            required:
+              - is_healthy
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

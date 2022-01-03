@@ -1,0 +1,24 @@
+get:
+  tags:
+    - Metrics
+  summary: Blockfrost usage metrics
+  description: History of your Blockfrost usage metrics in the past 30 days.
+  responses:
+    "200":
+      description: Return the last 30 days of metrics
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/metrics"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

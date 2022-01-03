@@ -1,0 +1,31 @@
+get:
+  tags:
+    - Health
+  summary: Current backend time
+  description: |
+    This endpoint provides the current UNIX time. Your application might
+    use this to verify if the client clock is not out of sync.
+  responses:
+    "200":
+      description: Return the current UNIX time in milliseconds.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              server_time:
+                type: integer
+                format: int64
+                example: 1603400958947
+            required:
+              - server_time
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

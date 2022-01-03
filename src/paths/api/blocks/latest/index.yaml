@@ -1,0 +1,26 @@
+get:
+  tags:
+    - Cardano » Blocks
+  summary: Latest block
+  description: |
+    Return the latest block available to the backends, also known as the
+    tip of the blockchain.
+  responses:
+    "200":
+      description: Return the contents of the latest block.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/block_content"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

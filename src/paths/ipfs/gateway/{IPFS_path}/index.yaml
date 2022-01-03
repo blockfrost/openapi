@@ -1,0 +1,29 @@
+servers:
+  - url: https://ipfs.blockfrost.io/api/v0
+get:
+  tags:
+    - IPFS » Gateway
+  summary: Relay to an IPFS gateway
+  description: Retrieve an object from the IFPS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+  parameters:
+    - in: path
+      required: true
+      name: IPFS_path
+      schema:
+        type: string
+        description: Path to the IPFS object
+  responses:
+    "200":
+      description: Returns the object content
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

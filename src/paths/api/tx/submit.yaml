@@ -1,0 +1,57 @@
+post:
+  tags:
+    - Cardano » Transactions
+  summary: Submit a transaction
+  description: Submit an already serialized transaction to the network.
+  parameters:
+    - in: header
+      name: Content-Type
+      required: true
+      schema:
+        type: string
+        enum: ["application/cbor"]
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        # Assuming `data` is a serialized transaction on the file-system.
+        curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit" \
+          -X POST \
+          -H "Content-Type: application/cbor" \
+          -H "project_id: $PROJECT_ID" \
+          --data-binary @./data
+    - lang: "Shell"
+      label: "cardano-cli"
+      source: |
+        # Assuming `tx.signed` is signed transaction constructed by cardano-cli
+        xxd -r -p <<< $(jq .cborHex tx.signed) > tx.submit-api.raw
+        curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit" \
+          -X POST \
+          -H "Content-Type: application/cbor" \
+          -H "project_id: $PROJECT_ID" \
+          --data-binary @./tx.submit-api.raw
+  responses:
+    "200":
+      description: Return the ID of the submitted transaction.
+      content:
+        application/json:
+          schema:
+            type: string
+            format: hex
+            minLength: 64
+            maxLength: 64
+            example: "d1662b24fa9fe985fc2dce47455df399cb2e31e1e1819339e885801cc3578908"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "425":
+      $ref: "#/components/responses/mempool_full"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

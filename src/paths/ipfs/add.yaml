@@ -1,0 +1,52 @@
+servers:
+  - url: https://ipfs.blockfrost.io/api/v0
+post:
+  tags:
+    - IPFS » Add
+  summary: Add a file to IPFS
+  description: |
+    You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
+    is being counted in your user account quota.
+  x-codeSamples:
+    - lang: "curl"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
+          -X POST \
+          -H "project_id: $PROJECT_ID" \
+          -F "file=@./README.md"
+  responses:
+    "200":
+      description: Returns information about added IPFS object
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "README.md"
+                description: Name of the file
+              ipfs_hash:
+                type: string
+                example: QmZbHqiCxKEVX7QfijzJTkZiSi3WEVTcvANgNAWzDYgZDr
+                description: IPFS hash of the file
+              size:
+                type: string
+                example: "125297"
+                description: IPFS node size in Bytes
+            required:
+              - name
+              - ipfs_hash
+              - size
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

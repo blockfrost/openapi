@@ -1,0 +1,32 @@
+get:
+  tags:
+    - Cardano » Scripts
+  summary: Specific script
+  description: Information about a specific script
+  parameters:
+    - in: path
+      name: script_hash
+      required: true
+      schema:
+        type: string
+      description: Hash of the script
+      example: "e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e"
+  responses:
+    "200":
+      description: Return the information about a specific script
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/script"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

@@ -1,0 +1,45 @@
+servers:
+  - url: https://ipfs.blockfrost.io/api/v0
+post:
+  tags:
+    - IPFS » Pins
+  description: Remove pinned objects from local storage
+  parameters:
+    - in: path
+      required: true
+      name: IPFS_path
+      schema:
+        type: string
+        description: The path to the IPFS object
+  responses:
+    "200":
+      description: Returns the pins removed
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ipfs_hash:
+                type: string
+                example: "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8"
+                description: IPFS hash of the pinned object
+              state:
+                type: string
+                enum: [queued|pinned|unpinned|failed|gc]
+                example: "unpinned"
+                description: State of the pin action
+            required:
+              - ipfs_hash
+              - state
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

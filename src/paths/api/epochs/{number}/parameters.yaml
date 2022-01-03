@@ -1,0 +1,32 @@
+get:
+  tags:
+    - Cardano » Epochs
+  summary: Protocol parameters
+  description: Return the protocol parameters for the epoch specified.
+  parameters:
+    - in: path
+      name: number
+      required: true
+      schema:
+        type: integer
+      description: Number of the epoch
+      example: 225
+  responses:
+    "200":
+      description: Return the data about the epoch
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/epoch_param_content"
+    "400":
+      $ref: "#/components/responses/bad_request"
+    "403":
+      $ref: "#/components/responses/unauthorized_error"
+    "404":
+      $ref: "#/components/responses/not_found"
+    "429":
+      $ref: "#/components/responses/overusage_limit"
+    "418":
+      $ref: "#/components/responses/autobanned"
+    "500":
+      $ref: "#/components/responses/internal_server_error"

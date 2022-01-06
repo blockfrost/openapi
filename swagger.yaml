@@ -43,7 +43,7 @@ paths:
     $ref: ./src/paths/api/health/clock.yaml
 
   /blocks/latest:
-    $ref: ./src/paths/api/blocks/latest.yaml
+    $ref: ./src/paths/api/blocks/latest/index.yaml
 
   /blocks/latest/txs:
     $ref: ./src/paths/api/blocks/latest/txs.yaml
@@ -61,7 +61,7 @@ paths:
     $ref: ./src/paths/api/blocks/slot/{slot_number}/index.yaml
 
   /blocks/epoch/{epoch_number}/slot/{slot_number}:
-    $ref: ./src/paths/api/blocks/epochs/slot/index.yaml
+    $ref: ./src/paths/api/blocks/epoch/{epoch_number}/slot/{slot_number}/index.yaml
 
   /blocks/{hash_or_number}/txs:
     $ref: ./src/paths/api/blocks/txs/index.yaml
@@ -94,7 +94,7 @@ paths:
     $ref: ./src/paths/api/epochs/{number}/stakes/{pool_id}/index.yaml
 
   /epochs/{number}/blocks:
-    $ref: ./src/paths/api/epochs/{number}/blocks.yaml
+    $ref: ./src/paths/api/epochs/{number}/blocks/index.yaml
 
   /epochs/{number}/blocks/{pool_id}:
     $ref: ./src/paths/api/epochs/{number}/{pool_id}/index.yaml
@@ -127,7 +127,7 @@ paths:
     $ref: ./src/paths/api/txs/{hash}/pool_retires.yaml
 
   /txs/{hash}/metadata:
-    $ref: ./src/paths/api/txs/{hash}/metadata.yaml
+    $ref: ./src/paths/api/txs/{hash}/metadata/index.yaml
 
   /txs/{hash}/metadata/cbor:
     $ref: ./src/paths/api/txs/{hash}/metadata/cbor.yaml
@@ -139,40 +139,40 @@ paths:
     $ref: ./src/paths/api/tx/submit.yaml
 
   /accounts/{stake_address}:
-    $ref: ./src/paths/api/account/{stake_address}/index.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/index.yaml
 
   /accounts/{stake_address}/rewards:
-    $ref: ./src/paths/api/account/{stake_address}/rewards.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/rewards.yaml
 
   /accounts/{stake_address}/history:
-    $ref: ./src/paths/api/account/{stake_address}/history.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/history.yaml
 
   /accounts/{stake_address}/delegations:
-    $ref: ./src/paths/api/account/{stake_address}/delegations.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/delegations.yaml
 
   /accounts/{stake_address}/registrations:
-    $ref: ./src/paths/api/account/{stake_address}/registrations.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/registrations.yaml
 
   /accounts/{stake_address}/withdrawals:
-    $ref: ./src/paths/api/account/{stake_address}/withdrawals.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/withdrawals.yaml
 
   /accounts/{stake_address}/mirs:
-    $ref: ./src/paths/api/account/{stake_address}/mirs.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/mirs.yaml
 
   /accounts/{stake_address}/addresses:
-    $ref: ./src/paths/api/account/{stake_address}/addresses.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/addresses.yaml
 
   /accounts/{stake_address}/addresses/assets:
-    $ref: ./src/paths/api/account/{stake_address}/assets/index.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/assets/index.yaml
 
   /accounts/{stake_address}/addresses/total:
-    $ref: ./src/paths/api/account/{stake_address}/addresses/total.yaml
+    $ref: ./src/paths/api/accounts/{stake_address}/addresses/total.yaml
 
   /metadata/txs/labels:
-    $ref: ./src/paths/api/metadata/txs/labels.yaml
+    $ref: ./src/paths/api/metadata/txs/labels/index.yaml
 
   /metadata/txs/labels/{label}:
-    $ref: ./src/paths/api/metadata/txs/labels/{label}.yaml
+    $ref: ./src/paths/api/metadata/txs/labels/{label}/index.yaml
 
   /metadata/txs/labels/{label}/cbor:
     $ref: ./src/paths/api/metadata/txs/labels/{label}/cbor.yaml
@@ -196,7 +196,7 @@ paths:
     $ref: ./src/paths/api/addresses/{address}/txs.yaml
 
   /addresses/{address}/transactions:
-    $ref: ./src/paths/api/addresses/transactions.yaml
+    $ref: ./src/paths/api/addresses/{address}/transactions.yaml
 
   /pools:
     $ref: ./src/paths/api/pools/index.yaml
@@ -250,7 +250,7 @@ paths:
     $ref: ./src/paths/api/assets/{asset}/addresses.yaml
 
   /assets/policy/{policy_id}:
-    $ref: ./src/paths/api/policy/{policy_id}/index.yaml
+    $ref: ./src/paths/api/assets/policy/{policy_id}/index.yaml
 
   /scripts:
     $ref: ./src/paths/api/scripts/index.yaml
@@ -280,19 +280,19 @@ paths:
     $ref: ./src/paths/ipfs/gateway/{IPFS_path}/index.yaml
 
   /ipfs/pin/add/{IPFS_path}:
-    $ref: ./src/paths/ipfs/add/{IPFS_path}/index.yaml
+    $ref: ./src/paths/ipfs/pin/add/{IPFS_path}/index.yaml
 
   /ipfs/pin/list:
-    $ref: ./src/paths/ipfs/pin/list.yaml
+    $ref: ./src/paths/ipfs/pin/list/index.yaml
 
   /ipfs/pin/list/{IPFS_path}:
-    $ref: ./src/paths/ipfs/list/{IPFS_path}/index.yaml
+    $ref: ./src/paths/ipfs/pin/list/{IPFS_path}/index.yaml
 
   /ipfs/pin/remove/{IPFS_path}:
     $ref: ./src/paths/ipfs/pin/remove/{IPFS_path}/index.yaml
 
   /metrics/:
-    $ref: ./src/paths/api/metrics.yaml
+    $ref: ./src/paths/api/metrics/index.yaml
 
   /metrics/endpoints:
     $ref: ./src/paths/api/metrics/endpoints.yaml
@@ -301,7 +301,7 @@ paths:
     $ref: ./src/paths/api/network/index.yaml
 
   /nutlink/{address}:
-    $ref: ./src/paths/api/nutlink/index.yaml
+    $ref: ./src/paths/api/nutlink/{address}/index.yaml
 
   /nutlink/{address}/tickers:
     $ref: ./src/paths/api/nutlink/{address}/tickers/index.yaml
@@ -310,7 +310,7 @@ paths:
     $ref: ./src/paths/api/nutlink/{address}/tickers/index.yaml
 
   /nutlink/tickers/{ticker}:
-    $ref: ./src/paths/api/nutlink/tickers/{tickers}/index.yaml
+    $ref: ./src/paths/api/nutlink/tickers/{ticker}/index.yaml
 
 components:
   responses:

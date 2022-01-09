@@ -1,4 +1,4 @@
-description: Usage limit reached
+description: Mempool is already full, not accepting new txs straight away
 content:
   application/json:
     schema:
@@ -6,13 +6,13 @@ content:
       properties:
         status_code:
           type: integer
-          example: 429
+          example: 425
         error:
           type: string
-          example: "Project Over Limit"
+          example: "Mempool Full"
         message:
           type: string
-          example: "Usage is over limit."
+          example: "Mempool is full, please try resubmitting again later."
       required:
         - status_code
         - error

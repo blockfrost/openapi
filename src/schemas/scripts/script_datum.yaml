@@ -1,0 +1,16 @@
+type: object
+properties:
+  json_value:
+    anyOf:
+      - type: string
+      - type: object
+      - type: array
+        items: {}
+      - type: integer
+      - type: number
+      - type: boolean
+    description: JSON content of the datum
+required:
+  - json_value
+example:
+  json_value: { "int": 42 }

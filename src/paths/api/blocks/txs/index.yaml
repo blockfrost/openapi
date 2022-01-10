@@ -42,21 +42,22 @@ get:
         The ordering of items from the point of view of the blockchain,
         not the page listing itself. By default, we return oldest first, newest last.
   responses:
-    "200":
-      description: Return the transactions within the block.
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/block_content_txs"
-    "400":
-      $ref: "#/components/responses/bad_request"
-    "403":
-      $ref: "#/components/responses/unauthorized_error"
-    "404":
-      $ref: "#/components/responses/not_found"
-    "429":
-      $ref: "#/components/responses/overusage_limit"
-    "418":
-      $ref: "#/components/responses/autobanned"
-    "500":
-      $ref: "#/components/responses/internal_server_error"
+    responses:
+      "200":
+        description: Return the contents of the block
+        content:
+          application/json:
+            schema:
+              $ref: ../../../../schemas/blocks/block_content_txs.yaml
+      "400":
+        $ref: ../../../../responses/errors/403.yaml
+      "403":
+        $ref: ../../../../responses/errors/403.yaml
+      "404":
+        $ref: ../../../../responses/errors/404.yaml
+      "429":
+        $ref: ../../../../responses/errors/429.yaml
+      "418":
+        $ref: ../../../../responses/errors/418.yaml
+      "500":
+        $ref: ../../../../responses/errors/500.yaml

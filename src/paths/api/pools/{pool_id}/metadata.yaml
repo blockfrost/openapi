@@ -19,17 +19,17 @@ get:
         application/json:
           schema:
             anyOf:
-              - $ref: ../../../../schemas/pools/pool_metadata.yaml
-              - $ref: ../../../../schemas/empty_object.yaml
+              - $ref: "#/components/schemas/pool_metadata"
+              - $ref: "#/components/schemas/empty_object"
     "400":
-      $ref: ../../../../responses/errors/400.yaml
+      $ref: "#/components/responses/bad_request"
     "403":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: "#/components/responses/unauthorized_error"
     "404":
-      $ref: ../../../../responses/errors/404.yaml
+      $ref: "#/components/responses/not_found"
     "429":
-      $ref: ../../../../responses/errors/429.yaml
+      $ref: "#/components/responses/overusage_limit"
     "418":
-      $ref: ../../../../responses/errors/418.yaml
+      $ref: "#/components/responses/autobanned"
     "500":
-      $ref: ../../../../responses/errors/500.yaml
+      $ref: "#/components/responses/internal_server_error"

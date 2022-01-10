@@ -45,7 +45,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../../../schemas/pools/pool_delegators.yaml
+            $ref: "#/components/schemas/pool_delegators"
     "400":
       $ref: ../../../../responses/errors/400.yaml
     "403":

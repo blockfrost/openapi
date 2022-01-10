@@ -46,16 +46,16 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../../../schemas/accounts/account_registration_content.yaml
+            $ref: "#/components/schemas/account_registration_content"
     "400":
-      $ref: ../../../../responses/errors/400.yaml
+      $ref: "#/components/responses/bad_request"
     "403":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: "#/components/responses/unauthorized_error"
     "404":
-      $ref: ../../../../responses/errors/404.yaml
+      $ref: "#/components/responses/not_found"
     "429":
-      $ref: ../../../../responses/errors/429.yaml
+      $ref: "#/components/responses/overusage_limit"
     "418":
-      $ref: ../../../../responses/errors/418.yaml
+      $ref: "#/components/responses/autobanned"
     "500":
-      $ref: ../../../../responses/errors/500.yaml
+      $ref: "#/components/responses/internal_server_error"

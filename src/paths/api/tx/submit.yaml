@@ -42,16 +42,16 @@ post:
             maxLength: 64
             example: "d1662b24fa9fe985fc2dce47455df399cb2e31e1e1819339e885801cc3578908"
     "400":
-      $ref: "#/components/responses/bad_request"
+      $ref: ../../../responses/errors/400.yaml
     "403":
-      $ref: "#/components/responses/unauthorized_error"
+      $ref: ../../../responses/errors/403.yaml
     "404":
-      $ref: "#/components/responses/not_found"
+      $ref: ../../../responses/errors/404.yaml
     "418":
-      $ref: "#/components/responses/autobanned"
+      $ref: ../../../responses/errors/418.yaml
     "425":
-      $ref: "#/components/responses/mempool_full"
+      $ref: ../../../responses/errors/425.yaml
     "429":
-      $ref: "#/components/responses/overusage_limit"
+      $ref: ../../../responses/errors/429.yaml
     "500":
-      $ref: "#/components/responses/internal_server_error"
+      $ref: ../../../responses/errors/500.yaml

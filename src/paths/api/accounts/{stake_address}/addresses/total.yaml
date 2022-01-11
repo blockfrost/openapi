@@ -19,7 +19,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/account_addresses_total"
+            $ref: ../../../../../schemas/accounts/account_addresses_total.yaml
     "400":
       $ref: "#/components/responses/bad_request"
     "403":

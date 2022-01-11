@@ -11,7 +11,6 @@
   <a href="#development">Development</a>
 </p>
 
-
 ## Getting started
 
 Active version can be found in `released` branch and also in [GitHub releases](https://github.com/blockfrost/openapi/releases).
@@ -22,10 +21,16 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
+To build the openapi bundle, run:
+
+```console
+$ yarn run bundle
+```
+
 To build the documentation, run:
 
 ```console
-$ yarn run build
+$ yarn run generate-docs
 ```
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.

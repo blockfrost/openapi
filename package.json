@@ -5,14 +5,19 @@
   "repository": "git@github.com:blockfrost/openapi.git",
   "author": "admin@blockfrost.io",
   "license": "MIT",
-  "main": "./swagger.yaml",
+  "main": "./openapi.yaml",
   "scripts": {
-    "build": "redoc-cli bundle -t template.hbs -o docs/index.html swagger.yaml"
+    "bundle": "openapi bundle -o ./openapi.yaml src/openapi.yaml",
+    "lint": "openapi lint src/openapi.yaml",
+    "generate-docs": "redoc-cli bundle -t ./src/template.hbs -o docs/index.html ./src/openapi.yaml"
   },
   "devDependencies": {
     "ajv": "^6",
     "core-js": "3.1.4",
     "react-is": "16.8.2",
     "redoc-cli": "^0.12.3"
+  },
+  "dependencies": {
+    "@redocly/openapi-cli": "^1.0.0-beta.78"
   }
 }

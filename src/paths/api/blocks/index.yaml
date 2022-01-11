@@ -14,22 +14,21 @@ get:
       description: Hash or number of the requested block.
       example: "4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a"
   responses:
-    responses:
-      "200":
-        description: Return the contents of the block
-        content:
-          application/json:
-            schema:
-              $ref: ../../../schemas/blocks/block_content.yaml
-      "400":
-        $ref: ../../../responses/errors/403.yaml
-      "403":
-        $ref: ../../../responses/errors/403.yaml
-      "404":
-        $ref: ../../../responses/errors/404.yaml
-      "429":
-        $ref: ../../../responses/errors/429.yaml
-      "418":
-        $ref: ../../../responses/errors/418.yaml
-      "500":
-        $ref: ../../../responses/errors/500.yaml
+    "200":
+      description: Return the contents of the block
+      content:
+        application/json:
+          schema:
+            $ref: ../../../schemas/blocks/block_content.yaml
+    "400":
+      $ref: ../../../responses/errors/403.yaml
+    "403":
+      $ref: ../../../responses/errors/403.yaml
+    "404":
+      $ref: ../../../responses/errors/404.yaml
+    "429":
+      $ref: ../../../responses/errors/429.yaml
+    "418":
+      $ref: ../../../responses/errors/418.yaml
+    "500":
+      $ref: ../../../responses/errors/500.yaml

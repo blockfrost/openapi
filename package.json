@@ -9,7 +9,7 @@
   "scripts": {
     "bundle": "openapi bundle -o ./openapi.yaml src/openapi.yaml",
     "lint": "openapi lint src/openapi.yaml",
-    "generate-docs": "redoc-cli bundle -t ./src/template.hbs -o docs/index.html ./src/openapi.yaml"
+    "generate-docs": "redoc-cli bundle -t ./src/template.hbs -o docs/index.html ./openapi.yaml"
   },
   "devDependencies": {
     "ajv": "^6",

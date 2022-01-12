@@ -49,7 +49,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../../../../schemas/nutlink/nutlink_address_ticker.yaml
+            $ref: ../../../../../schemas/nutlink/nutlink_address_tickers.yaml
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

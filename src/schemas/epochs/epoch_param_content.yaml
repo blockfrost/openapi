@@ -1,0 +1,166 @@
+type: object
+properties:
+  epoch:
+    type: integer
+    example: 225
+    description: Epoch number
+  min_fee_a:
+    type: integer
+    example: 44
+    description: The linear factor for the minimum fee calculation for given epoch
+  min_fee_b:
+    type: integer
+    example: 155381
+    description: The constant factor for the minimum fee calculation
+  max_block_size:
+    type: integer
+    example: 65536
+    description: Maximum block body size in Bytes
+  max_tx_size:
+    type: integer
+    example: 16384
+    description: Maximum transaction size
+  max_block_header_size:
+    type: integer
+    example: 1100
+    description: Maximum block header size
+  key_deposit:
+    type: string
+    example: "2000000"
+    description: The amount of a key registration deposit in Lovelaces
+  pool_deposit:
+    type: string
+    example: "500000000"
+    description: The amount of a pool registration deposit in Lovelaces
+  e_max:
+    type: integer
+    example: 18
+    description: Epoch bound on pool retirement
+  n_opt:
+    type: integer
+    example: 150
+    description: Desired number of pools
+  a0:
+    type: number
+    example: 0.3
+    description: Pool pledge influence
+  rho:
+    type: number
+    example: 0.003
+    description: Monetary expansion
+  tau:
+    type: number
+    example: 0.2
+    description: Treasury expansion
+  decentralisation_param:
+    type: number
+    example: 0.5
+    description: Percentage of blocks produced by federated nodes
+  extra_entropy:
+    type: object
+    nullable: true
+    example: null
+    description: Seed for extra entropy
+  protocol_major_ver:
+    type: integer
+    example: 2
+    description: Accepted protocol major version
+  protocol_minor_ver:
+    type: integer
+    example: 0
+    description: Accepted protocol minor version
+  min_utxo:
+    type: "string"
+    example: "1000000"
+    description: Minimum UTXO value
+  min_pool_cost:
+    type: string
+    example: "340000000"
+    description: Minimum stake cost forced on the pool
+  nonce:
+    type: string
+    example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
+    description: Epoch number only used once
+  # cost_models:
+  # https://github.com/input-output-hk/cardano-db-sync/pull/758
+  price_mem:
+    nullable: true
+    type: number
+    example: 0.0577
+    description: The per word cost of script memory usage
+  price_step:
+    nullable: true
+    type: number
+    example: 0.0000721
+    description: The cost of script execution step usage
+  max_tx_ex_mem:
+    nullable: true
+    type: string
+    example: "10000000"
+    description: The maximum number of execution memory allowed to be used in a single transaction
+  max_tx_ex_steps:
+    nullable: true
+    type: string
+    example: "10000000000"
+    description: The maximum number of execution steps allowed to be used in a single transaction
+  max_block_ex_mem:
+    nullable: true
+    type: string
+    example: "50000000"
+    description: The maximum number of execution memory allowed to be used in a single block
+  max_block_ex_steps:
+    nullable: true
+    type: string
+    example: "40000000000"
+    description: The maximum number of execution steps allowed to be used in a single block
+  max_val_size:
+    nullable: true
+    type: string
+    example: "5000"
+    description: The maximum Val size
+  collateral_percent:
+    nullable: true
+    type: integer
+    example: 150
+    description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
+  max_collateral_inputs:
+    nullable: true
+    type: integer
+    example: 3
+    description: The maximum number of collateral inputs allowed in a transaction
+  coins_per_utxo_word:
+    nullable: true
+    type: string
+    example: "34482"
+    description: The cost per UTxO word
+required:
+  - epoch
+  - min_fee_a
+  - min_fee_b
+  - max_block_size
+  - max_tx_size
+  - max_block_header_size
+  - key_deposit
+  - pool_deposit
+  - e_max
+  - n_opt
+  - a0
+  - rho
+  - tau
+  - decentralisation_param
+  - extra_entropy
+  - protocol_major_ver
+  - protocol_minor_ver
+  - min_utxo
+  - min_pool_cost
+  - nonce
+  - price_mem
+  - price_step
+  - max_tx_ex_mem
+  - max_tx_ex_steps
+  - max_block_ex_mem
+  - max_block_ex_steps
+  - max_val_size
+  - collateral_percent
+  - max_collateral_inputs
+  - coins_per_utxo_word

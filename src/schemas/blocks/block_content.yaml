@@ -71,19 +71,19 @@ properties:
     type: integer
     example: 4698
     description: Number of block confirmations
-  required:
-    - time
-    - height
-    - hash
-    - slot
-    - epoch
-    - epoch_slot
-    - slot_leader
-    - size
-    - tx_count
-    - output
-    - fees
-    - block_vrf
-    - previous_block
-    - next_block
-    - confirmations
+required:
+  - time
+  - height
+  - hash
+  - slot
+  - epoch
+  - epoch_slot
+  - slot_leader
+  - size
+  - tx_count
+  - output
+  - fees
+  - block_vrf
+  - previous_block
+  - next_block
+  - confirmations

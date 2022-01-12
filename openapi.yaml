@@ -207,7 +207,7 @@ paths:
         Root endpoint has no other function than to point end users to
         documentation.
       responses:
-        "200":
+        '200':
           description: Information pointing to the documentation.
           content:
             application/json:
@@ -223,16 +223,16 @@ paths:
                 required:
                   - url
                   - version
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /health:
     get:
       tags:
@@ -243,7 +243,7 @@ paths:
         Return backend status as a boolean. Your application should handle
         situations when backend for the given chain is unavailable.
       responses:
-        "200":
+        '200':
           description: Return the boolean indicating the health of the backend.
           content:
             application/json:
@@ -255,16 +255,16 @@ paths:
                     example: true
                 required:
                   - is_healthy
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /health/clock:
     get:
       tags:
@@ -274,7 +274,7 @@ paths:
         This endpoint provides the current UNIX time. Your application might
         use this to verify if the client clock is not out of sync.
       responses:
-        "200":
+        '200':
           description: Return the current UNIX time in milliseconds.
           content:
             application/json:
@@ -287,16 +287,16 @@ paths:
                     example: 1603400958947
                 required:
                   - server_time
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/latest:
     get:
       tags:
@@ -306,24 +306,24 @@ paths:
         Return the latest block available to the backends, also known as the
         tip of the blockchain.
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/latest/txs:
     get:
       tags:
@@ -366,24 +366,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content_txs"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content_txs'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/{hash_or_number}:
     get:
       tags:
@@ -401,24 +401,24 @@ paths:
           description: Hash or number of the requested block.
           example: 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/{hash_or_number}/next:
     get:
       tags:
@@ -454,24 +454,24 @@ paths:
             default: 1
           description: The page number for listing the results.
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content_array"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content_array'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/{hash_or_number}/previous:
     get:
       tags:
@@ -487,7 +487,7 @@ paths:
             type: string
             format: 64-character case-sensitive hexadecimal string or block number.
           description: Hash of the requested block
-          example: "4873401"
+          example: '4873401'
         - in: query
           name: count
           required: false
@@ -507,24 +507,24 @@ paths:
             default: 1
           description: The page number for listing the results.
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content_array"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content_array'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/slot/{slot_number}:
     get:
       tags:
@@ -542,24 +542,24 @@ paths:
           description: Slot position for requested block.
           example: 30895909
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/epoch/{epoch_number}/slot/{slot_number}:
     get:
       tags:
@@ -585,24 +585,24 @@ paths:
           description: Slot position for requested block.
           example: 30895909
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/{hash_or_number}/txs:
     get:
       tags:
@@ -617,7 +617,7 @@ paths:
             type: string
             format: 64-character case-sensitive hexadecimal string or block number.
           description: Hash of the requested block.
-          example: "4873401"
+          example: '4873401'
         - in: query
           name: count
           required: false
@@ -653,24 +653,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content_txs"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content_txs'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/{hash_or_number}/addresses:
     get:
       tags:
@@ -687,7 +687,7 @@ paths:
             type: string
             format: 64-character case-sensitive hexadecimal string or block number.
           description: Hash of the requested block.
-          example: "4873401"
+          example: '4873401'
         - in: query
           name: count
           required: false
@@ -707,24 +707,24 @@ paths:
             default: 1
           description: The page number for listing the results.
       responses:
-        "200":
+        '200':
           description: Return the contents of the block
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/block_content_addresses"
-        "400":
-          $ref: "#/components/responses/403"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/block_content_addresses'
+        '400':
+          $ref: '#/components/responses/403'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /genesis:
     get:
       tags:
@@ -732,22 +732,22 @@ paths:
       summary: Blockchain genesis
       description: Return the information about blockchain genesis.
       responses:
-        "200":
+        '200':
           description: Return the genesis parameters.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/genesis_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/genesis_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/latest:
     get:
       tags:
@@ -755,24 +755,24 @@ paths:
       summary: Latest epoch
       description: Return the information about the latest, therefore current, epoch.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/latest/parameters:
     get:
       tags:
@@ -780,24 +780,24 @@ paths:
       summary: Latest epoch protocol parameters
       description: Return the protocol parameters for the latest epoch.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_param_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_param_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}:
     get:
       tags:
@@ -813,24 +813,24 @@ paths:
           description: Number of the epoch
           example: 225
       responses:
-        "200":
+        '200':
           description: Return the epoch data.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/next:
     get:
       tags:
@@ -864,24 +864,24 @@ paths:
             default: 1
           description: The page number for listing the results.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_content_array"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_content_array'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/previous:
     get:
       tags:
@@ -915,24 +915,24 @@ paths:
             default: 1
           description: The page number for listing the results
       responses:
-        "200":
+        '200':
           description: Return the epoch data
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_content_array"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_content_array'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/stakes:
     get:
       tags:
@@ -966,24 +966,24 @@ paths:
             default: 1
           description: The page number for listing the results.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_stake_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_stake_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/stakes/{pool_id}:
     get:
       tags:
@@ -1026,24 +1026,24 @@ paths:
             default: 1
           description: The page number for listing the results.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_stake_pool_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_stake_pool_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/blocks:
     get:
       tags:
@@ -1091,24 +1091,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_block_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_block_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/blocks/{pool_id}:
     get:
       tags:
@@ -1163,24 +1163,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_block_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_block_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /epochs/{number}/parameters:
     get:
       tags:
@@ -1196,24 +1196,24 @@ paths:
           description: Number of the epoch
           example: 225
       responses:
-        "200":
+        '200':
           description: Return the data about the epoch
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/epoch_param_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/epoch_param_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}:
     get:
       tags:
@@ -1230,24 +1230,24 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c42c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: Return the contents of the transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/utxos:
     get:
       tags:
@@ -1264,24 +1264,24 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: Return the contents of the transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_utxo"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_utxo'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/stakes:
     get:
       tags:
@@ -1300,26 +1300,26 @@ paths:
           description: Hash of the requested transaction.
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >
             Obtain information about (de)registration of stake addresses within
             a transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_stake_addr"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_stake_addr'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/delegations:
     get:
       tags:
@@ -1338,26 +1338,26 @@ paths:
           description: Hash of the requested transaction.
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >-
             Obtain information about delegation certificates of a specific
             transaction
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_delegations"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_delegations'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/withdrawals:
     get:
       tags:
@@ -1374,24 +1374,24 @@ paths:
           description: Hash of the requested transaction.
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: Obtain information about withdrawals of a specific transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_withdrawals"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_withdrawals'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/mirs:
     get:
       tags:
@@ -1410,26 +1410,26 @@ paths:
           description: Hash of the requested transaction.
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >-
             Obtain information about Move Instantaneous Rewards (MIRs) of a
             specific transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_mirs"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_mirs'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/pool_updates:
     get:
       tags:
@@ -1448,26 +1448,26 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >-
             Obtain information about stake pool certificates of a specific
             transaction
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_pool_certs"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_pool_certs'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/pool_retires:
     get:
       tags:
@@ -1486,26 +1486,26 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >
             Obtain information about stake pool retirements within a specific
             transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_pool_retires"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_pool_retires'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/metadata:
     get:
       tags:
@@ -1522,26 +1522,26 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >-
             Obtain information about stake pool retirements within a specific
             transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_metadata"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_metadata'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/metadata/cbor:
     get:
       tags:
@@ -1558,26 +1558,26 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: >-
             Obtain information about stake pool retirements within a specific
             transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_metadata_cbor"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_metadata_cbor'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /txs/{hash}/redeemers:
     get:
       tags:
@@ -1594,24 +1594,24 @@ paths:
           description: Hash of the requested transaction
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
-        "200":
+        '200':
           description: Obtain information about redeemers within a specific transaction.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_content_redeemers"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_content_redeemers'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /tx/submit:
     post:
       tags:
@@ -1650,7 +1650,7 @@ paths:
               -H "project_id: $PROJECT_ID" \
               --data-binary @./tx.submit-api.raw
       responses:
-        "200":
+        '200':
           description: Return the ID of the submitted transaction.
           content:
             application/json:
@@ -1661,20 +1661,20 @@ paths:
                 maxLength: 64
                 example: >-
                   d1662b24fa9fe985fc2dce47455df399cb2e31e1e1819339e885801cc3578908
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "425":
-          $ref: "#/components/responses/425"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '425':
+          $ref: '#/components/responses/425'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}:
     get:
       tags:
@@ -1691,24 +1691,24 @@ paths:
           description: Bech32 stake address.
           example: stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc
       responses:
-        "200":
+        '200':
           description: Return the account content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/rewards:
     get:
       tags:
@@ -1757,24 +1757,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_reward_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_reward_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/history:
     get:
       tags:
@@ -1823,24 +1823,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_history_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_history_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/delegations:
     get:
       tags:
@@ -1888,24 +1888,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account delegations content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_delegation_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_delegation_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/registrations:
     get:
       tags:
@@ -1955,24 +1955,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account registration content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_registration_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_registration_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/withdrawals:
     get:
       tags:
@@ -2021,24 +2021,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account withdrawal content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_withdrawal_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_withdrawal_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/mirs:
     get:
       tags:
@@ -2087,24 +2087,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account MIR content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_mir_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_mir_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/addresses:
     get:
       tags:
@@ -2152,24 +2152,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account addresses content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_addresses_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_addresses_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/addresses/assets:
     get:
       tags:
@@ -2223,24 +2223,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account addresses content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_addresses_assets"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_addresses_assets'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /accounts/{stake_address}/addresses/total:
     get:
       tags:
@@ -2263,24 +2263,24 @@ paths:
           example: >-
             addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
-        "200":
+        '200':
           description: Return the Address details.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/account_addresses_total"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/account_addresses_total'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /metadata/txs/labels:
     get:
       tags:
@@ -2322,24 +2322,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account delegations content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_metadata_labels"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_metadata_labels'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /metadata/txs/labels/{label}:
     get:
       tags:
@@ -2353,7 +2353,7 @@ paths:
           schema:
             type: string
           description: Metadata label
-          example: "1990"
+          example: '1990'
         - in: query
           name: count
           required: false
@@ -2387,24 +2387,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account delegations content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_metadata_label_json"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_metadata_label_json'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /metadata/txs/labels/{label}/cbor:
     get:
       tags:
@@ -2418,7 +2418,7 @@ paths:
           schema:
             type: string
           description: Metadata label
-          example: "1990"
+          example: '1990'
         - in: query
           name: count
           required: false
@@ -2452,24 +2452,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the account delegations content in CBOR
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/tx_metadata_label_cbor"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/tx_metadata_label_cbor'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}:
     get:
       tags:
@@ -2486,24 +2486,24 @@ paths:
           example: >-
             addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
-        "200":
+        '200':
           description: Return the address content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}/extended:
     get:
       tags:
@@ -2521,24 +2521,24 @@ paths:
           example: >-
             addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
-        "200":
+        '200':
           description: Return the address content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_content_extended"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_content_extended'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}/total:
     get:
       tags:
@@ -2555,24 +2555,24 @@ paths:
           example: >-
             addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
-        "200":
+        '200':
           description: Return the Address details.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_content_total"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_content_total'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}/utxos:
     get:
       tags:
@@ -2621,24 +2621,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the address content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_utxo_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_utxo_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}/utxos/{asset}:
     get:
       tags:
@@ -2695,24 +2695,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the address content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_utxo_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_utxo_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}/txs:
     get:
       deprecated: true
@@ -2762,24 +2762,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the address content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_txs_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_txs_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /addresses/{address}/transactions:
     get:
       tags:
@@ -2837,7 +2837,7 @@ paths:
             start search for results, concatenated using colon.
 
             Has to be lower than or equal to `to` parameter.
-          example: "8929261"
+          example: '8929261'
         - in: query
           name: to
           required: false
@@ -2848,26 +2848,26 @@ paths:
             the search for results, concatenated using colon.
 
             Has to be higher than or equal to `from` parameter.
-          example: "9999269:10"
+          example: '9999269:10'
       responses:
-        "200":
+        '200':
           description: Return the address content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/address_transactions_content"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/address_transactions_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools:
     get:
       tags:
@@ -2908,24 +2908,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the list of pools.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_list"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_list'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/extended:
     get:
       tags:
@@ -2966,24 +2966,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the list of pools.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_list_extended"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_list_extended'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/retired:
     get:
       tags:
@@ -3024,24 +3024,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the pool information content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_list_retire"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_list_retire'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/retiring:
     get:
       tags:
@@ -3082,24 +3082,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the pool information content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_list_retire"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_list_retire'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}:
     get:
       tags:
@@ -3115,24 +3115,24 @@ paths:
           description: Bech32 or hexadecimal pool ID.
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
       responses:
-        "200":
+        '200':
           description: Return the pool information content
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}/history:
     get:
       tags:
@@ -3181,24 +3181,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the pool information content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_history"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_history'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}/metadata:
     get:
       tags:
@@ -3215,26 +3215,26 @@ paths:
           description: Bech32 or hexadecimal pool ID.
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
       responses:
-        "200":
+        '200':
           description: Return the pool metadata content.
           content:
             application/json:
               schema:
                 anyOf:
-                  - $ref: "#/components/schemas/pool_metadata"
-                  - $ref: "#/components/schemas/empty_object"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                  - $ref: '#/components/schemas/pool_metadata'
+                  - $ref: '#/components/schemas/empty_object'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}/relays:
     get:
       tags:
@@ -3250,24 +3250,24 @@ paths:
           description: Bech32 or hexadecimal pool ID.
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
       responses:
-        "200":
+        '200':
           description: Return the pool relays information content.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_relays"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_relays'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}/delegators:
     get:
       tags:
@@ -3315,24 +3315,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the pool delegations.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_delegators"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_delegators'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}/blocks:
     get:
       tags:
@@ -3380,24 +3380,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the pool block list
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_blocks"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_blocks'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /pools/{pool_id}/updates:
     get:
       tags:
@@ -3445,24 +3445,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the pool updates history
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/pool_updates"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/pool_updates'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets:
     get:
       tags:
@@ -3503,24 +3503,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return list of assets
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/assets"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/assets'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets/{asset}:
     get:
       tags:
@@ -3537,24 +3537,24 @@ paths:
           example: >-
             b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
       responses:
-        "200":
+        '200':
           description: Return the information about a specific asset
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/asset"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/asset'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets/{asset}/history:
     get:
       tags:
@@ -3603,24 +3603,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the information about the history of a specific asset
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/asset_history"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/asset_history'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets/{asset}/txs:
     get:
       deprecated: true
@@ -3670,24 +3670,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the information about the history of a specific asset
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/asset_txs"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/asset_txs'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets/{asset}/transactions:
     get:
       tags:
@@ -3736,24 +3736,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the information about the history of a specific asset
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/asset_transactions"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/asset_transactions'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets/{asset}/addresses:
     get:
       tags:
@@ -3802,24 +3802,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the information about the history of a specific asset
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/asset_addresses"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/asset_addresses'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets/policy/{policy_id}:
     get:
       tags:
@@ -3867,24 +3867,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the information about a specific asset
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/asset_policy"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/asset_policy'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /scripts:
     get:
       tags:
@@ -3925,24 +3925,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return list of scripts
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/scripts"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/scripts'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /scripts/{script_hash}:
     get:
       tags:
@@ -3958,24 +3958,24 @@ paths:
           description: Hash of the script
           example: e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e
       responses:
-        "200":
+        '200':
           description: Return the information about a specific script
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/script"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/script'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /scripts/{script_hash}/json:
     get:
       tags:
@@ -3991,24 +3991,24 @@ paths:
           description: Hash of the script
           example: e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e
       responses:
-        "200":
+        '200':
           description: Return the JSON representation of a `timelock` script
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/script_json"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/script_json'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /scripts/{script_hash}/cbor:
     get:
       tags:
@@ -4024,24 +4024,24 @@ paths:
           description: Hash of the script
           example: e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e
       responses:
-        "200":
+        '200':
           description: Return the CBOR representation of a `plutus` script
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/script_cbor"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/script_cbor'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /scripts/{script_hash}/redeemers:
     get:
       tags:
@@ -4089,24 +4089,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the information about redeemers of a specific script
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/script_redeemers"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/script_redeemers'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /scripts/datum/{datum_hash}:
     get:
       tags:
@@ -4122,24 +4122,24 @@ paths:
           description: Hash of the datum
           example: db583ad85881a96c73fbb26ab9e24d1120bb38f45385664bb9c797a2ea8d9a2d
       responses:
-        "200":
+        '200':
           description: Return the datum value
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/script_datum"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/script_datum'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     get:
       tags:
@@ -4170,24 +4170,24 @@ paths:
           description: Address index
           example: 2
       responses:
-        "200":
+        '200':
           description: Return derivated Shelley address
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/utils_addresses_xpub"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/utils_addresses_xpub'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /ipfs/add:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -4208,7 +4208,7 @@ paths:
               -H "project_id: $PROJECT_ID" \
               -F "file=@./README.md"
       responses:
-        "200":
+        '200':
           description: Returns information about added IPFS object
           content:
             application/json:
@@ -4225,24 +4225,24 @@ paths:
                     description: IPFS hash of the file
                   size:
                     type: string
-                    example: "125297"
+                    example: '125297'
                     description: IPFS node size in Bytes
                 required:
                   - name
                   - ipfs_hash
                   - size
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /ipfs/gateway/{IPFS_path}:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -4261,20 +4261,20 @@ paths:
             type: string
             description: Path to the IPFS object
       responses:
-        "200":
+        '200':
           description: Returns the object content
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /ipfs/pin/add/{IPFS_path}:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -4291,7 +4291,7 @@ paths:
             type: string
             description: Path to the IPFS object
       responses:
-        "200":
+        '200':
           description: Returns pinned object
           content:
             application/json:
@@ -4311,18 +4311,18 @@ paths:
                 required:
                   - ipfs_hash
                   - state
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /ipfs/pin/list:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -4365,7 +4365,7 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Returns pinned objects
           content:
             application/json:
@@ -4389,7 +4389,7 @@ paths:
                     size:
                       type: string
                       description: Size of the object in Bytes
-                      example: "1615551024"
+                      example: '1615551024'
                     state:
                       type: string
                       enum:
@@ -4413,18 +4413,18 @@ paths:
                     - ipfs_hash
                     - size
                     - state
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /ipfs/pin/list/{IPFS_path}:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -4441,7 +4441,7 @@ paths:
             type: string
             description: The path to the IPFS object
       responses:
-        "200":
+        '200':
           description: Returns the pins pinned
           content:
             application/json:
@@ -4463,7 +4463,7 @@ paths:
                   size:
                     type: string
                     description: Size of the object in Bytes
-                    example: "1615551024"
+                    example: '1615551024'
                   state:
                     type: string
                     enum:
@@ -4492,18 +4492,18 @@ paths:
                   - ipfs_hash
                   - size
                   - state
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /ipfs/pin/remove/{IPFS_path}:
     servers:
       - url: https://ipfs.blockfrost.io/api/v0
@@ -4519,7 +4519,7 @@ paths:
             type: string
             description: The path to the IPFS object
       responses:
-        "200":
+        '200':
           description: Returns the pins removed
           content:
             application/json:
@@ -4539,18 +4539,18 @@ paths:
                 required:
                   - ipfs_hash
                   - state
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /metrics/:
     get:
       tags:
@@ -4558,24 +4558,24 @@ paths:
       summary: Blockfrost usage metrics
       description: History of your Blockfrost usage metrics in the past 30 days.
       responses:
-        "200":
+        '200':
           description: Return the last 30 days of metrics
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/metrics"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/metrics'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /metrics/endpoints:
     get:
       tags:
@@ -4585,24 +4585,24 @@ paths:
         History of your Blockfrost usage metrics per endpoint in the past 30
         days.
       responses:
-        "200":
+        '200':
           description: Return the last 30 days of metrics
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/metrics_endpoints"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/metrics_endpoints'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /network:
     get:
       tags:
@@ -4610,24 +4610,24 @@ paths:
       summary: Network information
       description: Return detailed network information.
       responses:
-        "200":
+        '200':
           description: Return detailed network information.
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/network"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/network'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /nutlink/{address}:
     get:
       tags:
@@ -4641,24 +4641,24 @@ paths:
             type: string
             description: Address of a metadata oracle
       responses:
-        "200":
+        '200':
           description: Return the metadata about metadata oracle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/nutlink_address"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/nutlink_address'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /nutlink/{address}/tickers:
     get:
       tags:
@@ -4710,24 +4710,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the tickers provided by the metadata oracle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/nutlink_address_ticker"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/nutlink_address_ticker'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /nutlink/{address}/tickers/{ticker}:
     get:
       tags:
@@ -4779,24 +4779,24 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the tickers provided by the metadata oracle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/nutlink_address_ticker"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/nutlink_address_ticker'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /nutlink/tickers/{ticker}:
     get:
       tags:
@@ -4842,27 +4842,27 @@ paths:
             not the page listing itself. By default, we return oldest first,
             newest last.
       responses:
-        "200":
+        '200':
           description: Return the tickers provided by the metadata oracle
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/nutlink_tickers_ticker"
-        "400":
-          $ref: "#/components/responses/400"
-        "403":
-          $ref: "#/components/responses/403"
-        "404":
-          $ref: "#/components/responses/404"
-        "418":
-          $ref: "#/components/responses/418"
-        "429":
-          $ref: "#/components/responses/429"
-        "500":
-          $ref: "#/components/responses/500"
+                $ref: '#/components/schemas/nutlink_tickers_ticker'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
 components:
   responses:
-    "400":
+    '400':
       description: Bad request
       content:
         application/json:
@@ -4882,7 +4882,7 @@ components:
               - status_code
               - error
               - message
-    "403":
+    '403':
       description: Authentication secret is missing or invalid
       content:
         application/json:
@@ -4902,7 +4902,7 @@ components:
               - status_code
               - error
               - message
-    "404":
+    '404':
       description: Component not found
       content:
         application/json:
@@ -4922,7 +4922,7 @@ components:
               - status_code
               - error
               - message
-    "418":
+    '418':
       description: >-
         IP has been auto-banned for extensive sending of requests after usage
         limit has been reached
@@ -4944,7 +4944,7 @@ components:
               - status_code
               - error
               - message
-    "425":
+    '425':
       description: Mempool is already full, not accepting new txs straight away
       content:
         application/json:
@@ -4964,7 +4964,7 @@ components:
               - status_code
               - error
               - message
-    "429":
+    '429':
       description: Usage limit reached
       content:
         application/json:
@@ -4984,7 +4984,7 @@ components:
               - status_code
               - error
               - message
-    "500":
+    '500':
       description: Internal Server Error
       content:
         application/json:
@@ -5005,19 +5005,19 @@ components:
               - error
               - message
     overusage_limit:
-      $ref: "#/components/responses/429"
+      $ref: '#/components/responses/429'
     mempool_full:
-      $ref: "#/components/responses/425"
+      $ref: '#/components/responses/425'
     autobanned:
-      $ref: "#/components/responses/418"
+      $ref: '#/components/responses/418'
     not_found:
-      $ref: "#/components/responses/404"
+      $ref: '#/components/responses/404'
     internal_server_error:
-      $ref: "#/components/responses/500"
+      $ref: '#/components/responses/500'
     unauthorized_error:
-      $ref: "#/components/responses/403"
+      $ref: '#/components/responses/403'
     bad_request:
-      $ref: "#/components/responses/400"
+      $ref: '#/components/responses/400'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -5076,12 +5076,12 @@ components:
         output:
           type: string
           nullable: true
-          example: "128314491794"
+          example: '128314491794'
           description: Total output within the block in Lovelaces
         fees:
           type: string
           nullable: true
-          example: "592661"
+          example: '592661'
           description: Total fees within the block in Lovelaces
         block_vrf:
           type: string
@@ -5104,22 +5104,22 @@ components:
           type: integer
           example: 4698
           description: Number of block confirmations
-        required:
-          - time
-          - height
-          - hash
-          - slot
-          - epoch
-          - epoch_slot
-          - slot_leader
-          - size
-          - tx_count
-          - output
-          - fees
-          - block_vrf
-          - previous_block
-          - next_block
-          - confirmations
+      required:
+        - time
+        - height
+        - hash
+        - slot
+        - epoch
+        - epoch_slot
+        - slot_leader
+        - size
+        - tx_count
+        - output
+        - fees
+        - block_vrf
+        - previous_block
+        - next_block
+        - confirmations
     block_content_txs:
       type: array
       items:
@@ -5187,7 +5187,7 @@ components:
             updates
         max_lovelace_supply:
           type: string
-          example: "45000000000000000"
+          example: '45000000000000000'
           description: The total number of lovelace in the system
         network_magic:
           type: integer
@@ -5219,17 +5219,17 @@ components:
           type: integer
           example: 2160
           description: Security parameter k
-        required:
-          - active_slots_coefficient
-          - update_quorum
-          - max_lovelace_supply
-          - network_magic
-          - epoch_length
-          - system_start
-          - slots_per_kes_period
-          - slot_length
-          - max_kes_evolutions
-          - security_param
+      required:
+        - active_slots_coefficient
+        - update_quorum
+        - max_lovelace_supply
+        - network_magic
+        - epoch_length
+        - system_start
+        - slots_per_kes_period
+        - slot_length
+        - max_kes_evolutions
+        - security_param
     epoch_content:
       type: object
       properties:
@@ -5263,16 +5263,16 @@ components:
           description: Number of transactions within the epoch
         output:
           type: string
-          example: "7849943934049314"
+          example: '7849943934049314'
           description: Sum of all the transactions within the epoch in Lovelaces
         fees:
           type: string
-          example: "4203312194"
+          example: '4203312194'
           description: Sum of all the fees within the epoch in Lovelaces
         active_stake:
           nullable: true
           type: string
-          example: "784953934049314"
+          example: '784953934049314'
           description: Sum of all the active stakes within the epoch in Lovelaces
       required:
         - epoch
@@ -5314,11 +5314,11 @@ components:
           description: Maximum block header size
         key_deposit:
           type: string
-          example: "2000000"
+          example: '2000000'
           description: The amount of a key registration deposit in Lovelaces
         pool_deposit:
           type: string
-          example: "500000000"
+          example: '500000000'
           description: The amount of a pool registration deposit in Lovelaces
         e_max:
           type: integer
@@ -5359,11 +5359,11 @@ components:
           description: Accepted protocol minor version
         min_utxo:
           type: string
-          example: "1000000"
+          example: '1000000'
           description: Minimum UTXO value
         min_pool_cost:
           type: string
-          example: "340000000"
+          example: '340000000'
           description: Minimum stake cost forced on the pool
         nonce:
           type: string
@@ -5382,35 +5382,35 @@ components:
         max_tx_ex_mem:
           nullable: true
           type: string
-          example: "10000000"
+          example: '10000000'
           description: >-
             The maximum number of execution memory allowed to be used in a
             single transaction
         max_tx_ex_steps:
           nullable: true
           type: string
-          example: "10000000000"
+          example: '10000000000'
           description: >-
             The maximum number of execution steps allowed to be used in a single
             transaction
         max_block_ex_mem:
           nullable: true
           type: string
-          example: "50000000"
+          example: '50000000'
           description: >-
             The maximum number of execution memory allowed to be used in a
             single block
         max_block_ex_steps:
           nullable: true
           type: string
-          example: "40000000000"
+          example: '40000000000'
           description: >-
             The maximum number of execution steps allowed to be used in a single
             block
         max_val_size:
           nullable: true
           type: string
-          example: "5000"
+          example: '5000'
           description: The maximum Val size
         collateral_percent:
           nullable: true
@@ -5427,7 +5427,7 @@ components:
         coins_per_utxo_word:
           nullable: true
           type: string
-          example: "34482"
+          example: '34482'
           description: The cost per UTxO word
       required:
         - epoch
@@ -5463,7 +5463,7 @@ components:
     epoch_content_array:
       type: array
       items:
-        $ref: "#/components/schemas/epoch_content"
+        $ref: '#/components/schemas/epoch_content'
     epoch_stake_content:
       type: array
       items:
@@ -5478,7 +5478,7 @@ components:
             description: Bech32 prefix of the pool delegated to
           amount:
             type: string
-            example: "4440295078"
+            example: '4440295078'
             description: Amount of active delegated stake in Lovelaces
         required:
           - stake_address
@@ -5494,7 +5494,7 @@ components:
             description: Stake address
           amount:
             type: string
-            example: "4440295078"
+            example: '4440295078'
             description: Amount of active delegated stake in Lovelaces
         required:
           - stake_address
@@ -5555,17 +5555,17 @@ components:
               - quantity
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
         fees:
           type: string
-          example: "182485"
+          example: '182485'
           description: Fees of the transaction in Lovelaces
         deposit:
           type: string
-          example: "0"
+          example: '0'
           description: Deposit within the transaction in Lovelaces
         size:
           type: integer
@@ -5579,7 +5579,7 @@ components:
         invalid_hereafter:
           type: string
           nullable: true
-          example: "13885913"
+          example: '13885913'
           description: Right (excluded) endpoint of the timelock validity intervals
         utxo_count:
           type: integer
@@ -5685,10 +5685,10 @@ components:
                     - quantity
                 example:
                   - unit: lovelace
-                    quantity: "42000000"
+                    quantity: '42000000'
                   - unit: >-
                       b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-                    quantity: "12"
+                    quantity: '12'
               tx_hash:
                 type: string
                 example: >-
@@ -5747,10 +5747,10 @@ components:
                     - quantity
                 example:
                   - unit: lovelace
-                    quantity: "42000000"
+                    quantity: '42000000'
                   - unit: >-
                       b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-                    quantity: "12"
+                    quantity: '12'
               output_index:
                 type: integer
                 example: 0
@@ -5834,7 +5834,7 @@ components:
             description: Bech32 withdrawal address
           amount:
             type: string
-            example: "431833601"
+            example: '431833601'
             description: Withdrawal amount in Lovelaces
         required:
           - address
@@ -5861,7 +5861,7 @@ components:
             description: Bech32 stake address
           amount:
             type: string
-            example: "431833601"
+            example: '431833601'
             description: MIR amount in Lovelaces
         required:
           - pot
@@ -5887,7 +5887,7 @@ components:
             description: VRF key hash
           pledge:
             type: string
-            example: "5000000000"
+            example: '5000000000'
             description: Stake pool certificate pledge in Lovelaces
           margin_cost:
             type: number
@@ -5895,7 +5895,7 @@ components:
             description: Margin tax cost of the stake pool
           fixed_cost:
             type: string
-            example: "340000000"
+            example: '340000000'
             description: Fixed tax cost of the stake pool in Lovelaces
           reward_account:
             type: string
@@ -6039,14 +6039,14 @@ components:
           - label
           - json_metadata
       example:
-        - label: "1967"
+        - label: '1967'
           json_metadata:
             metadata: https://nut.link/metadata.json
             hash: 6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af
-        - label: "1968"
+        - label: '1968'
           json_metadata:
             ADAUSD:
-              - value: "0.10409800535729975"
+              - value: '0.10409800535729975'
                 source: ergoOracles
     tx_content_metadata_cbor:
       type: array
@@ -6070,7 +6070,7 @@ components:
           - cbor_metadata
           - metadata
       example:
-        - label: "1968"
+        - label: '1968'
           cbor_metadata: \xa100a16b436f6d62696e6174696f6e8601010101010c
           metadata: a100a16b436f6d62696e6174696f6e8601010101010c
     tx_content_redeemers:
@@ -6101,15 +6101,15 @@ components:
             description: Datum hash
           unit_mem:
             type: string
-            example: "1700"
+            example: '1700'
             description: The budget in Memory to run a script
           unit_steps:
             type: string
-            example: "476468"
+            example: '476468'
             description: The budget in CPU steps to run a script
           fee:
             type: string
-            example: "172033"
+            example: '172033'
             description: The fee consumed to run the script
         required:
           - tx_index
@@ -6136,27 +6136,27 @@ components:
           description: Epoch of the most recent action - registration or deregistration
         controlled_amount:
           type: string
-          example: "619154618165"
+          example: '619154618165'
           description: Balance of the account in Lovelaces
         rewards_sum:
           type: string
-          example: "319154618165"
+          example: '319154618165'
           description: Sum of all rewards for the account in the Lovelaces
         withdrawals_sum:
           type: string
-          example: "12125369253"
+          example: '12125369253'
           description: Sum of all the withdrawals for the account in Lovelaces
         reserves_sum:
           type: string
-          example: "319154618165"
+          example: '319154618165'
           description: Sum of all  funds from reserves for the account in the Lovelaces
         treasury_sum:
           type: string
-          example: "12000000"
+          example: '12000000'
           description: Sum of all funds from treasury for the account in the Lovelaces
         withdrawable_amount:
           type: string
-          example: "319154618165"
+          example: '319154618165'
           description: >-
             Sum of available rewards that haven't been withdrawn yet for the
             account in the Lovelaces
@@ -6196,16 +6196,16 @@ components:
           - pool_id
       example:
         - epoch: 215
-          amount: "12695385"
+          amount: '12695385'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
         - epoch: 216
-          amount: "3586329"
+          amount: '3586329'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
         - epoch: 217
-          amount: "0"
+          amount: '0'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
         - epoch: 218
-          amount: "1395265"
+          amount: '1395265'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
     account_history_content:
       type: array
@@ -6228,10 +6228,10 @@ components:
           - pool_id
       example:
         - active_epoch: 210
-          amount: "12695385"
+          amount: '12695385'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
         - active_epoch: 211
-          amount: "22695385"
+          amount: '22695385'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
     account_delegation_content:
       type: array
@@ -6259,11 +6259,11 @@ components:
       example:
         - active_epoch: 210
           tx_hash: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
-          amount: "12695385"
+          amount: '12695385'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
         - active_epoch: 242
           tx_hash: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0
-          amount: "12691385"
+          amount: '12691385'
           pool_id: pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj
     account_registration_content:
       type: array
@@ -6305,9 +6305,9 @@ components:
           - amount
       example:
         - tx_hash: 48a9625c841eea0dd2bb6cf551eabe6523b7290c9ce34be74eedef2dd8f7ecc5
-          amount: "454541212442"
+          amount: '454541212442'
         - tx_hash: 4230b0cbccf6f449f0847d8ad1d634a7a49df60d8c142bb8cc2dbc8ca03d9e34
-          amount: "97846969"
+          amount: '97846969'
     account_mir_content:
       type: array
       items:
@@ -6324,9 +6324,9 @@ components:
           - amount
       example:
         - tx_hash: 69705bba1d687a816ff5a04ec0c358a1f1ef075ab7f9c6cc2763e792581cec6d
-          amount: "2193707473"
+          amount: '2193707473'
         - tx_hash: baaa77b63d4d7d2bb3ab02c9b85978c2092c336dede7f59e31ad65452d510c13
-          amount: "14520198574"
+          amount: '14520198574'
     account_addresses_content:
       type: array
       items:
@@ -6365,10 +6365,10 @@ components:
       example:
         - unit: >-
             d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc537061636542756433343132
-          quantity: "1"
+          quantity: '1'
         - unit: >-
             b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-          quantity: "125"
+          quantity: '125'
     account_addresses_total:
       type: object
       properties:
@@ -6398,10 +6398,10 @@ components:
               - quantity
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
         sent_sum:
           type: array
           items:
@@ -6424,10 +6424,10 @@ components:
               - quantity
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
         tx_count:
           type: integer
           example: 12
@@ -6459,15 +6459,15 @@ components:
           - cip10
           - count
       example:
-        - label: "1990"
+        - label: '1990'
           cip10: null
-          count: "1"
-        - label: "1967"
+          count: '1'
+        - label: '1967'
           cip10: nut.link metadata oracles registry
-          count: "3"
-        - label: "1968"
+          count: '3'
+        - label: '1968'
           cip10: nut.link metadata oracles data points
-          count: "16321"
+          count: '16321'
     tx_metadata_label_json:
       type: array
       items:
@@ -6494,12 +6494,12 @@ components:
         - tx_hash: 257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8
           json_metadata:
             ADAUSD:
-              - value: "0.10409800535729975"
+              - value: '0.10409800535729975'
                 source: ergoOracles
         - tx_hash: e865f2cc01ca7381cf98dcdc4de07a5e8674b8ea16e6a18e3ed60c186fde2b9c
           json_metadata:
             ADAUSD:
-              - value: "0.15409850555139935"
+              - value: '0.15409850555139935'
                 source: ergoOracles
         - tx_hash: 4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be
           json_metadata: null
@@ -6562,10 +6562,10 @@ components:
               - quantity
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
         stake_address:
           type: string
           nullable: true
@@ -6627,12 +6627,12 @@ components:
               - has_nft_onchain_metadata
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
               decimals: 6
               has_nft_onchain_metadata: false
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
               decimals: null
               has_nft_onchain_metadata: true
         stake_address:
@@ -6685,10 +6685,10 @@ components:
               - quantity
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
         sent_sum:
           type: array
           items:
@@ -6709,10 +6709,10 @@ components:
               - quantity
           example:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
         tx_count:
           type: integer
           example: 12
@@ -6774,24 +6774,24 @@ components:
           output_index: 0
           amount:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
           block: 7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6
           data_hash: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
         - tx_hash: 4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49
           output_index: 0
           amount:
             - unit: lovelace
-              quantity: "729235000"
+              quantity: '729235000'
           block: 953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7
           data_hash: null
         - tx_hash: 768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2
           output_index: 1
           amount:
             - unit: lovelace
-              quantity: "42000000"
+              quantity: '42000000'
             - unit: >-
                 b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-              quantity: "12"
+              quantity: '12'
           block: 5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7
           data_hash: null
     address_txs_content:
@@ -6861,11 +6861,11 @@ components:
             description: Hexadecimal pool ID.
           active_stake:
             type: string
-            example: "4200000000"
+            example: '4200000000'
             description: Active delegated amount
           live_stake:
             type: string
-            example: "6900000000"
+            example: '6900000000'
             description: Currently delegated amount
         required:
           - pool_id
@@ -6874,14 +6874,14 @@ components:
           - live_stake
       example:
         - pool_id: pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q
-          active_stake: "1541200000"
-          live_stake: "1541400000"
+          active_stake: '1541200000'
+          live_stake: '1541400000'
         - pool_id: pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx
-          active_stake: "22200000"
-          live_stake: "48955550"
+          active_stake: '22200000'
+          live_stake: '48955550'
         - pool_id: pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w
-          active_stake: "9989541215"
-          live_stake: "168445464878"
+          active_stake: '9989541215'
+          live_stake: '168445464878'
     pool_list_retire:
       type: array
       items:
@@ -6930,7 +6930,7 @@ components:
           description: Number of blocks minted in the current epoch
         live_stake:
           type: string
-          example: "6900000000"
+          example: '6900000000'
         live_size:
           type: number
           example: 0.42
@@ -6942,17 +6942,17 @@ components:
           example: 127
         active_stake:
           type: string
-          example: "4200000000"
+          example: '4200000000'
         active_size:
           type: number
           example: 0.43
         declared_pledge:
           type: string
-          example: "5000000000"
+          example: '5000000000'
           description: Stake pool certificate pledge
         live_pledge:
           type: string
-          example: "5000000001"
+          example: '5000000001'
           description: Stake pool current pledge
         margin_cost:
           type: number
@@ -6960,7 +6960,7 @@ components:
           description: Margin tax cost of the stake pool
         fixed_cost:
           type: string
-          example: "340000000"
+          example: '340000000'
           description: Fixed tax cost of the stake pool
         reward_account:
           type: string
@@ -7023,7 +7023,7 @@ components:
             description: Number of blocks created by pool
           active_stake:
             type: string
-            example: "20485965693569"
+            example: '20485965693569'
             description: Active (Snapshot of live stake 2 epochs ago) stake in Lovelaces
           active_size:
             type: number
@@ -7035,11 +7035,11 @@ components:
             description: Number of delegators for epoch
           rewards:
             type: string
-            example: "206936253674159"
+            example: '206936253674159'
             description: Total rewards received before distribution to delegators
           fees:
             type: string
-            example: "1290968354"
+            example: '1290968354'
             description: Pool operator rewards
         required:
           - epoch
@@ -7152,11 +7152,11 @@ components:
           - live_stake
       example:
         - address: stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha
-          live_stake: "1137959159981411"
+          live_stake: '1137959159981411'
         - address: stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u
-          live_stake: "16958865648"
+          live_stake: '16958865648'
         - address: stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck
-          live_stake: "18605647"
+          live_stake: '18605647'
     pool_blocks:
       type: array
       items:
@@ -7216,11 +7216,11 @@ components:
       example:
         - asset: >-
             b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-          quantity: "1"
+          quantity: '1'
         - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e75d
-          quantity: "100000"
+          quantity: '100000'
         - asset: 6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad
-          quantity: "18605647"
+          quantity: '18605647'
     asset:
       type: object
       properties:
@@ -7244,7 +7244,7 @@ components:
           description: CIP14 based user-facing fingerprint
         quantity:
           type: string
-          example: "12000"
+          example: '12000'
           description: Current asset quantity
         initial_mint_tx_hash:
           type: string
@@ -7347,13 +7347,13 @@ components:
           - amount
       example:
         - tx_hash: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
-          amount: "10"
+          amount: '10'
           action: minted
         - tx_hash: 9c190bc1ac88b2ab0c05a82d7de8b71b67a9316377e865748a89d4426c0d3005
-          amount: "5"
+          amount: '5'
           action: burned
         - tx_hash: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0
-          amount: "5"
+          amount: '5'
           action: burned
     asset_txs:
       type: array
@@ -7413,13 +7413,13 @@ components:
       example:
         - address: >-
             addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
-          quantity: "1"
+          quantity: '1'
         - address: >-
             addr1qyhr4exrgavdcn3qhfcc9f939fzsch2re5ry9cwvcdyh4x4re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qdpvhza
-          quantity: "100000"
+          quantity: '100000'
         - address: >-
             addr1q8zup8m9ue3p98kxlxl9q8rnyan8hw3ul282tsl9s326dfj088lvedv4zckcj24arcpasr0gua4c5gq4zw2rpcpjk2lq8cmd9l
-          quantity: "18605647"
+          quantity: '18605647'
     asset_policy:
       type: array
       items:
@@ -7437,11 +7437,11 @@ components:
       example:
         - asset: >-
             b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
-          quantity: "1"
+          quantity: '1'
         - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a766e
-          quantity: "100000"
+          quantity: '100000'
         - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb574636f696e
-          quantity: "18605647"
+          quantity: '18605647'
     scripts:
       type: array
       items:
@@ -7552,15 +7552,15 @@ components:
             description: Datum hash
           unit_mem:
             type: string
-            example: "1700"
+            example: '1700'
             description: The budget in Memory to run a script
           unit_steps:
             type: string
-            example: "476468"
+            example: '476468'
             description: The budget in CPU steps to run a script
           fee:
             type: string
-            example: "172033"
+            example: '172033'
             description: The fee consumed to run the script
         required:
           - tx_hash
@@ -7681,27 +7681,27 @@ components:
             max:
               type: string
               description: Maximum supply in Lovelaces
-              example: "45000000000000000"
+              example: '45000000000000000'
             total:
               type: string
               description: Current total (max supply - reserves) supply in Lovelaces
-              example: "32890715183299160"
+              example: '32890715183299160'
             circulating:
               type: string
               description: Current circulating (UTXOs + withdrawables) supply in Lovelaces
-              example: "32412601976210393"
+              example: '32412601976210393'
             locked:
               type: string
               description: Current supply locked by scripts in Lovelaces
-              example: "125006953355"
+              example: '125006953355'
             treasury:
               type: string
               description: Current supply locked in treasury
-              example: "98635632000000"
+              example: '98635632000000'
             reserves:
               type: string
               description: Current supply locked in reserves
-              example: "46635632000000"
+              example: '46635632000000'
           required:
             - max
             - total
@@ -7714,12 +7714,12 @@ components:
           properties:
             live:
               type: string
-              example: "23204950463991654"
+              example: '23204950463991654'
               description: Current live stake in Lovelaces
             active:
               type: string
               description: Current active stake in Lovelaces
-              example: "22210233523456321"
+              example: '22210233523456321'
           required:
             - live
             - active
@@ -7788,9 +7788,9 @@ components:
           tx_index: 8
           payload:
             - source: coinGecko
-              value: "1.29"
+              value: '1.29'
             - source: cryptoCompare
-              value: "1.283"
+              value: '1.283'
     nutlink_tickers_ticker:
       type: array
       items:
@@ -7833,6 +7833,6 @@ components:
           tx_index: 8
           payload:
             - source: coinGecko
-              value: "1.29"
+              value: '1.29'
             - source: cryptoCompare
-              value: "1.283"
+              value: '1.283'

@@ -40,14 +40,14 @@ properties:
     type: integer
     example: 2160
     description: Security parameter k
-  required:
-    - active_slots_coefficient
-    - update_quorum
-    - max_lovelace_supply
-    - network_magic
-    - epoch_length
-    - system_start
-    - slots_per_kes_period
-    - slot_length
-    - max_kes_evolutions
-    - security_param
+required:
+  - active_slots_coefficient
+  - update_quorum
+  - max_lovelace_supply
+  - network_magic
+  - epoch_length
+  - system_start
+  - slots_per_kes_period
+  - slot_length
+  - max_kes_evolutions
+  - security_param

@@ -21,7 +21,9 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
-To build the openapi bundle, run:
+`openapi.yaml ` in root is generated from ./src
+
+Edit the source and build the openapi bundle, run:
 
 ```console
 $ yarn run bundle

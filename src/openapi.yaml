@@ -411,7 +411,7 @@ paths:
     $ref: ./paths/api/nutlink/{address}/tickers/index.yaml
 
   /nutlink/{address}/tickers/{ticker}:
-    $ref: ./paths/api/nutlink/{address}/tickers/index.yaml
+    $ref: ./paths/api/nutlink/{address}/tickers/{ticker}/index.yaml
 
   /nutlink/tickers/{ticker}:
     $ref: ./paths/api/nutlink/tickers/{ticker}/index.yaml

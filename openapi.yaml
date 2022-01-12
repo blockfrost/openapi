@@ -4784,7 +4784,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nutlink_address_tickers'
+                $ref: '#/components/schemas/nutlink_address_ticker'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7747,6 +7747,34 @@ components:
         - metadata_hash
         - metadata
     nutlink_address_tickers:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Name of the ticker
+          count:
+            type: integer
+            description: Number of ticker records
+          latest_block:
+            type: integer
+            description: Block height of the latest record
+        required:
+          - name
+          - count
+          - latest_block
+      example:
+        - name: ADAUSD
+          count: 1980038
+          latest_block: 2657092
+        - name: ADAEUR
+          count: 1980038
+          latest_block: 2657092
+        - name: ADABTC
+          count: 1980038
+          latest_block: 2657092
+    nutlink_address_ticker:
       type: array
       items:
         type: object

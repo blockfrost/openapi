@@ -13,7 +13,7 @@ get:
           schema:
             $ref: ../../../../schemas/blocks/block_content.yaml
     "400":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: ../../../../responses/errors/400.yaml
     "403":
       $ref: ../../../../responses/errors/403.yaml
     "404":

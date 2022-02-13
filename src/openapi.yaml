@@ -377,6 +377,9 @@ paths:
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     $ref: ./paths/api/utils/addresses/xpub/{xpub}/{role}/{index}/index.yaml
 
+  /utils/txs/evaluate:
+    $ref: ./paths/api/utils/txs/evaluate.yaml
+
   /ipfs/add:
     $ref: ./paths/ipfs/add.yaml
 

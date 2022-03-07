@@ -10,6 +10,7 @@ properties:
     description: Registration state of an account
   active_epoch:
     type: integer
+    nullable: true
     example: 412
     description: Epoch of the most recent action - registration or deregistration
   controlled_amount:

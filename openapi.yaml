@@ -2803,7 +2803,7 @@ paths:
             minimum: 1
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of addresses per page.
         - in: query
           name: page
           required: false
@@ -2883,7 +2883,7 @@ paths:
             minimum: 1
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of pools per page.
         - in: query
           name: page
           required: false
@@ -2941,7 +2941,7 @@ paths:
             minimum: 1
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of pools per page.
         - in: query
           name: page
           required: false
@@ -2999,7 +2999,7 @@ paths:
             minimum: 1
             maximum: 100
             default: 100
-          description: The numbers of pools per page.
+          description: The number of pools per page.
         - in: query
           name: page
           required: false
@@ -6126,6 +6126,7 @@ components:
           description: Registration state of an account
         active_epoch:
           type: integer
+          nullable: true
           example: 412
           description: Epoch of the most recent action - registration or deregistration
         controlled_amount:

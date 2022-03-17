@@ -2255,7 +2255,7 @@ paths:
         account.
       parameters:
         - in: path
-          name: address
+          name: stake_address
           required: true
           schema:
             type: string

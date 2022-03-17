@@ -7,7 +7,7 @@ get:
     <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
   parameters:
     - in: path
-      name: address
+      name: stake_address
       required: true
       schema:
         type: string

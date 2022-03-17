@@ -22,7 +22,7 @@ post:
           --data-binary @./data
   responses:
     "200":
-      description: Returns result of EvaluateTx function from Ogmios see https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx and https://ogmios.dev/api/modules/_cardano_ogmios_client.TxSubmission.evaluationErrors.html
+      description: Returns result of EvaluateTx function from Ogmios see <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a> and <a href="https://ogmios.dev/api/modules/_cardano_ogmios_client.TxSubmission.evaluationErrors.html">related errors</a>.
       content:
         application/json:
           schema:

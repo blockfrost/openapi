@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+with import <nixpkgs> { };
 
 stdenv.mkDerivation {
   name = "openapi";
@@ -9,7 +9,9 @@ stdenv.mkDerivation {
   shellHook = ''
     export PATH="$PATH:$(pwd)/node_modules/.bin"
     yarn
-    echo "To build docs run"
-    echo "> yarn run bundle && yarn run generate-docs"
+    echo "Rebuilding docs"
+    yarn run bundle && yarn run generate-docs
+    echo "DON'T FORGET TO RUN THIS BEFORE OPENING PR:"
+    echo "yarn run bundle && yarn run generate-docs"
   '';
 }

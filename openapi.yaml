@@ -4671,12 +4671,6 @@ paths:
           schema:
             type: string
             description: Address of a metadata oracle
-        - in: path
-          required: true
-          name: ticker
-          schema:
-            type: string
-            description: Ticker for the pool record
         - in: query
           name: count
           required: false
@@ -7267,6 +7261,8 @@ components:
               oneOf:
                 - type: string
                 - type: array
+                  items:
+                    type: string
               description: URI(s) of the associated asset
               example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
         metadata:

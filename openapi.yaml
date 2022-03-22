@@ -40,7 +40,19 @@ info:
       <tr><td>Cardano mainnet</td><td><tt>https://cardano-mainnet.blockfrost.io/api/v0</td></tt></tr>
       <tr><td>Cardano testnet</td><td><tt>https://cardano-testnet.blockfrost.io/api/v0</tt></td></tr>
       <tr><td>InterPlanetary File System</td><td><tt>https://ipfs.blockfrost.io/api/v0</tt></td></tr>
+      <tr><td>Milkomeda mainnet</td><td><tt>https://milkomeda-mainnet.blockfrost.io/api/v0</td></tt></tr>
+      <tr><td>Milkomeda testnet</td><td><tt>https://milkomeda-testnet.blockfrost.io/api/v0</td></tt></tr>
     </table>
+
+
+    ## Milkomeda
+
+
+    For more information about how to use Milkomeda as well as the list of
+    available endpoints, see the
+
+    <a href="https://blockfrost.dev/docs/start-building/milkomeda">Milkomeda
+    section on blockfrost.dev</a>.
 
 
     ## Concepts

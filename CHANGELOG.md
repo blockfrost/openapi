@@ -7,6 +7,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Added
+
+- `type` property to `/accounts/{stake_address}/rewards` endpoint
+
 ## [0.1.36] - 2021-12-21
 
 ### Added

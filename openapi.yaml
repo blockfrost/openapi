@@ -6251,23 +6251,35 @@ components:
           pool_id:
             type: string
             description: Bech32 pool ID being delegated to
+          type:
+            type: string
+            enum:
+              - leader
+              - member
+              - refund
+            description: Type of the reward
         required:
           - epoch
           - amount
           - pool_id
+          - type
       example:
         - epoch: 215
           amount: '12695385'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+          type: member
         - epoch: 216
           amount: '3586329'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+          type: member
         - epoch: 217
           amount: '0'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+          type: member
         - epoch: 218
           amount: '1395265'
           pool_id: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+          type: member
     account_history_content:
       type: array
       items:

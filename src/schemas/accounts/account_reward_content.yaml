@@ -16,7 +16,7 @@ items:
       enum:
         - leader
         - member
-        - refund
+        - pool_deposit_refund
       description: Type of the reward
   required:
     - epoch
@@ -33,10 +33,18 @@ example:
     pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
     type: member
   - epoch: 217
-    amount: "0"
+    amount: "1"
     pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
     type: member
+  - epoch: 217
+    amount: "1337"
+    pool_id: "pool1cytwr0n7eas6du2h2xshl8ypa1yqr18f0erlhhjcuczysiunjcs"
+    type: leader
   - epoch: 218
     amount: "1395265"
     pool_id: "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
     type: member
+  - epoch: 218
+    amount: "500000000"
+    pool_id: "pool1cytwr0n7eas6du2h2xshl8ypa1yqr18f0erlhhjcuczysiunjcs"
+    type: pool_deposit_refund

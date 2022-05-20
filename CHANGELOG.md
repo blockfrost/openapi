@@ -17,6 +17,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
   - `inline_datum` field
   - `reference_script_hash` field
+- `/scripts/datum/{datum-hash}/cbor` endpoint
 
 ### Changed
 

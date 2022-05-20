@@ -25,6 +25,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/epochs/{number}/parameters` and `/epochs/latest/parameters`
   - `coins_per_utxo_word` field deprecated, prefer `coins_per_utxo_size`
 
+### Fixed
+
+- `/scripts/{script-hash}/cbor` - `cbor` field type changed to `string`
+
 ## [0.1.37] - 2021-03-24
 
 ### Added

@@ -4317,7 +4317,7 @@ paths:
         - IPFS » Gateway
       summary: Relay to an IPFS gateway
       description: >-
-        Retrieve an object from the IFPS gateway (useful if you do not want to
+        Retrieve an object from the IPFS gateway (useful if you do not want to
         rely on a public gateway, such as `ipfs.blockfrost.dev`).
       parameters:
         - in: path

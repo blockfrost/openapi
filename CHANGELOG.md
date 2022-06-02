@@ -17,6 +17,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Changed
 
 - `/txs/{hash}/redeemers` - `datum_hash` field deprecated, prefer `redeemer_data_hash`
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `coins_per_utxo_word` field deprecated, prefer `coins_per_utxo_size`
 
 ## [0.1.37] - 2021-03-24
 

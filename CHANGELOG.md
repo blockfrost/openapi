@@ -14,6 +14,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
     - `inline_datum` field
     - `reference_script_hash` field
 
+### Changed
+
+- `/txs/{hash}/redeemers` - `datum_hash` field deprecated, prefer `redeemer_data_hash`
+
 ## [0.1.37] - 2021-03-24
 
 ### Added

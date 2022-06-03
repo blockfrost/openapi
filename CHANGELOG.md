@@ -13,6 +13,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
   - `inputs` and `outputs` now contain extra
     - `inline_datum` field
     - `reference_script_hash` field
+  - `inputs` now has a boolean `reference` field, `true` if the input is a reference input
 
 ### Changed
 

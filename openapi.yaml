@@ -5785,6 +5785,10 @@ components:
                 description: >-
                   Whether the input is a collateral consumed on script
                   validation failure
+              reference:
+                type: boolean
+                example: false
+                description: Whether the input is a reference transaction input
             required:
               - address
               - amount

@@ -14,6 +14,9 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
     - `inline_datum` field
     - `reference_script_hash` field
   - `inputs` now has a boolean `reference` field, `true` if the input is a reference input
+- `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
+  - `inline_datum` field
+  - `reference_script_hash` field
 
 ### Changed
 

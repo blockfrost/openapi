@@ -7601,8 +7601,9 @@ components:
           type: string
           enum:
             - timelock
-            - plutus
-          example: plutus
+            - plutusV1
+            - plutusV2
+          example: plutusV1
           description: Type of the script language
         serialised_size:
           type: integer

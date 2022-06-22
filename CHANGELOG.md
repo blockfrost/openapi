@@ -27,6 +27,9 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
     - `coins_per_utxo_size` is now
       - Cost per UTxO **word** for Alonzo.
       - Cost per UTxO **byte** for Babbage and later.
+- `/scripts/{hash}`
+  - `type` field now uses `plutusV1` and `plutusV2` instead of just `plutus` to be able
+    to differentiate between two `PlutusScript` versions.
 
 ## [0.1.37] - 2021-03-24
 

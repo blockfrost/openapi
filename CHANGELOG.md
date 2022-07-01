@@ -7,6 +7,30 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Added
+
+- `/txs/{hash}/utxos`
+  - `inputs` and `outputs` now contain extra
+    - `inline_datum` field
+    - `reference_script_hash` field
+  - `inputs` now has a boolean `reference` field, `true` if the input is a reference input
+- `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
+  - `inline_datum` field
+  - `reference_script_hash` field
+
+### Changed
+
+- `/txs/{hash}/redeemers` - `datum_hash` field deprecated, prefer `redeemer_data_hash`
+- `/scripts/{hash}/redeemers` - `datum_hash` field deprecated, prefer `redeemer_data_hash`
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `coins_per_utxo_word` field deprecated, prefer `coins_per_utxo_size`
+    - `coins_per_utxo_size` is now
+      - Cost per UTxO **word** for Alonzo.
+      - Cost per UTxO **byte** for Babbage and later.
+- `/scripts/{hash}`
+  - `type` field now uses `plutusV1` and `plutusV2` instead of just `plutus` to be able
+    to differentiate between two `PlutusScript` versions.
+
 ## [0.1.37] - 2021-03-24
 
 ### Added

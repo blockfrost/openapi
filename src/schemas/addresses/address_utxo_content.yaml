@@ -35,6 +35,16 @@ items:
       type: string
       description: The hash of the transaction output datum
       nullable: true
+    inline_datum:
+      type: string
+      description: CBOR encoded inline datum
+      example: "19a6aa"
+      nullable: true
+    reference_script_hash:
+      type: string
+      description: The hash of the reference script of the output
+      example: "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
+      nullable: true
   required:
     - tx_hash
     - tx_index
@@ -42,6 +52,8 @@ items:
     - amount
     - block
     - data_hash
+    - inline_datum
+    - reference_script_hash
 example:
   - tx_hash: "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58"
     output_index: 0

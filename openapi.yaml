@@ -4152,6 +4152,39 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /scripts/datum/{datum_hash}/cbor:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Datum CBOR value
+      description: Query CBOR serialised datum by its hash
+      parameters:
+        - in: path
+          name: datum_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the datum
+          example: db583ad85881a96c73fbb26ab9e24d1120bb38f45385664bb9c797a2ea8d9a2d
+      responses:
+        '200':
+          description: Return the CBOR serialised datum value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/script_datum_cbor'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     get:
       tags:
@@ -7645,14 +7678,7 @@ components:
       type: object
       properties:
         cbor:
-          anyOf:
-            - type: string
-            - type: object
-            - type: array
-              items: {}
-            - type: integer
-            - type: number
-            - type: boolean
+          type: string
           nullable: true
           description: CBOR contents of the `plutus` script, null for `timelocks`
       required:
@@ -7729,6 +7755,16 @@ components:
       example:
         json_value:
           int: 42
+    script_datum_cbor:
+      type: object
+      properties:
+        cbor:
+          type: string
+          description: CBOR serialized datum
+      required:
+        - cbor
+      example:
+        cbor: 19a6aa
     utils_addresses_xpub:
       type: object
       properties:

@@ -1,14 +1,7 @@
 type: object
 properties:
   cbor:
-    anyOf:
-      - type: string
-      - type: object
-      - type: array
-        items: {}
-      - type: integer
-      - type: number
-      - type: boolean
+    type: string
     nullable: true
     description: CBOR contents of the `plutus` script, null for `timelocks`
 required:

@@ -381,6 +381,9 @@ paths:
   /scripts/datum/{datum_hash}:
     $ref: ./paths/api/scripts/datum/{datum_hash}/index.yaml
 
+  /scripts/datum/{datum_hash}/cbor:
+    $ref: ./paths/api/scripts/datum/{datum_hash}/cbor.yaml
+
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     $ref: ./paths/api/utils/addresses/xpub/{xpub}/{role}/{index}/index.yaml
 

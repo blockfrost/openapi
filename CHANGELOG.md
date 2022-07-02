@@ -19,6 +19,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
   - `inline_datum` field
   - `reference_script_hash` field
+- `/scripts/datum/{datum-hash}/cbor` endpoint
 
 ### Changed
 
@@ -32,6 +33,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/scripts/{hash}`
   - `type` field now uses `plutusV1` and `plutusV2` instead of just `plutus` to be able
     to differentiate between two `PlutusScript` versions.
+
+### Fixed
+
+- `/scripts/{script-hash}/cbor` - `cbor` field type changed to `string`
 
 ## [0.1.37] - 2021-03-24
 

@@ -5888,6 +5888,10 @@ components:
                 description: CBOR encoded inline datum
                 example: 19a6aa
                 nullable: true
+              collateral:
+                type: boolean
+                example: false
+                description: Whether the output is a collateral output
               reference_script_hash:
                 type: string
                 description: The hash of the reference script of the output
@@ -5899,6 +5903,7 @@ components:
               - output_index
               - data_hash
               - inline_datum
+              - collateral
               - reference_script_hash
       required:
         - hash

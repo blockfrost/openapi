@@ -1535,9 +1535,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about stake pool retirements within a specific
-            transaction.
+          description: Obtain metadata information associated with a specific transaction.
           content:
             application/json:
               schema:
@@ -1571,9 +1569,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about stake pool retirements within a specific
-            transaction.
+          description: Obtain metadata information associated with a specific transaction.
           content:
             application/json:
               schema:
@@ -2335,7 +2331,7 @@ paths:
             newest last.
       responses:
         '200':
-          description: Return the account delegations content
+          description: Return the account metadata content in CBOR
           content:
             application/json:
               schema:
@@ -2400,7 +2396,7 @@ paths:
             newest last.
       responses:
         '200':
-          description: Return the account delegations content
+          description: Return the account metadata content
           content:
             application/json:
               schema:
@@ -2465,7 +2461,7 @@ paths:
             newest last.
       responses:
         '200':
-          description: Return the account delegations content in CBOR
+          description: Return the account metadata content in CBOR
           content:
             application/json:
               schema:
@@ -5183,6 +5179,16 @@ components:
           description: VRF key of the block
           minLength: 65
           maxLength: 65
+        op_cert:
+          type: string
+          nullable: true
+          example: da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c
+          description: The hash of the operational certificate of the block producer
+        op_cert_counter:
+          type: string
+          nullable: true
+          example: '18'
+          description: The value of the counter used to produce the operational certificate
         previous_block:
           type: string
           nullable: true
@@ -5210,6 +5216,8 @@ components:
         - output
         - fees
         - block_vrf
+        - op_cert
+        - op_cert_counter
         - previous_block
         - next_block
         - confirmations

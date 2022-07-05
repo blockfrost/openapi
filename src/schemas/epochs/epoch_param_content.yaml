@@ -128,11 +128,21 @@ properties:
     type: integer
     example: 3
     description: The maximum number of collateral inputs allowed in a transaction
+  coins_per_utxo_size:
+    nullable: true
+    type: string
+    example: "34482"
+    description:
+      Cost per UTxO word for Alonzo.
+      Cost per UTxO byte for Babbage and later.
   coins_per_utxo_word:
     nullable: true
     type: string
     example: "34482"
-    description: The cost per UTxO word
+    description:
+      Cost per UTxO word for Alonzo.
+      Cost per UTxO byte for Babbage and later.
+    deprecated: true
 required:
   - epoch
   - min_fee_a
@@ -163,4 +173,5 @@ required:
   - max_val_size
   - collateral_percent
   - max_collateral_inputs
+  - coins_per_utxo_size
   - coins_per_utxo_word

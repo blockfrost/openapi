@@ -1,24 +1,23 @@
 get:
   tags:
-    - Cardano » Transactions
-  summary: Transaction metadata
-  description: Obtain the transaction metadata.
+    - Cardano » Scripts
+  summary: Datum CBOR value
+  description: Query CBOR serialised datum by its hash
   parameters:
     - in: path
-      name: hash
+      name: datum_hash
       required: true
       schema:
         type: string
-        format: 64-character case-sensitive hexadecimal string.
-      description: Hash of the requested transaction
-      example: "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+      description: Hash of the datum
+      example: "db583ad85881a96c73fbb26ab9e24d1120bb38f45385664bb9c797a2ea8d9a2d"
   responses:
     "200":
-      description: Obtain metadata information associated with a specific transaction.
+      description: Return the CBOR serialised datum value
       content:
         application/json:
           schema:
-            $ref: ../../../../../schemas/txs/tx_content_metadata.yaml
+            $ref: ../../../../../schemas/scripts/script_datum_cbor.yaml
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

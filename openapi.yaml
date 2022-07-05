@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.37
+  version: 0.1.39
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -4152,6 +4152,39 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /scripts/datum/{datum_hash}/cbor:
+    get:
+      tags:
+        - Cardano » Scripts
+      summary: Datum CBOR value
+      description: Query CBOR serialised datum by its hash
+      parameters:
+        - in: path
+          name: datum_hash
+          required: true
+          schema:
+            type: string
+          description: Hash of the datum
+          example: db583ad85881a96c73fbb26ab9e24d1120bb38f45385664bb9c797a2ea8d9a2d
+      responses:
+        '200':
+          description: Return the CBOR serialised datum value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/script_datum_cbor'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     get:
       tags:
@@ -4317,7 +4350,7 @@ paths:
         - IPFS » Gateway
       summary: Relay to an IPFS gateway
       description: >-
-        Retrieve an object from the IFPS gateway (useful if you do not want to
+        Retrieve an object from the IPFS gateway (useful if you do not want to
         rely on a public gateway, such as `ipfs.blockfrost.dev`).
       parameters:
         - in: path
@@ -4737,12 +4770,6 @@ paths:
           schema:
             type: string
             description: Address of a metadata oracle
-        - in: path
-          required: true
-          name: ticker
-          schema:
-            type: string
-            description: Ticker for the pool record
         - in: query
           name: count
           required: false
@@ -5484,11 +5511,21 @@ components:
           type: integer
           example: 3
           description: The maximum number of collateral inputs allowed in a transaction
+        coins_per_utxo_size:
+          nullable: true
+          type: string
+          example: '34482'
+          description: >-
+            Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and
+            later.
         coins_per_utxo_word:
           nullable: true
           type: string
           example: '34482'
-          description: The cost per UTxO word
+          description: >-
+            Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and
+            later.
+          deprecated: true
       required:
         - epoch
         - min_fee_a
@@ -5519,6 +5556,7 @@ components:
         - max_val_size
         - collateral_percent
         - max_collateral_inputs
+        - coins_per_utxo_size
         - coins_per_utxo_word
     epoch_content_array:
       type: array
@@ -5764,18 +5802,34 @@ components:
                 example: >-
                   9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
                 nullable: true
+              inline_datum:
+                type: string
+                description: CBOR encoded inline datum
+                example: 19a6aa
+                nullable: true
+              reference_script_hash:
+                type: string
+                description: The hash of the reference script of the input
+                example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+                nullable: true
               collateral:
                 type: boolean
                 example: false
                 description: >-
                   Whether the input is a collateral consumed on script
                   validation failure
+              reference:
+                type: boolean
+                example: false
+                description: Whether the input is a reference transaction input
             required:
               - address
               - amount
               - tx_hash
               - output_index
               - data_hash
+              - inline_datum
+              - reference_script_hash
               - collateral
         outputs:
           type: array
@@ -5821,11 +5875,23 @@ components:
                 nullable: true
                 example: >-
                   9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+              inline_datum:
+                type: string
+                description: CBOR encoded inline datum
+                example: 19a6aa
+                nullable: true
+              reference_script_hash:
+                type: string
+                description: The hash of the reference script of the output
+                example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+                nullable: true
             required:
               - address
               - amount
               - output_index
               - data_hash
+              - inline_datum
+              - reference_script_hash
       required:
         - hash
         - inputs
@@ -6155,9 +6221,14 @@ components:
             type: string
             example: ec26b89af41bef0f7585353831cb5da42b5b37185e0c8a526143b824
             description: Script hash
+          redeemer_data_hash:
+            type: string
+            example: 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+            description: Redeemer data hash
           datum_hash:
             type: string
             example: 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+            deprecated: true
             description: Datum hash
           unit_mem:
             type: string
@@ -6177,6 +6248,7 @@ components:
           - unit_mem
           - unit_steps
           - script_hash
+          - redeemer_data_hash
           - datum_hash
           - fee
     account_content:
@@ -6843,6 +6915,16 @@ components:
             type: string
             description: The hash of the transaction output datum
             nullable: true
+          inline_datum:
+            type: string
+            description: CBOR encoded inline datum
+            example: 19a6aa
+            nullable: true
+          reference_script_hash:
+            type: string
+            description: The hash of the reference script of the output
+            example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+            nullable: true
         required:
           - tx_hash
           - tx_index
@@ -6850,6 +6932,8 @@ components:
           - amount
           - block
           - data_hash
+          - inline_datum
+          - reference_script_hash
       example:
         - tx_hash: 39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58
           output_index: 0
@@ -7353,6 +7437,8 @@ components:
               oneOf:
                 - type: string
                 - type: array
+                  items:
+                    type: string
               description: URI(s) of the associated asset
               example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
         metadata:
@@ -7548,8 +7634,9 @@ components:
           type: string
           enum:
             - timelock
-            - plutus
-          example: plutus
+            - plutusV1
+            - plutusV2
+          example: plutusV1
           description: Type of the script language
         serialised_size:
           type: integer
@@ -7591,14 +7678,7 @@ components:
       type: object
       properties:
         cbor:
-          anyOf:
-            - type: string
-            - type: object
-            - type: array
-              items: {}
-            - type: integer
-            - type: number
-            - type: boolean
+          type: string
           nullable: true
           description: CBOR contents of the `plutus` script, null for `timelocks`
       required:
@@ -7627,10 +7707,15 @@ components:
               - reward
             example: spend
             description: Validation purpose
+          redeemer_data_hash:
+            type: string
+            example: 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+            description: Datum hash of the redeemer
           datum_hash:
             type: string
             example: 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
             description: Datum hash
+            deprecated: true
           unit_mem:
             type: string
             example: '1700'
@@ -7647,6 +7732,7 @@ components:
           - tx_hash
           - tx_index
           - purpose
+          - redeemer_data_hash
           - datum_hash
           - unit_mem
           - unit_steps
@@ -7669,6 +7755,16 @@ components:
       example:
         json_value:
           int: 42
+    script_datum_cbor:
+      type: object
+      properties:
+        cbor:
+          type: string
+          description: CBOR serialized datum
+      required:
+        - cbor
+      example:
+        cbor: 19a6aa
     utils_addresses_xpub:
       type: object
       properties:

@@ -6,8 +6,8 @@ properties:
     description: Script hash
   type:
     type: string
-    enum: [timelock, plutus]
-    example: "plutus"
+    enum: [timelock, plutusV1, plutusV2]
+    example: "plutusV1"
     description: Type of the script language
   serialised_size:
     type: integer

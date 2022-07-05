@@ -9,12 +9,6 @@ get:
       schema:
         type: string
         description: Address of a metadata oracle
-    - in: path
-      required: true
-      name: ticker
-      schema:
-        type: string
-        description: Ticker for the pool record
     - in: query
       name: count
       required: false

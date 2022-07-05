@@ -45,6 +45,8 @@ properties:
         oneOf:
           - type: string
           - type: array
+            items:
+              type: string
         description: URI(s) of the associated asset
         example: "ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226"
   metadata:

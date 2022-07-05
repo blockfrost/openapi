@@ -15,10 +15,15 @@ items:
       enum: [spend, mint, cert, reward]
       example: "spend"
       description: Validation purpose
+    redeemer_data_hash:
+      type: string
+      example: "923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec"
+      description: Datum hash of the redeemer
     datum_hash:
       type: string
       example: "923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec"
       description: Datum hash
+      deprecated: true
     unit_mem:
       type: string
       example: "1700"
@@ -35,6 +40,7 @@ items:
     - tx_hash
     - tx_index
     - purpose
+    - redeemer_data_hash
     - datum_hash
     - unit_mem
     - unit_steps

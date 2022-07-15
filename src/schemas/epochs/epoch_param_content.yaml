@@ -91,7 +91,7 @@ properties:
       PlutusV2:
         addInteger-cpu-arguments-intercept: 197209
         addInteger-cpu-arguments-slope: 0
-    decription: Cost models parameters for Plutus Core scripts
+    description: Cost models parameters for Plutus Core scripts
   price_mem:
     nullable: true
     type: number

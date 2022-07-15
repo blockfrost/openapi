@@ -5440,7 +5440,7 @@ components:
           example: 0.5
           description: Percentage of blocks produced by federated nodes
         extra_entropy:
-          type: object
+          type: string
           nullable: true
           example: null
           description: Seed for extra entropy

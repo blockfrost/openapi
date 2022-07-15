@@ -57,7 +57,7 @@ properties:
     example: 0.5
     description: Percentage of blocks produced by federated nodes
   extra_entropy:
-    type: object
+    type: string
     nullable: true
     example: null
     description: Seed for extra entropy
@@ -81,8 +81,17 @@ properties:
     type: string
     example: "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81"
     description: Epoch number only used once
-  # cost_models:
-  # https://github.com/input-output-hk/cardano-db-sync/pull/758
+  cost_models:
+    nullable: true
+    type: object
+    example:
+      PlutusV1:
+        addInteger-cpu-arguments-intercept: 197209
+        addInteger-cpu-arguments-slope: 0
+      PlutusV2:
+        addInteger-cpu-arguments-intercept: 197209
+        addInteger-cpu-arguments-slope: 0
+    description: Cost models parameters for Plutus Core scripts
   price_mem:
     nullable: true
     type: number
@@ -164,6 +173,7 @@ required:
   - min_utxo
   - min_pool_cost
   - nonce
+  - cost_models
   - price_mem
   - price_step
   - max_tx_ex_mem

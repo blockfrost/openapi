@@ -5,7 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
-## [Unreleased]
+## [0.1.40] - 2021-07-15
+
+### Added
+
+- Block schema now contains extra
+  - `op_cert` field
+  - `op_cert_counter` field
+- `/txs/{hash}/utxos`
+  - `outputs` now has extra boolean `collateral` field which is `true` when the transaction output is a collateral output
+- `/epochs/{number}/parameters` and `/epoch/latest/parameters` now has
+  - `cost_models` field with JSON containing cost models parameters for Plutus Core scripts
+
+### Fixed
+
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `extra_entropy` type changed from `object` to `string`
 
 ## [0.1.39] - 2021-07-01
 

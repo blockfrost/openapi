@@ -57,6 +57,16 @@ properties:
     description: VRF key of the block
     minLength: 65
     maxLength: 65
+  op_cert:
+    type: string
+    nullable: true
+    example: "da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c"
+    description: The hash of the operational certificate of the block producer
+  op_cert_counter:
+    type: string
+    nullable: true
+    example: "18"
+    description: The value of the counter used to produce the operational certificate
   previous_block:
     type: string
     nullable: true
@@ -84,6 +94,8 @@ required:
   - output
   - fees
   - block_vrf
+  - op_cert
+  - op_cert_counter
   - previous_block
   - next_block
   - confirmations

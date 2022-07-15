@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.39
+  version: 0.1.40
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -1535,9 +1535,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about stake pool retirements within a specific
-            transaction.
+          description: Obtain metadata information associated with a specific transaction.
           content:
             application/json:
               schema:
@@ -1571,9 +1569,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about stake pool retirements within a specific
-            transaction.
+          description: Obtain metadata information associated with a specific transaction.
           content:
             application/json:
               schema:
@@ -2335,7 +2331,7 @@ paths:
             newest last.
       responses:
         '200':
-          description: Return the account delegations content
+          description: Return the account metadata content in CBOR
           content:
             application/json:
               schema:
@@ -2400,7 +2396,7 @@ paths:
             newest last.
       responses:
         '200':
-          description: Return the account delegations content
+          description: Return the account metadata content
           content:
             application/json:
               schema:
@@ -2465,7 +2461,7 @@ paths:
             newest last.
       responses:
         '200':
-          description: Return the account delegations content in CBOR
+          description: Return the account metadata content in CBOR
           content:
             application/json:
               schema:
@@ -5183,6 +5179,16 @@ components:
           description: VRF key of the block
           minLength: 65
           maxLength: 65
+        op_cert:
+          type: string
+          nullable: true
+          example: da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c
+          description: The hash of the operational certificate of the block producer
+        op_cert_counter:
+          type: string
+          nullable: true
+          example: '18'
+          description: The value of the counter used to produce the operational certificate
         previous_block:
           type: string
           nullable: true
@@ -5210,6 +5216,8 @@ components:
         - output
         - fees
         - block_vrf
+        - op_cert
+        - op_cert_counter
         - previous_block
         - next_block
         - confirmations
@@ -5432,7 +5440,7 @@ components:
           example: 0.5
           description: Percentage of blocks produced by federated nodes
         extra_entropy:
-          type: object
+          type: string
           nullable: true
           example: null
           description: Seed for extra entropy
@@ -5456,6 +5464,17 @@ components:
           type: string
           example: 1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81
           description: Epoch number only used once
+        cost_models:
+          nullable: true
+          type: object
+          example:
+            PlutusV1:
+              addInteger-cpu-arguments-intercept: 197209
+              addInteger-cpu-arguments-slope: 0
+            PlutusV2:
+              addInteger-cpu-arguments-intercept: 197209
+              addInteger-cpu-arguments-slope: 0
+          description: Cost models parameters for Plutus Core scripts
         price_mem:
           nullable: true
           type: number
@@ -5547,6 +5566,7 @@ components:
         - min_utxo
         - min_pool_cost
         - nonce
+        - cost_models
         - price_mem
         - price_step
         - max_tx_ex_mem
@@ -5880,6 +5900,10 @@ components:
                 description: CBOR encoded inline datum
                 example: 19a6aa
                 nullable: true
+              collateral:
+                type: boolean
+                example: false
+                description: Whether the output is a collateral output
               reference_script_hash:
                 type: string
                 description: The hash of the reference script of the output
@@ -5891,6 +5915,7 @@ components:
               - output_index
               - data_hash
               - inline_datum
+              - collateral
               - reference_script_hash
       required:
         - hash

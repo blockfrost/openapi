@@ -7,6 +7,14 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [Unreleased]
 
+### Added
+
+- Block schema now contains extra
+  - `op_cert` field
+  - `op_cert_counter` field
+- `/txs/{hash}/utxos`
+  - `outputs` now has extra boolean `collateral` field
+
 ## [0.1.39] - 2021-07-01
 
 ### Added

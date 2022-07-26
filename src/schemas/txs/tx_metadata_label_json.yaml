@@ -6,6 +6,7 @@ items:
       type: string
       description: Transaction hash that contains the specific metadata
     json_metadata:
+      additionalProperties: true
       anyOf:
         - type: string
         - type: object

@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
-## [0.1.40] - 2021-07-15
+## [0.1.x] - 2022-xx-xx
+
+### Fixed
+
+- Missing `block_time` in schema for asset transactions
+- Missing `additionalProperties` in `json_metadata` and `cost_models`
+
+## [0.1.40] - 2022-07-15
 
 ### Added
 
@@ -22,7 +29,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/epochs/{number}/parameters` and `/epochs/latest/parameters`
   - `extra_entropy` type changed from `object` to `string`
 
-## [0.1.39] - 2021-07-01
+## [0.1.39] - 2022-07-01
 
 ### Added
 
@@ -53,7 +60,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `/scripts/{script-hash}/cbor` - `cbor` field type changed to `string`
 
-## [0.1.37] - 2021-03-24
+## [0.1.37] - 2022-03-24
 
 ### Added
 

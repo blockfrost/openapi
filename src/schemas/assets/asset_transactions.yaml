@@ -11,6 +11,10 @@ items:
     block_height:
       type: integer
       description: Block height
+    block_time:
+      type: integer
+      example: 1635505891
+      description: Block creation time in UNIX time
   required:
     - tx_hash
     - tx_index

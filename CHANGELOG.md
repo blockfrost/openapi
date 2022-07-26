@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
-## [0.1.40] - 2021-07-15
+## [0.1.x] - 2022-xx-xx
+
+### Fixed
+
+- Missing `block_time` in schema for asset transactions
+- Missing `additionalProperties` in `json_metadata` and `cost_models`
+- Missing peer dependencies
+
+## [0.1.40] - 2022-07-15
 
 ### Added
 
@@ -22,7 +30,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/epochs/{number}/parameters` and `/epochs/latest/parameters`
   - `extra_entropy` type changed from `object` to `string`
 
-## [0.1.39] - 2021-07-01
+## [0.1.39] - 2022-07-01
 
 ### Added
 
@@ -53,14 +61,14 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `/scripts/{script-hash}/cbor` - `cbor` field type changed to `string`
 
-## [0.1.37] - 2021-03-24
+## [0.1.37] - 2022-03-24
 
 ### Added
 
 - `type` property to `/accounts/{stake_address}/rewards` endpoint
 - `/utils/txs/evaluate` endpoint
 
-## [0.1.36] - 2021-12-21
+## [0.1.36] - 2022-12-21
 
 ### Added
 
@@ -70,20 +78,20 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - mark `tx_hash` in `/blocks/{hash_or_number}/addresses` as required field
 
-## [0.1.35] - 2021-12-10
+## [0.1.35] - 2022-12-10
 
 ### Added
 
 - `/blocks/{hash_or_number}/addresses`
 
-## [0.1.34] - 2021-12-07
+## [0.1.34] - 2022-12-07
 
 ### Added
 
 - `/pools/extended` endpoint
 - `/utils/addresses/xpub/{xpub}/{role}/{index}` endpoint
 
-## [0.1.33] - 2021-11-24
+## [0.1.33] - 2022-11-24
 
 ### Added
 
@@ -94,19 +102,19 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - multiple descriptions
 
-## [0.1.32] - 2021-10-30
+## [0.1.32] - 2022-10-30
 
 ### Added
 
 - `block_time` property to `/assets/{asset}/transactions`
 
-## [0.1.31] - 2021-10-30
+## [0.1.31] - 2022-10-30
 
 ### Added
 
 - `block_time` property to `/addresses/{address}/transactions` and `/txs/{hash}`
 
-## [0.1.30] - 2021-10-14
+## [0.1.30] - 2022-10-14
 
 ### Added
 
@@ -128,7 +136,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `/network` supply descriptions
 
-## [0.1.29] - 2021-10-07
+## [0.1.29] - 2022-10-07
 
 ### Added
 
@@ -142,7 +150,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - description of `stake_cert_count` in `/txs/{hash}`
 
-## [0.1.28] - 2021-09-29
+## [0.1.28] - 2022-09-29
 
 ### Added
 
@@ -157,7 +165,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/txs/{hash}/utxos` - `data_hash` field moved up from `amount` to `output` item
 - `/txs/{hash}/utxos` - `output_index` of `input` items switch from `number` to `integer`
 
-## [0.1.27] - 2021-09-12
+## [0.1.27] - 2022-09-12
 
 ### Added
 
@@ -187,13 +195,13 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - description of `ipfs/pin/list/<object>`
 - `onchain_metadata` type of `/assets/{asset}` endpoint
 
-## [0.1.26] - 2021-08-12
+## [0.1.26] - 2022-08-12
 
 ### Fixed
 
 - multiple descriptions and examples, mainly related to time/date
 
-## [0.1.25] - 2021-07-27
+## [0.1.25] - 2022-07-27
 
 ### Added
 
@@ -203,7 +211,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - typo in `/addresses/{address}/txs` description - thanks @papacarp
 
-## [0.1.24] - 2021-07-16
+## [0.1.24] - 2022-07-16
 
 ### Added
 
@@ -221,7 +229,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - clarified active stake `amount` in `/epochs/{number}/stakes` and `/epochs/{number}/stakes/{pool_id}`
 - pagination of `accounts/{stake_address}/addresses/assets` endpoint
 
-## [0.1.23] - 2021-07-01
+## [0.1.23] - 2022-07-01
 
 ### Added
 
@@ -229,7 +237,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `asset_mint_or_burn_count` property to `/txs/{hash}` endpoint
 - `decimals` property to `/assets/{asset}` endpoint
 
-## [0.1.22] - 2021-07-01
+## [0.1.22] - 2022-07-01
 
 ### Added
 
@@ -239,7 +247,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - authentication documentation
 
-## [0.1.19] - 2021-06-11
+## [0.1.19] - 2022-06-11
 
 ### Added
 
@@ -252,13 +260,13 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `txs/{hash}/stakes` default ordering
 
-## [0.1.18] - 2021-06-06
+## [0.1.18] - 2022-06-06
 
 ### Fixed
 
 - properties of `/addresses/{address}/transactions` and `/assets/{asset}/transactions` to be required
 
-## [0.1.17] - 2021-06-02
+## [0.1.17] - 2022-06-02
 
 ### Added
 
@@ -273,7 +281,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - type of `number` parameter in `/epochs/{number}/` string -> integer
 
-## [0.1.16] - 2021-05-25
+## [0.1.16] - 2022-05-25
 
 ### Added
 
@@ -289,25 +297,25 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `onchain_metadata` in `/assets/{asset}/total` endpoint that could have been missing in some special cases
 - `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow https://github.com/cardano-foundation/CIPs/pull/85/files
 
-## [0.1.15] - 2021-05-19
+## [0.1.15] - 2022-05-19
 
 ### Fixed
 
 - `registration` and `retirement` arrays in `/pools/{pool_id}/` endpoint doesn't need to be `Nullable`
 
-## [0.1.14] - 2021-05-19
+## [0.1.14] - 2022-05-19
 
 ### Fixed
 
 - `amount` in `/accounts/{stake_address}/rewards`, `/accounts/{stake_address}/delegations` and `/accounts/{stake_address}/history` endpoints doesn't need to be `Nullable`
 
-## [0.1.13] - 2021-05-06
+## [0.1.13] - 2022-05-06
 
 ### Fixed
 
 - inconsistency in `/txs` endpoints when array was used outside of ref (moved array inside the referenced schema)
 
-## [0.1.12] - 2021-04-29
+## [0.1.12] - 2022-04-29
 
 ### Added
 
@@ -318,7 +326,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - all occurences of `epoch` to `active_epoch` in `/accounts/{stake_address}/history` endpoint
 - required properties of multiple endpoints and error messages
 
-## [0.1.11] - 2021-04-23
+## [0.1.11] - 2022-04-23
 
 ### Added
 
@@ -328,7 +336,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - alphabetical ordering in Cardano subcategory documentation
 
-## [0.1.10] - 2021-04-17
+## [0.1.10] - 2022-04-17
 
 ### Changed
 
@@ -347,7 +355,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `/pools` trailing slash in documentation
 
-## [0.1.9] - 2021-04-04
+## [0.1.9] - 2022-04-04
 
 ### Added
 
@@ -359,7 +367,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `tx_index` in `/addresses/{address}/utxos` - it has been deprecated in favour of `output_index`
 - `/` endpoint property `version` type number -> string
 
-## [0.1.8] - 2021-03-31
+## [0.1.8] - 2022-03-31
 
 ### Added
 
@@ -374,7 +382,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - `/tx/submit` error handling (standardized error reply for 400)
 - `/assets/{asset}` handling of `metadata`
 
-## [0.1.6] - 2021-03-19
+## [0.1.6] - 2022-03-19
 
 ### Added
 
@@ -389,7 +397,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - functionality and description of rate limiting (429), oversubscription (402) and banning (418)
 
-## [0.1.5] - 2021-03-12
+## [0.1.5] - 2022-03-12
 
 ### Added
 
@@ -420,13 +428,13 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - Pool hopping account issues which were causing that some pools were displaying slightly higher `live_stake` values and thus also very slightly skewed `live_size` and `live_saturation` calculations in `/pools/{pool_id}` endpoint
 - `active_epoch` in `/accounts/{stake_address}` was previously displaying epoch of delegation, not epoch of de/registration
 
-## [0.1.4] - 2021-03-08
+## [0.1.4] - 2022-03-08
 
 ### Fixed
 
 - `/txs/{hash}` types of `invalid_before` and `invalid_hereafter` changed from integer to string as the value may overflow
 
-## [0.1.2] - 2021-03-05
+## [0.1.2] - 2022-03-05
 
 ### Fixed
 
@@ -440,7 +448,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 - All `/addresses/{address}` endpoints now also accept `payment_cred` in Bech32 format
 - All `/pools/{pool_id}` endpoints now also accept `pool_id` in Hex format
 
-## [0.1.1] - 2021-02-26
+## [0.1.1] - 2022-02-26
 
 ### Added
 
@@ -466,7 +474,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
   - `fees_sum` → `fees`
 - Rename `acronym` → `ticker` in metadata of `/assets/{asset}`
 
-## [0.1.0] - 2021-02-23
+## [0.1.0] - 2022-02-23
 
 ### Added
 

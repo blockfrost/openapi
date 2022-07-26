@@ -5465,6 +5465,7 @@ components:
           example: 1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81
           description: Epoch number only used once
         cost_models:
+          additionalProperties: true
           nullable: true
           type: object
           example:
@@ -6655,6 +6656,7 @@ components:
             type: string
             description: Transaction hash that contains the specific metadata
           json_metadata:
+            additionalProperties: true
             anyOf:
               - type: string
               - type: object
@@ -7570,6 +7572,10 @@ components:
           block_height:
             type: integer
             description: Block height
+          block_time:
+            type: integer
+            example: 1635505891
+            description: Block creation time in UNIX time
         required:
           - tx_hash
           - tx_index

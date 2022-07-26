@@ -11,7 +11,6 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - Missing `block_time` in schema for asset transactions
 - Missing `additionalProperties` in `json_metadata` and `cost_models`
-- Missing peer dependencies
 
 ## [0.1.40] - 2022-07-15
 

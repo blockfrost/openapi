@@ -6,6 +6,7 @@ items:
       type: string
       description: Metadata label
     json_metadata:
+      additionalProperties: true
       oneOf:
         - type: string
         - type: object

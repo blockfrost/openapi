@@ -6183,6 +6183,7 @@ components:
             type: string
             description: Metadata label
           json_metadata:
+            additionalProperties: true
             oneOf:
               - type: string
               - type: object
@@ -7682,6 +7683,7 @@ components:
       type: object
       properties:
         json:
+          additionalProperties: true
           anyOf:
             - type: string
             - type: object
@@ -7772,6 +7774,7 @@ components:
       type: object
       properties:
         json_value:
+          additionalProperties: true
           anyOf:
             - type: string
             - type: object

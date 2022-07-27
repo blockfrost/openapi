@@ -1,6 +1,7 @@
 type: object
 properties:
   json_value:
+    additionalProperties: true
     anyOf:
       - type: string
       - type: object

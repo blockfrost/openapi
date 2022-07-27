@@ -1,16 +1,7 @@
 type: object
 properties:
-  json_value:
-    additionalProperties: true
-    anyOf:
-      - type: string
-      - type: object
-      - type: array
-        items: {}
-      - type: integer
-      - type: number
-      - type: boolean
-    description: JSON content of the datum
+ json_value:
+   description: JSON content of the datum
 required:
   - json_value
 example:

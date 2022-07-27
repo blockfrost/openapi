@@ -1,6 +1,7 @@
 type: object
 properties:
   json:
+    additionalProperties: true
     anyOf:
       - type: string
       - type: object

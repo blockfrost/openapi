@@ -3476,7 +3476,9 @@ paths:
       tags:
         - Cardano » Assets
       summary: Assets
-      description: List of assets.
+      description: |
+        List of assets. If an asset is completely burned,
+        it will stay on the list with quantity 0 (order of assets is immutable).
       parameters:
         - in: query
           name: count
@@ -3510,6 +3512,9 @@ paths:
 
             not the page listing itself. By default, we return oldest first,
             newest last.
+
+            Ordering in this case is based on the time of the first mint
+            transaction.
       responses:
         '200':
           description: Return list of assets

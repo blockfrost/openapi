@@ -52,6 +52,10 @@ properties:
   metadata:
     type: object
     nullable: true
+    description: |
+      Off-chain metadata fetched from GitHub based on network.
+      Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
+      Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
     properties:
       name:
         type: string

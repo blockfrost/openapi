@@ -408,7 +408,7 @@ paths:
   /ipfs/pin/remove/{IPFS_path}:
     $ref: ./paths/ipfs/pin/remove/{IPFS_path}/index.yaml
 
-  /metrics/:
+  /metrics:
     $ref: ./paths/api/metrics/index.yaml
 
   /metrics/endpoints:

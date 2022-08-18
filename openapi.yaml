@@ -4651,7 +4651,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /metrics/:
+  /metrics:
     get:
       tags:
         - Metrics

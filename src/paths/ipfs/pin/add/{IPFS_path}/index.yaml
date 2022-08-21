@@ -38,9 +38,11 @@ post:
       $ref: ../../../../../responses/errors/403.yaml
     "404":
       $ref: ../../../../../responses/errors/404.yaml
-    "429":
-      $ref: ../../../../../responses/errors/429.yaml
     "418":
       $ref: ../../../../../responses/errors/418.yaml
+    "425":
+      $ref: ../../../../../responses/errors/425-2.yaml
+    "429":
+      $ref: ../../../../../responses/errors/429.yaml
     "500":
       $ref: ../../../../../responses/errors/500.yaml

@@ -52,6 +52,7 @@ info:
     * All hex encoded values are lower case.
     * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
     * We allow to upload files up to 100MB of size to IPFS. This might increase in the future.
+    * We allow maximum of 100 queued pins per IPFS user.
 
     ## Errors
 
@@ -65,7 +66,8 @@ info:
     * HTTP `403` return code is used when the request is not authenticated.
     * HTTP `404` return code is used when the resource doesn't exist.
     * HTTP `418` return code is used when the user has been auto-banned for flooding too much after previously receiving error code `402` or `429`.
-    * HTTP `425` return code is used when the user has submitted a transaction when the mempool is already full, not accepting new txs straight away.
+    * HTTP `425` return code is used in Cardano networks, when the user has submitted a transaction when the mempool is already full, not accepting new txs straight away.
+    * HTTP `425` return code is used in IPFS network, when the user has submitted a pin when the pin queue is already full, not accepting new pins straight away.
     * HTTP `429` return code is used when the user has sent too many requests in a given amount of time and therefore has been rate-limited.
     * HTTP `500` return code is used when our endpoints are having a problem.
 
@@ -436,6 +438,9 @@ components:
 
     mempool_full:
       $ref: ./responses/errors/425.yaml
+
+    pin_queue_full:
+      $ref: ./responses/errors/425-2.yaml
 
     autobanned:
       $ref: ./responses/errors/418.yaml

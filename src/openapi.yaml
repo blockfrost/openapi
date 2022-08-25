@@ -29,6 +29,8 @@ info:
       <tr><td><b>Network</b></td><td><b>Endpoint</b></td></tr>
       <tr><td>Cardano mainnet</td><td><tt>https://cardano-mainnet.blockfrost.io/api/v0</td></tt></tr>
       <tr><td>Cardano testnet</td><td><tt>https://cardano-testnet.blockfrost.io/api/v0</tt></td></tr>
+      <tr><td>Cardano preprod</td><td><tt>https://cardano-preprod.blockfrost.io/api/v0</tt></td></tr>
+      <tr><td>Cardano preview</td><td><tt>https://cardano-preview.blockfrost.io/api/v0</tt></td></tr>
       <tr><td>InterPlanetary File System</td><td><tt>https://ipfs.blockfrost.io/api/v0</tt></td></tr>
       <tr><td>Milkomeda mainnet</td><td><tt>https://milkomeda-mainnet.blockfrost.io/api/v0</td></tt></tr>
       <tr><td>Milkomeda testnet</td><td><tt>https://milkomeda-testnet.blockfrost.io/api/v0</td></tt></tr>
@@ -118,6 +120,10 @@ servers:
     description: Cardano Mainnet network
   - url: https://cardano-testnet.blockfrost.io/api/v0/
     description: Cardano Testnet network
+  - url: https://cardano-preprod.blockfrost.io/api/v0/
+    description: Cardano Preprod network
+  - url: https://cardano-preview.blockfrost.io/api/v0/
+    description: Cardano Preview network
   - url: https://localhost:3000
     description: local
 

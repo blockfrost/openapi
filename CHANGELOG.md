@@ -7,6 +7,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [] - YYYY-MM-DD
 
+### Added
+
+- HTTP `425` - `Pin Queue Full` to `Errors` for limiting queue in `ipfs/pin/add/{IPFS_path}` endpoint
+
 ## [0.1.41] - 2022-07-27
 
 ### Changed

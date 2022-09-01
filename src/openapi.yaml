@@ -115,6 +115,7 @@ info:
       <tr><td>Elixir</td><td><a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a></tr>
       <tr><td>.NET</td><td><a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a></tr>
       <tr><td>Arduino</td><td><a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a></tr>
+      <tr><td>PHP</td><td><a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a></tr>
     </table>
 
 servers:

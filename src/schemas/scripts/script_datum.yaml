@@ -1,8 +1,8 @@
 type: object
 properties:
- json:
+ json_value:
    description: JSON content of the datum
 required:
-  - json
+  - json_value
 example:
-  json: { "int": 42 }
+  json_value: { "int": 42 }

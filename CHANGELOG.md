@@ -6,8 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 ## [] - YYYY-MM-DD
 
-## [0.1.43] - 2022-09-05
-
 ### Fixed
 - `/scripts/datum/{datum_hash}` - `json_value` -> `json` to match data returned from API
 

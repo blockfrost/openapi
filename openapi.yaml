@@ -7832,12 +7832,12 @@ components:
     script_datum:
       type: object
       properties:
-        json_value:
+        json:
           description: JSON content of the datum
       required:
-        - json_value
+        - json
       example:
-        json_value:
+        json:
           int: 42
     script_datum_cbor:
       type: object

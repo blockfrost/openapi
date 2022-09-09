@@ -13,9 +13,9 @@ jobs:
           cmd: run bundle
       - uses: borales/actions-yarn@v3.0.0
         with:
-          cmd: run generate-docs
+          cmd: run docs
       - name: Check diff
-        run: git diff --quiet || { echo "You forgot to run 'yarn run bundle && yarn run generate-docs'"; exit 1; }
+        run: git diff --quiet || { echo "You forgot to run 'yarn run bundle && yarn run docs'"; exit 1; }
 
 name: Generated content is up to date
 on:

@@ -21,18 +21,12 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
-`openapi.yaml ` in root is generated from ./src
+`openapi.yaml` in root is generated from ./src
 
 Edit the source and build the openapi bundle, run:
 
 ```javascript
-yarn run bundle
-```
-
-To build the documentation, run:
-
-```javascript
-yarn run generate-docs
+yarn
 ```
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.

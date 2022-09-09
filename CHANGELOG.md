@@ -9,7 +9,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Changed
 ⚠️ BREAKING CHANGE:
-ttpescript types are now exported by default
+typescript types are now exported by default
 
 ### Added
 - typescript types with export

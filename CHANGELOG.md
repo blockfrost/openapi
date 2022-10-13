@@ -8,10 +8,12 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ## [0.1.43] - YYYY-MM-DD
 
 ### Changed
+
 ⚠️ BREAKING CHANGE:
 typescript types are now exported by default
 
 ### Added
+
 - typescript types with export
 
 ## [0.1.42] - 2022-08-25

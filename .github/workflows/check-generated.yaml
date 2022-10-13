@@ -15,7 +15,7 @@ jobs:
         with:
           cmd: run generate-docs
       - name: Check diff
-        run: git diff --quiet || { echo "You forgot to run 'yarn run bundle && yarn run generate-docs'"; exit 1; }
+        run: git diff --quiet || { echo "You forgot to run 'yarn run bundle && yarn run generate-docs && yarn run generate-types'"; exit 1; }
 
 name: Generated content is up to date
 on:

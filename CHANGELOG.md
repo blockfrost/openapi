@@ -15,6 +15,7 @@ typescript types are now exported by default
 ### Added
 
 - typescript types with export
+- `/mempool` and `/mempool/{hash}` endpoints
 
 ## [0.1.42] - 2022-08-25
 

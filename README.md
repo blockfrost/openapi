@@ -21,18 +21,29 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
-`openapi.yaml ` in root is generated from ./src
+`openapi.yaml` file is generated from ./src
 
 Edit the source and build the openapi bundle, run:
 
-```javascript
-yarn run bundle
+```typescript
+yarn generate-types
+yarn bundle
 ```
 
 To build the documentation, run:
 
-```javascript
-yarn run generate-docs
+```typescript
+yarn geneate-docs
 ```
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
+
+### Typescript example
+
+```typescript
+import { components } from "@blockfrost/openapi";
+
+type Block = components["schemas"]["block_content"];
+type Address = components["schemas"]["address_content"];
+type UtxoAsset = components["schemas"]["address_utxo_content"];
+```

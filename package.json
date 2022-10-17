@@ -1,29 +1,29 @@
 {
-    "name": "@blockfrost/openapi",
-    "version": "0.1.44-beta.2",
-    "description": "OpenAPI specifications for blockfrost.io",
-    "repository": "git@github.com:blockfrost/openapi.git",
-    "author": "admin@blockfrost.io",
-    "license": "MIT",
-    "main": "openapi.ts",
-    "files": [
-        "openapi.ts",
-        "openapi.yaml"
-    ],
-    "scripts": {
-        "bundle": "openapi bundle -o ./openapi.yaml src/openapi.yaml",
-        "lint": "openapi lint src/openapi.yaml",
-        "generate-docs": "redoc-cli bundle -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
-        "generate-types": "openapi-typescript ./openapi.yaml --output ./openapi.ts"
-    },
-    "devDependencies": {
-        "ajv": "^6",
-        "core-js": "3.1.4",
-        "openapi-typescript": "^5.4.1",
-        "react-is": "16.8.2",
-        "redoc-cli": "^0.12.3"
-    },
-    "dependencies": {
-        "@redocly/openapi-cli": "^1.0.0-beta.78"
-    }
+  "name": "@blockfrost/openapi",
+  "version": "0.1.44-beta.2",
+  "description": "OpenAPI specifications for blockfrost.io",
+  "repository": "git@github.com:blockfrost/openapi.git",
+  "author": "admin@blockfrost.io",
+  "license": "MIT",
+  "main": "openapi.ts",
+  "files": [
+    "openapi.ts",
+    "openapi.yaml"
+  ],
+  "scripts": {
+    "bundle": "openapi bundle -o ./openapi.yaml src/openapi.yaml",
+    "lint": "openapi lint src/openapi.yaml",
+    "generate-docs": "redoc-cli bundle -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
+    "generate-types": "openapi-typescript ./openapi.yaml --output ./openapi.ts"
+  },
+  "devDependencies": {
+    "ajv": "^6",
+    "core-js": "3.1.4",
+    "openapi-typescript": "^5.4.1",
+    "react-is": "16.8.2",
+    "redoc-cli": "^0.12.3"
+  },
+  "dependencies": {
+    "@redocly/openapi-cli": "^1.0.0-beta.78"
+  }
 }

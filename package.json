@@ -1,14 +1,14 @@
 {
     "name": "@blockfrost/openapi",
-    "version": "0.1.44-beta.1",
+    "version": "0.1.44-beta.2",
     "description": "OpenAPI specifications for blockfrost.io",
     "repository": "git@github.com:blockfrost/openapi.git",
     "author": "admin@blockfrost.io",
     "license": "MIT",
-    "main": "./openapi.ts",
+    "main": "openapi.ts",
     "files": [
-        "./openapi.ts",
-        "./openapi.yaml"
+        "openapi.ts",
+        "openapi.yaml"
     ],
     "scripts": {
         "bundle": "openapi bundle -o ./openapi.yaml src/openapi.yaml",

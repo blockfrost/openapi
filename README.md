@@ -21,9 +21,10 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
-`openapi.yaml` file is generated from ./src
+[`openapi.yaml`](openapi.yaml) (located in the root directory) is generated from all yaml files in `src` directory.
+If you add a new file then don't forget to add it to `paths` in [`src/openapi.yaml`](src/openapi.yaml).
 
-Edit the source and build the openapi bundle, run:
+Edit the source yaml files and bundle them:
 
 ```typescript
 yarn generate-types

@@ -1287,6 +1287,63 @@ export interface paths {
       };
     };
   };
+  "/mempool": {
+    /** Return transactions that are currently stored in Blockfrost mempool, waiting to be included in a newly minted block. Shows only transactions submitted via Blockfrost.io. */
+    get: {
+      parameters: {
+        query: {
+          /** The number of results displayed on one page. */
+          count?: number;
+          /** The page number for listing the results. */
+          page?: number;
+          /**
+           * Ordered by the time of transaction submission.
+           * By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** Return the contents of the mempool */
+        200: {
+          content: {
+            "application/json": components["schemas"]["mempool_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/mempool/{hash}": {
+    /** Return content of the requested transaction. */
+    get: {
+      parameters: {
+        path: {
+          /** Hash of the requested transaction */
+          hash: string;
+        };
+      };
+      responses: {
+        /** Return the contents of the transaction. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["mempool_tx_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/metadata/txs/labels": {
     /** List of all used transaction metadata labels. */
     get: {
@@ -4199,6 +4256,220 @@ export interface components {
        * @example 12
        */
       tx_count: number;
+    };
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
+     *   }
+     * ]
+     */
+    mempool_content: {
+      /** @description Hash of the transaction */
+      tx_hash: string;
+    }[];
+    mempool_tx_content: {
+      tx: {
+        /**
+         * @description Transaction hash
+         * @example 1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477
+         */
+        hash: string;
+        /**
+         * @example [
+         *   {
+         *     "unit": "lovelace",
+         *     "quantity": "42000000"
+         *   },
+         *   {
+         *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *     "quantity": "12"
+         *   }
+         * ]
+         */
+        output_amount: {
+          /**
+           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+           * @description The unit of the value
+           */
+          unit: string;
+          /** @description The quantity of the unit */
+          quantity: string;
+        }[];
+        /**
+         * @description Fees of the transaction in Lovelaces
+         * @example 182485
+         */
+        fees: string;
+        /**
+         * @description Deposit within the transaction in Lovelaces
+         * @example 0
+         */
+        deposit: string;
+        /**
+         * @description Size of the transaction in Bytes
+         * @example 433
+         */
+        size: number;
+        /**
+         * @description Left (included) endpoint of the timelock validity intervals
+         * @example null
+         */
+        invalid_before: string | null;
+        /**
+         * @description Right (excluded) endpoint of the timelock validity intervals
+         * @example 13885913
+         */
+        invalid_hereafter: string | null;
+        /**
+         * @description Count of UTXOs within the transaction
+         * @example 4
+         */
+        utxo_count: number;
+        /**
+         * @description Count of the withdrawals within the transaction
+         * @example 0
+         */
+        withdrawal_count: number;
+        /**
+         * @description Count of the MIR certificates within the transaction
+         * @example 0
+         */
+        mir_cert_count: number;
+        /**
+         * @description Count of the delegations within the transaction
+         * @example 0
+         */
+        delegation_count: number;
+        /**
+         * @description Count of the stake keys (de)registration within the transaction
+         * @example 0
+         */
+        stake_cert_count: number;
+        /**
+         * @description Count of the stake pool registration and update certificates within the transaction
+         * @example 0
+         */
+        pool_update_count: number;
+        /**
+         * @description Count of the stake pool retirement certificates within the transaction
+         * @example 0
+         */
+        pool_retire_count: number;
+        /**
+         * @description Count of asset mints and burns within the transaction
+         * @example 0
+         */
+        asset_mint_or_burn_count: number;
+        /**
+         * @description Count of redeemers within the transaction
+         * @example 0
+         */
+        redeemer_count: number;
+        /**
+         * @description True if contract script passed validation
+         * @example true
+         */
+        valid_contract: boolean;
+      };
+      inputs: {
+        /**
+         * @description Hash of the UTXO transaction
+         * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+         */
+        tx_hash: string;
+        /**
+         * @description UTXO index in the transaction
+         * @example 0
+         */
+        output_index: number;
+        /**
+         * @description Whether the input is a collateral consumed on script validation failure
+         * @example false
+         */
+        collateral: boolean;
+        /**
+         * @description Whether the input is a reference transaction input
+         * @example false
+         */
+        reference?: boolean;
+      }[];
+      outputs: {
+        /**
+         * @description Output address
+         * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+         */
+        address: string;
+        /**
+         * @example [
+         *   {
+         *     "unit": "lovelace",
+         *     "quantity": "42000000"
+         *   },
+         *   {
+         *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *     "quantity": "12"
+         *   }
+         * ]
+         */
+        amount: {
+          /**
+           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+           * @description The unit of the value
+           */
+          unit: string;
+          /** @description The quantity of the unit */
+          quantity: string;
+        }[];
+        /**
+         * @description UTXO index in the transaction
+         * @example 0
+         */
+        output_index: number;
+        /**
+         * @description The hash of the transaction output datum
+         * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+         */
+        data_hash: string | null;
+        /**
+         * @description CBOR encoded inline datum
+         * @example 19a6aa
+         */
+        inline_datum: string | null;
+        /**
+         * @description Whether the output is a collateral output
+         * @example false
+         */
+        collateral: boolean;
+        /**
+         * @description The hash of the reference script of the output
+         * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+         */
+        reference_script_hash: string | null;
+      }[];
+      redeemers?: {
+        /**
+         * @description Index of the redeemer within the transaction
+         * @example 0
+         */
+        tx_index: number;
+        /**
+         * @description Validation purpose
+         * @example spend
+         * @enum {string}
+         */
+        purpose: "spend" | "mint" | "cert" | "reward";
+        /**
+         * @description The budget in Memory to run a script
+         * @example 1700
+         */
+        unit_mem: string;
+        /**
+         * @description The budget in CPU steps to run a script
+         * @example 476468
+         */
+        unit_steps: string;
+      }[];
     };
     /**
      * @example [

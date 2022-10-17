@@ -142,6 +142,7 @@ tags:
   - name: Cardano » Blocks
   - name: Cardano » Epochs
   - name: Cardano » Ledger
+  - name: Cardano » Mempool
   - name: Cardano » Metadata
   - name: Cardano » Network
   - name: Cardano » Pools
@@ -287,6 +288,12 @@ paths:
 
   /accounts/{stake_address}/addresses/total:
     $ref: ./paths/api/accounts/{stake_address}/addresses/total.yaml
+
+  /mempool:
+    $ref: ./paths/api/mempool/index.yaml
+
+  /mempool/{hash}:
+    $ref: ./paths/api/mempool/{hash}/index.yaml
 
   /metadata/txs/labels:
     $ref: ./paths/api/metadata/txs/labels/index.yaml

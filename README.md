@@ -21,26 +21,39 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
-[`openapi.yaml`](openapi.yaml) (located in the root directory) is generated from all yaml files in `src` directory.
-If you add a new file then don't forget to add it to `paths` in [`src/openapi.yaml`](src/openapi.yaml).
+Final [`openapi.yaml`](openapi.yaml) specification is generated from all yaml files in `src` directory.
+If you add a new file then don't forget to add it to `paths` in [`src/definitions.yaml`](src/definitions.yaml).
 
-Edit the source yaml files and bundle them:
+Edit the source yaml files and build the package:
 
 ```typescript
-yarn generate-types
-yarn bundle
+yarn build
 ```
 
 To build the documentation, run:
 
 ```typescript
-yarn geneate-docs
+yarn generate-docs
 ```
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
 
+## Usage
+You can download [`openapi.yaml`](openapi.yaml) directly from the repository or use this project as a dependency in your JavaScript/TypeScript project.
 ### Typescript example
 
+Install `@blockfrost/openapi`:
+
+```console
+yarn add @blockfrost/openapi
+```
+or
+```console
+npm install @blockfrost/openapi
+```
+
+
+Now you can use TypeScript types generated from the OpenAPI specification:
 ```typescript
 import { components } from "@blockfrost/openapi";
 

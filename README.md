@@ -38,8 +38,22 @@ yarn generate-docs
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
 
+## Usage
+You can download [`openapi.yaml`](openapi.yaml) directly from the repository or use this project as a dependency in your JavaScript/TypeScript project.
 ### Typescript example
 
+Install `@blockfrost/openapi`:
+
+```console
+yarn add @blockfrost/openapi
+```
+or
+```console
+npm install @blockfrost/openapi
+```
+
+
+Now you can use TypeScript types generated from the OpenAPI specification:
 ```typescript
 import { components } from "@blockfrost/openapi";
 

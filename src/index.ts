@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
 
-const file = fs.readFileSync(path.resolve(__dirname, 'openapi.yaml'), 'utf8');
+const file = fs.readFileSync(path.resolve('openapi.yaml'), 'utf8');
 const spec = YAML.parse(file);
 
 export const getSchemaForEndpoint = (endpointName: string) => {

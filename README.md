@@ -1,3 +1,4 @@
+![GitHub](https://img.shields.io/github/license/blockfrost/openapi)
 ![master build ci](https://github.com/blockfrost/openapi/actions/workflows/CI.yaml/badge.svg?branch=master)
 [![npm version](https://badge.fury.io/js/%40blockfrost%2Fopenapi.svg)](https://badge.fury.io/js/%40blockfrost%2Fopenapi)
 ![downloads](https://img.shields.io/npm/dy/@blockfrost/openapi)

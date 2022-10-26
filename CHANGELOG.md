@@ -11,6 +11,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `getSchemaForEndpoint` util function
 
+### Fixed
+
+- `/pools/extended` example
+
 ## [0.1.43] - 2022-08-25
 
 - skipped due to acciedental npm publish

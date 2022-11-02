@@ -75,6 +75,24 @@ export const getSchemaForEndpoint = (endpointName: string) => {
         responses.response[200] = anyOfResult;
       }
 
+      const parameters = spec.paths[endpointName].get.parameters;
+
+      if (parameters) {
+        const queryParams = parameters.filter((i: any) => i.in === 'query');
+        let properties: any = {};
+
+        queryParams.forEach((param: any) => {
+          properties[param.name] = param.schema;
+        });
+
+        if (queryParams && queryParams.length > 0) {
+          responses.response[200]['querystring'] = {
+            type: 'object',
+            properties,
+          };
+        }
+      }
+
       // 1 bug -> edge case
       if (endpointName === '/txs/{hash}/metadata') {
         responses.response[200] = {

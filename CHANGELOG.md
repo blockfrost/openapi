@@ -17,8 +17,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Changed
 
-⚠️ BREAKING CHANGE:
-typescript types are now exported by default
+- ⚠️ BREAKING CHANGE: typescript types are now exported by default
+- add querystring to schemas
 
 ### Added
 

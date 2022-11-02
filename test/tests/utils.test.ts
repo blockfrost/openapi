@@ -35,6 +35,23 @@ describe('open api utils', () => {
     expect(getSchemaForEndpoint('/epochs/{number}/previous')).toMatchObject({
       response: {
         '200': {
+          querystring: {
+            type: 'object',
+            properties: {
+              count: {
+                default: 100,
+                maximum: 100,
+                minimum: 1,
+                type: 'integer',
+              },
+              page: {
+                default: 1,
+                maximum: 21474836,
+                minimum: 1,
+                type: 'integer',
+              },
+            },
+          },
           type: 'array',
           items: {
             type: 'object',
@@ -47,6 +64,8 @@ describe('open api utils', () => {
               },
               end_time: {
                 type: 'integer',
+                description: 'Unix time of the end of the epoch',
+                example: 1603835086,
               },
               first_block_time: {
                 type: 'integer',
@@ -56,6 +75,8 @@ describe('open api utils', () => {
               },
               block_count: {
                 type: 'integer',
+                description: 'Number of blocks within the epoch',
+                example: 21298,
               },
               tx_count: {
                 type: 'integer',
@@ -69,6 +90,9 @@ describe('open api utils', () => {
               active_stake: {
                 nullable: true,
                 type: 'string',
+                description:
+                  'Sum of all the active stakes within the epoch in Lovelaces',
+                example: '784953934049314',
               },
             },
             required: [

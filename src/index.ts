@@ -268,9 +268,11 @@ export const getSchemaForEndpoint = (endpointName: string) => {
     }
   }
 
-  if (endpointName === '/addresses/{address}') {
-    console.log(JSON.stringify(responses));
-  }
+  // debug
+  // if (endpointName === '/addresses/{address}') {
+  //   console.log(JSON.stringify(responses));
+  // }
+
   return responses;
 };
 

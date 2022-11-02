@@ -6,11 +6,12 @@ import {
   error418,
   error429,
   error500,
+  error404,
 } from '../fixtures/openapi';
 
 describe('open api utils', () => {
   test('health schema - no refs', () => {
-    expect(getSchemaForEndpoint('/health')).toMatchObject({
+    expect(getSchemaForEndpoint('/health')).toStrictEqual({
       response: {
         '200': {
           properties: {
@@ -32,7 +33,15 @@ describe('open api utils', () => {
   });
 
   test('epochs - nested refs', () => {
-    expect(getSchemaForEndpoint('/epochs/{number}/previous')).toMatchObject({
+    expect(getSchemaForEndpoint('/epochs/{number}/previous')).toStrictEqual({
+      params: {
+        type: 'object',
+        properties: {
+          number: {
+            type: 'integer',
+          },
+        },
+      },
       querystring: {
         type: 'object',
         properties: {
@@ -58,9 +67,13 @@ describe('open api utils', () => {
             properties: {
               epoch: {
                 type: 'integer',
+                description: 'Epoch number',
+                example: 225,
               },
               start_time: {
                 type: 'integer',
+                description: 'Unix time of the start of the epoch',
+                example: 1603403091,
               },
               end_time: {
                 type: 'integer',
@@ -69,9 +82,13 @@ describe('open api utils', () => {
               },
               first_block_time: {
                 type: 'integer',
+                description: 'Unix time of the first block of the epoch',
+                example: 1603403092,
               },
               last_block_time: {
                 type: 'integer',
+                description: 'Unix time of the last block of the epoch',
+                example: 1603835084,
               },
               block_count: {
                 type: 'integer',
@@ -80,12 +97,20 @@ describe('open api utils', () => {
               },
               tx_count: {
                 type: 'integer',
+                description: 'Number of transactions within the epoch',
+                example: 17856,
               },
               output: {
                 type: 'string',
+                description:
+                  'Sum of all the transactions within the epoch in Lovelaces',
+                example: '7849943934049314',
               },
               fees: {
                 type: 'string',
+                description:
+                  'Sum of all the fees within the epoch in Lovelaces',
+                example: '4203312194',
               },
               active_stake: {
                 nullable: true,
@@ -111,6 +136,7 @@ describe('open api utils', () => {
         },
         '400': error400,
         '403': error403,
+        '404': error404,
         '418': error418,
         '429': error429,
         '500': error500,
@@ -118,8 +144,92 @@ describe('open api utils', () => {
     });
   });
 
+  test('addresses/{address}', () => {
+    expect(getSchemaForEndpoint('/addresses/{address}')).toStrictEqual({
+      params: {
+        type: 'object',
+        properties: {
+          address: { type: 'string' },
+        },
+      },
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            address: {
+              type: 'string',
+              description: 'Bech32 encoded addresses',
+              example:
+                'addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz',
+            },
+            amount: {
+              type: 'array',
+              items: {
+                type: 'object',
+                description: 'The sum of all the UTXO per asset',
+                properties: {
+                  unit: {
+                    type: 'string',
+                    format:
+                      'Lovelace or concatenation of asset policy_id and hex-encoded asset_name',
+                    description: 'The unit of the value',
+                  },
+                  quantity: {
+                    type: 'string',
+                    description: 'The quantity of the unit',
+                  },
+                },
+                required: ['unit', 'quantity'],
+              },
+              example: [
+                { unit: 'lovelace', quantity: '42000000' },
+                {
+                  unit: 'b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e',
+                  quantity: '12',
+                },
+              ],
+            },
+            stake_address: {
+              type: 'string',
+              nullable: true,
+              example:
+                'stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7',
+              description: 'Stake address that controls the key',
+            },
+            type: {
+              type: 'string',
+              enum: ['byron', 'shelley'],
+              example: 'shelley',
+              description: 'Address era',
+            },
+            script: {
+              type: 'boolean',
+              example: false,
+              description: 'True if this is a script address',
+            },
+          },
+          required: ['address', 'amount', 'stake_address', 'type', 'script'],
+        },
+        400: error400,
+        404: error404,
+        418: error418,
+        403: error403,
+        500: error500,
+        429: error429,
+      },
+    });
+  });
+
   test('anyOf case - all refs', () => {
-    expect(getSchemaForEndpoint('/pools/{pool_id}/metadata')).toMatchObject({
+    expect(getSchemaForEndpoint('/pools/{pool_id}/metadata')).toStrictEqual({
+      params: {
+        properties: {
+          pool_id: {
+            type: 'string',
+          },
+        },
+        type: 'object',
+      },
       response: {
         '200': {
           anyOf: [
@@ -194,13 +304,39 @@ describe('open api utils', () => {
         '403': error403,
         '418': error418,
         '429': error429,
+        '404': error404,
         '500': error500,
       },
     });
   });
 
   test('array and refs', () => {
-    expect(getSchemaForEndpoint('/epochs/{number}/next')).toMatchObject({
+    expect(getSchemaForEndpoint('/epochs/{number}/next')).toStrictEqual({
+      params: {
+        properties: {
+          number: {
+            type: 'integer',
+          },
+        },
+        type: 'object',
+      },
+      querystring: {
+        type: 'object',
+        properties: {
+          count: {
+            default: 100,
+            maximum: 100,
+            minimum: 1,
+            type: 'integer',
+          },
+          page: {
+            default: 1,
+            maximum: 21474836,
+            minimum: 1,
+            type: 'integer',
+          },
+        },
+      },
       response: {
         '200': {
           type: 'array',
@@ -209,32 +345,55 @@ describe('open api utils', () => {
             properties: {
               epoch: {
                 type: 'integer',
+                description: 'Epoch number',
+                example: 225,
               },
               start_time: {
                 type: 'integer',
+                description: 'Unix time of the start of the epoch',
+                example: 1603403091,
               },
               end_time: {
+                description: 'Unix time of the end of the epoch',
+                example: 1603835086,
                 type: 'integer',
               },
               first_block_time: {
                 type: 'integer',
+                description: 'Unix time of the first block of the epoch',
+                example: 1603403092,
               },
               last_block_time: {
                 type: 'integer',
+                description: 'Unix time of the last block of the epoch',
+                example: 1603835084,
               },
               block_count: {
                 type: 'integer',
+                description: 'Number of blocks within the epoch',
+                example: 21298,
               },
               tx_count: {
                 type: 'integer',
+                description: 'Number of transactions within the epoch',
+                example: 17856,
               },
               output: {
                 type: 'string',
+                description:
+                  'Sum of all the transactions within the epoch in Lovelaces',
+                example: '7849943934049314',
               },
               fees: {
                 type: 'string',
+                description:
+                  'Sum of all the fees within the epoch in Lovelaces',
+                example: '4203312194',
               },
               active_stake: {
+                description:
+                  'Sum of all the active stakes within the epoch in Lovelaces',
+                example: '784953934049314',
                 nullable: true,
                 type: 'string',
               },
@@ -256,6 +415,7 @@ describe('open api utils', () => {
         '400': error400,
         '403': error403,
         '418': error418,
+        '404': error404,
         '429': error429,
         '500': error500,
       },

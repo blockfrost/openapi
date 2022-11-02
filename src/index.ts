@@ -79,17 +79,36 @@ export const getSchemaForEndpoint = (endpointName: string) => {
 
       if (parameters) {
         const queryParams = parameters.filter((i: any) => i.in === 'query');
-        let properties: any = {};
+        let queryProps: any = {};
 
         if (queryParams && queryParams.length > 0) {
           queryParams.forEach((param: any) => {
-            properties[param.name] = param.schema;
+            queryProps[param.name] = param.schema;
           });
+
           responses['querystring'] = {
             type: 'object',
-            properties,
+            properties: queryProps,
           };
         }
+
+        const pathparams = parameters.filter((i: any) => i.in === 'path');
+
+        if (pathparams && pathparams.length > 0) {
+          let pathProps: any = {};
+
+          pathparams.forEach((param: any) => {
+            pathProps[param.name] = param.schema;
+          });
+
+          responses['params'] = {
+            type: 'object',
+            properties: pathProps,
+          };
+        }
+
+        // const query = parameters.filter((i: any) => i.in === 'param');
+        // let queryParams: any = {};
       }
 
       // 1 bug -> edge case
@@ -249,11 +268,9 @@ export const getSchemaForEndpoint = (endpointName: string) => {
     }
   }
 
-  // use this to debug custom schemas
-  // if (endpointName === '/metadata/txs/labels/{label}') {
-  //   console.log(JSON.stringify(responses));
-  // }
-
+  if (endpointName === '/addresses/{address}') {
+    console.log(JSON.stringify(responses));
+  }
   return responses;
 };
 

@@ -33,25 +33,25 @@ describe('open api utils', () => {
 
   test('epochs - nested refs', () => {
     expect(getSchemaForEndpoint('/epochs/{number}/previous')).toMatchObject({
+      querystring: {
+        type: 'object',
+        properties: {
+          count: {
+            default: 100,
+            maximum: 100,
+            minimum: 1,
+            type: 'integer',
+          },
+          page: {
+            default: 1,
+            maximum: 21474836,
+            minimum: 1,
+            type: 'integer',
+          },
+        },
+      },
       response: {
         '200': {
-          querystring: {
-            type: 'object',
-            properties: {
-              count: {
-                default: 100,
-                maximum: 100,
-                minimum: 1,
-                type: 'integer',
-              },
-              page: {
-                default: 1,
-                maximum: 21474836,
-                minimum: 1,
-                type: 'integer',
-              },
-            },
-          },
           type: 'array',
           items: {
             type: 'object',

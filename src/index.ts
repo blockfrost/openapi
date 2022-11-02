@@ -81,12 +81,11 @@ export const getSchemaForEndpoint = (endpointName: string) => {
         const queryParams = parameters.filter((i: any) => i.in === 'query');
         let properties: any = {};
 
-        queryParams.forEach((param: any) => {
-          properties[param.name] = param.schema;
-        });
-
         if (queryParams && queryParams.length > 0) {
-          responses.response[200]['querystring'] = {
+          queryParams.forEach((param: any) => {
+            properties[param.name] = param.schema;
+          });
+          responses['querystring'] = {
             type: 'object',
             properties,
           };

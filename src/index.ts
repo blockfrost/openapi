@@ -83,6 +83,7 @@ export const getSchemaForEndpoint = (endpointName: string) => {
 
         if (queryParams && queryParams.length > 0) {
           queryParams.forEach((param: any) => {
+            delete param.schema.format;
             queryProps[param.name] = param.schema;
           });
 
@@ -98,6 +99,7 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           let pathProps: any = {};
 
           pathparams.forEach((param: any) => {
+            delete param.schema.format;
             pathProps[param.name] = param.schema;
           });
 
@@ -269,8 +271,8 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   }
 
   // debug
-  // if (endpointName === '/addresses/{address}') {
-  //   console.log(JSON.stringify(responses));
+  // if (endpointName === '/blocks/{hash_or_number}') {
+  //   console.log(endpointName, JSON.stringify(responses));
   // }
 
   return responses;

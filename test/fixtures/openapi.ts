@@ -92,3 +92,22 @@ export const error500 = {
   required: ['status_code', 'error', 'message'],
   type: 'object',
 };
+
+export const error404 = {
+  properties: {
+    error: {
+      example: 'Not Found',
+      type: 'string',
+    },
+    message: {
+      example: 'The requested component has not been found.',
+      type: 'string',
+    },
+    status_code: {
+      example: 404,
+      type: 'integer',
+    },
+  },
+  required: ['status_code', 'error', 'message'],
+  type: 'object',
+};

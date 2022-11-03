@@ -75,6 +75,44 @@ export const getSchemaForEndpoint = (endpointName: string) => {
         responses.response[200] = anyOfResult;
       }
 
+      const parameters = spec.paths[endpointName].get.parameters;
+
+      if (parameters) {
+        const queryParams = parameters.filter((i: any) => i.in === 'query');
+        let queryProps: any = {};
+
+        if (queryParams && queryParams.length > 0) {
+          queryParams.forEach((param: any) => {
+            delete param.schema.format;
+            queryProps[param.name] = param.schema;
+          });
+
+          responses['querystring'] = {
+            type: 'object',
+            properties: queryProps,
+          };
+        }
+
+        const pathparams = parameters.filter((i: any) => i.in === 'path');
+
+        if (pathparams && pathparams.length > 0) {
+          let pathProps: any = {};
+
+          pathparams.forEach((param: any) => {
+            delete param.schema.format;
+            pathProps[param.name] = param.schema;
+          });
+
+          responses['params'] = {
+            type: 'object',
+            properties: pathProps,
+          };
+        }
+
+        // const query = parameters.filter((i: any) => i.in === 'param');
+        // let queryParams: any = {};
+      }
+
       // 1 bug -> edge case
       if (endpointName === '/txs/{hash}/metadata') {
         responses.response[200] = {
@@ -232,9 +270,9 @@ export const getSchemaForEndpoint = (endpointName: string) => {
     }
   }
 
-  // use this to debug custom schemas
-  // if (endpointName === '/metadata/txs/labels/{label}') {
-  //   console.log(JSON.stringify(responses));
+  // debug
+  // if (endpointName === '/blocks/{hash_or_number}') {
+  //   console.log(endpointName, JSON.stringify(responses));
   // }
 
   return responses;

@@ -11,6 +11,10 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - `getSchemaForEndpoint` util function
 
+### Fixed
+
+- `/pools/extended` example
+
 ## [0.1.43] - 2022-08-25
 
 - skipped due to acciedental npm publish
@@ -87,7 +91,7 @@ typescript types are now exported by default
     - `coins_per_utxo_size` is now
       - Cost per UTxO **word** for Alonzo.
       - Cost per UTxO **byte** for Babbage and later.
-- `/scripts/{hash}`
+- `/scripts/{hash}` ⚠️
   - `type` field now uses `plutusV1` and `plutusV2` instead of just `plutus` to be able
     to differentiate between two `PlutusScript` versions.
 

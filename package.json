@@ -29,6 +29,7 @@
     "vitest": "^0.24.3"
   },
   "dependencies": {
-    "@redocly/openapi-cli": "^1.0.0-beta.78"
+    "@redocly/openapi-cli": "^1.0.0-beta.78",
+    "yaml": "^2.1.3"
   }
 }

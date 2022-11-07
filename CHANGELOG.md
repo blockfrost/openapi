@@ -7,6 +7,8 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [0.1.XX] - 2022-XX-XX
 
+## [0.1.44] - 2022-11-07
+
 ### Added
 
 - `getSchemaForEndpoint` util function

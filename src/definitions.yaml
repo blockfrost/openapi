@@ -116,6 +116,7 @@ info:
       <tr><td>.NET</td><td><a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a></tr>
       <tr><td>Arduino</td><td><a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a></tr>
       <tr><td>PHP</td><td><a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a></tr>
+      <tr><td>Crystal</td><td><a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a></tr>
     </table>
 
 servers:

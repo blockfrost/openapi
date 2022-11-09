@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
 
+import nutlinkAddressTickers from './custom-schemas/nutlink-address-tickers';
+import nutlinkTicker from './custom-schemas/nutlink-ticker';
+import scriptsJsonSchema from './custom-schemas/scripts-json';
+import txsMetadata from './custom-schemas/txs-metadata';
+
 const file = fs.readFileSync(
   path.resolve(__dirname, '../../openapi.yaml'),
   'utf8',
@@ -113,153 +118,21 @@ export default (endpointName: string) => {
         // let queryParams: any = {};
       }
 
-      // 1 bug -> edge case
+      // custom schemas
       if (endpointName === '/txs/{hash}/metadata') {
-        responses.response[200] = {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              label: {
-                type: 'string',
-              },
-              json_metadata: {
-                // possible bug FIXME https://github.com/fastify/fast-json-stringify/issues/246
-                // oneOf: [
-                //   {
-                //     type: 'string',
-                //   },
-                //   {
-                //     type: 'object',
-                //   },
-                // ],
-              },
-            },
-            required: ['label', 'json_metadata'],
-          },
-        };
+        responses.response[200] = txsMetadata;
       }
 
-      // 2 bug -> edge case
       if (endpointName === '/nutlink/{address}/tickers/{ticker}') {
-        responses.response[200] = {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              tx_hash: {
-                type: 'string',
-              },
-              block_height: {
-                type: 'integer',
-              },
-              tx_index: {
-                type: 'integer',
-              },
-              payload: {
-                // possible bug FIXME https://github.com/fastify/fast-json-stringify/issues/246
-                // anyOf: [
-                //   {
-                //     type: 'string',
-                //   },
-                //   // {
-                //   //   type: 'object',
-                //   // },
-                //   {
-                //     type: 'array',
-                //     //items: {},
-                //     additionalProperties: true,
-                //   },
-                //   {
-                //     type: 'integer',
-                //   },
-                //   {
-                //     type: 'number',
-                //   },
-                //   {
-                //     type: 'boolean',
-                //   },
-                // ],
-                //additionalProperties: true,
-              },
-            },
-            required: ['tx_hash', 'tx_index', 'block_height', 'payload'],
-          },
-        };
+        responses.response[200] = nutlinkAddressTickers;
       }
 
-      // 3 bug -> edge case
       if (endpointName === '/nutlink/tickers/{ticker}') {
-        responses.response[200] = {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              address: {
-                type: 'string',
-                description: 'Address of a metadata oracle',
-              },
-              tx_hash: {
-                type: 'string',
-                description: 'Hash of the transaction',
-              },
-              block_height: {
-                type: 'integer',
-                description: 'Block height of the record',
-              },
-              tx_index: {
-                type: 'integer',
-                description: 'Transaction index within the block',
-              },
-              payload: {
-                // possible bug FIXME https://github.com/fastify/fast-json-stringify/issues/246
-                // anyOf: [
-                //   {
-                //     type: 'string',
-                //   },
-                //   // {
-                //   //   type: 'object',
-                //   // },
-                //   {
-                //     type: 'array',
-                //     //items: {},
-                //     additionalProperties: true,
-                //   },
-                //   {
-                //     type: 'integer',
-                //   },
-                //   {
-                //     type: 'number',
-                //   },
-                //   {
-                //     type: 'boolean',
-                //   },
-                // ],
-                //additionalProperties: true,
-              },
-            },
-            required: [
-              'address',
-              'tx_hash',
-              'block_height',
-              'tx_index',
-              'payload',
-            ],
-          },
-        };
+        responses.response[200] = nutlinkTicker;
       }
 
-      // 4 bug -> edge case
       if (endpointName === '/scripts/{script_hash}/json') {
-        responses.response[200] = {
-          type: 'object',
-          properties: {
-            json: {
-              nullable: true,
-            },
-          },
-          required: ['json'],
-        };
+        responses.response[200] = scriptsJsonSchema;
       }
     }
 

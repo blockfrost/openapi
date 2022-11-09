@@ -9,6 +9,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ### Changed
 
+- adjust CIP-25 and add v2 validation for onchain_metadata in `/assets/{asset_id}`
 - refactored custom schemas
 
 ## [0.1.44] - 2022-11-07

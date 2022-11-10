@@ -5,7 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
-## [] - YYYY-MM-DD
+## [0.1.XX] - 2022-XX-XX
+
+## [0.1.44] - 2022-11-07
+
+### Added
+
+- `getSchemaForEndpoint` util function
+
+### Fixed
+
+- `/pools/extended` example
+
+## [0.1.43] - 2022-08-25
+
+- skipped due to acciedental npm publish
+
+### Changed
+
+- ⚠️ BREAKING CHANGE: NPM package - typescript types are now exported by default
+- add `querystring` and `params` to schemas
+
+### Added
+
+- typescript types with export
+- `/mempool` and `/mempool/{hash}` endpoints
 
 ## [0.1.42] - 2022-08-25
 
@@ -69,7 +93,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
     - `coins_per_utxo_size` is now
       - Cost per UTxO **word** for Alonzo.
       - Cost per UTxO **byte** for Babbage and later.
-- `/scripts/{hash}`
+- `/scripts/{hash}` ⚠️
   - `type` field now uses `plutusV1` and `plutusV2` instead of just `plutus` to be able
     to differentiate between two `PlutusScript` versions.
 

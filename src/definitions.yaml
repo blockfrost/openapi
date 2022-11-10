@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.42"
+  version: "0.1.44"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -116,6 +116,7 @@ info:
       <tr><td>.NET</td><td><a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a></tr>
       <tr><td>Arduino</td><td><a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a></tr>
       <tr><td>PHP</td><td><a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a></tr>
+      <tr><td>Crystal</td><td><a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a></tr>
     </table>
 
 servers:
@@ -142,6 +143,7 @@ tags:
   - name: Cardano » Blocks
   - name: Cardano » Epochs
   - name: Cardano » Ledger
+  - name: Cardano » Mempool
   - name: Cardano » Metadata
   - name: Cardano » Network
   - name: Cardano » Pools
@@ -287,6 +289,12 @@ paths:
 
   /accounts/{stake_address}/addresses/total:
     $ref: ./paths/api/accounts/{stake_address}/addresses/total.yaml
+
+  /mempool:
+    $ref: ./paths/api/mempool/index.yaml
+
+  /mempool/{hash}:
+    $ref: ./paths/api/mempool/{hash}/index.yaml
 
   /metadata/txs/labels:
     $ref: ./paths/api/metadata/txs/labels/index.yaml

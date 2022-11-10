@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.42
+  version: 0.1.44
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -191,6 +191,7 @@ info:
       <tr><td>.NET</td><td><a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a></tr>
       <tr><td>Arduino</td><td><a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a></tr>
       <tr><td>PHP</td><td><a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a></tr>
+      <tr><td>Crystal</td><td><a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a></tr>
     </table>
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0/
@@ -214,6 +215,7 @@ tags:
   - name: Cardano » Blocks
   - name: Cardano » Epochs
   - name: Cardano » Ledger
+  - name: Cardano » Mempool
   - name: Cardano » Metadata
   - name: Cardano » Network
   - name: Cardano » Pools
@@ -2291,6 +2293,99 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/account_addresses_total'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /mempool:
+    get:
+      tags:
+        - Cardano » Mempool
+      summary: Mempool
+      description: >-
+        Return transactions that are currently stored in Blockfrost mempool,
+        waiting to be included in a newly minted block. Shows only transactions
+        submitted via Blockfrost.io.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            Ordered by the time of transaction submission.
+            By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the contents of the mempool
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mempool_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /mempool/{hash}:
+    get:
+      tags:
+        - Cardano » Mempool
+      summary: Specific transaction
+      description: Return content of the requested transaction.
+      parameters:
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            format: 64-character case-sensitive hexadecimal string.
+          description: Hash of the requested transaction
+          example: 6e5f825c42c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
+      responses:
+        '200':
+          description: Return the contents of the transaction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mempool_tx_content'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -6664,6 +6759,265 @@ components:
         - received_sum
         - sent_sum
         - tx_count
+    mempool_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+        required:
+          - tx_hash
+      example:
+        - tx_hash: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+    mempool_tx_content:
+      type: object
+      properties:
+        tx:
+          type: object
+          properties:
+            hash:
+              type: string
+              example: 1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477
+              description: Transaction hash
+            output_amount:
+              type: array
+              items:
+                type: object
+                description: The sum of all the UTXO per asset
+                properties:
+                  unit:
+                    type: string
+                    format: >-
+                      Lovelace or concatenation of asset policy_id and
+                      hex-encoded asset_name
+                    description: The unit of the value
+                  quantity:
+                    type: string
+                    description: The quantity of the unit
+                required:
+                  - unit
+                  - quantity
+              example:
+                - unit: lovelace
+                  quantity: '42000000'
+                - unit: >-
+                    b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+                  quantity: '12'
+            fees:
+              type: string
+              example: '182485'
+              description: Fees of the transaction in Lovelaces
+            deposit:
+              type: string
+              example: '0'
+              description: Deposit within the transaction in Lovelaces
+            size:
+              type: integer
+              example: 433
+              description: Size of the transaction in Bytes
+            invalid_before:
+              type: string
+              nullable: true
+              example: null
+              description: Left (included) endpoint of the timelock validity intervals
+            invalid_hereafter:
+              type: string
+              nullable: true
+              example: '13885913'
+              description: Right (excluded) endpoint of the timelock validity intervals
+            utxo_count:
+              type: integer
+              example: 4
+              description: Count of UTXOs within the transaction
+            withdrawal_count:
+              type: integer
+              example: 0
+              description: Count of the withdrawals within the transaction
+            mir_cert_count:
+              type: integer
+              example: 0
+              description: Count of the MIR certificates within the transaction
+            delegation_count:
+              type: integer
+              example: 0
+              description: Count of the delegations within the transaction
+            stake_cert_count:
+              type: integer
+              example: 0
+              description: Count of the stake keys (de)registration within the transaction
+            pool_update_count:
+              type: integer
+              example: 0
+              description: >-
+                Count of the stake pool registration and update certificates
+                within the transaction
+            pool_retire_count:
+              type: integer
+              example: 0
+              description: >-
+                Count of the stake pool retirement certificates within the
+                transaction
+            asset_mint_or_burn_count:
+              type: integer
+              example: 0
+              description: Count of asset mints and burns within the transaction
+            redeemer_count:
+              type: integer
+              example: 0
+              description: Count of redeemers within the transaction
+            valid_contract:
+              type: boolean
+              example: true
+              description: True if contract script passed validation
+          required:
+            - hash
+            - output_amount
+            - fees
+            - deposit
+            - size
+            - invalid_before
+            - invalid_hereafter
+            - utxo_count
+            - withdrawal_count
+            - mir_cert_count
+            - delegation_count
+            - stake_cert_count
+            - pool_update_count
+            - pool_retire_count
+            - asset_mint_or_burn_count
+            - redeemer_count
+            - valid_contract
+        inputs:
+          type: array
+          items:
+            type: object
+            properties:
+              tx_hash:
+                type: string
+                example: >-
+                  1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+                description: Hash of the UTXO transaction
+              output_index:
+                type: integer
+                example: 0
+                description: UTXO index in the transaction
+              collateral:
+                type: boolean
+                example: false
+                description: >-
+                  Whether the input is a collateral consumed on script
+                  validation failure
+              reference:
+                type: boolean
+                example: false
+                description: Whether the input is a reference transaction input
+            required:
+              - tx_hash
+              - output_index
+              - collateral
+        outputs:
+          type: array
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+                example: >-
+                  addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+                description: Output address
+              amount:
+                type: array
+                items:
+                  type: object
+                  description: The sum of all the UTXO per asset
+                  properties:
+                    unit:
+                      type: string
+                      format: >-
+                        Lovelace or concatenation of asset policy_id and
+                        hex-encoded asset_name
+                      description: The unit of the value
+                    quantity:
+                      type: string
+                      description: The quantity of the unit
+                  required:
+                    - unit
+                    - quantity
+                example:
+                  - unit: lovelace
+                    quantity: '42000000'
+                  - unit: >-
+                      b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+                    quantity: '12'
+              output_index:
+                type: integer
+                example: 0
+                description: UTXO index in the transaction
+              data_hash:
+                type: string
+                description: The hash of the transaction output datum
+                nullable: true
+                example: >-
+                  9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+              inline_datum:
+                type: string
+                description: CBOR encoded inline datum
+                example: 19a6aa
+                nullable: true
+              collateral:
+                type: boolean
+                example: false
+                description: Whether the output is a collateral output
+              reference_script_hash:
+                type: string
+                description: The hash of the reference script of the output
+                example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+                nullable: true
+            required:
+              - address
+              - amount
+              - output_index
+              - data_hash
+              - inline_datum
+              - collateral
+              - reference_script_hash
+        redeemers:
+          type: array
+          items:
+            type: object
+            properties:
+              tx_index:
+                type: integer
+                example: 0
+                description: Index of the redeemer within the transaction
+              purpose:
+                type: string
+                enum:
+                  - spend
+                  - mint
+                  - cert
+                  - reward
+                example: spend
+                description: Validation purpose
+              unit_mem:
+                type: string
+                example: '1700'
+                description: The budget in Memory to run a script
+              unit_steps:
+                type: string
+                example: '476468'
+                description: The budget in CPU steps to run a script
+            required:
+              - tx_index
+              - purpose
+              - unit_mem
+              - unit_steps
+      required:
+        - tx
+        - inputs
+        - outputs
     tx_metadata_labels:
       type: array
       items:
@@ -7118,12 +7472,15 @@ components:
           - live_stake
       example:
         - pool_id: pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q
+          hex: 2f355f79ee007502d116ecb07e36f985b34cebf2d84118f5c6b455a1
           active_stake: '1541200000'
           live_stake: '1541400000'
         - pool_id: pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx
+          hex: 6b3fda88053dc2cee18a7c2736f032182fcc78a2fe912e869aa4edcd
           active_stake: '22200000'
           live_stake: '48955550'
         - pool_id: pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w
+          hex: 73318ec975cf1125a6367cbb1c9a406cbcb3e510e49d7c3aab14aa31
           active_stake: '9989541215'
           live_stake: '168445464878'
     pool_list_retire:

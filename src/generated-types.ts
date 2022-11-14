@@ -2824,6 +2824,29 @@ export interface paths {
       };
     };
   };
+  "/network/eras": {
+    /**
+     * Returns start and end of each era along with
+     * parameters that can vary between hard forks.
+     */
+    get: {
+      responses: {
+        /** Returns era summaries content. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["network-eras"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        425: components["responses"]["425"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/nutlink/{address}": {
     /** List metadata about specific address */
     get: {
@@ -5664,6 +5687,79 @@ export interface components {
         active: string;
       };
     };
+    /**
+     * @example [
+     *   {
+     *     "start": {
+     *       "time": 0,
+     *       "slot": 0,
+     *       "epoch": 0
+     *     },
+     *     "end": {
+     *       "time": 89856000,
+     *       "slot": 4492800,
+     *       "epoch": 208
+     *     },
+     *     "parameters": {
+     *       "epoch_length": 21600,
+     *       "slot_length": 20,
+     *       "safe_zone": 4320
+     *     }
+     *   },
+     *   {
+     *     "start": {
+     *       "time": 89856000,
+     *       "slot": 4492800,
+     *       "epoch": 208
+     *     },
+     *     "end": {
+     *       "time": 101952000,
+     *       "slot": 16588800,
+     *       "epoch": 236
+     *     },
+     *     "parameters": {
+     *       "epoch_length": 432000,
+     *       "slot_length": 1,
+     *       "safe_zone": 129600
+     *     }
+     *   }
+     * ]
+     */
+    "network-eras": {
+      /**
+       * @description Start of the blockchain era,
+       * relative to the start of the network
+       */
+      start: {
+        /** @description Time in seconds relative to the start time of the network */
+        time: number;
+        /** @description Absolute slot number */
+        slot: number;
+        /** @description Epoch number */
+        epoch: number;
+      };
+      /**
+       * @description End of the blockchain era,
+       * relative to the start of the network
+       */
+      end: {
+        /** @description Time in seconds relative to the start time of the network */
+        time: number;
+        /** @description Absolute slot number */
+        slot: number;
+        /** @description Epoch number */
+        epoch: number;
+      };
+      /** @description Era parameters */
+      parameters: {
+        /** @description Epoch length in number of slots */
+        epoch_length: number;
+        /** @description Slot length in seconds */
+        slot_length: number;
+        /** @description Zone in which it is guaranteed that no hard fork can take place */
+        safe_zone: number;
+      };
+    }[];
     nutlink_address: {
       /**
        * @description Bech32 encoded address

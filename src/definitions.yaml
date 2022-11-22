@@ -120,13 +120,13 @@ info:
     </table>
 
 servers:
-  - url: https://cardano-mainnet.blockfrost.io/api/v0/
+  - url: https://cardano-mainnet.blockfrost.io/api/v0
     description: Cardano Mainnet network
-  - url: https://cardano-testnet.blockfrost.io/api/v0/
+  - url: https://cardano-testnet.blockfrost.io/api/v0
     description: Cardano Testnet network
-  - url: https://cardano-preprod.blockfrost.io/api/v0/
+  - url: https://cardano-preprod.blockfrost.io/api/v0
     description: Cardano Preprod network
-  - url: https://cardano-preview.blockfrost.io/api/v0/
+  - url: https://cardano-preview.blockfrost.io/api/v0
     description: Cardano Preview network
   - url: https://localhost:3000
     description: local

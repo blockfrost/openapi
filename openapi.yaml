@@ -194,13 +194,13 @@ info:
       <tr><td>Crystal</td><td><a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a></tr>
     </table>
 servers:
-  - url: https://cardano-mainnet.blockfrost.io/api/v0/
+  - url: https://cardano-mainnet.blockfrost.io/api/v0
     description: Cardano Mainnet network
-  - url: https://cardano-testnet.blockfrost.io/api/v0/
+  - url: https://cardano-testnet.blockfrost.io/api/v0
     description: Cardano Testnet network
-  - url: https://cardano-preprod.blockfrost.io/api/v0/
+  - url: https://cardano-preprod.blockfrost.io/api/v0
     description: Cardano Preprod network
-  - url: https://cardano-preview.blockfrost.io/api/v0/
+  - url: https://cardano-preview.blockfrost.io/api/v0
     description: Cardano Preview network
   - url: https://localhost:3000
     description: local
@@ -7877,6 +7877,46 @@ components:
                     type: string
               description: URI(s) of the associated asset
               example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+            description:
+              oneOf:
+                - type: string
+                - type: array
+                  items:
+                    type: string
+              description: Additional description
+              example: My NFT token description
+            mediaType:
+              type: string
+              description: Mime sub type of image
+              example: image/jpeg
+            files:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: Name of the file
+                    example: myimage
+                  mediaType:
+                    type: string
+                    description: Mime sub type of image
+                    example: image/jpeg
+                  src:
+                    oneOf:
+                      - type: string
+                      - type: array
+                        items:
+                          type: string
+                    description: URI pointing to a resource of this mime type
+                    example: My NFT token description
+                required:
+                  - name
+                  - mediaType
+                  - src
+          required:
+            - name
+            - image
         metadata:
           type: object
           nullable: true

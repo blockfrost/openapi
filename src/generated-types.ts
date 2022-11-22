@@ -5242,12 +5242,39 @@ export interface components {
              * @description Name of the asset
              * @example My NFT token
              */
-            name?: string;
+            name: string;
             /**
              * @description URI(s) of the associated asset
              * @example ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
              */
-            image?: string | string[];
+            image: string | string[];
+            /**
+             * @description Additional description
+             * @example My NFT token description
+             */
+            description?: string | string[];
+            /**
+             * @description Mime sub type of image
+             * @example image/jpeg
+             */
+            mediaType?: string;
+            files?: {
+              /**
+               * @description Name of the file
+               * @example myimage
+               */
+              name: string;
+              /**
+               * @description Mime sub type of image
+               * @example image/jpeg
+               */
+              mediaType: string;
+              /**
+               * @description URI pointing to a resource of this mime type
+               * @example My NFT token description
+               */
+              src: string | string[];
+            }[];
           } & { [key: string]: unknown })
         | null;
       /**

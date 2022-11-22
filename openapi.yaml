@@ -4839,6 +4839,35 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /network/eras:
+    get:
+      tags:
+        - Cardano » Network
+      summary: Query summary of blockchain eras
+      description: |
+        Returns start and end of each era along with
+        parameters that can vary between hard forks.
+      responses:
+        '200':
+          description: Returns era summaries content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/network-eras'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '425':
+          $ref: '#/components/responses/425'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /nutlink/{address}:
     get:
       tags:
@@ -8384,6 +8413,97 @@ components:
       required:
         - supply
         - stake
+    network-eras:
+      type: array
+      items:
+        type: object
+        properties:
+          start:
+            type: object
+            description: |
+              Start of the blockchain era,
+              relative to the start of the network
+            properties:
+              time:
+                type: number
+                description: Time in seconds relative to the start time of the network
+              slot:
+                type: integer
+                description: Absolute slot number
+              epoch:
+                type: integer
+                description: Epoch number
+            required:
+              - time
+              - slot
+              - epoch
+          end:
+            type: object
+            description: |
+              End of the blockchain era,
+              relative to the start of the network
+            properties:
+              time:
+                type: number
+                description: Time in seconds relative to the start time of the network
+              slot:
+                type: integer
+                description: Absolute slot number
+              epoch:
+                type: integer
+                description: Epoch number
+            required:
+              - time
+              - slot
+              - epoch
+          parameters:
+            type: object
+            description: Era parameters
+            properties:
+              epoch_length:
+                type: integer
+                description: Epoch length in number of slots
+              slot_length:
+                type: number
+                description: Slot length in seconds
+              safe_zone:
+                type: integer
+                description: >-
+                  Zone in which it is guaranteed that no hard fork can take
+                  place
+            required:
+              - epoch_length
+              - slot_length
+              - safe_zone
+        required:
+          - start
+          - end
+          - parameters
+      example:
+        - start:
+            time: 0
+            slot: 0
+            epoch: 0
+          end:
+            time: 89856000
+            slot: 4492800
+            epoch: 208
+          parameters:
+            epoch_length: 21600
+            slot_length: 20
+            safe_zone: 4320
+        - start:
+            time: 89856000
+            slot: 4492800
+            epoch: 208
+          end:
+            time: 101952000
+            slot: 16588800
+            epoch: 236
+          parameters:
+            epoch_length: 432000
+            slot_length: 1
+            safe_zone: 129600
     nutlink_address:
       type: object
       properties:

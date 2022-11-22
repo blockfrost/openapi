@@ -434,6 +434,9 @@ paths:
   /network:
     $ref: ./paths/api/network/index.yaml
 
+  /network/eras:
+    $ref: ./paths/api/network/eras.yaml
+
   /nutlink/{address}:
     $ref: ./paths/api/nutlink/{address}/index.yaml
 

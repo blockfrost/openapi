@@ -11,6 +11,11 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 - CIP-25 files validation for `/assets/{asset_id}`
 
+
+### Added
+
+- `getSchema` util function
+
 ## [0.1.46] - 2022-11-22
 
 ### Added

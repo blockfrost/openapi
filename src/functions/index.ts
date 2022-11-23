@@ -13,7 +13,7 @@ const file = fs.readFileSync(
 );
 const spec = YAML.parse(file);
 
-export default (endpointName: string) => {
+export const getSchemaForEndpoint = (endpointName: string) => {
   if (!spec.paths[endpointName]) {
     throw Error(
       `Missing Blockfrost OpenAPI schema for endpoint "${endpointName}".`,
@@ -149,4 +149,12 @@ export default (endpointName: string) => {
   // }
 
   return responses;
+};
+
+export const getSchema = (schemaName: string) => {
+  if (!spec.components.schemas[schemaName]) {
+    throw Error(`Missing Blockfrost OpenAPI schema with name "${schemaName}".`);
+  }
+
+  return spec.components.schemas[schemaName];
 };

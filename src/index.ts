@@ -1,4 +1,4 @@
-import getSchemaForEndpoint from './functions/get-schema-for-endpoint';
+import { getSchemaForEndpoint, getSchema } from './functions';
 
-export { getSchemaForEndpoint };
+export { getSchemaForEndpoint, getSchema };
 export type { paths, components } from './generated-types';

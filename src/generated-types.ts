@@ -5286,7 +5286,7 @@ export interface components {
                * @description Name of the file
                * @example myimage
                */
-              name: string;
+              name?: string;
               /**
                * @description Mime sub type of image
                * @example image/jpeg

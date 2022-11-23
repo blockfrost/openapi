@@ -63,6 +63,7 @@ properties:
         example: image/jpeg
       files:
         type: array
+        additionalProperties: true
         items:
           type: object
           properties:
@@ -83,7 +84,6 @@ properties:
               description: URI pointing to a resource of this mime type
               example: My NFT token description
           required:
-            - name
             - mediaType
             - src
     required:

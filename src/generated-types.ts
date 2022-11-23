@@ -5256,50 +5256,18 @@ export interface components {
        */
       mint_or_burn_count: number;
       /**
-       * @description On-chain metadata stored in the minting transaction under label 721,
-       * community discussion around the standard ongoing at https://github.com/cardano-foundation/CIPs/pull/85
+       * @description On-chain metadata which SHOULD adhere to the valid standards,
+       * based on which we perform the look up and display the asset
+       * (best effort)
        */
-      onchain_metadata:
-        | ({
-            /**
-             * @description Name of the asset
-             * @example My NFT token
-             */
-            name: string;
-            /**
-             * @description URI(s) of the associated asset
-             * @example ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
-             */
-            image: string | string[];
-            /**
-             * @description Additional description
-             * @example My NFT token description
-             */
-            description?: string | string[];
-            /**
-             * @description Mime sub type of image
-             * @example image/jpeg
-             */
-            mediaType?: string;
-            files?: ({
-              /**
-               * @description Name of the file
-               * @example myimage
-               */
-              name?: string;
-              /**
-               * @description Mime sub type of image
-               * @example image/jpeg
-               */
-              mediaType: string;
-              /**
-               * @description URI pointing to a resource of this mime type
-               * @example My NFT token description
-               */
-              src: string | string[];
-            } & { [key: string]: unknown })[];
-          } & { [key: string]: unknown })
-        | null;
+      onchain_metadata: { [key: string]: unknown } | null;
+      /**
+       * @description If on-chain metadata passes validation, we display the standard
+       * under which it is valid
+       *
+       * @enum {string|null}
+       */
+      onchain_metadata_standard?: ("CIP25v1" | "CIP25v2") | null;
       /**
        * @description Off-chain metadata fetched from GitHub based on network.
        * Mainnet: https://github.com/cardano-foundation/cardano-token-registry/

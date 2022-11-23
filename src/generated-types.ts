@@ -4671,7 +4671,7 @@ export interface components {
         quantity: string;
         /** @description Number of decimal places of the asset unit */
         decimals: number | null;
-        /** @description The latest minting transaction includes the NFT metadata according to CIP25 */
+        /** @description The latest minting transaction includes metadata */
         has_nft_onchain_metadata: boolean;
       }[];
       /**

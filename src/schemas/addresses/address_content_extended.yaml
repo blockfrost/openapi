@@ -23,7 +23,7 @@ properties:
           description: Number of decimal places of the asset unit
         has_nft_onchain_metadata:
           type: boolean
-          description: The latest minting transaction includes the NFT metadata according to CIP25
+          description: The latest minting transaction includes metadata
       required:
         - unit
         - quantity

@@ -5281,7 +5281,7 @@ export interface components {
              * @example image/jpeg
              */
             mediaType?: string;
-            files?: {
+            files?: ({
               /**
                * @description Name of the file
                * @example myimage
@@ -5297,7 +5297,7 @@ export interface components {
                * @example My NFT token description
                */
               src: string | string[];
-            }[];
+            } & { [key: string]: unknown })[];
           } & { [key: string]: unknown })
         | null;
       /**

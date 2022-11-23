@@ -63,9 +63,9 @@ properties:
         example: image/jpeg
       files:
         type: array
-        additionalProperties: true
         items:
           type: object
+          additionalProperties: true
           properties:
             name:
               type: string

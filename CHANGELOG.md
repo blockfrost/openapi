@@ -10,6 +10,7 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 ### Added
 
 - `getSchema` util function
+- `validateSchema` util function
 - `onchain_metadata_standard` to `/assets/{asset_id}` endpoint to report `onchain_metadata` validity
 
 ### Changed

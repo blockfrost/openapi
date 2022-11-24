@@ -8410,7 +8410,6 @@ components:
     asset_onchain_metadata_cip25:
       type: object
       additionalProperties: true
-      nullable: true
       description: |
         On-chain metadata stored in the minting transaction under label 721,
         which adheres to https://cips.cardano.org/cips/cip25/

@@ -1,12 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import YAML from 'yaml';
+import Ajv from 'ajv';
 
 import nutlinkAddressTickers from './custom-schemas/nutlink-address-tickers';
 import nutlinkTicker from './custom-schemas/nutlink-ticker';
 import scriptsJsonSchema from './custom-schemas/scripts-json';
 import txsMetadata from './custom-schemas/txs-metadata';
 
+const ajv = new Ajv({ strict: false });
 const file = fs.readFileSync(
   path.resolve(__dirname, '../../openapi.yaml'),
   'utf8',
@@ -157,4 +159,12 @@ export const getSchema = (schemaName: string) => {
   }
 
   return spec.components.schemas[schemaName];
+};
+
+export const validateSchema = (schemaName: string, input: unknown) => {
+  const schema = getSchema(schemaName);
+  const validate = ajv.compile(schema);
+  const isValid = validate(input);
+
+  return { isValid, errors: validate.errors };
 };

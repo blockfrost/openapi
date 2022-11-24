@@ -1185,7 +1185,10 @@ export interface paths {
     };
   };
   "/accounts/{stake_address}/addresses": {
-    /** Obtain information about the addresses of a specific account. */
+    /**
+     * Obtain information about the addresses of a specific account.
+     * <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
+     */
     get: {
       parameters: {
         path: {

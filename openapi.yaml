@@ -2134,7 +2134,12 @@ paths:
       tags:
         - Cardano » Accounts
       summary: Account associated addresses
-      description: Obtain information about the addresses of a specific account.
+      description: >
+        Obtain information about the addresses of a specific account.
+
+        <b>Be careful</b>, as an account could be part of a mangled address and
+        does not necessarily mean the addresses are owned by user as the
+        account.
       parameters:
         - in: path
           name: stake_address

@@ -7,9 +7,15 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 ## [0.1.xx] -
 
-### Fixed
+### Added
 
-- CIP-25 files validation for `/assets/{asset_id}`
+- `getSchema` util function
+- `validateSchema` util function
+- `onchain_metadata_standard` to `/assets/{asset_id}` endpoint to report `onchain_metadata` validity
+
+### Changed
+
+- moved CIP-25 validation to a custom schema to avoid strict check on `onchain_metadata`
 
 ## [0.1.46] - 2022-11-22
 

@@ -9,7 +9,7 @@ import {
   error404,
 } from '../fixtures/openapi';
 
-describe('open api utils', () => {
+describe('getSchemaForEndpoint', () => {
   test('health schema - no refs', () => {
     expect(getSchemaForEndpoint('/health')).toStrictEqual({
       response: {

@@ -450,6 +450,10 @@ paths:
     $ref: ./paths/api/nutlink/tickers/{ticker}/index.yaml
 
 components:
+  schemas:
+    onchain_metadata_cip25:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip25.yaml
+
   responses:
     overusage_limit:
       $ref: ./responses/errors/429.yaml

@@ -1,18 +1,18 @@
 openapi: 3.0.0
 info:
-  version: "0.1.47"
+  version: '0.1.48'
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
     altText: Blockfrost
   contact:
     name: Blockfrost Team
-    url: "https://blockfrost.io"
+    url: 'https://blockfrost.io'
     email: contact@blockfrost.io
   license:
     name: MIT
-    url: "https://opensource.org/licenses/MIT"
-  termsOfService: "https://blockfrost.io/terms"
+    url: 'https://opensource.org/licenses/MIT'
+  termsOfService: 'https://blockfrost.io/terms'
   description: |
     Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
 

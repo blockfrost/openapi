@@ -7043,7 +7043,9 @@ components:
                 description: Number of decimal places of the asset unit
               has_nft_onchain_metadata:
                 type: boolean
-                description: The latest minting transaction includes metadata
+                description: >-
+                  True if the latest minting transaction includes metadata
+                  (best-effort)
             required:
               - unit
               - quantity
@@ -8441,7 +8443,7 @@ components:
           example: My NFT token description
         mediaType:
           type: string
-          description: Mime sub type of image
+          description: Mime sub-type of image
           example: image/jpeg
         files:
           type: array
@@ -8455,7 +8457,7 @@ components:
                 example: myimage
               mediaType:
                 type: string
-                description: Mime sub type of image
+                description: Mime sub-type of image
                 example: image/jpeg
               src:
                 oneOf:

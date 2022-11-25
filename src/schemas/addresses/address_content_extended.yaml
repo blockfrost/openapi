@@ -23,19 +23,19 @@ properties:
           description: Number of decimal places of the asset unit
         has_nft_onchain_metadata:
           type: boolean
-          description: The latest minting transaction includes metadata
+          description: True if the latest minting transaction includes metadata (best-effort)
       required:
         - unit
         - quantity
         - decimals
         - has_nft_onchain_metadata
     example:
-      - unit: "lovelace"
-        quantity: "42000000"
+      - unit: 'lovelace'
+        quantity: '42000000'
         decimals: 6
         has_nft_onchain_metadata: false
-      - unit: "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e"
-        quantity: "12"
+      - unit: 'b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e'
+        quantity: '12'
         decimals: null
         has_nft_onchain_metadata: true
   stake_address:

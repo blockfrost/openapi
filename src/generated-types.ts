@@ -4674,7 +4674,7 @@ export interface components {
         quantity: string;
         /** @description Number of decimal places of the asset unit */
         decimals: number | null;
-        /** @description The latest minting transaction includes metadata */
+        /** @description True if the latest minting transaction includes metadata (best-effort) */
         has_nft_onchain_metadata: boolean;
       }[];
       /**
@@ -5897,7 +5897,7 @@ export interface components {
        */
       description?: string | string[];
       /**
-       * @description Mime sub type of image
+       * @description Mime sub-type of image
        * @example image/jpeg
        */
       mediaType?: string;
@@ -5908,7 +5908,7 @@ export interface components {
          */
         name?: string;
         /**
-         * @description Mime sub type of image
+         * @description Mime sub-type of image
          * @example image/jpeg
          */
         mediaType: string;

@@ -7,7 +7,7 @@ properties:
   name:
     type: string
     description: Name of the asset
-    example: "My NFT token"
+    example: 'My NFT token'
   image:
     oneOf:
       - type: string
@@ -15,7 +15,7 @@ properties:
         items:
           type: string
     description: URI(s) of the associated asset
-    example: "ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226"
+    example: 'ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226'
   description:
     oneOf:
       - type: string
@@ -26,7 +26,7 @@ properties:
     example: My NFT token description
   mediaType:
     type: string
-    description: Mime sub type of image
+    description: Mime sub-type of image
     example: image/jpeg
   files:
     type: array
@@ -40,7 +40,7 @@ properties:
           example: myimage
         mediaType:
           type: string
-          description: Mime sub type of image
+          description: Mime sub-type of image
           example: image/jpeg
         src:
           oneOf:

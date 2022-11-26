@@ -1,10 +1,7 @@
-import { components } from '../generated-types';
 import { validateSchema } from '../index';
+import { CIPTypes, GetOnchainMetadataResult, Asset } from '../types/metadata';
 
-export const getCIPstandard = (
-  version: number,
-  isValid: boolean,
-): 'CIP25v1' | 'CIP25v2' | null => {
+export const getCIPstandard = (version: number, isValid: boolean): CIPTypes => {
   if (isValid) {
     if (version === 1) {
       return 'CIP25v1';
@@ -19,7 +16,7 @@ export const getCIPstandard = (
 };
 
 export const getOnchainMetadataVersion = (
-  onchainMetadata: components['schemas']['asset']['onchain_metadata'],
+  onchainMetadata: Asset['onchain_metadata'],
 ): number => {
   if (!onchainMetadata?.version) {
     return 1;
@@ -29,16 +26,18 @@ export const getOnchainMetadataVersion = (
 };
 
 export const getOnchainMetadata = (
-  onchainMetadata: components['schemas']['asset']['onchain_metadata'],
-  assetName: components['schemas']['asset']['asset_name'],
-  policyId: components['schemas']['asset']['policy_id'],
-) => {
-  let internanOnchainMetada: any = onchainMetadata;
-  if (!internanOnchainMetada) return null;
+  onchainMetadata: Asset['onchain_metadata'],
+  assetName: Asset['asset_name'],
+  policyId: Asset['policy_id'],
+): GetOnchainMetadataResult => {
+  let internalOnchainMetada: any = onchainMetadata;
+
+  if (!internalOnchainMetada)
+    return { onchainMetadata: null, validCIPversion: null };
 
   let isFound = false;
   let onchainMetadataResult = null;
-  let validCIPversion: 'CIP25v1' | 'CIP25v2' | null = null;
+  let validCIPversion: CIPTypes = null;
   const version = getOnchainMetadataVersion(onchainMetadata);
   const assetNameBase = assetName || '';
   const assetNameVersion1 = Buffer.from(assetNameBase || '', 'hex').toString(
@@ -49,7 +48,7 @@ export const getOnchainMetadata = (
   if (version === 1) {
     try {
       onchainMetadataResult =
-        internanOnchainMetada[policyId][assetNameVersion1] || null;
+        internalOnchainMetada[policyId][assetNameVersion1] || null;
       isFound = true;
     } catch (error) {
       onchainMetadataResult = null;
@@ -59,14 +58,14 @@ export const getOnchainMetadata = (
   if (version === 2) {
     try {
       const foundMetadata =
-        internanOnchainMetada[policyId][assetNameVersion2] || null;
+        internalOnchainMetada[policyId][assetNameVersion2] || null;
       if (foundMetadata) {
         onchainMetadataResult = foundMetadata;
         isFound = true;
       } else {
         // fallback
         onchainMetadataResult =
-          internanOnchainMetada[policyId][assetNameVersion1] || null;
+          internalOnchainMetada[policyId][assetNameVersion1] || null;
         isFound = false;
       }
     } catch (error) {

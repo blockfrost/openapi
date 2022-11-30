@@ -1,4 +1,4 @@
-name: open-api-CI
+name: CIcko
 
 on: [push]
 
@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -15,5 +15,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn
+      - run: yarn build
       - run: yarn test
-      - run: yarn run build
+      - run: yarn coverage

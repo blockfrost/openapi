@@ -5,7 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) once it reaches maturity in v1.
 
-## [0.1.XX] - 2022-XX-XX
+## [0.1.49] - 2022-11-26
+
+### Changed
+
+- update deps and yarn version
+
+### Added
+
+- test coverage
+- `getCIPstandard`, `getOnchainMetadataVersion`, `getOnchainMetadata` functions
+
+## [0.1.48] - 2022-11-25
+
+### Fixed
+
+- descriptions
+
+## [0.1.47] - 2022-11-24
+
+### Added
+
+- `getSchema` util function
+- `validateSchema` util function
+- `onchain_metadata_standard` to `/assets/{asset_id}` endpoint to report `onchain_metadata` validity
+
+### Changed
+
+- moved CIP-25 validation to a custom schema to avoid strict check on `onchain_metadata`
+
+## [0.1.46] - 2022-11-22
+
+### Added
+
+- `/network/eras` endpoint
+
+### Changed
+
+- adjust CIP-25 and add v2 validation for onchain_metadata in `/assets/{asset_id}`
+- refactored custom schemas
+
+## [0.1.45] - 2022-11-20
+
+### Fixed
+
+- accidental npm release
 
 ## [0.1.44] - 2022-11-07
 

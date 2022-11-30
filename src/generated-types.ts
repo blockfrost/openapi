@@ -1185,7 +1185,10 @@ export interface paths {
     };
   };
   "/accounts/{stake_address}/addresses": {
-    /** Obtain information about the addresses of a specific account. */
+    /**
+     * Obtain information about the addresses of a specific account.
+     * <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
+     */
     get: {
       parameters: {
         path: {
@@ -2824,6 +2827,29 @@ export interface paths {
       };
     };
   };
+  "/network/eras": {
+    /**
+     * Returns start and end of each era along with
+     * parameters that can vary between hard forks.
+     */
+    get: {
+      responses: {
+        /** Returns era summaries content. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["network-eras"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        425: components["responses"]["425"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/nutlink/{address}": {
     /** List metadata about specific address */
     get: {
@@ -2958,6 +2984,7 @@ export interface paths {
 
 export interface components {
   schemas: {
+    onchain_metadata_cip25: components["schemas"]["asset_onchain_metadata_cip25"];
     block_content: {
       /**
        * @description Block creation time in UNIX time
@@ -4647,7 +4674,7 @@ export interface components {
         quantity: string;
         /** @description Number of decimal places of the asset unit */
         decimals: number | null;
-        /** @description The latest minting transaction includes the NFT metadata according to CIP25 */
+        /** @description True if the latest minting transaction includes metadata (best-effort) */
         has_nft_onchain_metadata: boolean;
       }[];
       /**
@@ -5233,23 +5260,18 @@ export interface components {
        */
       mint_or_burn_count: number;
       /**
-       * @description On-chain metadata stored in the minting transaction under label 721,
-       * community discussion around the standard ongoing at https://github.com/cardano-foundation/CIPs/pull/85
+       * @description On-chain metadata which SHOULD adhere to the valid standards,
+       * based on which we perform the look up and display the asset
+       * (best effort)
        */
-      onchain_metadata:
-        | ({
-            /**
-             * @description Name of the asset
-             * @example My NFT token
-             */
-            name?: string;
-            /**
-             * @description URI(s) of the associated asset
-             * @example ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
-             */
-            image?: string | string[];
-          } & { [key: string]: unknown })
-        | null;
+      onchain_metadata: { [key: string]: unknown } | null;
+      /**
+       * @description If on-chain metadata passes validation, we display the standard
+       * under which it is valid
+       *
+       * @enum {string|null}
+       */
+      onchain_metadata_standard?: ("CIP25v1" | "CIP25v2") | null;
       /**
        * @description Off-chain metadata fetched from GitHub based on network.
        * Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
@@ -5664,6 +5686,79 @@ export interface components {
         active: string;
       };
     };
+    /**
+     * @example [
+     *   {
+     *     "start": {
+     *       "time": 0,
+     *       "slot": 0,
+     *       "epoch": 0
+     *     },
+     *     "end": {
+     *       "time": 89856000,
+     *       "slot": 4492800,
+     *       "epoch": 208
+     *     },
+     *     "parameters": {
+     *       "epoch_length": 21600,
+     *       "slot_length": 20,
+     *       "safe_zone": 4320
+     *     }
+     *   },
+     *   {
+     *     "start": {
+     *       "time": 89856000,
+     *       "slot": 4492800,
+     *       "epoch": 208
+     *     },
+     *     "end": {
+     *       "time": 101952000,
+     *       "slot": 16588800,
+     *       "epoch": 236
+     *     },
+     *     "parameters": {
+     *       "epoch_length": 432000,
+     *       "slot_length": 1,
+     *       "safe_zone": 129600
+     *     }
+     *   }
+     * ]
+     */
+    "network-eras": {
+      /**
+       * @description Start of the blockchain era,
+       * relative to the start of the network
+       */
+      start: {
+        /** @description Time in seconds relative to the start time of the network */
+        time: number;
+        /** @description Absolute slot number */
+        slot: number;
+        /** @description Epoch number */
+        epoch: number;
+      };
+      /**
+       * @description End of the blockchain era,
+       * relative to the start of the network
+       */
+      end: {
+        /** @description Time in seconds relative to the start time of the network */
+        time: number;
+        /** @description Absolute slot number */
+        slot: number;
+        /** @description Epoch number */
+        epoch: number;
+      };
+      /** @description Era parameters */
+      parameters: {
+        /** @description Epoch length in number of slots */
+        epoch_length: number;
+        /** @description Slot length in seconds */
+        slot_length: number;
+        /** @description Zone in which it is guaranteed that no hard fork can take place */
+        safe_zone: number;
+      };
+    }[];
     nutlink_address: {
       /**
        * @description Bech32 encoded address
@@ -5781,6 +5876,49 @@ export interface components {
         Partial<number> &
         Partial<boolean>) & { [key: string]: unknown };
     }[];
+    /**
+     * @description On-chain metadata stored in the minting transaction under label 721,
+     * which adheres to https://cips.cardano.org/cips/cip25/
+     */
+    asset_onchain_metadata_cip25: {
+      /**
+       * @description Name of the asset
+       * @example My NFT token
+       */
+      name: string;
+      /**
+       * @description URI(s) of the associated asset
+       * @example ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+       */
+      image: string | string[];
+      /**
+       * @description Additional description
+       * @example My NFT token description
+       */
+      description?: string | string[];
+      /**
+       * @description Mime sub-type of image
+       * @example image/jpeg
+       */
+      mediaType?: string;
+      files?: ({
+        /**
+         * @description Name of the file
+         * @example myimage
+         */
+        name?: string;
+        /**
+         * @description Mime sub-type of image
+         * @example image/jpeg
+         */
+        mediaType: string;
+        /**
+         * @description URI pointing to a resource of this mime type
+         * @example My NFT token description
+         */
+        src: string | string[];
+      } & { [key: string]: unknown })[];
+    } & { [key: string]: unknown };
   };
   responses: {
     /** Bad request */

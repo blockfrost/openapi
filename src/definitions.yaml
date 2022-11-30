@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.44"
+  version: "0.1.49"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -120,13 +120,13 @@ info:
     </table>
 
 servers:
-  - url: https://cardano-mainnet.blockfrost.io/api/v0/
+  - url: https://cardano-mainnet.blockfrost.io/api/v0
     description: Cardano Mainnet network
-  - url: https://cardano-testnet.blockfrost.io/api/v0/
+  - url: https://cardano-testnet.blockfrost.io/api/v0
     description: Cardano Testnet network
-  - url: https://cardano-preprod.blockfrost.io/api/v0/
+  - url: https://cardano-preprod.blockfrost.io/api/v0
     description: Cardano Preprod network
-  - url: https://cardano-preview.blockfrost.io/api/v0/
+  - url: https://cardano-preview.blockfrost.io/api/v0
     description: Cardano Preview network
   - url: https://localhost:3000
     description: local
@@ -434,6 +434,9 @@ paths:
   /network:
     $ref: ./paths/api/network/index.yaml
 
+  /network/eras:
+    $ref: ./paths/api/network/eras.yaml
+
   /nutlink/{address}:
     $ref: ./paths/api/nutlink/{address}/index.yaml
 
@@ -447,6 +450,10 @@ paths:
     $ref: ./paths/api/nutlink/tickers/{ticker}/index.yaml
 
 components:
+  schemas:
+    onchain_metadata_cip25:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip25.yaml
+
   responses:
     overusage_limit:
       $ref: ./responses/errors/429.yaml

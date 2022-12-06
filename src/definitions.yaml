@@ -143,22 +143,100 @@ info:
     We support a number of SDKs that will help you in developing your application on top of Blockfrost.
 
     <table>
-      <tr><td><b>Programming language</b></td><td><b>SDK</b></td></tr>
-      <tr><td>JavaScript</td><td><a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a></tr>
-      <tr><td>Haskell</td><td><a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a></tr>
-      <tr><td>Python</td><td><a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a></tr>
-      <tr><td>Rust</td><td><a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a></tr>
-      <tr><td>Golang</td><td><a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a></tr>
-      <tr><td>Ruby</td><td><a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a></tr>
-      <tr><td>Java</td><td><a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a></tr>
-      <tr><td>Scala</td><td><a href="https://github.com/blockfrost/blockfrost-scala">blockfrost-scala</a></tr>
-      <tr><td>Swift</td><td><a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a></tr>
-      <tr><td>Kotlin</td><td><a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a></tr>
-      <tr><td>Elixir</td><td><a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a></tr>
-      <tr><td>.NET</td><td><a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a></tr>
-      <tr><td>Arduino</td><td><a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a></tr>
-      <tr><td>PHP</td><td><a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a></tr>
-      <tr><td>Crystal</td><td><a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a></tr>
+      <tr>
+          <td><b>Programming language</b></td>
+          <td><b>SDK</b></td>
+      </tr>
+      <tr>
+          <td>JavaScript</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Haskell</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Python</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Rust</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Golang</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Ruby</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Java</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Scala</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-scala">blockfrost-scala</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Swift</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Kotlin</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Elixir</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a>
+          </td>
+      </tr>
+      <tr>
+          <td>.NET</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Arduino</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a>
+          </td>
+      </tr>
+      <tr>
+          <td>PHP</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a>
+          </td>
+      </tr>
+      <tr>
+          <td>Crystal</td>
+          <td>
+              <a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a>
+          </td>
+      </tr>
     </table>
 
 servers:

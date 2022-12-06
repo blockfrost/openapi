@@ -36,14 +36,56 @@ info:
 
 
     <table>
-      <tr><td><b>Network</b></td><td><b>Endpoint</b></td></tr>
-      <tr><td>Cardano mainnet</td><td><tt>https://cardano-mainnet.blockfrost.io/api/v0</td></tt></tr>
-      <tr><td>Cardano testnet</td><td><tt>https://cardano-testnet.blockfrost.io/api/v0</tt></td></tr>
-      <tr><td>Cardano preprod</td><td><tt>https://cardano-preprod.blockfrost.io/api/v0</tt></td></tr>
-      <tr><td>Cardano preview</td><td><tt>https://cardano-preview.blockfrost.io/api/v0</tt></td></tr>
-      <tr><td>InterPlanetary File System</td><td><tt>https://ipfs.blockfrost.io/api/v0</tt></td></tr>
-      <tr><td>Milkomeda mainnet</td><td><tt>https://milkomeda-mainnet.blockfrost.io/api/v0</td></tt></tr>
-      <tr><td>Milkomeda testnet</td><td><tt>https://milkomeda-testnet.blockfrost.io/api/v0</td></tt></tr>
+      <tr>
+        <td>
+            <b>Network</b>
+        </td>
+        <td>
+            <b>Endpoint</b>
+        </td>
+      </tr>
+      <tr>
+          <td>Cardano mainnet</td>
+          <td>
+              <code>https://cardano-mainnet.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
+      <tr>
+          <td>Cardano testnet</td>
+          <td>
+              <code>https://cardano-testnet.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
+      <tr>
+          <td>Cardano preprod</td>
+          <td>
+              <code>https://cardano-preprod.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
+      <tr>
+          <td>Cardano preview</td>
+          <td>
+              <code>https://cardano-preview.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
+      <tr>
+          <td>InterPlanetary File System</td>
+          <td>
+              <code>https://ipfs.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
+      <tr>
+          <td>Milkomeda mainnet</td>
+          <td>
+              <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
+      <tr>
+          <td>Milkomeda testnet</td>
+          <td>
+              <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
+          </td>
+      </tr>
     </table>
 
 

@@ -7,9 +7,16 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 Unreleased changes are in the `master` branch.
 
+## [0.1.xx] - Unreleased
+
+## Added
+
+- `address` field to `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
+
 ## Fixed
 
-- Table HTML tags
+- table HTML tags
+- missing summaries
 
 ## [0.1.49] - 2022-11-26
 

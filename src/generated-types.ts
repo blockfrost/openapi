@@ -2875,7 +2875,7 @@ export interface paths {
     };
   };
   "/nutlink/{address}/tickers": {
-    /** List of records of a specific ticker */
+    /** List of records of a specific oracle */
     get: {
       parameters: {
         path: {
@@ -4751,6 +4751,7 @@ export interface components {
     /**
      * @example [
      *   {
+     *     "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
      *     "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
      *     "output_index": 0,
      *     "amount": [
@@ -4765,6 +4766,7 @@ export interface components {
      *     "reference_script_hash": null
      *   },
      *   {
+     *     "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
      *     "tx_hash": "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49",
      *     "output_index": 0,
      *     "amount": [
@@ -4779,6 +4781,7 @@ export interface components {
      *     "reference_script_hash": null
      *   },
      *   {
+     *     "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
      *     "tx_hash": "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2",
      *     "output_index": 1,
      *     "amount": [
@@ -4799,6 +4802,11 @@ export interface components {
      * ]
      */
     address_utxo_content: {
+      /**
+       * @description Bech32 encoded addresses - useful when querying by payment_cred
+       * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+       */
+      address: string;
       /** @description Transaction hash of the UTXO */
       tx_hash: string;
       /**

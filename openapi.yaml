@@ -4846,6 +4846,7 @@ paths:
     post:
       tags:
         - IPFS » Pins
+      summary: Remove a IPFS pin
       description: Remove pinned objects from local storage
       parameters:
         - in: path
@@ -4997,6 +4998,7 @@ paths:
     get:
       tags:
         - Nut.link
+      summary: Specific nut.link address
       description: List metadata about specific address
       parameters:
         - in: path
@@ -5028,7 +5030,8 @@ paths:
     get:
       tags:
         - Nut.link
-      description: List of records of a specific ticker
+      summary: List of tickers of an oracle
+      description: List of records of a specific oracle
       parameters:
         - in: path
           required: true
@@ -5091,6 +5094,7 @@ paths:
     get:
       tags:
         - Nut.link
+      summary: Specific ticker
       description: List of records of a specific ticker
       parameters:
         - in: path
@@ -5160,6 +5164,7 @@ paths:
     get:
       tags:
         - Nut.link
+      summary: Specific ticker
       description: List of records of a specific ticker
       parameters:
         - in: path
@@ -7273,6 +7278,11 @@ components:
       items:
         type: object
         properties:
+          address:
+            type: string
+            description: Bech32 encoded addresses - useful when querying by payment_cred
+            example: >-
+              addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           tx_hash:
             type: string
             description: Transaction hash of the UTXO
@@ -7319,6 +7329,7 @@ components:
             example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
             nullable: true
         required:
+          - address
           - tx_hash
           - tx_index
           - output_index
@@ -7328,7 +7339,9 @@ components:
           - inline_datum
           - reference_script_hash
       example:
-        - tx_hash: 39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58
+        - address: >-
+            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          tx_hash: 39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58
           output_index: 0
           amount:
             - unit: lovelace
@@ -7337,7 +7350,9 @@ components:
           data_hash: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
           inline_datum: null
           reference_script_hash: null
-        - tx_hash: 4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49
+        - address: >-
+            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          tx_hash: 4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49
           output_index: 0
           amount:
             - unit: lovelace
@@ -7346,7 +7361,9 @@ components:
           data_hash: null
           inline_datum: null
           reference_script_hash: null
-        - tx_hash: 768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2
+        - address: >-
+            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          tx_hash: 768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2
           output_index: 1
           amount:
             - unit: lovelace

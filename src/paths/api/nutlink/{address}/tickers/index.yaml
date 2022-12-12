@@ -1,7 +1,8 @@
 get:
   tags:
     - Nut.link
-  description: List of records of a specific ticker
+  summary: List of tickers of an oracle
+  description: List of records of a specific oracle
   parameters:
     - in: path
       required: true

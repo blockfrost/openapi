@@ -4846,6 +4846,7 @@ paths:
     post:
       tags:
         - IPFS » Pins
+      summary: Remove a IPFS pin
       description: Remove pinned objects from local storage
       parameters:
         - in: path
@@ -4997,6 +4998,7 @@ paths:
     get:
       tags:
         - Nut.link
+      summary: Specific nut.link address
       description: List metadata about specific address
       parameters:
         - in: path
@@ -5028,7 +5030,8 @@ paths:
     get:
       tags:
         - Nut.link
-      description: List of records of a specific ticker
+      summary: List of tickers of an oracle
+      description: List of records of a specific oracle
       parameters:
         - in: path
           required: true
@@ -5091,6 +5094,7 @@ paths:
     get:
       tags:
         - Nut.link
+      summary: Specific ticker
       description: List of records of a specific ticker
       parameters:
         - in: path
@@ -5160,6 +5164,7 @@ paths:
     get:
       tags:
         - Nut.link
+      summary: Specific ticker
       description: List of records of a specific ticker
       parameters:
         - in: path

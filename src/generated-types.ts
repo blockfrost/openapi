@@ -2875,7 +2875,7 @@ export interface paths {
     };
   };
   "/nutlink/{address}/tickers": {
-    /** List of records of a specific ticker */
+    /** List of records of a specific oracle */
     get: {
       parameters: {
         path: {

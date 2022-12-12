@@ -3,6 +3,7 @@ servers:
 post:
   tags:
     - IPFS » Pins
+  summary: Remove a IPFS pin
   description: Remove pinned objects from local storage
   parameters:
     - in: path

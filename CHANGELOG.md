@@ -15,7 +15,8 @@ Unreleased changes are in the `master` branch.
 
 ## Fixed
 
-- Table HTML tags
+- table HTML tags
+- missing summaries
 
 ## [0.1.49] - 2022-11-26
 

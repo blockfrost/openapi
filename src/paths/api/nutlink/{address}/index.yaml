@@ -1,6 +1,7 @@
 get:
   tags:
     - Nut.link
+  summary: Specific nut.link address
   description: List metadata about specific address
   parameters:
     - in: path

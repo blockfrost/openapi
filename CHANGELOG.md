@@ -7,7 +7,9 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 Unreleased changes are in the `master` branch.
 
-## [0.1.xx] - Unreleased
+## [0.1.x] - Unreleased
+
+## [0.1.50] - 2022-12-13
 
 ## Added
 

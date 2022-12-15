@@ -573,6 +573,10 @@ components:
   schemas:
     onchain_metadata_cip25:
       $ref: ./schemas/assets/asset_onchain_metadata_cip25.yaml
+    onchain_metadata_cip68_ft_333:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip68_ft_333.yaml
+    onchain_metadata_cip68_nft_222:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip68_nft_222.yaml
 
   responses:
     overusage_limit:

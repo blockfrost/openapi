@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [0.1.x] - Unreleased
 
+## Added
+
+- `validateCIP68Metadata` util function to validate CIP68 metadata
+
 ## [0.1.50] - 2022-12-13
 
 ## Added

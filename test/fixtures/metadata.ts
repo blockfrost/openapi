@@ -439,3 +439,123 @@ export const parseOnChainMetadataFixtures = [
     },
   },
 ];
+
+export const validateCIP68Metadata = [
+  {
+    name: 'Matrix Berry #99 (NFT metadata)',
+    payload: {
+      metadata: {
+        description: '',
+        id: 99,
+        image: 'ipfs://QmYNyQbwLCYvjP743Jnud1bozcFPDSXFyYNYUmfQjYs5AQ',
+        name: 'Matrix Berry #99',
+        additionalFields: 'thisWontBreakValidation',
+      },
+      version: 1,
+    },
+    standard: 'nft',
+    response: {
+      version: 'CIP68v1',
+    },
+  },
+  {
+    name: 'Unsupported metadata version fails validation',
+    payload: {
+      metadata: {
+        description: '',
+        image: 'ipfs://QmYNyQbwLCYvjP743Jnud1bozcFPDSXFyYNYUmfQjYs5AQ',
+        name: 'Matrix Berry #99',
+      },
+      version: 2,
+    },
+    standard: 'nft',
+    response: false,
+  },
+  {
+    name: 'non-number version fails validation',
+    payload: {
+      metadata: {
+        description: '',
+        image: 'ipfs://QmYNyQbwLCYvjP743Jnud1bozcFPDSXFyYNYUmfQjYs5AQ',
+        name: 'Matrix Berry #99',
+      },
+      version: 'nan',
+    },
+    standard: 'nft',
+    response: false,
+  },
+  {
+    name: 'null metadata papyload',
+    payload: null,
+    standard: 'nft',
+    response: false,
+  },
+  {
+    name: 'FT with invalid ticker',
+    payload: {
+      metadata: {
+        description: 'test',
+        name: 'test asset',
+        ticker: 58008,
+        additionalFields: 'thisWontBreakValidation',
+      },
+      version: 1,
+    },
+    standard: 'ft',
+    response: false,
+  },
+  {
+    name: 'invalid standard',
+    payload: {
+      metadata: {
+        description: '',
+        id: 99,
+        image: 'ipfs://QmYNyQbwLCYvjP743Jnud1bozcFPDSXFyYNYUmfQjYs5AQ',
+        name: 'Matrix Berry #99',
+        additionalFields: 'thisWontBreakValidation',
+      },
+      version: 1,
+    },
+    standard: 'not-valid',
+    response: false,
+  },
+  {
+    name: 'Bison Coin (invalid NFT due to missing image prop)',
+    payload: {
+      metadata: {
+        name: 'Bison Coin',
+        files: [
+          {
+            src: 'ipfs://QmPk6SY8P4yWekK1Z9BSrLfQ8bPDHZiirWVgi5hdsyvnvd',
+            name: 'BISON',
+            mediaType: 'image/png',
+          },
+        ],
+      },
+      version: 1,
+    },
+    standard: 'nft',
+    response: false,
+  },
+  {
+    name: 'Bison Coin (valid FT)',
+    payload: {
+      metadata: {
+        name: 'Bison Coin',
+        description: 'desc',
+        files: [
+          {
+            src: 'ipfs://QmPk6SY8P4yWekK1Z9BSrLfQ8bPDHZiirWVgi5hdsyvnvd',
+            name: 'BISON',
+            mediaType: 'image/png',
+          },
+        ],
+      },
+      version: 1,
+    },
+    standard: 'ft',
+    response: {
+      version: 'CIP68v1',
+    },
+  },
+];

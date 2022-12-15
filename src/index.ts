@@ -7,6 +7,7 @@ import {
   getOnchainMetadata,
   getOnchainMetadataVersion,
   getCIPstandard,
+  validateCIP68Metadata,
 } from './functions/metadata';
 
 export {
@@ -16,6 +17,7 @@ export {
   getOnchainMetadata,
   getCIPstandard,
   getOnchainMetadataVersion,
+  validateCIP68Metadata,
 };
 
 export type { paths, components } from './generated-types';

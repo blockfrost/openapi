@@ -20,4 +20,15 @@ describe('metadata functions', () => {
   expect(lib.getCIPstandard(1, true)).toStrictEqual('CIP25v1');
   expect(lib.getCIPstandard(2, true)).toStrictEqual('CIP25v2');
   expect(lib.getCIPstandard(3, false)).toStrictEqual(null);
+
+  fixtures.validateCIP68Metadata.map(fixture => {
+    test(fixture.name, () => {
+      const result = lib.validateCIP68Metadata(
+        fixture.payload,
+        fixture.standard as 'ft' | 'nft',
+      );
+
+      expect(result).toStrictEqual(fixture.response);
+    });
+  });
 });

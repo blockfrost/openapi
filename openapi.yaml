@@ -5228,6 +5228,10 @@ components:
   schemas:
     onchain_metadata_cip25:
       $ref: '#/components/schemas/asset_onchain_metadata_cip25'
+    onchain_metadata_cip68_ft_333:
+      $ref: '#/components/schemas/asset_onchain_metadata_cip68_ft_333'
+    onchain_metadata_cip68_nft_222:
+      $ref: '#/components/schemas/asset_onchain_metadata_cip68_nft_222'
     block_content:
       type: object
       properties:
@@ -8576,6 +8580,87 @@ components:
             - type: array
               items:
                 type: string
+          description: Additional description
+          example: My NFT token description
+        mediaType:
+          type: string
+          description: Mime sub-type of image
+          example: image/jpeg
+        files:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              name:
+                type: string
+                description: Name of the file
+                example: myimage
+              mediaType:
+                type: string
+                description: Mime sub-type of image
+                example: image/jpeg
+              src:
+                oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+                description: URI pointing to a resource of this mime type
+                example: My NFT token description
+            required:
+              - mediaType
+              - src
+      required:
+        - name
+        - image
+    asset_onchain_metadata_cip68_ft_333:
+      type: object
+      additionalProperties: true
+      description: |
+        On-chain metadata stored in the datum of the reference NFT output
+        which adheres to 333 FT Standard https://cips.cardano.org/cips/cip68/
+      properties:
+        name:
+          type: string
+          description: Name of the asset
+          example: My FT token
+        description:
+          type: string
+          description: Additional description
+          example: My FT token description
+        logo:
+          type: string
+          description: URI(s) of the associated asset
+          example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+        ticker:
+          type: string
+          description: Ticker
+          example: TOK
+        decimals:
+          type: number
+          description: Number of decimals
+          example: 8
+      required:
+        - name
+        - description
+    asset_onchain_metadata_cip68_nft_222:
+      type: object
+      additionalProperties: true
+      description: |
+        On-chain metadata stored in the datum of the reference NFT output
+        which adheres to 222 NFT Standard https://cips.cardano.org/cips/cip68/
+      properties:
+        name:
+          type: string
+          description: Name of the asset
+          example: My NFT token
+        image:
+          type: string
+          description: URI(s) of the associated asset
+          example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+        description:
+          type: string
           description: Additional description
           example: My NFT token description
         mediaType:

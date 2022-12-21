@@ -87,3 +87,29 @@ export const getOnchainMetadata = (
     validCIPversion,
   };
 };
+
+export const validateCIP68Metadata = (
+  input: { metadata: unknown; version: number } | null,
+  schema: 'ft' | 'nft',
+): { version: 'CIP68v1' } | false => {
+  if (!input) return false;
+  if (input.version !== 1) return false;
+
+  if (schema === 'nft') {
+    const { isValid: isValidNFT } = validateSchema(
+      'asset_onchain_metadata_cip68_nft_222',
+      input.metadata,
+    );
+
+    return isValidNFT ? { version: 'CIP68v1' } : false;
+  } else if (schema === 'ft') {
+    const { isValid: isValidFT } = validateSchema(
+      'asset_onchain_metadata_cip68_ft_333',
+      input.metadata,
+    );
+
+    return isValidFT ? { version: 'CIP68v1' } : false;
+  } else {
+    return false;
+  }
+};

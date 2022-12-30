@@ -456,6 +456,13 @@ export const validateCIP68Metadata = [
     standard: 'nft',
     response: {
       version: 'CIP68v1',
+      metadata: {
+        description: '',
+        id: 99,
+        image: 'ipfs://QmYNyQbwLCYvjP743Jnud1bozcFPDSXFyYNYUmfQjYs5AQ',
+        name: 'Matrix Berry #99',
+        additionalFields: 'thisWontBreakValidation',
+      },
     },
   },
   {
@@ -556,6 +563,17 @@ export const validateCIP68Metadata = [
     standard: 'ft',
     response: {
       version: 'CIP68v1',
+      metadata: {
+        name: 'Bison Coin',
+        description: 'desc',
+        files: [
+          {
+            src: 'ipfs://QmPk6SY8P4yWekK1Z9BSrLfQ8bPDHZiirWVgi5hdsyvnvd',
+            name: 'BISON',
+            mediaType: 'image/png',
+          },
+        ],
+      },
     },
   },
 ];

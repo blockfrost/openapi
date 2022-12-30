@@ -24,8 +24,9 @@ describe('metadata functions', () => {
   fixtures.validateCIP68Metadata.map(fixture => {
     test(fixture.name, () => {
       const result = lib.validateCIP68Metadata(
+        // @ts-expect-error non number version
         fixture.payload,
-        fixture.standard as 'ft' | 'nft',
+        fixture.standard,
       );
 
       expect(result).toStrictEqual(fixture.response);

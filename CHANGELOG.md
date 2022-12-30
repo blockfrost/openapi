@@ -7,6 +7,12 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 Unreleased changes are in the `master` branch.
 
+## [Unreleased]
+
+## Added
+
+- `validateCIP68Metadata` util function returns the validated metadata with proper TS type
+
 ## [0.1.51] - 2022-12-29
 
 ## Added

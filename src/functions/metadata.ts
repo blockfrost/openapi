@@ -1,5 +1,10 @@
 import { validateSchema } from '../index';
-import { CIPTypes, GetOnchainMetadataResult, Asset } from '../types/metadata';
+import {
+  CIPTypes,
+  GetOnchainMetadataResult,
+  Asset,
+  validateCIP68MetadataOverload,
+} from '../types/metadata';
 
 export const getCIPstandard = (version: number, isValid: boolean): CIPTypes => {
   if (isValid) {
@@ -88,10 +93,10 @@ export const getOnchainMetadata = (
   };
 };
 
-export const validateCIP68Metadata = (
-  input: { metadata: unknown; version: number } | null,
-  schema: 'ft' | 'nft',
-): { version: 'CIP68v1' } | false => {
+export const validateCIP68Metadata: validateCIP68MetadataOverload = (
+  input: any,
+  schema: any,
+) => {
   if (!input) return false;
   if (input.version !== 1) return false;
 
@@ -101,14 +106,24 @@ export const validateCIP68Metadata = (
       input.metadata,
     );
 
-    return isValidNFT ? { version: 'CIP68v1' } : false;
+    return isValidNFT
+      ? {
+          version: 'CIP68v1',
+          metadata: input.metadata,
+        }
+      : false;
   } else if (schema === 'ft') {
     const { isValid: isValidFT } = validateSchema(
       'asset_onchain_metadata_cip68_ft_333',
       input.metadata,
     );
 
-    return isValidFT ? { version: 'CIP68v1' } : false;
+    return isValidFT
+      ? {
+          version: 'CIP68v1',
+          metadata: input.metadata,
+        }
+      : false;
   } else {
     return false;
   }

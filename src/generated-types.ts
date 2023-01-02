@@ -4674,7 +4674,7 @@ export interface components {
         unit: string;
         /** @description The quantity of the unit */
         quantity: string;
-        /** @description Number of decimal places of the asset unit */
+        /** @description Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata. */
         decimals: number | null;
         /** @description True if the latest minting transaction includes metadata (best-effort) */
         has_nft_onchain_metadata: boolean;

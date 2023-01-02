@@ -7169,7 +7169,10 @@ components:
               decimals:
                 type: integer
                 nullable: true
-                description: Number of decimal places of the asset unit
+                description: >-
+                  Number of decimal places of the asset unit. Primary data
+                  source is CIP68 reference NFT with a fallback to off-chain
+                  metadata.
               has_nft_onchain_metadata:
                 type: boolean
                 description: >-

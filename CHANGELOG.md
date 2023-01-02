@@ -13,6 +13,10 @@ Unreleased changes are in the `master` branch.
 
 - `validateCIP68Metadata` util function returns the validated metadata with proper TS type
 
+## Changed
+
+- document data source of `decimals` field in `/addresses/{address}/extended`
+
 ## [0.1.51] - 2022-12-29
 
 ## Added

@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.52] 2023-01-02
+
 ## Added
 
 - `validateCIP68Metadata` util function returns the validated metadata with proper TS type

@@ -4493,12 +4493,14 @@ paths:
               --data @./tx.data
       responses:
         '200':
-          description: >-
-            Returns result of EvaluateTx function from Ogmios see <a
+          description: >
+            Returns result of EvaluateTx function from Ogmios see
+
+            <a
             href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-            and <a
-            href="https://ogmios.dev/api/modules/_cardano_ogmios_client.TxSubmission.evaluationErrors.html">related
-            errors</a>.
+
+            and <a href="https://ogmios.dev/api/">API reference
+            (EvaluateTxResponse)</a> for related errors.
           content:
             application/json:
               schema:

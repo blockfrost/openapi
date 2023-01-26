@@ -4480,22 +4480,27 @@ paths:
         - lang: Shell
           label: cURL
           source: >
-            # Assuming `data` is a serialized transaction on the file-system.
+            # Assuming `tx.data` is a CBOR serialized transaction on the
+            file-system.
+
+            # (encoded using base16 or base64)
 
             curl
             "https://cardano-mainnet.blockfrost.io/api/v0/utils/txs/evaluate" \
               -X POST \
               -H "Content-Type: application/cbor" \
               -H "project_id: $PROJECT_ID" \
-              --data-binary @./data
+              --data @./tx.data
       responses:
         '200':
-          description: >-
-            Returns result of EvaluateTx function from Ogmios see <a
+          description: >
+            Returns result of EvaluateTx function from Ogmios see
+
+            <a
             href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-            and <a
-            href="https://ogmios.dev/api/modules/_cardano_ogmios_client.TxSubmission.evaluationErrors.html">related
-            errors</a>.
+
+            and <a href="https://ogmios.dev/api/">API reference
+            (EvaluateTxResponse)</a> for related errors.
           content:
             application/json:
               schema:

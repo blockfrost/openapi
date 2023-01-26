@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## Fixed
+
+- `/utils/txs/evaluate` example and Ogmios API Reference URL
+
 ## [0.1.52] 2023-01-02
 
 ## Added

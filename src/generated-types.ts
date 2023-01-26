@@ -2504,7 +2504,11 @@ export interface paths {
         };
       };
       responses: {
-        /** Returns result of EvaluateTx function from Ogmios see <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a> and <a href="https://ogmios.dev/api/modules/_cardano_ogmios_client.TxSubmission.evaluationErrors.html">related errors</a>. */
+        /**
+         * Returns result of EvaluateTx function from Ogmios see
+         * <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+         * and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+         */
         200: {
           content: {
             "application/json": { [key: string]: unknown };

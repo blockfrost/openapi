@@ -1347,6 +1347,42 @@ export interface paths {
       };
     };
   };
+  "/mempool/addresses/{address}": {
+    /** List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address. Shows only transactions submitted via Blockfrost.io. */
+    get: {
+      parameters: {
+        path: {
+          /** Bech32 address. */
+          address: string;
+        };
+        query: {
+          /** The number of results displayed on one page. */
+          count?: number;
+          /** The page number for listing the results. */
+          page?: number;
+          /**
+           * Ordered by the time of transaction submission.
+           * By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** Return the contents of the mempool */
+        200: {
+          content: {
+            "application/json": components["schemas"]["mempool_addresses_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/metadata/txs/labels": {
     /** List of all used transaction metadata labels. */
     get: {
@@ -4407,6 +4443,11 @@ export interface components {
       };
       inputs: {
         /**
+         * @description Input address
+         * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+         */
+        address?: string;
+        /**
          * @description Hash of the UTXO transaction
          * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
          */
@@ -4504,6 +4545,17 @@ export interface components {
         unit_steps: string;
       }[];
     };
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
+     *   }
+     * ]
+     */
+    mempool_addresses_content: {
+      /** @description Hash of the transaction */
+      tx_hash: string;
+    }[];
     /**
      * @example [
      *   {

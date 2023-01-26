@@ -9,33 +9,41 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/mempool/addresses/{address}` endpoint
+
+### Fixed
+
+- `/mempool/{hash}` field `inline_datum` in transaction output now returns CBOR
+
 ## Fixed
 
 - `/utils/txs/evaluate` example and Ogmios API Reference URL
 
 ## [0.1.52] 2023-01-02
 
-## Added
+### Added
 
 - `validateCIP68Metadata` util function returns the validated metadata with proper TS type
 
-## Changed
+### Changed
 
 - document data source of `decimals` field in `/addresses/{address}/extended`
 
 ## [0.1.51] - 2022-12-29
 
-## Added
+### Added
 
 - `validateCIP68Metadata` util function to validate CIP68 metadata
 
 ## [0.1.50] - 2022-12-13
 
-## Added
+### Added
 
 - `address` field to `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
 
-## Fixed
+### Fixed
 
 - table HTML tags
 - missing summaries

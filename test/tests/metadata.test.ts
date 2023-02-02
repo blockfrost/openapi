@@ -3,12 +3,13 @@ import * as lib from '../../src/index';
 import * as fixtures from '../fixtures/metadata';
 
 describe('metadata functions', () => {
-  fixtures.parseOnChainMetadataFixtures.map(fixture => {
+  fixtures.getOnchainMetadata.map(fixture => {
     test(fixture.name, async () => {
       const result = lib.getOnchainMetadata(
         fixture.data.onchain_metadata,
         fixture.data.asset_name,
         fixture.data.policy_id,
+        fixture.data.onchain_metadata_cbor,
       );
 
       expect(result).toStrictEqual(fixture.response);

@@ -12,6 +12,7 @@ Unreleased changes are in the `master` branch.
 ## Fixed
 
 - `/utils/txs/evaluate` example and Ogmios API Reference URL
+- CIP25v2 validation (`getOnchainMetadata`)
 
 ## [0.1.52] 2023-01-02
 

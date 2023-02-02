@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.53] - 2023-02-02
+
 ### Added
 
 - `/mempool/addresses/{address}` endpoint
@@ -16,9 +18,6 @@ Unreleased changes are in the `master` branch.
 ### Fixed
 
 - `/mempool/{hash}` field `inline_datum` in transaction output now returns CBOR
-
-## Fixed
-
 - `/utils/txs/evaluate` example and Ogmios API Reference URL
 - CIP25v2 validation (`getOnchainMetadata`)
 

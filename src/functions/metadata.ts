@@ -94,11 +94,11 @@ export const getOnchainMetadata = (
   onchainMetadata: Asset['onchain_metadata'],
   assetName: Asset['asset_name'],
   policyId: Asset['policy_id'],
-  onchainMetadataCbor: string,
+  onchainMetadataCbor: string | null,
 ): GetOnchainMetadataResult => {
   let internalOnchainMetadata: any = onchainMetadata;
 
-  if (!internalOnchainMetadata)
+  if (!internalOnchainMetadata || !onchainMetadataCbor)
     return { onchainMetadata: null, validCIPversion: null };
 
   let isFound = false;
@@ -122,8 +122,7 @@ export const getOnchainMetadata = (
 
   if (version === 2) {
     try {
-      const assetNameVersion2 =
-        assetNameBase.length > 0 ? `0x${assetNameBase}` : '';
+      const assetNameVersion2 = `0x${assetNameBase}`;
       const policyIdVersion2 = `0x${policyId}`;
 
       const foundAssetInCbor = findAssetInMetadataCBOR(

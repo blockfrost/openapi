@@ -271,7 +271,7 @@ export const getOnchainMetadata = [
       onchain_metadata: {
         version: 2,
         '0xadd8604a36a46446dd22281473614c5b390afbc064ff1338516b19f5': {
-          '': {
+          '0x': {
             name: 'Optim EQT',
             image: [
               'ipfs://bafkreif5iapksurpzoegyxl7jybdlxbqsz2upsagu2dmbygj4qbf6cfc',
@@ -281,7 +281,6 @@ export const getOnchainMetadata = [
         },
       },
       // NOTE: this is hand crafted CBOR which replaces 32 bytes of asset name with 0 bytes
-      // Needs real world example to make sure that the empty string as asset name in json above is correct
       onchain_metadata_cbor:
         'a11902d1a36776657273696f6e02581cadd8604a36a46446dd22281473614c5b390afbc064ff1338516b19f5a15800a2646e616d65694f7074696d2045515465696d616765827840697066733a2f2f6261666b72656966356961706b737572707a6f656779786c376a7962646c786271737a3275707361677532646d6279676a3471626636636663626469581cec4358d0daae8ab25facf91eff42ad60175476d620f6c22193176e02a158208424fcf2617ba79f8089f860c2ce679d14345c9b153d0c14ea0481eaa0624751a2646e616d65744f7074696d20426f72726f77657220546f6b656e65696d616765827840697066733a2f2f6261666b7265696473357565676b746d6a7a373533716e67786d6a6c74747a72783764673571657171736e66373334637375696a706b673234626e65',
       metadata: null,
@@ -293,6 +292,40 @@ export const getOnchainMetadata = [
           'ipfs://bafkreif5iapksurpzoegyxl7jybdlxbqsz2upsagu2dmbygj4qbf6cfc',
           'di',
         ],
+      },
+      validCIPversion: 'CIP25v2',
+    },
+  },
+  {
+    name: 'valid on-chain metadata version 2 with empty asset_name (preview asset)',
+    data: {
+      asset: '1b6ed7ba4c9671b8b798af6eff7146396c7b04dc12a6463c6a29be85',
+      policy_id: '1b6ed7ba4c9671b8b798af6eff7146396c7b04dc12a6463c6a29be85',
+      asset_name: null,
+      fingerprint: 'asset1q5luj5axz3m2wx3pt9mkpfnqcyhz7evnj445te',
+      quantity: '1000000',
+      initial_mint_tx_hash:
+        'ce471569a87aedcdc51f84e98c008bf6851d0dbe760ededaaea7f017ac67b9e1',
+      mint_or_burn_count: 1,
+      onchain_metadata: {
+        version: '2.0',
+        '0x1b6ed7ba4c9671b8b798af6eff7146396c7b04dc12a6463c6a29be85': {
+          '0x': {
+            name: '',
+            image: 'ipfs://todo',
+            description: 'Change the world with FinanceBinaries!',
+          },
+        },
+      },
+      onchain_metadata_cbor:
+        'a11902d1a2581c1b6ed7ba4c9671b8b798af6eff7146396c7b04dc12a6463c6a29be85a140a36b6465736372697074696f6e78264368616e67652074686520776f726c6420776974682046696e616e636542696e61726965732165696d6167656b697066733a2f2f746f646f646e616d65606776657273696f6e63322e30',
+      metadata: null,
+    },
+    response: {
+      onchainMetadata: {
+        name: '',
+        image: 'ipfs://todo',
+        description: 'Change the world with FinanceBinaries!',
       },
       validCIPversion: 'CIP25v2',
     },

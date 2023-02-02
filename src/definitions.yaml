@@ -408,6 +408,9 @@ paths:
   /mempool/{hash}:
     $ref: ./paths/api/mempool/{hash}/index.yaml
 
+  /mempool/addresses/{address}:
+    $ref: ./paths/api/mempool/addresses/{address}/index.yaml
+
   /metadata/txs/labels:
     $ref: ./paths/api/metadata/txs/labels/index.yaml
 

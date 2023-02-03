@@ -5337,7 +5337,7 @@ export interface components {
        *
        * @enum {string|null}
        */
-      onchain_metadata_standard?: ("CIP25v1" | "CIP25v2") | null;
+      onchain_metadata_standard?: ("CIP25v1" | "CIP25v2" | "CIP68v1") | null;
       /**
        * @description Off-chain metadata fetched from GitHub based on network.
        * Mainnet: https://github.com/cardano-foundation/cardano-token-registry/

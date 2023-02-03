@@ -7940,6 +7940,7 @@ components:
           enum:
             - CIP25v1
             - CIP25v2
+            - CIP68v1
           nullable: true
           description: |
             If on-chain metadata passes validation, we display the standard

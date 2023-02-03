@@ -1,5 +1,40 @@
 export const getOnchainMetadata = [
-  // invalid
+  {
+    name: 'CIP25v1 with no version specified (which is valid v1)',
+    data: {
+      asset:
+        'aa1b03c6a49951282e9a68b17133a814f4c603f85be469e22869ecb4726561646d65',
+      policy_id: 'aa1b03c6a49951282e9a68b17133a814f4c603f85be469e22869ecb4',
+      asset_name: '726561646d65',
+      fingerprint: 'asset1f6844t66j34gtf2tayfdvchyd9n3uv8fl6skcw',
+      quantity: '123',
+      initial_mint_tx_hash:
+        '18974e3c6618fcf337a883ab080d54ea13b0fa49687d1541f5ce279c035c2b9d',
+      mint_or_burn_count: 1,
+      onchain_metadata: {
+        aa1b03c6a49951282e9a68b17133a814f4c603f85be469e22869ecb4: {
+          readme: {
+            name: 'readme',
+            image: 'ipfs://QmTRayae5Vzq4MZ8EER9uXngZnJ1kysWdsV5e7DHSMsbz7',
+            ticker: 'readme',
+            publisher: 'https://minterr.io',
+          },
+        },
+      },
+      onchain_metadata_cbor:
+        'a11902d1a178386161316230336336613439393531323832653961363862313731333361383134663463363033663835626534363965323238363965636234a166726561646d65a465696d6167657835697066733a2f2f516d54526179616535567a71344d5a384545523975586e675a6e4a316b7973576473563565374448534d73627a37697075626c69736865727268747470733a2f2f6d696e746572722e696f667469636b657266726561646d65646e616d6566726561646d65',
+      metadata: null,
+    },
+    response: {
+      onchainMetadata: {
+        name: 'readme',
+        image: 'ipfs://QmTRayae5Vzq4MZ8EER9uXngZnJ1kysWdsV5e7DHSMsbz7',
+        ticker: 'readme',
+        publisher: 'https://minterr.io',
+      },
+      validCIPversion: 'CIP25v1',
+    },
+  },
   {
     name: 'invalid on-chain metadata version 1 (name is array and should be string)',
     data: {

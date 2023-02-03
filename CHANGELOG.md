@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.54] - 2023-02-03
+
 ### Fixed
 
 - missing `CIP68v1` in `onchain_metadata_standard` enum

@@ -9,7 +9,7 @@ describe('metadata functions', () => {
         fixture.data.onchain_metadata,
         fixture.data.asset_name,
         fixture.data.policy_id,
-        fixture.data.onchain_metadata_cbor,
+        fixture.data.onchain_metadata_cbor ?? null,
       );
 
       expect(result).toStrictEqual(fixture.response);

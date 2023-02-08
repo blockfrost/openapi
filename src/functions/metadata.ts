@@ -45,17 +45,30 @@ export const findAssetInMetadataCBOR = (
   // and proper <policy_id> encoded as bytes using just JSON metadata.
 
   try {
-    const onchain_metadata_cbor = metadataCbor
+    const onchainMetadataCbor = metadataCbor
       ? cbor.decodeAllSync(metadataCbor)
       : null;
 
-    if (!onchain_metadata_cbor) {
+    if (!onchainMetadataCbor) {
       return undefined;
     }
     // there might be multiple cbor objects passed into decodeAllSync, that's why it returns an array
-    const cbor_metadata_policies = onchain_metadata_cbor[0].get(721);
+    const cborMetadataPolicies = onchainMetadataCbor[0].get(721);
 
-    for (const [policyKey, value] of cbor_metadata_policies) {
+    if (!cborMetadataPolicies) {
+      // no 721 label
+      return undefined;
+    }
+
+    // Metadata could be decoded as iterable Map (seen for valid CIP25v2 with policy and asset names encoded as bytes)
+    // or non-iterable Object (invalid CIP25v2 with policy and asset names encoded as utf-8 strings).
+    // As a workaround convert Object to Map.
+    const cborMetadataPoliciesMap =
+      cborMetadataPolicies instanceof Map
+        ? cborMetadataPolicies
+        : new Map(Object.entries(cborMetadataPolicies));
+
+    for (const [policyKey, value] of cborMetadataPoliciesMap) {
       if (
         !Buffer.isBuffer(policyKey) ||
         policyKey.toString('hex') !== policyId
@@ -63,13 +76,16 @@ export const findAssetInMetadataCBOR = (
         continue;
       }
 
-      if (!(value instanceof Map)) {
+      if (!(value instanceof Map || value instanceof Object)) {
         // value needs to be map of {assetName: metadataObject}
         continue;
       }
 
+      const valueMap =
+        value instanceof Map ? value : new Map(Object.entries(value));
+
       // value is map with asset names as keys
-      for (const [assetNameKey, assetMetadata] of value) {
+      for (const [assetNameKey, assetMetadata] of valueMap) {
         if (
           !Buffer.isBuffer(assetNameKey) ||
           assetNameKey.toString('hex') !== assetName
@@ -82,7 +98,7 @@ export const findAssetInMetadataCBOR = (
     }
   } catch (error) {
     console.error(
-      `Error while parsing metadata CBOR for ${policyId}${assetName}`,
+      `Error while parsing metadata CBOR for an asset ${policyId}${assetName}`,
       error,
     );
   }

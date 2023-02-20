@@ -2560,6 +2560,46 @@ export interface paths {
       };
     };
   };
+  "/utils/txs/evaluate/utxos": {
+    /** Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires. */
+    post: {
+      parameters: {
+        header: {
+          "Content-Type": "application/json";
+        };
+      };
+      responses: {
+        /**
+         * Returns result of EvaluateTx function from Ogmios see
+         * <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+         * and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+         */
+        200: {
+          content: {
+            "application/json": { [key: string]: unknown };
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        425: components["responses"]["425"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+      /** JSON payload */
+      requestBody: {
+        content: {
+          "application/json": {
+            /** @description Transaction CBOR (encoded using base64 or base16). */
+            cbor: string;
+            /** @description Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set. */
+            additionalUtxoSet?: { [key: string]: unknown }[][];
+          };
+        };
+      };
+    };
+  };
   "/ipfs/add": {
     /**
      * You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage

@@ -23,13 +23,19 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   }
 
   const responses: any = { response: {} };
-  for (const response of Object.keys(spec.paths[endpointName].get.responses)) {
+
+  // Hacky way to support POST endpoints.
+  // Primarily pick GET with a fallback to POST
+  // TODO: return body of POST endpoints
+  // https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#validation
+  const method = 'post' in spec.paths[endpointName] ? 'post' : 'get';
+  const endpoint = spec.paths[endpointName][method];
+
+  for (const response of Object.keys(endpoint.responses)) {
     // success 200
     if (response === '200') {
       const referenceOrValue =
-        spec.paths[endpointName].get.responses['200'].content[
-          'application/json'
-        ].schema;
+        endpoint.responses['200'].content['application/json'].schema;
 
       // is reference -> resolve references
       if (referenceOrValue['$ref']) {
@@ -82,7 +88,7 @@ export const getSchemaForEndpoint = (endpointName: string) => {
         responses.response[200] = anyOfResult;
       }
 
-      const parameters = spec.paths[endpointName].get.parameters;
+      const parameters = endpoint.parameters;
 
       if (parameters) {
         const queryParams = parameters.filter((i: any) => i.in === 'query');
@@ -100,12 +106,12 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           };
         }
 
-        const pathparams = parameters.filter((i: any) => i.in === 'path');
+        const pathParams = parameters.filter((i: any) => i.in === 'path');
 
-        if (pathparams && pathparams.length > 0) {
+        if (pathParams && pathParams.length > 0) {
           let pathProps: any = {};
 
-          pathparams.forEach((param: any) => {
+          pathParams.forEach((param: any) => {
             delete param.schema.format;
             pathProps[param.name] = param.schema;
           });

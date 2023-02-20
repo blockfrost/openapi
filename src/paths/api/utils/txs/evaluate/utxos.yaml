@@ -1,0 +1,114 @@
+post:
+  tags:
+    - Cardano » Utilities
+  summary: Submit a transaction for execution units evaluation (additional UTXO set)
+  description: Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires.
+  parameters:
+    - in: header
+      name: Content-Type
+      required: true
+      schema:
+        type: string
+        enum: ["application/json"]
+  requestBody:
+    description: "JSON payload"
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            cbor:
+              type: string
+              description: Transaction CBOR (encoded using base64 or base16).
+            additionalUtxoSet:
+              type: array
+              description: Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set.
+              items:
+                type: array
+                minItems: 2
+                maxItems: 2
+                items:
+                  type: object
+                  additionalProperties: true
+                  # Available in OpenAPI 3.1.0, but something else fails
+                  # https://www.openapis.org/blog/2021/02/16/migrating-from-openapi-3-0-to-3-1-0
+                # prefixItems:
+                #   # TxIn
+                #   - type: object
+                #     description: TxIn
+                #     properties:
+                #       txId:
+                #         type: string
+                #         description: Transaction hash for the input
+                #       index:
+                #         type: number
+                #         description: Index of the output within the transaction
+                #   # TxOut
+                #   - type: object
+                #     description: TxOut
+                #     properties:
+                #       address:
+                #         type: string
+                #         description: Output address
+                #       value:
+                #         type: object
+                #         properties:
+                #           coins:
+                #             type: number
+                #             description: Lovelace amount
+                #           assets:
+                #             type: object
+                #             description: Assets amount
+                #             additionalProperties:
+                #               type: number
+                #         required:
+                #           - coins
+                #       datum_hash:
+                #         type: string
+                #       datum:
+                #         type: object
+                #         additionalProperties: true
+                #       script:
+                #         type: object
+                #         additionalProperties: true
+                #     required:
+                #       - address
+                #       - value
+          required:
+            - cbor
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        # Assuming TxCbor is a CBOR serialized transaction encoded using base16 or base64
+        # For a structure of additional UTXO set see https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set
+        curl "https://cardano-mainnet.blockfrost.io/api/v0/utils/txs/evaluate/utxos" \
+          -X POST \
+          -H "Content-Type: application/json" \
+          -H "project_id: $PROJECT_ID" \
+          -d '{"cbor":"<TxCbor>","additionalUtxoSet":[[<TxIn>, <TxOut>]]}'
+  responses:
+    "200":
+      description: |
+        Returns result of EvaluateTx function from Ogmios see
+        <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+        and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+      content:
+        application/json:
+          schema:
+            type: object
+    "400":
+      $ref: ../../../../../responses/errors/400.yaml
+    "403":
+      $ref: ../../../../../responses/errors/403.yaml
+    "404":
+      $ref: ../../../../../responses/errors/404.yaml
+    "418":
+      $ref: ../../../../../responses/errors/418.yaml
+    "425":
+      $ref: ../../../../../responses/errors/425.yaml
+    "429":
+      $ref: ../../../../../responses/errors/429.yaml
+    "500":
+      $ref: ../../../../../responses/errors/500.yaml

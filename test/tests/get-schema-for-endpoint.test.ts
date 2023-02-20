@@ -837,4 +837,90 @@ describe('getSchemaForEndpoint', () => {
       },
     });
   });
+
+  test('/utils/txs/evaluate/utxos', () => {
+    expect(getSchemaForEndpoint('/utils/txs/evaluate/utxos')).toStrictEqual({
+      response: {
+        '200': { type: 'object' },
+        '400': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 400 },
+            error: { type: 'string', example: 'Bad Request' },
+            message: {
+              type: 'string',
+              example: 'Backend did not understand your request.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '403': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 403 },
+            error: { type: 'string', example: 'Forbidden' },
+            message: { type: 'string', example: 'Invalid project token.' },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '404': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 404 },
+            error: { type: 'string', example: 'Not Found' },
+            message: {
+              type: 'string',
+              example: 'The requested component has not been found.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '418': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 418 },
+            error: { type: 'string', example: 'Requested Banned' },
+            message: {
+              type: 'string',
+              example: 'IP has been auto-banned for flooding.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '425': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 425 },
+            error: { type: 'string', example: 'Mempool Full' },
+            message: {
+              type: 'string',
+              example: 'Mempool is full, please try resubmitting again later.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '429': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 429 },
+            error: { type: 'string', example: 'Project Over Limit' },
+            message: { type: 'string', example: 'Usage is over limit.' },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '500': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 500 },
+            error: { type: 'string', example: 'Internal Server Error' },
+            message: {
+              type: 'string',
+              example: 'An unexpected response was received from the backend.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+      },
+    });
+  });
 });

@@ -32,16 +32,16 @@ post:
           schema:
             type: object
     "400":
-      $ref: ../../../../responses/errors/400.yaml
+      $ref: ../../../../../responses/errors/400.yaml
     "403":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: ../../../../../responses/errors/403.yaml
     "404":
-      $ref: ../../../../responses/errors/404.yaml
+      $ref: ../../../../../responses/errors/404.yaml
     "418":
-      $ref: ../../../../responses/errors/418.yaml
+      $ref: ../../../../../responses/errors/418.yaml
     "425":
-      $ref: ../../../../responses/errors/425.yaml
+      $ref: ../../../../../responses/errors/425.yaml
     "429":
-      $ref: ../../../../responses/errors/429.yaml
+      $ref: ../../../../../responses/errors/429.yaml
     "500":
-      $ref: ../../../../responses/errors/500.yaml
+      $ref: ../../../../../responses/errors/500.yaml

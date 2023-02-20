@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/utils/txs/evaluate/utxos` method
+
 ### Fixed
 
 - CIP25v2 metadata validation improvements (gracefully handling of CIP25v1 metadata passed as v2)

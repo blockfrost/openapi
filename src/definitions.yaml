@@ -520,7 +520,10 @@ paths:
     $ref: ./paths/api/utils/addresses/xpub/{xpub}/{role}/{index}/index.yaml
 
   /utils/txs/evaluate:
-    $ref: ./paths/api/utils/txs/evaluate.yaml
+    $ref: ./paths/api/utils/txs/evaluate/index.yaml
+
+  /utils/txs/evaluate/utxos:
+    $ref: ./paths/api/utils/txs/evaluate/utxos.yaml
 
   /ipfs/add:
     $ref: ./paths/ipfs/add.yaml

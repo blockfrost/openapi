@@ -57,8 +57,9 @@ properties:
     example: 0.5
     description: Percentage of blocks produced by federated nodes
   extra_entropy:
-    type: string
-    nullable: true
+    type:
+      - string
+      - "null"
     example: null
     description: Seed for extra entropy
   protocol_major_ver:
@@ -83,8 +84,9 @@ properties:
     description: Epoch number only used once
   cost_models:
     additionalProperties: true
-    nullable: true
-    type: object
+    type:
+      - object
+      - "null"
     example:
       PlutusV1:
         addInteger-cpu-arguments-intercept: 197209
@@ -94,63 +96,72 @@ properties:
         addInteger-cpu-arguments-slope: 0
     description: Cost models parameters for Plutus Core scripts
   price_mem:
-    nullable: true
-    type: number
+    type:
+      - number
+      - "null"
     example: 0.0577
     description: The per word cost of script memory usage
   price_step:
-    nullable: true
-    type: number
+    type:
+      - number
+      - "null"
     example: 0.0000721
     description: The cost of script execution step usage
   max_tx_ex_mem:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "10000000"
     description: The maximum number of execution memory allowed to be used in a single transaction
   max_tx_ex_steps:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "10000000000"
     description: The maximum number of execution steps allowed to be used in a single transaction
   max_block_ex_mem:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "50000000"
     description: The maximum number of execution memory allowed to be used in a single block
   max_block_ex_steps:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "40000000000"
     description: The maximum number of execution steps allowed to be used in a single block
   max_val_size:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "5000"
     description: The maximum Val size
   collateral_percent:
-    nullable: true
-    type: integer
+    type:
+      - integer
+      - "null"
     example: 150
     description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
   max_collateral_inputs:
-    nullable: true
-    type: integer
+    type:
+      - integer
+      - "null"
     example: 3
     description: The maximum number of collateral inputs allowed in a transaction
   coins_per_utxo_size:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "34482"
-    description:
-      Cost per UTxO word for Alonzo.
+    description: Cost per UTxO word for Alonzo.
       Cost per UTxO byte for Babbage and later.
   coins_per_utxo_word:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "34482"
-    description:
-      Cost per UTxO word for Alonzo.
+    description: Cost per UTxO word for Alonzo.
       Cost per UTxO byte for Babbage and later.
     deprecated: true
 required:

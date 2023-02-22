@@ -24,7 +24,7 @@
     "@vitest/coverage-c8": "^0.25.3",
     "ajv": "^8.11.2",
     "core-js": "3.1.4",
-    "openapi-typescript": "^5.4.1",
+    "openapi-typescript": "^6.1.0",
     "react-is": "16.8.2",
     "redoc-cli": "^0.13.20",
     "rimraf": "^3.0.2",
@@ -33,9 +33,9 @@
     "vitest": "^0.24.3"
   },
   "dependencies": {
-    "@redocly/openapi-cli": "^1.0.0-beta.95",
+    "@redocly/cli": "^1.0.0-beta.123",
     "cbor": "^8.1.0",
-    "yaml": "^2.2.0"
+    "yaml": "^2.2.1"
   },
   "packageManager": "yarn@3.3.0"
 }

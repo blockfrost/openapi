@@ -3366,7 +3366,9 @@ export interface paths {
          */
         200: {
           content: {
-            "application/json": Record<string, never>;
+            "application/json": {
+              [key: string]: unknown | undefined;
+            };
           };
         };
         400: components["responses"]["400"];
@@ -3413,7 +3415,9 @@ export interface paths {
          */
         200: {
           content: {
-            "application/json": Record<string, never>;
+            "application/json": {
+              [key: string]: unknown | undefined;
+            };
           };
         };
         400: components["responses"]["400"];
@@ -4913,7 +4917,9 @@ export interface components {
         /** @description Metadata label */
         label: string;
         /** @description Content of the metadata */
-        json_metadata: string | Record<string, never>;
+        json_metadata: OneOf<[string, {
+          [key: string]: unknown | undefined;
+        }]>;
       })[];
     /**
      * @example [
@@ -5583,7 +5589,9 @@ export interface components {
         /** @description Content of the JSON metadata */
         json_metadata: ({
           [key: string]: unknown | undefined;
-        }) & (string | Record<string, never> | (Record<string, never>)[] | number | number | boolean | null);
+        }) & (string | ({
+          [key: string]: unknown | undefined;
+        }) | (Record<string, never>)[] | number | number | boolean | null);
       })[];
     /**
      * @example [
@@ -6512,7 +6520,9 @@ export interface components {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
       json: ({
         [key: string]: unknown | undefined;
-      }) & (string | Record<string, never> | (Record<string, never>)[] | number | number | boolean | null);
+      }) & (string | ({
+        [key: string]: unknown | undefined;
+      }) | (Record<string, never>)[] | number | number | boolean | null);
     };
     /**
      * @example {
@@ -6576,7 +6586,9 @@ export interface components {
      */
     script_datum: {
       /** @description JSON content of the datum */
-      json_value: Record<string, never>;
+      json_value: {
+        [key: string]: unknown | undefined;
+      };
     };
     /**
      * @example {

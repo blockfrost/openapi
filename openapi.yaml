@@ -4352,6 +4352,7 @@ paths:
             application/json:
               schema:
                 type: object
+                additionalProperties: true
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -4461,6 +4462,7 @@ paths:
             application/json:
               schema:
                 type: object
+                additionalProperties: true
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -6219,10 +6221,10 @@ components:
             type: string
             description: Metadata label
           json_metadata:
-            additionalProperties: true
             oneOf:
               - type: string
               - type: object
+                additionalProperties: true
             description: Content of the metadata
         required:
           - label
@@ -6945,6 +6947,7 @@ components:
             anyOf:
               - type: string
               - type: object
+                additionalProperties: true
               - type: array
                 items: {}
               - type: integer
@@ -7988,6 +7991,7 @@ components:
           anyOf:
             - type: string
             - type: object
+              additionalProperties: true
             - type: array
               items: {}
             - type: integer
@@ -8076,6 +8080,9 @@ components:
       type: object
       properties:
         json_value:
+          type:
+            - object
+          additionalProperties: true
           description: JSON content of the datum
       required:
         - json_value

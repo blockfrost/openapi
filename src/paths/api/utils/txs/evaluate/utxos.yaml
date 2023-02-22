@@ -94,6 +94,7 @@ post:
         application/json:
           schema:
             type: object
+            additionalProperties: true
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

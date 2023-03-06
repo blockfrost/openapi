@@ -3,23 +3,27 @@ items:
   type: object
   properties:
     ipv4:
-      type: string
-      nullable: true
+      type:
+        - string
+        - "null"
       example: "4.4.4.4"
       description: IPv4 address of the relay
     ipv6:
-      type: string
-      nullable: true
+      type:
+        - string
+        - "null"
       example: "https://stakenuts.com/mainnet.json"
       description: IPv6 address of the relay
     dns:
-      type: string
-      nullable: true
+      type:
+        - string
+        - "null"
       example: "relay1.stakenuts.com"
       description: DNS name of the relay
     dns_srv:
-      type: string
-      nullable: true
+      type:
+        - string
+        - "null"
       example: "_relays._tcp.relays.stakenuts.com"
       description: DNS SRV entry of the relay
     port:

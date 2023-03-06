@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   version: 0.1.54
   title: Blockfrost.io ~ API Documentation
@@ -13,27 +13,17 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
   termsOfService: https://blockfrost.io/terms
-  description: >
-    Blockfrost is an API as a service that allows users to interact with the
-    Cardano blockchain and parts of its ecosystem.
-
+  description: |
+    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
 
     ## Tokens
 
-
-    After signing up on https://blockfrost.io, a `project_id` token is
-    automatically generated for each project.
-
-    HTTP header of your request MUST include this `project_id` in order to
-    authenticate against Blockfrost servers.
-
+    After signing up on https://blockfrost.io, a `project_id` token is automatically generated for each project.
+    HTTP header of your request MUST include this `project_id` in order to authenticate against Blockfrost servers.
 
     ## Available networks
 
-
-    At the moment, you can use the following networks. Please, note that each
-    network has its own `project_id`.
-
+    At the moment, you can use the following networks. Please, note that each network has its own `project_id`.
 
     <table>
       <tr>
@@ -82,134 +72,69 @@ info:
       </tr>
     </table>
 
-
     ## Milkomeda
 
-
-    For more information about how to use Milkomeda as well as the list of
-    available endpoints, see the
-
-    <a href="https://blockfrost.dev/docs/start-building/milkomeda">Milkomeda
-    section on blockfrost.dev</a>.
-
+    For more information about how to use Milkomeda as well as the list of available endpoints, see the
+    <a href="https://blockfrost.dev/docs/start-building/milkomeda">Milkomeda section on blockfrost.dev</a>.
 
     ## Concepts
 
-
     * All endpoints return either a JSON object or an array.
-
-    * Data is returned in *ascending* (oldest first, newest last) order, if not
-    stated otherwise.
+    * Data is returned in *ascending* (oldest first, newest last) order, if not stated otherwise.
       * You might use the `?order=desc` query parameter to reverse this order.
-    * By default, we return 100 results at a time. You have to use `?page=2` to
-    list through the results.
-
-    * All time and timestamp related fields (except `server_time`) are in
-    seconds of UNIX time.
-
+    * By default, we return 100 results at a time. You have to use `?page=2` to list through the results.
+    * All time and timestamp related fields (except `server_time`) are in seconds of UNIX time.
     * All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces.
-
     * Addresses, accounts and pool IDs are in Bech32 format.
-
     * All values are case sensitive.
-
     * All hex encoded values are lower case.
-
-    * Examples are not based on real data. Any resemblance to actual events is
-    purely coincidental.
-
-    * We allow to upload files up to 100MB of size to IPFS. This might increase
-    in the future.
-
+    * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
+    * We allow to upload files up to 100MB of size to IPFS. This might increase in the future.
     * We allow maximum of 100 queued pins per IPFS user.
-
 
     ## Errors
 
-
     ### HTTP Status codes
 
-
-    The following are HTTP status code your application might receive when
-    reaching Blockfrost endpoints and
-
+    The following are HTTP status code your application might receive when reaching Blockfrost endpoints and
     it should handle all of these cases.
 
-
     * HTTP `400` return code is used when the request is not valid.
-
-    * HTTP `402` return code is used when the projects exceed their daily
-    request limit.
-
+    * HTTP `402` return code is used when the projects exceed their daily request limit.
     * HTTP `403` return code is used when the request is not authenticated.
-
     * HTTP `404` return code is used when the resource doesn't exist.
-
-    * HTTP `418` return code is used when the user has been auto-banned for
-    flooding too much after previously receiving error code `402` or `429`.
-
-    * HTTP `425` return code is used in Cardano networks, when the user has
-    submitted a transaction when the mempool is already full, not accepting new
-    txs straight away.
-
-    * HTTP `425` return code is used in IPFS network, when the user has
-    submitted a pin when the pin queue is already full, not accepting new pins
-    straight away.
-
-    * HTTP `429` return code is used when the user has sent too many requests in
-    a given amount of time and therefore has been rate-limited.
-
+    * HTTP `418` return code is used when the user has been auto-banned for flooding too much after previously receiving error code `402` or `429`.
+    * HTTP `425` return code is used in Cardano networks, when the user has submitted a transaction when the mempool is already full, not accepting new txs straight away.
+    * HTTP `425` return code is used in IPFS network, when the user has submitted a pin when the pin queue is already full, not accepting new pins straight away.
+    * HTTP `429` return code is used when the user has sent too many requests in a given amount of time and therefore has been rate-limited.
     * HTTP `500` return code is used when our endpoints are having a problem.
-
 
     ### Error codes
 
-
-    An internal error code number is used for better indication of the error in
-    question. It is passed using the following payload.
-
+    An internal error code number is used for better indication of the error in question. It is passed using the following payload.
 
     ```json
-
     {
       "status_code": 403,
       "error": "Forbidden",
       "message": "Invalid project token."
     }
-
     ```
-
     ## Limits
-
 
     There are two types of limits we are enforcing:
 
+    The first depends on your plan and is the number of request we allow per day. We defined the day from midnight to midnight of UTC time.
 
-    The first depends on your plan and is the number of request we allow per
-    day. We defined the day from midnight to midnight of UTC time.
-
-
-    The second is rate limiting. We limit an end user, distinguished by IP
-    address, to 10 requests per second. On top of that, we allow
-
-    each user to send burst of 500 requests, which cools off at rate of 10
-    requests per second. In essence, a user is allowed to make another
-
-    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps
-    to make a call 3 seconds after whole burst, 30 requests will be processed.
-
-    We believe this should be sufficient for most of the use cases. If it is not
-    and you have a specific use case, please get in touch with us, and
-
+    The second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow
+    each user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another
+    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
+    We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
     we will make sure to take it into account as much as we can.
-
 
     ## SDKs
 
-
-    We support a number of SDKs that will help you in developing your
-    application on top of Blockfrost.
-
+    We support a number of SDKs that will help you in developing your application on top of Blockfrost.
 
     <table>
       <tr>
@@ -343,9 +268,8 @@ paths:
       tags:
         - Health
       summary: Root endpoint
-      description: >
-        Root endpoint has no other function than to point end users to
-        documentation.
+      description: |
+        Root endpoint has no other function than to point end users to documentation.
       responses:
         '200':
           description: Information pointing to the documentation.
@@ -379,9 +303,8 @@ paths:
         - Health
       summary: Backend health status
       security: []
-      description: >
-        Return backend status as a boolean. Your application should handle
-        situations when backend for the given chain is unavailable.
+      description: |
+        Return backend status as a boolean. Your application should handle situations when backend for the given chain is unavailable.
       responses:
         '200':
           description: Return the boolean indicating the health of the backend.
@@ -498,13 +421,10 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             Ordered by tx index in the block.
-
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the contents of the block
@@ -785,13 +705,10 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             Ordered by tx index in the block.
-
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the contents of the block
@@ -816,9 +733,7 @@ paths:
       tags:
         - Cardano » Blocks
       summary: Addresses affected in a specific block
-      description: >-
-        Return list of addresses affected in the specified block with additional
-        information, sorted by the bech32 address, ascending.
+      description: Return list of addresses affected in the specified block with additional information, sorted by the bech32 address, ascending.
       parameters:
         - in: path
           name: hash_or_number
@@ -1129,9 +1044,7 @@ paths:
       tags:
         - Cardano » Epochs
       summary: Stake distribution by pool
-      description: >-
-        Return the active stake distribution for the epoch specified by stake
-        pool.
+      description: Return the active stake distribution for the epoch specified by stake pool.
       parameters:
         - in: path
           name: number
@@ -1225,11 +1138,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the data about the epoch
@@ -1297,11 +1208,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the data about the epoch
@@ -1427,9 +1336,8 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Transaction stake addresses certificates
-      description: >
-        Obtain information about (de)registration of stake addresses within a
-        transaction.
+      description: |
+        Obtain information about (de)registration of stake addresses within a transaction.
       parameters:
         - in: path
           name: hash
@@ -1441,9 +1349,8 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >
-            Obtain information about (de)registration of stake addresses within
-            a transaction.
+          description: |
+            Obtain information about (de)registration of stake addresses within a transaction.
           content:
             application/json:
               schema:
@@ -1465,9 +1372,8 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Transaction delegation certificates
-      description: >
-        Obtain information about delegation certificates of a specific
-        transaction.
+      description: |
+        Obtain information about delegation certificates of a specific transaction.
       parameters:
         - in: path
           name: hash
@@ -1479,9 +1385,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about delegation certificates of a specific
-            transaction
+          description: Obtain information about delegation certificates of a specific transaction
           content:
             application/json:
               schema:
@@ -1537,9 +1441,7 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Transaction MIRs
-      description: >-
-        Obtain information about Move Instantaneous Rewards (MIRs) of a specific
-        transaction.
+      description: Obtain information about Move Instantaneous Rewards (MIRs) of a specific transaction.
       parameters:
         - in: path
           name: hash
@@ -1551,9 +1453,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about Move Instantaneous Rewards (MIRs) of a
-            specific transaction.
+          description: Obtain information about Move Instantaneous Rewards (MIRs) of a specific transaction.
           content:
             application/json:
               schema:
@@ -1575,9 +1475,8 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Transaction stake pool registration and update certificates
-      description: >
-        Obtain information about stake pool registration and update certificates
-        of a specific transaction.
+      description: |
+        Obtain information about stake pool registration and update certificates of a specific transaction.
       parameters:
         - in: path
           name: hash
@@ -1589,9 +1488,7 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >-
-            Obtain information about stake pool certificates of a specific
-            transaction
+          description: Obtain information about stake pool certificates of a specific transaction
           content:
             application/json:
               schema:
@@ -1613,9 +1510,8 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Transaction stake pool retirement certificates
-      description: >
-        Obtain information about stake pool retirements within a specific
-        transaction.
+      description: |
+        Obtain information about stake pool retirements within a specific transaction.
       parameters:
         - in: path
           name: hash
@@ -1627,9 +1523,8 @@ paths:
           example: 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
       responses:
         '200':
-          description: >
-            Obtain information about stake pool retirements within a specific
-            transaction.
+          description: |
+            Obtain information about stake pool retirements within a specific transaction.
           content:
             application/json:
               schema:
@@ -1774,12 +1669,9 @@ paths:
               --data-binary @./data
         - lang: Shell
           label: cardano-cli
-          source: >
-            # Assuming `tx.signed` is signed transaction constructed by
-            cardano-cli
-
+          source: |
+            # Assuming `tx.signed` is signed transaction constructed by cardano-cli
             xxd -r -p <<< $(jq .cborHex tx.signed) > tx.submit-api.raw
-
             curl "https://cardano-mainnet.blockfrost.io/api/v0/tx/submit" \
               -X POST \
               -H "Content-Type: application/cbor" \
@@ -1795,8 +1687,7 @@ paths:
                 format: hex
                 minLength: 64
                 maxLength: 64
-                example: >-
-                  d1662b24fa9fe985fc2dce47455df399cb2e31e1e1819339e885801cc3578908
+                example: d1662b24fa9fe985fc2dce47455df399cb2e31e1e1819339e885801cc3578908
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -1887,11 +1778,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account content.
@@ -1953,11 +1842,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account content.
@@ -2018,11 +1905,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account delegations content
@@ -2047,9 +1932,8 @@ paths:
       tags:
         - Cardano » Accounts
       summary: Account registration history
-      description: >
-        Obtain information about the registrations and deregistrations of a
-        specific account.
+      description: |
+        Obtain information about the registrations and deregistrations of a specific account.
       parameters:
         - in: path
           name: stake_address
@@ -2085,11 +1969,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account registration content.
@@ -2151,11 +2033,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account withdrawal content.
@@ -2217,11 +2097,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account MIR content.
@@ -2246,12 +2124,9 @@ paths:
       tags:
         - Cardano » Accounts
       summary: Account associated addresses
-      description: >
+      description: |
         Obtain information about the addresses of a specific account.
-
-        <b>Be careful</b>, as an account could be part of a mangled address and
-        does not necessarily mean the addresses are owned by user as the
-        account.
+        <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
       parameters:
         - in: path
           name: stake_address
@@ -2287,11 +2162,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account addresses content
@@ -2316,13 +2189,9 @@ paths:
       tags:
         - Cardano » Accounts
       summary: Assets associated with the account addresses
-      description: >
-        Obtain information about assets associated with addresses of a specific
-        account.
-
-        <b>Be careful</b>, as an account could be part of a mangled address and
-        does not necessarily mean the addresses are owned by user as the
-        account.
+      description: |
+        Obtain information about assets associated with addresses of a specific account.
+        <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
       parameters:
         - in: path
           name: stake_address
@@ -2358,11 +2227,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account addresses content
@@ -2387,13 +2254,9 @@ paths:
       tags:
         - Cardano » Accounts
       summary: Detailed information about account associated addresses
-      description: >
-        Obtain summed details about all addresses associated with a given
-        account.
-
-        <b>Be careful</b>, as an account could be part of a mangled address and
-        does not necessarily mean the addresses are owned by user as the
-        account.
+      description: |
+        Obtain summed details about all addresses associated with a given account.
+        <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
       parameters:
         - in: path
           name: stake_address
@@ -2401,8 +2264,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
         '200':
           description: Return the Address details.
@@ -2427,10 +2289,7 @@ paths:
       tags:
         - Cardano » Mempool
       summary: Mempool
-      description: >-
-        Return transactions that are currently stored in Blockfrost mempool,
-        waiting to be included in a newly minted block. Shows only transactions
-        submitted via Blockfrost.io.
+      description: Return transactions that are currently stored in Blockfrost mempool, waiting to be included in a newly minted block. Shows only transactions submitted via Blockfrost.io.
       parameters:
         - in: query
           name: count
@@ -2520,10 +2379,7 @@ paths:
       tags:
         - Cardano » Mempool
       summary: Mempool by address
-      description: >-
-        List of mempool transactions where at least one of the transaction
-        inputs or outputs belongs to the address. Shows only transactions
-        submitted via Blockfrost.io.
+      description: List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address. Shows only transactions submitted via Blockfrost.io.
       parameters:
         - in: path
           name: address
@@ -2532,8 +2388,7 @@ paths:
             type: string
             format: 64-character case-sensitive hexadecimal string.
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         - in: query
           name: count
           required: false
@@ -2618,11 +2473,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account metadata content in CBOR
@@ -2683,11 +2536,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account metadata content
@@ -2748,11 +2599,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the account metadata content in CBOR
@@ -2785,8 +2634,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
         '200':
           description: Return the address content.
@@ -2820,8 +2668,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
         '200':
           description: Return the address content.
@@ -2854,8 +2701,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
       responses:
         '200':
           description: Return the Address details.
@@ -2888,8 +2734,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         - in: query
           name: count
           required: false
@@ -2917,11 +2762,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the address content
@@ -2954,16 +2797,14 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         - in: path
           name: asset
           required: true
           schema:
             type: string
           description: Concatenation of the policy_id and hex-encoded asset_name
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
         - in: query
           name: count
           required: false
@@ -2991,11 +2832,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the address content
@@ -3029,8 +2868,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         - in: query
           name: count
           required: false
@@ -3058,11 +2896,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the address content
@@ -3095,8 +2931,7 @@ paths:
           schema:
             type: string
           description: Bech32 address.
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         - in: query
           name: count
           required: false
@@ -3124,20 +2959,16 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
         - in: query
           name: from
           required: false
           schema:
             type: string
-          description: >
-            The block number and optionally also index from which (inclusive) to
-            start search for results, concatenated using colon.
-
+          description: |
+            The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
             Has to be lower than or equal to `to` parameter.
           example: '8929261'
         - in: query
@@ -3145,10 +2976,8 @@ paths:
           required: false
           schema:
             type: string
-          description: >
-            The block number and optionally also index where (inclusive) to end
-            the search for results, concatenated using colon.
-
+          description: |
+            The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
             Has to be higher than or equal to `from` parameter.
           example: '9999269:10'
       responses:
@@ -3204,11 +3033,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the list of pools.
@@ -3262,11 +3089,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the list of pools.
@@ -3320,11 +3145,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the pool information content
@@ -3378,11 +3201,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the pool information content
@@ -3477,11 +3298,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the pool information content.
@@ -3611,11 +3430,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the pool delegations.
@@ -3676,11 +3493,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the pool block list
@@ -3741,11 +3556,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the pool updates history
@@ -3801,14 +3614,10 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
-
-            Ordering in this case is based on the time of the first mint
-            transaction.
+            not the page listing itself. By default, we return oldest first, newest last.
+            Ordering in this case is based on the time of the first mint transaction.
       responses:
         '200':
           description: Return list of assets
@@ -3841,8 +3650,7 @@ paths:
           schema:
             type: string
           description: Concatenation of the policy_id and hex-encoded asset_name
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
       responses:
         '200':
           description: Return the information about a specific asset
@@ -3875,8 +3683,7 @@ paths:
           schema:
             type: string
           description: Concatenation of the policy_id and hex-encoded asset_name
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
         - in: query
           name: count
           required: false
@@ -3904,11 +3711,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the information about the history of a specific asset
@@ -3942,8 +3747,7 @@ paths:
           schema:
             type: string
           description: Concatenation of the policy_id and hex-encoded asset_name
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
         - in: query
           name: count
           required: false
@@ -3971,11 +3775,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the information about the history of a specific asset
@@ -4008,8 +3810,7 @@ paths:
           schema:
             type: string
           description: Concatenation of the policy_id and hex-encoded asset_name
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
         - in: query
           name: count
           required: false
@@ -4037,11 +3838,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the information about the history of a specific asset
@@ -4074,8 +3873,7 @@ paths:
           schema:
             type: string
           description: Concatenation of the policy_id and hex-encoded asset_name
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
         - in: query
           name: count
           required: false
@@ -4103,11 +3901,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the information about the history of a specific asset
@@ -4168,11 +3964,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the information about a specific asset
@@ -4226,11 +4020,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return list of scripts
@@ -4390,11 +4182,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the information about redeemers of a specific script
@@ -4493,8 +4283,7 @@ paths:
           schema:
             type: string
           description: Hex xpub
-          example: >-
-            d507c8f866691bd96e131334c355188b1a1d0b2fa0ab11545075aab332d77d9eb19657ad13ee581b56b0f8d744d66ca356b93d42fe176b3de007d53e9c4c4e7a
+          example: d507c8f866691bd96e131334c355188b1a1d0b2fa0ab11545075aab332d77d9eb19657ad13ee581b56b0f8d744d66ca356b93d42fe176b3de007d53e9c4c4e7a
         - in: path
           name: role
           required: true
@@ -4533,9 +4322,7 @@ paths:
       tags:
         - Cardano » Utilities
       summary: Submit a transaction for execution units evaluation
-      description: >-
-        Submit an already serialized transaction to evaluate how much execution
-        units it requires.
+      description: Submit an already serialized transaction to evaluate how much execution units it requires.
       parameters:
         - in: header
           name: Content-Type
@@ -4547,32 +4334,135 @@ paths:
       x-codeSamples:
         - lang: Shell
           label: cURL
-          source: >
-            # Assuming `tx.data` is a CBOR serialized transaction on the
-            file-system.
-
+          source: |
+            # Assuming `tx.data` is a CBOR serialized transaction on the file-system.
             # (encoded using base16 or base64)
-
-            curl
-            "https://cardano-mainnet.blockfrost.io/api/v0/utils/txs/evaluate" \
+            curl "https://cardano-mainnet.blockfrost.io/api/v0/utils/txs/evaluate" \
               -X POST \
               -H "Content-Type: application/cbor" \
               -H "project_id: $PROJECT_ID" \
               --data @./tx.data
       responses:
         '200':
-          description: >
+          description: |
             Returns result of EvaluateTx function from Ogmios see
-
-            <a
-            href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-
-            and <a href="https://ogmios.dev/api/">API reference
-            (EvaluateTxResponse)</a> for related errors.
+            <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+            and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
           content:
             application/json:
               schema:
                 type: object
+                additionalProperties: true
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '425':
+          $ref: '#/components/responses/425'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /utils/txs/evaluate/utxos:
+    post:
+      tags:
+        - Cardano » Utilities
+      summary: Submit a transaction for execution units evaluation (additional UTXO set)
+      description: Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires.
+      parameters:
+        - in: header
+          name: Content-Type
+          required: true
+          schema:
+            type: string
+            enum:
+              - application/json
+      requestBody:
+        description: JSON payload
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cbor:
+                  type: string
+                  description: Transaction CBOR (encoded using base64 or base16).
+                additionalUtxoSet:
+                  type: array
+                  description: Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set.
+                  items:
+                    type: array
+                    minItems: 2
+                    maxItems: 2
+                    prefixItems:
+                      - type: object
+                        description: TxIn
+                        properties:
+                          txId:
+                            type: string
+                            description: Transaction hash for the input
+                          index:
+                            type: number
+                            description: Index of the output within the transaction
+                      - type: object
+                        description: TxOut
+                        properties:
+                          address:
+                            type: string
+                            description: Output address
+                          value:
+                            type: object
+                            properties:
+                              coins:
+                                type: number
+                                description: Lovelace amount
+                              assets:
+                                type: object
+                                description: Assets amount
+                                additionalProperties:
+                                  type: number
+                            required:
+                              - coins
+                          datum_hash:
+                            type: string
+                          datum:
+                            type: object
+                            additionalProperties: true
+                          script:
+                            type: object
+                            additionalProperties: true
+                        required:
+                          - address
+                          - value
+              required:
+                - cbor
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            # Assuming TxCbor is a CBOR serialized transaction encoded using base16 or base64
+            # For a structure of additional UTXO set see https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set
+            curl "https://cardano-mainnet.blockfrost.io/api/v0/utils/txs/evaluate/utxos" \
+              -X POST \
+              -H "Content-Type: application/json" \
+              -H "project_id: $PROJECT_ID" \
+              -d '{"cbor":"<TxCbor>","additionalUtxoSet":[[<TxIn>, <TxOut>]]}'
+      responses:
+        '200':
+          description: |
+            Returns result of EvaluateTx function from Ogmios see
+            <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+            and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -4594,10 +4484,8 @@ paths:
       tags:
         - IPFS » Add
       summary: Add a file to IPFS
-      description: >
-        You need to `/ipfs/pin/add` an object to avoid it being garbage
-        collected. This usage
-
+      description: |
+        You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.
       x-codeSamples:
         - lang: curl
@@ -4649,9 +4537,7 @@ paths:
       tags:
         - IPFS » Gateway
       summary: Relay to an IPFS gateway
-      description: >-
-        Retrieve an object from the IPFS gateway (useful if you do not want to
-        rely on a public gateway, such as `ipfs.blockfrost.dev`).
+      description: Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
       parameters:
         - in: path
           required: true
@@ -4760,11 +4646,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Returns pinned objects
@@ -4795,18 +4679,11 @@ paths:
                       type: string
                       enum:
                         - queued|pinned|unpinned|failed|gc
-                      description: >
-                        State of the pinned object, which is `queued` when we
-                        are retriving object. If this
-
-                        is successful the state is changed to `pinned` or
-                        `failed` if not. The state `gc` means the
-
-                        pinned item has been garbage collected due to account
-                        being over storage quota or after it has
-
-                        been moved to `unpinned` state by removing the object
-                        pin.
+                      description: |
+                        State of the pinned object, which is `queued` when we are retriving object. If this
+                        is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
+                        pinned item has been garbage collected due to account being over storage quota or after it has
+                        been moved to `unpinned` state by removing the object pin.
                       example: pinned
                   required:
                     - time_created
@@ -4869,23 +4746,12 @@ paths:
                     type: string
                     enum:
                       - queued|pinned|unpinned|failed|gc
-                    description: >
-                      State of the pinned object. We define 5 states: `queued`,
-                      `pinned`, `unpinned`, `failed`, `gc`.
-
-                      When the object is pending retrieval (i.e. after
-                      `/ipfs/pin/add/{IPFS_path}`), the state is `queued`.
-
-                      If the object is already successfully retrieved, state is
-                      changed to `pinned` or `failed` otherwise.
-
-                      When object is unpinned (i.e. after
-                      `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage
-                      collection.
-
-                      State `gc` means that a previously `unpinned` item has
-                      been garbage collected due to account being over storage
-                      quota.
+                    description: |
+                      State of the pinned object. We define 5 states: `queued`, `pinned`, `unpinned`, `failed`, `gc`.
+                      When the object is pending retrieval (i.e. after `/ipfs/pin/add/{IPFS_path}`), the state is `queued`.
+                      If the object is already successfully retrieved, state is changed to `pinned` or `failed` otherwise.
+                      When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
+                      State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                     example: pinned
                 required:
                   - time_created
@@ -4983,9 +4849,8 @@ paths:
       tags:
         - Metrics
       summary: Blockfrost endpoint usage metrics
-      description: >
-        History of your Blockfrost usage metrics per endpoint in the past 30
-        days.
+      description: |
+        History of your Blockfrost usage metrics per endpoint in the past 30 days.
       responses:
         '200':
           description: Return the last 30 days of metrics
@@ -5131,11 +4996,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the tickers provided by the metadata oracle
@@ -5201,11 +5064,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the tickers provided by the metadata oracle
@@ -5265,11 +5126,9 @@ paths:
               - asc
               - desc
             default: asc
-          description: >
+          description: |
             The ordering of items from the point of view of the blockchain,
-
-            not the page listing itself. By default, we return oldest first,
-            newest last.
+            not the page listing itself. By default, we return oldest first, newest last.
       responses:
         '200':
           description: Return the tickers provided by the metadata oracle
@@ -5305,8 +5164,9 @@ components:
           example: 1641338934
           description: Block creation time in UNIX time
         height:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           example: 15243593
           description: Block number
         hash:
@@ -5314,26 +5174,27 @@ components:
           example: 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a
           description: Hash of the block
         slot:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           example: 412162133
           description: Slot number
         epoch:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           example: 425
           description: Epoch number
         epoch_slot:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           example: 12
           description: Slot within the epoch
         slot_leader:
           type: string
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy
-          description: >-
-            Bech32 ID of the slot leader or specific block description in case
-            there is no slot leader
+          description: Bech32 ID of the slot leader or specific block description in case there is no slot leader
         size:
           type: integer
           example: 3
@@ -5343,40 +5204,47 @@ components:
           example: 1
           description: Number of transactions in the block
         output:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: '128314491794'
           description: Total output within the block in Lovelaces
         fees:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: '592661'
           description: Total fees within the block in Lovelaces
         block_vrf:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty
           description: VRF key of the block
           minLength: 65
           maxLength: 65
         op_cert:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c
           description: The hash of the operational certificate of the block producer
         op_cert_counter:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: '18'
           description: The value of the counter used to produce the operational certificate
         previous_block:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: 43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05
           description: Hash of the previous block
         next_block:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: 8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa
           description: Hash of the next block
         confirmations:
@@ -5425,9 +5293,7 @@ components:
             description: Address that was affected in the specified block
           transactions:
             type: array
-            description: >-
-              List of transactions containing the address either in their inputs
-              or outputs. Sorted by transaction index within a block, ascending.
+            description: List of transactions containing the address either in their inputs or outputs. Sorted by transaction index within a block, ascending.
             items:
               type: object
               properties:
@@ -5439,12 +5305,10 @@ components:
           - address
           - transactions
       example:
-        - address: >-
-            addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+        - address: addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
           transactions:
             - tx_hash: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
-        - address: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+        - address: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           transactions:
             - tx_hash: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157d0
     genesis_content:
@@ -5457,9 +5321,7 @@ components:
         update_quorum:
           type: integer
           example: 5
-          description: >-
-            Determines the quorum needed for votes on the protocol parameter
-            updates
+          description: Determines the quorum needed for votes on the protocol parameter updates
         max_lovelace_supply:
           type: string
           example: '45000000000000000'
@@ -5487,9 +5349,7 @@ components:
         max_kes_evolutions:
           type: integer
           example: 62
-          description: >-
-            The maximum number of time a KES key can be evolved before a pool
-            operator must create a new operational certificate
+          description: The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate
         security_param:
           type: integer
           example: 2160
@@ -5545,8 +5405,9 @@ components:
           example: '4203312194'
           description: Sum of all the fees within the epoch in Lovelaces
         active_stake:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '784953934049314'
           description: Sum of all the active stakes within the epoch in Lovelaces
       required:
@@ -5620,8 +5481,9 @@ components:
           example: 0.5
           description: Percentage of blocks produced by federated nodes
         extra_entropy:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: null
           description: Seed for extra entropy
         protocol_major_ver:
@@ -5646,8 +5508,9 @@ components:
           description: Epoch number only used once
         cost_models:
           additionalProperties: true
-          nullable: true
-          type: object
+          type:
+            - object
+            - 'null'
           example:
             PlutusV1:
               addInteger-cpu-arguments-intercept: 197209
@@ -5657,74 +5520,71 @@ components:
               addInteger-cpu-arguments-slope: 0
           description: Cost models parameters for Plutus Core scripts
         price_mem:
-          nullable: true
-          type: number
+          type:
+            - number
+            - 'null'
           example: 0.0577
           description: The per word cost of script memory usage
         price_step:
-          nullable: true
-          type: number
+          type:
+            - number
+            - 'null'
           example: 0.0000721
           description: The cost of script execution step usage
         max_tx_ex_mem:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '10000000'
-          description: >-
-            The maximum number of execution memory allowed to be used in a
-            single transaction
+          description: The maximum number of execution memory allowed to be used in a single transaction
         max_tx_ex_steps:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '10000000000'
-          description: >-
-            The maximum number of execution steps allowed to be used in a single
-            transaction
+          description: The maximum number of execution steps allowed to be used in a single transaction
         max_block_ex_mem:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '50000000'
-          description: >-
-            The maximum number of execution memory allowed to be used in a
-            single block
+          description: The maximum number of execution memory allowed to be used in a single block
         max_block_ex_steps:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '40000000000'
-          description: >-
-            The maximum number of execution steps allowed to be used in a single
-            block
+          description: The maximum number of execution steps allowed to be used in a single block
         max_val_size:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '5000'
           description: The maximum Val size
         collateral_percent:
-          nullable: true
-          type: integer
+          type:
+            - integer
+            - 'null'
           example: 150
-          description: >-
-            The percentage of the transactions fee which must be provided as
-            collateral when including non-native scripts
+          description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
         max_collateral_inputs:
-          nullable: true
-          type: integer
+          type:
+            - integer
+            - 'null'
           example: 3
           description: The maximum number of collateral inputs allowed in a transaction
         coins_per_utxo_size:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '34482'
-          description: >-
-            Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and
-            later.
+          description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
         coins_per_utxo_word:
-          nullable: true
-          type: string
+          type:
+            - string
+            - 'null'
           example: '34482'
-          description: >-
-            Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and
-            later.
+          description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
           deprecated: true
       required:
         - epoch
@@ -5842,9 +5702,7 @@ components:
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
@@ -5855,8 +5713,7 @@ components:
           example:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         fees:
           type: string
@@ -5871,13 +5728,15 @@ components:
           example: 433
           description: Size of the transaction in Bytes
         invalid_before:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: null
           description: Left (included) endpoint of the timelock validity intervals
         invalid_hereafter:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: '13885913'
           description: Right (excluded) endpoint of the timelock validity intervals
         utxo_count:
@@ -5903,15 +5762,11 @@ components:
         pool_update_count:
           type: integer
           example: 0
-          description: >-
-            Count of the stake pool registration and update certificates within
-            the transaction
+          description: Count of the stake pool registration and update certificates within the transaction
         pool_retire_count:
           type: integer
           example: 0
-          description: >-
-            Count of the stake pool retirement certificates within the
-            transaction
+          description: Count of the stake pool retirement certificates within the transaction
         asset_mint_or_burn_count:
           type: integer
           example: 0
@@ -5961,8 +5816,7 @@ components:
             properties:
               address:
                 type: string
-                example: >-
-                  addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+                example: addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                 description: Input address
               amount:
                 type: array
@@ -5972,9 +5826,7 @@ components:
                   properties:
                     unit:
                       type: string
-                      format: >-
-                        Lovelace or concatenation of asset policy_id and
-                        hex-encoded asset_name
+                      format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                       description: The unit of the value
                     quantity:
                       type: string
@@ -5985,40 +5837,38 @@ components:
                 example:
                   - unit: lovelace
                     quantity: '42000000'
-                  - unit: >-
-                      b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+                  - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
                     quantity: '12'
               tx_hash:
                 type: string
-                example: >-
-                  1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+                example: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
                 description: Hash of the UTXO transaction
               output_index:
                 type: integer
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: The hash of the transaction output datum
-                example: >-
-                  9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
-                nullable: true
+                example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: CBOR encoded inline datum
                 example: 19a6aa
-                nullable: true
               reference_script_hash:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: The hash of the reference script of the input
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-                nullable: true
               collateral:
                 type: boolean
                 example: false
-                description: >-
-                  Whether the input is a collateral consumed on script
-                  validation failure
+                description: Whether the input is a collateral consumed on script validation failure
               reference:
                 type: boolean
                 example: false
@@ -6039,8 +5889,7 @@ components:
             properties:
               address:
                 type: string
-                example: >-
-                  addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+                example: addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                 description: Output address
               amount:
                 type: array
@@ -6050,9 +5899,7 @@ components:
                   properties:
                     unit:
                       type: string
-                      format: >-
-                        Lovelace or concatenation of asset policy_id and
-                        hex-encoded asset_name
+                      format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                       description: The unit of the value
                     quantity:
                       type: string
@@ -6063,33 +5910,34 @@ components:
                 example:
                   - unit: lovelace
                     quantity: '42000000'
-                  - unit: >-
-                      b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+                  - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
                     quantity: '12'
               output_index:
                 type: integer
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: The hash of the transaction output datum
-                nullable: true
-                example: >-
-                  9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+                example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: CBOR encoded inline datum
                 example: 19a6aa
-                nullable: true
               collateral:
                 type: boolean
                 example: false
                 description: Whether the output is a collateral output
               reference_script_hash:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-                nullable: true
             required:
               - address
               - amount
@@ -6241,38 +6089,44 @@ components:
             example:
               - stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v
           metadata:
-            type: object
-            nullable: true
+            type:
+              - object
+              - 'null'
             properties:
               url:
-                type: string
-                nullable: true
+                type:
+                  - string
+                  - 'null'
                 example: https://stakenuts.com/mainnet.json
                 description: URL to the stake pool metadata
               hash:
-                type: string
-                nullable: true
-                example: >-
-                  47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
+                type:
+                  - string
+                  - 'null'
+                example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
                 description: Hash of the metadata file
               ticker:
-                type: string
-                nullable: true
+                type:
+                  - string
+                  - 'null'
                 example: NUTS
                 description: Ticker of the stake pool
               name:
-                type: string
-                nullable: true
+                type:
+                  - string
+                  - 'null'
                 example: Stake Nuts
                 description: Name of the stake pool
               description:
-                type: string
-                nullable: true
+                type:
+                  - string
+                  - 'null'
                 example: The best pool ever
                 description: Description of the stake pool
               homepage:
-                type: string
-                nullable: true
+                type:
+                  - string
+                  - 'null'
                 example: https://stakentus.com/
                 description: Home page of the stake pool
             required:
@@ -6288,23 +6142,27 @@ components:
               type: object
               properties:
                 ipv4:
-                  type: string
-                  nullable: true
+                  type:
+                    - string
+                    - 'null'
                   example: 4.4.4.4
                   description: IPv4 address of the relay
                 ipv6:
-                  type: string
-                  nullable: true
+                  type:
+                    - string
+                    - 'null'
                   example: https://stakenuts.com/mainnet.json
                   description: IPv6 address of the relay
                 dns:
-                  type: string
-                  nullable: true
+                  type:
+                    - string
+                    - 'null'
                   example: relay1.stakenuts.com
                   description: DNS name of the relay
                 dns_srv:
-                  type: string
-                  nullable: true
+                  type:
+                    - string
+                    - 'null'
                   example: _relays._tcp.relays.stakenuts.com
                   description: DNS SRV entry of the relay
                 port:
@@ -6363,10 +6221,10 @@ components:
             type: string
             description: Metadata label
           json_metadata:
-            additionalProperties: true
             oneOf:
               - type: string
               - type: object
+                additionalProperties: true
             description: Content of the metadata
         required:
           - label
@@ -6391,12 +6249,14 @@ components:
             description: Metadata label
           cbor_metadata:
             deprecated: true
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             description: Content of the CBOR metadata
           metadata:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             description: Content of the CBOR metadata in hex
         required:
           - label
@@ -6470,8 +6330,9 @@ components:
           example: true
           description: Registration state of an account
         active_epoch:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           example: 412
           description: Epoch of the most recent action - registration or deregistration
         controlled_amount:
@@ -6497,12 +6358,11 @@ components:
         withdrawable_amount:
           type: string
           example: '319154618165'
-          description: >-
-            Sum of available rewards that haven't been withdrawn yet for the
-            account in the Lovelaces
+          description: Sum of available rewards that haven't been withdrawn yet for the account in the Lovelaces
         pool_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
           description: Bech32 pool ID that owns the account
       required:
@@ -6632,9 +6492,7 @@ components:
         properties:
           tx_hash:
             type: string
-            description: >-
-              Hash of the transaction containing the (de)registration
-              certificate
+            description: Hash of the transaction containing the (de)registration certificate
           action:
             type: string
             enum:
@@ -6698,14 +6556,10 @@ components:
         required:
           - address
       example:
-        - address: >-
-            addr1qx2kd28nq8ac5prwg32hhvudlwggpgfp8utlyqxu6wqgz62f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sy0f4qd
-        - address: >-
-            addr1qys3czp8s9thc6u2fqed9yq3h24nyw28uk0m6mkgn9dkckjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9suth4w4
-        - address: >-
-            addr1q8j55h253zcvl326sk5qdt2n8z7eghzspe0ekxgncr796s2f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sjmd35m
-        - address: >-
-            addr1q8f7gxrprank3drhx8k5grlux7ene0nlwun8y9thu8mc3yjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sls6vnt
+        - address: addr1qx2kd28nq8ac5prwg32hhvudlwggpgfp8utlyqxu6wqgz62f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sy0f4qd
+        - address: addr1qys3czp8s9thc6u2fqed9yq3h24nyw28uk0m6mkgn9dkckjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9suth4w4
+        - address: addr1q8j55h253zcvl326sk5qdt2n8z7eghzspe0ekxgncr796s2f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sjmd35m
+        - address: addr1q8f7gxrprank3drhx8k5grlux7ene0nlwun8y9thu8mc3yjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sls6vnt
     account_addresses_assets:
       type: array
       items:
@@ -6723,11 +6577,9 @@ components:
           - unit
           - quantity
       example:
-        - unit: >-
-            d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc537061636542756433343132
+        - unit: d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc537061636542756433343132
           quantity: '1'
-        - unit: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+        - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
           quantity: '125'
     account_addresses_total:
       type: object
@@ -6740,15 +6592,11 @@ components:
           type: array
           items:
             type: object
-            description: >-
-              The sum of all the UTXO per asset for all addresses associated
-              with the account
+            description: The sum of all the UTXO per asset for all addresses associated with the account
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
@@ -6759,22 +6607,17 @@ components:
           example:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         sent_sum:
           type: array
           items:
             type: object
-            description: >-
-              The sum of all the UTXO per asset for all addresses associated
-              with the account
+            description: The sum of all the UTXO per asset for all addresses associated with the account
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
@@ -6785,15 +6628,12 @@ components:
           example:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         tx_count:
           type: integer
           example: 12
-          description: >-
-            Count of all transactions for all addresses associated with the
-            account
+          description: Count of all transactions for all addresses associated with the account
       required:
         - stake_address
         - received_sum
@@ -6829,9 +6669,7 @@ components:
                 properties:
                   unit:
                     type: string
-                    format: >-
-                      Lovelace or concatenation of asset policy_id and
-                      hex-encoded asset_name
+                    format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                     description: The unit of the value
                   quantity:
                     type: string
@@ -6842,8 +6680,7 @@ components:
               example:
                 - unit: lovelace
                   quantity: '42000000'
-                - unit: >-
-                    b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+                - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
                   quantity: '12'
             fees:
               type: string
@@ -6858,13 +6695,15 @@ components:
               example: 433
               description: Size of the transaction in Bytes
             invalid_before:
-              type: string
-              nullable: true
+              type:
+                - string
+                - 'null'
               example: null
               description: Left (included) endpoint of the timelock validity intervals
             invalid_hereafter:
-              type: string
-              nullable: true
+              type:
+                - string
+                - 'null'
               example: '13885913'
               description: Right (excluded) endpoint of the timelock validity intervals
             utxo_count:
@@ -6890,15 +6729,11 @@ components:
             pool_update_count:
               type: integer
               example: 0
-              description: >-
-                Count of the stake pool registration and update certificates
-                within the transaction
+              description: Count of the stake pool registration and update certificates within the transaction
             pool_retire_count:
               type: integer
               example: 0
-              description: >-
-                Count of the stake pool retirement certificates within the
-                transaction
+              description: Count of the stake pool retirement certificates within the transaction
             asset_mint_or_burn_count:
               type: integer
               example: 0
@@ -6936,13 +6771,11 @@ components:
             properties:
               address:
                 type: string
-                example: >-
-                  addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+                example: addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                 description: Input address
               tx_hash:
                 type: string
-                example: >-
-                  1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+                example: 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
                 description: Hash of the UTXO transaction
               output_index:
                 type: integer
@@ -6951,9 +6784,7 @@ components:
               collateral:
                 type: boolean
                 example: false
-                description: >-
-                  Whether the input is a collateral consumed on script
-                  validation failure
+                description: Whether the input is a collateral consumed on script validation failure
               reference:
                 type: boolean
                 example: false
@@ -6969,8 +6800,7 @@ components:
             properties:
               address:
                 type: string
-                example: >-
-                  addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+                example: addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                 description: Output address
               amount:
                 type: array
@@ -6980,9 +6810,7 @@ components:
                   properties:
                     unit:
                       type: string
-                      format: >-
-                        Lovelace or concatenation of asset policy_id and
-                        hex-encoded asset_name
+                      format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                       description: The unit of the value
                     quantity:
                       type: string
@@ -6993,33 +6821,34 @@ components:
                 example:
                   - unit: lovelace
                     quantity: '42000000'
-                  - unit: >-
-                      b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+                  - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
                     quantity: '12'
               output_index:
                 type: integer
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: The hash of the transaction output datum
-                nullable: true
-                example: >-
-                  9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+                example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: CBOR encoded inline datum
                 example: 19a6aa
-                nullable: true
               collateral:
                 type: boolean
                 example: false
                 description: Whether the output is a collateral output
               reference_script_hash:
-                type: string
+                type:
+                  - string
+                  - 'null'
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-                nullable: true
             required:
               - address
               - amount
@@ -7084,8 +6913,9 @@ components:
             type: string
             description: Metadata label
           cip10:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             description: CIP10 defined description
           count:
             type: string
@@ -7117,12 +6947,13 @@ components:
             anyOf:
               - type: string
               - type: object
+                additionalProperties: true
               - type: array
                 items: {}
               - type: integer
               - type: number
               - type: boolean
-            nullable: true
+              - type: 'null'
             description: Content of the JSON metadata
         required:
           - tx_hash
@@ -7150,12 +6981,14 @@ components:
             description: Transaction hash that contains the specific metadata
           cbor_metadata:
             deprecated: true
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             description: Content of the CBOR metadata
           metadata:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             description: Content of the CBOR metadata in hex
         required:
           - tx_hash
@@ -7177,8 +7010,7 @@ components:
         address:
           type: string
           description: Bech32 encoded addresses
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         amount:
           type: array
           items:
@@ -7187,9 +7019,7 @@ components:
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
@@ -7200,12 +7030,12 @@ components:
           example:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         stake_address:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
           description: Stake address that controls the key
         type:
@@ -7231,8 +7061,7 @@ components:
         address:
           type: string
           description: Bech32 encoded addresses
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         amount:
           type: array
           items:
@@ -7241,25 +7070,19 @@ components:
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
                 description: The quantity of the unit
               decimals:
-                type: integer
-                nullable: true
-                description: >-
-                  Number of decimal places of the asset unit. Primary data
-                  source is CIP68 reference NFT with a fallback to off-chain
-                  metadata.
+                type:
+                  - integer
+                  - 'null'
+                description: Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata.
               has_nft_onchain_metadata:
                 type: boolean
-                description: >-
-                  True if the latest minting transaction includes metadata
-                  (best-effort)
+                description: True if the latest minting transaction includes metadata (best-effort)
             required:
               - unit
               - quantity
@@ -7270,14 +7093,14 @@ components:
               quantity: '42000000'
               decimals: 6
               has_nft_onchain_metadata: false
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
               decimals: null
               has_nft_onchain_metadata: true
         stake_address:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
           description: Stake address that controls the key
         type:
@@ -7303,8 +7126,7 @@ components:
         address:
           type: string
           description: Bech32 encoded address
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         received_sum:
           type: array
           items:
@@ -7313,9 +7135,7 @@ components:
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
@@ -7326,8 +7146,7 @@ components:
           example:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         sent_sum:
           type: array
@@ -7337,9 +7156,7 @@ components:
             properties:
               unit:
                 type: string
-                format: >-
-                  Lovelace or concatenation of asset policy_id and hex-encoded
-                  asset_name
+                format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                 description: The unit of the value
               quantity:
                 type: string
@@ -7350,8 +7167,7 @@ components:
           example:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         tx_count:
           type: integer
@@ -7370,8 +7186,7 @@ components:
           address:
             type: string
             description: Bech32 encoded addresses - useful when querying by payment_cred
-            example: >-
-              addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+            example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           tx_hash:
             type: string
             description: Transaction hash of the UTXO
@@ -7390,9 +7205,7 @@ components:
               properties:
                 unit:
                   type: string
-                  format: >-
-                    Lovelace or concatenation of asset policy_id and hex-encoded
-                    asset_name
+                  format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
                   description: The unit of the value
                 quantity:
                   type: string
@@ -7404,19 +7217,22 @@ components:
             type: string
             description: Block hash of the UTXO
           data_hash:
-            type: string
+            type:
+              - string
+              - 'null'
             description: The hash of the transaction output datum
-            nullable: true
           inline_datum:
-            type: string
+            type:
+              - string
+              - 'null'
             description: CBOR encoded inline datum
             example: 19a6aa
-            nullable: true
           reference_script_hash:
-            type: string
+            type:
+              - string
+              - 'null'
             description: The hash of the reference script of the output
             example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-            nullable: true
         required:
           - address
           - tx_hash
@@ -7428,8 +7244,7 @@ components:
           - inline_datum
           - reference_script_hash
       example:
-        - address: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+        - address: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           tx_hash: 39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58
           output_index: 0
           amount:
@@ -7439,8 +7254,7 @@ components:
           data_hash: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
           inline_datum: null
           reference_script_hash: null
-        - address: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+        - address: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           tx_hash: 4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49
           output_index: 0
           amount:
@@ -7450,15 +7264,13 @@ components:
           data_hash: null
           inline_datum: null
           reference_script_hash: null
-        - address: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+        - address: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           tx_hash: 768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2
           output_index: 1
           amount:
             - unit: lovelace
               quantity: '42000000'
-            - unit: >-
-                b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+            - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
           block: 5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7
           data_hash: null
@@ -7734,33 +7546,39 @@ components:
           example: 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
           description: Hexadecimal pool ID
         url:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: https://stakenuts.com/mainnet.json
           description: URL to the stake pool metadata
         hash:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
           description: Hash of the metadata file
         ticker:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: NUTS
           description: Ticker of the stake pool
         name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: Stake Nuts
           description: Name of the stake pool
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: The best pool ever
           description: Description of the stake pool
         homepage:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: https://stakentus.com/
           description: Home page of the stake pool
       required:
@@ -7780,23 +7598,27 @@ components:
         type: object
         properties:
           ipv4:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             example: 4.4.4.4
             description: IPv4 address of the relay
           ipv6:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             example: https://stakenuts.com/mainnet.json
             description: IPv6 address of the relay
           dns:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             example: relay1.stakenuts.com
             description: DNS name of the relay
           dns_srv:
-            type: string
-            nullable: true
+            type:
+              - string
+              - 'null'
             example: _relays._tcp.relays.stakenuts.com
             description: DNS SRV entry of the relay
           port:
@@ -7887,8 +7709,7 @@ components:
           - asset
           - quantity
       example:
-        - asset: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+        - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
           quantity: '1'
         - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e75d
           quantity: '100000'
@@ -7899,16 +7720,16 @@ components:
       properties:
         asset:
           type: string
-          example: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+          example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
           description: Hex-encoded asset full name
         policy_id:
           type: string
           example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a7
           description: Policy ID of the asset
         asset_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           example: 6e7574636f696e
           description: Hex-encoded asset name of the asset
         fingerprint:
@@ -7928,34 +7749,33 @@ components:
           example: 1
           description: Count of mint and burn transactions
         onchain_metadata:
-          type: object
+          type:
+            - object
+            - 'null'
           additionalProperties: true
-          nullable: true
           description: |
             On-chain metadata which SHOULD adhere to the valid standards,
             based on which we perform the look up and display the asset
             (best effort)
         onchain_metadata_standard:
-          type: string
+          type:
+            - string
+            - 'null'
           enum:
             - CIP25v1
             - CIP25v2
             - CIP68v1
-          nullable: true
           description: |
             If on-chain metadata passes validation, we display the standard
             under which it is valid
         metadata:
-          type: object
-          nullable: true
-          description: >
+          type:
+            - object
+            - 'null'
+          description: |
             Off-chain metadata fetched from GitHub based on network.
-
-            Mainnet:
-            https://github.com/cardano-foundation/cardano-token-registry/
-
-            Testnet:
-            https://github.com/input-output-hk/metadata-registry-testnet/
+            Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
+            Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
           properties:
             name:
               type: string
@@ -7966,24 +7786,27 @@ components:
               example: The Nut Coin
               description: Asset description
             ticker:
-              type: string
-              nullable: true
+              type:
+                - string
+                - 'null'
               example: nutc
             url:
-              type: string
-              nullable: true
+              type:
+                - string
+                - 'null'
               example: https://www.stakenuts.com/
               description: Asset website
             logo:
-              type: string
-              nullable: true
-              example: >-
-                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
+              type:
+                - string
+                - 'null'
+              example: iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH5QITCDUPjqwFHwAAB9xJREFUWMPVWXtsU9cZ/8499/r6dZ3E9rUdO7ZDEgglFWO8KaOsJW0pCLRKrN1AqqYVkqoqrYo0ja7bpElru1WairStFKY9WzaE1E1tx+jokKqwtqFNyhKahEJJyJNgJ37E9r1+3HvO/sFR4vhx7SBtfH/F3/l93/f7ne/4PBxEKYU72dj/ZfH772v1TU+HtqbTaX8wOO01GPQpRVH7JEm+vGHDuq6z7/8jUSoHKtaBKkEUFUXdajDy1hUrmrs6zn/wWS7m7pZVjMUirKGUTnzc+e9xLcTrPPVfZzDz06Sc2lyQGEIyAPzT7Xa+dvE/3e+XLaCxoflHsVj8MAAYs74aa/WHoenwvpkZKeFy2Z5NJlOPUkqXZccFwSSrKjlyffjLH+TL6XTUGTGL/6hklD3ldIrj2M5MRmkLBMcvaRLQ1Nj88sxM/HCBfMP+eu/OYGDqe6l0WmpoqJ/88upgrU7HrQNA/cFg6MlkKiLlBtVUO40cx54BgHvLIT/HJLvdeqh/4NKxogKWN7fsCoUi7xTLxLJ4vLq6ak//wKVOrdXtttrTDMPsqJA8AAAwDErdu3VL3alTf5ma9eWCpoKhn5dKpCiqJxicPucQPVu0FHaInn35yHMcKwPAa4SQ3QCwFgDWUko3qSr5vqqSgTypuEg4Mo/zvA74/Y0rZSnZU8akSHV17k2fXfy0txjI5224kEym1s/1EUI7LBbztweHrkzkizn49LP6U6feepFSeggAQK/n04SQZ8bGrxdeQjZrbRvGzLH5hcibRqOhPplMfS1fIY5jz4xPDBdcGggho2h3z9sOLRazdG3wqp9SMgUlzGZ17SSEPsRx7J8CwfGu3PF57WhqqjfN/VxVJUxKUrIdITAXKpDJKFscosdfaFy0u+/K9aXTmXe0kAcAmA5Nng5Hbj6Tj/wCAYFAcN7uEY3GXGazMSHLqVVFapgBoMPna9yqhRAAgCTJMa3YUjZPgNFkSlWYx5eUkx+0tKx83V3rF+cVYJjruWCe133DIXqMmrNrFSDabRcWkywYmG5XFOW6aHcfb9324CoAgMmbo9MIoXkneCajiAihV/c/8eSiBSw4BxyiZxQA6m7H7FBKT2CMn2MY5jFFUX6ZO+5w2j8aHZ7YH40FByrJD5DnHGAY5uTtIA8AgBDaR4F2Yxb3WizCgmtA4ObUPSazodduqz3Suu0hf0U1cjvgdNSJ1dWWveFwdDUAtAiC2Uopdcdi8c9Zlh3GmDGl05mtAKAvo47EcdwThJCjqqpWFxALlNITomg73tff21GRAJez7iVK4WGGYfoJIQduBsbm7UrLm1ueCoUiv65kpiilw1ZbzcFoZOYoIcRTAn6eYZgXJm+Oni+Vd3YJbdyweSch9HlK6SpVVfcyDDq7Yf3m2XPBIXraKyV/a4b9UkLawbLsZgB4rwR8CyGkw13r+5fX27BckwBAEJ47oKpk8+DgUIdod7fV1vqOAMDrlZLPmqKoB+rrvXIgOP6w0WjYy3Ls5RL4bUk52bVm9fqnCk7M3CXU2ND8+MxM7BcIIftiyRYyntcdHh0bmr0wfmXl6p2SJB2KRmP3l4j7zejYUFtRAQAAgslm1Bv4nyGEDpYiIwjmjw0G/RjP866JiclNqqqWfKLq9fyZkdHBBXcnl9O71GDgD8bj0ncRQqZ8sRgzL9yYHH2pqICsOUTPLgA4CXNeZFmzWIS/YhYfjUZmvqPjuceSckrz25pS2h2cmlhbaBwhzr6kfsnL8Xhif55YYFl23Y3Jkdl7EVMoUSA4/q6qqNsBIPd11e52u45FwtG3CSH7yiEPAGC1Vt9dXGBmanDoygFLlbAjtzZCCMyC6VeaOpA1l9N7l1kwtauKaozHE28YTQaQpeR7+TqjxXheR0fHhhgt2CX1S3clEtKC16HL5djYe+niBU0CcmYA2W21/Qih5ZqDcoxlMZ24MaJJAABA87IVJ8Lh6N65Pr1B/+LIyLUfAhRZQvnM6ah7ZDHkAQB0vK6/HHxNTc2ruT5Zkldn/y5LACFk+2LIAwAwCGl6yGSt88KHXbmrBCHkqEgAz+vWLFZALJb4qNwYhFDhCSknkSwnQ4sVgDFeWg7+gQe2r1tAmkGTFQlACHWVg89nhJA9ot3dphV/eeCLp/Pw6K5IQP0S39uLFXCLwDG7zf1cKZxD9LSlUunHc/12u/2t2Vzl/rzu8zb8PZlM7bwdQgDgPK/nX2nddt+53//ht3LW2dS0fF0iLj2vquojuQFmwXRucPBKa8UCmpe1iOFwpAsAfLdJBFBKwVIlXJ2JxqKCxbwyHkvoCkAlv9/71U+7Oq+UJWDZ0hViJBL1cRynbNq0sSeeiPl6ei4NqIqq6TSmlB7X6bjuTEY5pgWfzwxGPZhMpt39/b3vzvWXFGCzulZjjM/DrauDwcAr8bjcgzGjZUuVBMH8k2uDX7wCAFDr8n2LEPI7SqmhTP6SzVbz6MDlz0/nDpT8EmOM22HOvUeWU2wp8iyLgRL6hk7Hrc2SBwC4MTlykmXZRozxn00mbVcphNA5jJmV+chr6oDd5l6jN/A/TqfSuwEAGITGMIsvGo3GTwTB3Dc2NjGSxdZYq4VIOOoNBANnKE0XPXE3brjHOTQ08k2MmVZOxzVJCbkFIQSCYEphzPaFQuGzTpfjb319PZ8UFXin/5OvrHPg/9HueAH/BSUqOuNZm4fyAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTAyLTE5VDA4OjUyOjI1KzAwOjAwCmFGlgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMS0wMi0xOVQwODo1MjoyMyswMDowMBjsyxAAAAAASUVORK5CYII=
               description: Base64 encoded logo of the asset
             decimals:
-              type: integer
+              type:
+                - integer
+                - 'null'
               maximum: 255
-              nullable: true
               example: 6
               description: Number of decimal places of the asset unit
           required:
@@ -8094,14 +7917,11 @@ components:
           - address
           - quantity
       example:
-        - address: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+        - address: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
           quantity: '1'
-        - address: >-
-            addr1qyhr4exrgavdcn3qhfcc9f939fzsch2re5ry9cwvcdyh4x4re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qdpvhza
+        - address: addr1qyhr4exrgavdcn3qhfcc9f939fzsch2re5ry9cwvcdyh4x4re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qdpvhza
           quantity: '100000'
-        - address: >-
-            addr1q8zup8m9ue3p98kxlxl9q8rnyan8hw3ul282tsl9s326dfj088lvedv4zckcj24arcpasr0gua4c5gq4zw2rpcpjk2lq8cmd9l
+        - address: addr1q8zup8m9ue3p98kxlxl9q8rnyan8hw3ul282tsl9s326dfj088lvedv4zckcj24arcpasr0gua4c5gq4zw2rpcpjk2lq8cmd9l
           quantity: '18605647'
     asset_policy:
       type: array
@@ -8118,8 +7938,7 @@ components:
           - asset
           - quantity
       example:
-        - asset: >-
-            b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
+        - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
           quantity: '1'
         - asset: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a766e
           quantity: '100000'
@@ -8155,8 +7974,9 @@ components:
           example: plutusV1
           description: Type of the script language
         serialised_size:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: The size of the CBOR serialised script, if a Plutus script
           example: 3119
       required:
@@ -8171,12 +7991,13 @@ components:
           anyOf:
             - type: string
             - type: object
+              additionalProperties: true
             - type: array
               items: {}
             - type: integer
             - type: number
             - type: boolean
-          nullable: true
+            - type: 'null'
           description: JSON contents of the `timelock` script, null for `plutus` scripts
       required:
         - json
@@ -8195,8 +8016,9 @@ components:
       type: object
       properties:
         cbor:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: CBOR contents of the `plutus` script, null for `timelocks`
       required:
         - cbor
@@ -8258,6 +8080,9 @@ components:
       type: object
       properties:
         json_value:
+          type:
+            - object
+          additionalProperties: true
           description: JSON content of the datum
       required:
         - json_value
@@ -8295,12 +8120,10 @@ components:
         - index
         - address
       example:
-        - xpub: >-
-            d507c8f866691bd96e131334c355188b1a1d0b2fa0ab11545075aab332d77d9eb19657ad13ee581b56b0f8d744d66ca356b93d42fe176b3de007d53e9c4c4e7a
+        - xpub: d507c8f866691bd96e131334c355188b1a1d0b2fa0ab11545075aab332d77d9eb19657ad13ee581b56b0f8d744d66ca356b93d42fe176b3de007d53e9c4c4e7a
           role: 0
           index: 0
-          address: >-
-            addr1q90sqnljxky88s0jsnps48jd872p7znzwym0jpzqnax6qs5nfrlkaatu28n0qzmqh7f2cpksxhpc9jefx3wrl0a2wu8q5amen7
+          address: addr1q90sqnljxky88s0jsnps48jd872p7znzwym0jpzqnax6qs5nfrlkaatu28n0qzmqh7f2cpksxhpc9jefx3wrl0a2wu8q5amen7
     metrics:
       type: array
       items:
@@ -8308,9 +8131,7 @@ components:
         properties:
           time:
             type: integer
-            description: >-
-              Starting time of the call count interval (ends midnight UTC) in
-              UNIX time
+            description: Starting time of the call count interval (ends midnight UTC) in UNIX time
           calls:
             type: integer
             description: Sum of all calls for a particular day
@@ -8329,9 +8150,7 @@ components:
         properties:
           time:
             type: integer
-            description: >-
-              Starting time of the call count interval (ends midnight UTC) in
-              UNIX time
+            description: Starting time of the call count interval (ends midnight UTC) in UNIX time
           calls:
             type: integer
             description: Sum of all calls for a particular day and endpoint
@@ -8467,9 +8286,7 @@ components:
                 description: Slot length in seconds
               safe_zone:
                 type: integer
-                description: >-
-                  Zone in which it is guaranteed that no hard fork can take
-                  place
+                description: Zone in which it is guaranteed that no hard fork can take place
             required:
               - epoch_length
               - slot_length
@@ -8509,8 +8326,7 @@ components:
         address:
           type: string
           description: Bech32 encoded address
-          example: >-
-            addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+          example: addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
         metadata_url:
           type: string
           description: URL of the specific metadata file
@@ -8520,10 +8336,11 @@ components:
           description: Hash of the metadata file
           example: 6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af
         metadata:
-          type: object
+          type:
+            - string
+            - 'null'
           description: The cached metadata of the `metadata_url` file.
           additionalProperties: true
-          nullable: true
       required:
         - address
         - metadata_url
@@ -8631,8 +8448,7 @@ components:
           - tx_index
           - payload
       example:
-        - address: >-
-            addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0
+        - address: addr_test1qpmtp5t0t5y6cqkaz7rfsyrx7mld77kpvksgkwm0p7en7qum7a589n30e80tclzrrnj8qr4qvzj6al0vpgtnmrkkksnqd8upj0
           tx_hash: e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b
           block_height: 2657092
           tx_index: 8
@@ -8781,6 +8597,15 @@ components:
       required:
         - name
         - image
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: project_id
+      description: |
+        There are multiple token types available based on network you choose
+        when creating a Blockfrost a project, for a list of token types
+        see [Available networks](#section/Available-networks)
   responses:
     '400':
       description: Bad request
@@ -8843,9 +8668,7 @@ components:
               - error
               - message
     '418':
-      description: >-
-        IP has been auto-banned for extensive sending of requests after usage
-        limit has been reached
+      description: IP has been auto-banned for extensive sending of requests after usage limit has been reached
       content:
         application/json:
           schema:
@@ -8924,22 +8747,6 @@ components:
               - status_code
               - error
               - message
-    overusage_limit:
-      $ref: '#/components/responses/429'
-    mempool_full:
-      $ref: '#/components/responses/425'
-    pin_queue_full:
-      $ref: '#/components/responses/425-2'
-    autobanned:
-      $ref: '#/components/responses/418'
-    not_found:
-      $ref: '#/components/responses/404'
-    internal_server_error:
-      $ref: '#/components/responses/500'
-    unauthorized_error:
-      $ref: '#/components/responses/403'
-    bad_request:
-      $ref: '#/components/responses/400'
     425-2:
       description: Pin queue is currently full, not accepting new txs straight away
       content:
@@ -8955,19 +8762,8 @@ components:
                 example: Pin Queue Full
               message:
                 type: string
-                example: >-
-                  Your pin queue is currently full, please try pinning again
-                  later.
+                example: Your pin queue is currently full, please try pinning again later.
             required:
               - status_code
               - error
               - message
-  securitySchemes:
-    ApiKeyAuth:
-      type: apiKey
-      in: header
-      name: project_id
-      description: |
-        There are multiple token types available based on network you choose
-        when creating a Blockfrost a project, for a list of token types
-        see [Available networks](#section/Available-networks)

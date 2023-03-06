@@ -37,8 +37,9 @@ properties:
     example: "4203312194"
     description: Sum of all the fees within the epoch in Lovelaces
   active_stake:
-    nullable: true
-    type: string
+    type:
+      - string
+      - "null"
     example: "784953934049314"
     description: Sum of all the active stakes within the epoch in Lovelaces
 required:

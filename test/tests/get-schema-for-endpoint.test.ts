@@ -113,8 +113,7 @@ describe('getSchemaForEndpoint', () => {
                 example: '4203312194',
               },
               active_stake: {
-                nullable: true,
-                type: 'string',
+                type: ['string', 'null'],
                 description:
                   'Sum of all the active stakes within the epoch in Lovelaces',
                 example: '784953934049314',
@@ -190,8 +189,7 @@ describe('getSchemaForEndpoint', () => {
               ],
             },
             stake_address: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 'stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7',
               description: 'Stake address that controls the key',
@@ -238,15 +236,13 @@ describe('getSchemaForEndpoint', () => {
                 description: {
                   description: 'Description of the stake pool',
                   example: 'The best pool ever',
-                  nullable: true,
-                  type: 'string',
+                  type: ['string', 'null'],
                 },
                 hash: {
                   description: 'Hash of the metadata file',
                   example:
                     '47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c',
-                  nullable: true,
-                  type: 'string',
+                  type: ['string', 'null'],
                 },
                 hex: {
                   description: 'Hexadecimal pool ID',
@@ -257,14 +253,12 @@ describe('getSchemaForEndpoint', () => {
                 homepage: {
                   description: 'Home page of the stake pool',
                   example: 'https://stakentus.com/',
-                  nullable: true,
-                  type: 'string',
+                  type: ['string', 'null'],
                 },
                 name: {
                   description: 'Name of the stake pool',
                   example: 'Stake Nuts',
-                  nullable: true,
-                  type: 'string',
+                  type: ['string', 'null'],
                 },
                 pool_id: {
                   description: 'Bech32 pool ID',
@@ -275,14 +269,12 @@ describe('getSchemaForEndpoint', () => {
                 ticker: {
                   description: 'Ticker of the stake pool',
                   example: 'NUTS',
-                  nullable: true,
-                  type: 'string',
+                  type: ['string', 'null'],
                 },
                 url: {
                   description: 'URL to the stake pool metadata',
                   example: 'https://stakenuts.com/mainnet.json',
-                  nullable: true,
-                  type: 'string',
+                  type: ['string', 'null'],
                 },
               },
               required: [
@@ -394,8 +386,7 @@ describe('getSchemaForEndpoint', () => {
                 description:
                   'Sum of all the active stakes within the epoch in Lovelaces',
                 example: '784953934049314',
-                nullable: true,
-                type: 'string',
+                type: ['string', 'null'],
               },
             },
             required: [
@@ -434,8 +425,7 @@ describe('getSchemaForEndpoint', () => {
               description: 'Block creation time in UNIX time',
             },
             height: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 15243593,
               description: 'Block number',
             },
@@ -446,20 +436,17 @@ describe('getSchemaForEndpoint', () => {
               description: 'Hash of the block',
             },
             slot: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 412162133,
               description: 'Slot number',
             },
             epoch: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 425,
               description: 'Epoch number',
             },
             epoch_slot: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 12,
               description: 'Slot within the epoch',
             },
@@ -481,20 +468,18 @@ describe('getSchemaForEndpoint', () => {
               description: 'Number of transactions in the block',
             },
             output: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example: '128314491794',
               description: 'Total output within the block in Lovelaces',
             },
             fees: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
+
               example: '592661',
               description: 'Total fees within the block in Lovelaces',
             },
             block_vrf: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 'vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty',
               description: 'VRF key of the block',
@@ -502,30 +487,26 @@ describe('getSchemaForEndpoint', () => {
               maxLength: 65,
             },
             op_cert: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 'da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c',
               description:
                 'The hash of the operational certificate of the block producer',
             },
             op_cert_counter: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example: '18',
               description:
                 'The value of the counter used to produce the operational certificate',
             },
             previous_block: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 '43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05',
               description: 'Hash of the previous block',
             },
             next_block: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 '8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa',
               description: 'Hash of the next block',
@@ -642,8 +623,7 @@ describe('getSchemaForEndpoint', () => {
               description: 'Block creation time in UNIX time',
             },
             height: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 15243593,
               description: 'Block number',
             },
@@ -654,20 +634,17 @@ describe('getSchemaForEndpoint', () => {
               description: 'Hash of the block',
             },
             slot: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 412162133,
               description: 'Slot number',
             },
             epoch: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 425,
               description: 'Epoch number',
             },
             epoch_slot: {
-              type: 'integer',
-              nullable: true,
+              type: ['integer', 'null'],
               example: 12,
               description: 'Slot within the epoch',
             },
@@ -689,20 +666,17 @@ describe('getSchemaForEndpoint', () => {
               description: 'Number of transactions in the block',
             },
             output: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example: '128314491794',
               description: 'Total output within the block in Lovelaces',
             },
             fees: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example: '592661',
               description: 'Total fees within the block in Lovelaces',
             },
             block_vrf: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 'vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty',
               description: 'VRF key of the block',
@@ -710,30 +684,26 @@ describe('getSchemaForEndpoint', () => {
               maxLength: 65,
             },
             op_cert: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 'da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c',
               description:
                 'The hash of the operational certificate of the block producer',
             },
             op_cert_counter: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example: '18',
               description:
                 'The value of the counter used to produce the operational certificate',
             },
             previous_block: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 '43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05',
               description: 'Hash of the previous block',
             },
             next_block: {
-              type: 'string',
-              nullable: true,
+              type: ['string', 'null'],
               example:
                 '8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa',
               description: 'Hash of the next block',
@@ -834,6 +804,92 @@ describe('getSchemaForEndpoint', () => {
       params: {
         type: 'object',
         properties: { slot_number: { type: 'integer' } },
+      },
+    });
+  });
+
+  test('/utils/txs/evaluate/utxos', () => {
+    expect(getSchemaForEndpoint('/utils/txs/evaluate/utxos')).toStrictEqual({
+      response: {
+        '200': { type: 'object', additionalProperties: true },
+        '400': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 400 },
+            error: { type: 'string', example: 'Bad Request' },
+            message: {
+              type: 'string',
+              example: 'Backend did not understand your request.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '403': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 403 },
+            error: { type: 'string', example: 'Forbidden' },
+            message: { type: 'string', example: 'Invalid project token.' },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '404': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 404 },
+            error: { type: 'string', example: 'Not Found' },
+            message: {
+              type: 'string',
+              example: 'The requested component has not been found.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '418': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 418 },
+            error: { type: 'string', example: 'Requested Banned' },
+            message: {
+              type: 'string',
+              example: 'IP has been auto-banned for flooding.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '425': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 425 },
+            error: { type: 'string', example: 'Mempool Full' },
+            message: {
+              type: 'string',
+              example: 'Mempool is full, please try resubmitting again later.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '429': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 429 },
+            error: { type: 'string', example: 'Project Over Limit' },
+            message: { type: 'string', example: 'Usage is over limit.' },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '500': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 500 },
+            error: { type: 'string', example: 'Internal Server Error' },
+            message: {
+              type: 'string',
+              example: 'An unexpected response was received from the backend.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
       },
     });
   });

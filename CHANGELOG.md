@@ -9,6 +9,19 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/utils/txs/evaluate/utxos` method
+- initial support for POST endpoints to `getSchemaForEndpoint`
+
+### Changed
+
+- Migrated to OpenAPI 3.1.0
+
+### Removed
+
+- named error responses from OpenAPI spec (overusage_limit, mempool_full, pin_queue_full, autobanned, not_found, internal_server_error, unauthorized_error, bad_request).
+
 ### Fixed
 
 - CIP25v2 metadata validation improvements (gracefully handling of CIP25v1 metadata passed as v2)

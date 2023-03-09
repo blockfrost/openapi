@@ -90,6 +90,8 @@ info:
     * All hex encoded values are lower case.
     * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
     * We allow to upload files up to 100MB of size to IPFS. This might increase in the future.
+    * Only pinned IPFS files are counted towards the IPFS quota.
+    * Non-pinned IPFS files are subject to regular garbage collection and will be removed unless pinned.
     * We allow maximum of 100 queued pins per IPFS user.
 
     ## Errors

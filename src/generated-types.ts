@@ -3504,12 +3504,12 @@ export interface paths {
   "/ipfs/pin/add/{IPFS_path}": {
     /**
      * Pin an object 
-     * @description Pinned objects are counted in your user storage quota.
+     * @description Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
      */
     post: {
       /**
        * Pin an object 
-       * @description Pinned objects are counted in your user storage quota.
+       * @description Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
        */
       parameters: {
         path: {

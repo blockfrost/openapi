@@ -13,6 +13,7 @@ Unreleased changes are in the `master` branch.
 
 - `/utils/txs/evaluate/utxos` method
 - initial support for POST endpoints to `getSchemaForEndpoint`
+- additional IPFS description
 
 ### Changed
 

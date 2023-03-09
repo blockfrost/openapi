@@ -4,7 +4,7 @@ post:
   tags:
     - IPFS » Pins
   summary: Pin an object
-  description: Pinned objects are counted in your user storage quota.
+  description: Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
   parameters:
     - in: path
       required: true

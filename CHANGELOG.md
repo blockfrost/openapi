@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.55] - 2023-03-15
+
 ### Added
 
 - `/utils/txs/evaluate/utxos` method

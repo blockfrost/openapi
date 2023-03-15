@@ -14,7 +14,7 @@ properties:
     example: "6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af"
   metadata:
     type:
-      - string
+      - object
       - "null"
     description: The cached metadata of the `metadata_url` file.
     additionalProperties: true

@@ -1,5 +1,7 @@
 import { expect, describe, test } from 'vitest';
 import { getSchema } from '../../src/index';
+import { convertType } from '../../src/functions/schema';
+import * as fixtures from '../fixtures/schema';
 
 describe('getSchema', () => {
   test('health schema - no refs', () => {
@@ -147,6 +149,17 @@ describe('getSchema', () => {
         },
         required: ['cert_index', 'address', 'registration'],
       },
+    });
+  });
+
+  fixtures.convertType.map(fixture => {
+    test(`getMetadataFromOutputDatum: ${fixture.description}`, async () => {
+      expect(convertType(fixture.data)).toStrictEqual(fixture.result);
+    });
+  });
+  fixtures.convertTypeError.map(fixture => {
+    test(`getMetadataFromOutputDatum: ${fixture.description}`, async () => {
+      expect(() => convertType(fixture.data)).toThrowError(fixture.result);
     });
   });
 });

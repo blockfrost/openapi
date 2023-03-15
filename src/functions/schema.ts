@@ -15,6 +15,57 @@ const file = fs.readFileSync(
 );
 const spec = YAML.parse(file);
 
+export const convertType = (schema: any) => {
+  // To generate response schema supported by fast-json-stringify
+  // We need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
+  // Note: Alternative approach for values with multiple types is to use anyOf/oneOf.
+  // https://github.com/fastify/fast-json-stringify#anyof-and-oneof
+
+  if (schema.type === 'object' && schema.properties) {
+    // convert type in object properties
+    for (const property of Object.keys(schema.properties)) {
+      schema.properties[property] = convertType(schema.properties[property]);
+    }
+    return schema;
+  } else if (schema.type === 'array' && schema.items) {
+    // convert type in array items
+    schema.items = convertType(schema.items);
+    return schema;
+  } else if (Array.isArray(schema.type)) {
+    const isNullable = schema.type.includes('null');
+    if (isNullable) {
+      if (schema.type.length > 2) {
+        throw Error(
+          `Error in ${JSON.stringify(
+            schema,
+          )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
+        );
+      }
+      return {
+        ...schema,
+        type: schema.type.filter((a: string) => a !== 'null')[0],
+        nullable: true,
+      };
+    } else {
+      // edge case where type is an array with only 1 element
+      if (schema.type.length === 1) {
+        return {
+          ...schema,
+          type: schema.type[0],
+        };
+      }
+      throw Error(
+        `Error in ${JSON.stringify(
+          schema,
+        )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
+      );
+    }
+  } else {
+    // do nothing
+    return schema;
+  }
+};
+
 export const getSchemaForEndpoint = (endpointName: string) => {
   if (!spec.paths[endpointName]) {
     throw Error(
@@ -56,20 +107,24 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           );
 
           if (schemaReferenceOrValue.type) {
-            responses.response[200] = {
+            responses.response[200] = convertType({
               ...schemaReferenceOrValue,
               items: spec.components.schemas[nestedSchemaName],
-            };
+            });
           } else {
-            responses.response[200] = spec.components.schemas[nestedSchemaName];
+            responses.response[200] = convertType(
+              spec.components.schemas[nestedSchemaName],
+            );
           }
         } else {
           // is not nested reference
-          responses.response[200] = spec.components.schemas[schemaName];
+          responses.response[200] = convertType(
+            spec.components.schemas[schemaName],
+          );
         }
       } else {
         // is not reference
-        responses.response[200] = referenceOrValue;
+        responses.response[200] = convertType(referenceOrValue);
       }
 
       // anyOf case
@@ -82,7 +137,8 @@ export const getSchemaForEndpoint = (endpointName: string) => {
             '',
           );
 
-          anyOfResult['anyOf'].push(spec.components.schemas[schemaName]);
+          const item = convertType(spec.components.schemas[schemaName]);
+          anyOfResult['anyOf'].push(item);
         }
 
         responses.response[200] = anyOfResult;

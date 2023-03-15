@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- `getSchemaForEndpoint` compatibility with fast-json-stringify (array `type` not supported except for `["<type>", "null"]`)
+
 ## [0.1.56] - 2023-03-15
 
 ### Fix

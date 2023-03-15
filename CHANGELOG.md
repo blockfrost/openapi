@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.56] - 2023-03-15
+
 ### Fix
 
 - `nutlink/{address}` metadata type

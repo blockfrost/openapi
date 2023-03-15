@@ -6810,7 +6810,9 @@ export interface components {
        */
       metadata_hash: string;
       /** @description The cached metadata of the `metadata_url` file. */
-      metadata: OneOf<[string, null]>;
+      metadata: OneOf<[{
+        [key: string]: unknown | undefined;
+      }, null]>;
     };
     /**
      * @example [

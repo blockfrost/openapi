@@ -5628,6 +5628,7 @@ components:
     epoch_stake_content:
       type: array
       items:
+        type: object
         properties:
           stake_address:
             type: string
@@ -8082,8 +8083,7 @@ components:
       type: object
       properties:
         json_value:
-          type:
-            - object
+          type: object
           additionalProperties: true
           description: JSON content of the datum
       required:

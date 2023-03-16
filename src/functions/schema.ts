@@ -15,7 +15,7 @@ const file = fs.readFileSync(
 );
 const spec = YAML.parse(file);
 
-export const transformSchemaElement = (schema: any) => {
+export const transformSchemaElement = (schema: any): any => {
   // To generate response schema supported by fast-json-stringify
   // We need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
   // Note: Alternative approach for values with multiple types is to use anyOf/oneOf.
@@ -71,11 +71,12 @@ export const transformSchemaElement = (schema: any) => {
           )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
         );
       }
-      return {
+
+      return transformSchemaElement({
         ...schema,
         type: schema.type.filter((a: string) => a !== 'null')[0],
         nullable: true,
-      };
+      });
     } else {
       // edge case where type is an array with only 1 element
       if (schema.type.length === 1) {
@@ -176,8 +177,6 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           );
           anyOfResult['anyOf'].push(item);
         }
-
-        console.log('anyOfResult', endpointName, anyOfResult);
 
         responses.response[200] = anyOfResult;
       }

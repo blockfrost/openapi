@@ -30,11 +30,27 @@ export const transformSchemaElement = (schema: any) => {
         property.additionalProperties === true &&
         !property.properties
       ) {
-        // Workaround for fast-json-stringify
-        // If object's property is arbitrary object,
-        // convert {type: 'object', additionalProperties: true} to {}
-        delete schema.properties[propertyKey].type;
-        delete schema.properties[propertyKey].additionalProperties;
+        if (!property.anyOf && !property.oneOf) {
+          // Workaround for fast-json-stringify
+          // If object's property is arbitrary object,
+          // convert {type: 'object', additionalProperties: true} to {}
+          delete schema.properties[propertyKey].type;
+          delete schema.properties[propertyKey].additionalProperties;
+        }
+      }
+      if (property.anyOf) {
+        if (
+          property.anyOf.find(
+            (p: unknown) =>
+              typeof p === 'object' &&
+              p !== null &&
+              'type' in p &&
+              p.type === 'null',
+          )
+        ) {
+          // if array of anyOf items includes {"type": "null"} then set nullable to true on the parent
+          property.nullable = true;
+        }
       }
       schema.properties[propertyKey] = transformSchemaElement(
         schema.properties[propertyKey],
@@ -160,6 +176,8 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           );
           anyOfResult['anyOf'].push(item);
         }
+
+        console.log('anyOfResult', endpointName, anyOfResult);
 
         responses.response[200] = anyOfResult;
       }

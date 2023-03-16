@@ -1483,6 +1483,7 @@ describe('getSchemaForEndpoint', () => {
                     },
                   ],
                   "description": "Content of the JSON metadata",
+                  "nullable": true,
                 },
                 "tx_hash": {
                   "description": "Transaction hash that contains the specific metadata",

@@ -14,7 +14,15 @@ get:
         description: Path to the IPFS object
   responses:
     "200":
+      # TODO: If no type is specified then generated TS type is never instead of unknown
+      # https://github.com/drwpow/openapi-typescript/issues/1039
+      # As a workaround return binary data
       description: Returns the object content
+      content:
+        application/octet-stream:
+          schema:
+            type: string
+            format: binary
     "400":
       $ref: ../../../../responses/errors/400.yaml
     "403":

@@ -15,7 +15,7 @@ const file = fs.readFileSync(
 );
 const spec = YAML.parse(file);
 
-export const convertType = (schema: any) => {
+export const transformSchemaElement = (schema: any) => {
   // To generate response schema supported by fast-json-stringify
   // We need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
   // Note: Alternative approach for values with multiple types is to use anyOf/oneOf.
@@ -36,14 +36,14 @@ export const convertType = (schema: any) => {
         delete schema.properties[propertyKey].type;
         delete schema.properties[propertyKey].additionalProperties;
       }
-      schema.properties[propertyKey] = convertType(
+      schema.properties[propertyKey] = transformSchemaElement(
         schema.properties[propertyKey],
       );
     }
     return schema;
   } else if (schema.type === 'array' && schema.items) {
     // convert type in array items
-    schema.items = convertType(schema.items);
+    schema.items = transformSchemaElement(schema.items);
     return schema;
   } else if (Array.isArray(schema.type)) {
     const isNullable = schema.type.includes('null');
@@ -99,8 +99,12 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   for (const response of Object.keys(endpoint.responses)) {
     // success 200
     if (response === '200') {
+      const contentType =
+        'application/octet-stream' in endpoint.responses['200'].content
+          ? 'application/octet-stream'
+          : 'application/json';
       const referenceOrValue =
-        endpoint.responses['200'].content['application/json'].schema;
+        endpoint.responses['200'].content[contentType].schema;
 
       // is reference -> resolve references
       if (referenceOrValue['$ref']) {
@@ -121,24 +125,24 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           );
 
           if (schemaReferenceOrValue.type) {
-            responses.response[200] = convertType({
+            responses.response[200] = transformSchemaElement({
               ...schemaReferenceOrValue,
               items: spec.components.schemas[nestedSchemaName],
             });
           } else {
-            responses.response[200] = convertType(
+            responses.response[200] = transformSchemaElement(
               spec.components.schemas[nestedSchemaName],
             );
           }
         } else {
           // is not nested reference
-          responses.response[200] = convertType(
+          responses.response[200] = transformSchemaElement(
             spec.components.schemas[schemaName],
           );
         }
       } else {
         // is not reference
-        responses.response[200] = convertType(referenceOrValue);
+        responses.response[200] = transformSchemaElement(referenceOrValue);
       }
 
       // anyOf case
@@ -151,7 +155,9 @@ export const getSchemaForEndpoint = (endpointName: string) => {
             '',
           );
 
-          const item = convertType(spec.components.schemas[schemaName]);
+          const item = transformSchemaElement(
+            spec.components.schemas[schemaName],
+          );
           anyOfResult['anyOf'].push(item);
         }
 
@@ -210,6 +216,7 @@ export const getSchemaForEndpoint = (endpointName: string) => {
       }
 
       if (endpointName === '/scripts/{script_hash}/json') {
+        // TODO: no longer necessary
         responses.response[200] = scriptsJsonSchema;
       }
     }
@@ -227,6 +234,22 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   // }
 
   return responses;
+};
+
+export const generateSchemas = () => {
+  // Returns fast-json-stringify compatible schema object indexed by endpoint name
+  const endpoints = Object.keys(spec.paths);
+
+  const schemas: Record<string, unknown> = {};
+  for (const endpoint of endpoints) {
+    try {
+      schemas[endpoint] = getSchemaForEndpoint(endpoint);
+    } catch (error) {
+      console.error(`Error while processing endpoint ${endpoint}`);
+      throw error;
+    }
+  }
+  return schemas;
 };
 
 export const getSchema = (schemaName: string) => {

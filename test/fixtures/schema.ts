@@ -1,4 +1,4 @@
-export const convertType = [
+export const transformSchemaElement = [
   {
     description: 'perfectly fine object that does not need transformation',
     data: {
@@ -127,7 +127,7 @@ export const convertType = [
   },
 ];
 
-export const convertTypeError = [
+export const transformSchemaElementError = [
   {
     description: 'array type with 2 types should throw',
     data: {

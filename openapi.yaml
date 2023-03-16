@@ -4550,6 +4550,11 @@ paths:
       responses:
         '200':
           description: Returns the object content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
         '400':
           $ref: '#/components/responses/400'
         '403':

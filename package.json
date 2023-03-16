@@ -24,7 +24,7 @@
     "@vitest/coverage-c8": "^0.25.3",
     "ajv": "^8.11.2",
     "core-js": "3.1.4",
-    "openapi-typescript": "^6.1.0",
+    "openapi-typescript": "6.1.0",
     "react-is": "16.8.2",
     "redoc-cli": "^0.13.20",
     "rimraf": "^3.0.2",

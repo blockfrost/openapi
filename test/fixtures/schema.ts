@@ -107,6 +107,24 @@ export const convertType = [
       type: 'object',
     },
   },
+  {
+    description: 'object with nested arbitrary object',
+    data: {
+      type: 'object',
+      properties: {
+        key: {
+          type: 'object',
+          additionalProperties: true,
+        },
+      },
+    },
+    result: {
+      type: 'object',
+      properties: {
+        key: {},
+      },
+    },
+  },
 ];
 
 export const convertTypeError = [

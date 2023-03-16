@@ -23,8 +23,22 @@ export const convertType = (schema: any) => {
 
   if (schema.type === 'object' && schema.properties) {
     // convert type in object properties
-    for (const property of Object.keys(schema.properties)) {
-      schema.properties[property] = convertType(schema.properties[property]);
+    for (const propertyKey of Object.keys(schema.properties)) {
+      const property = schema.properties[propertyKey];
+      if (
+        property.type === 'object' &&
+        property.additionalProperties === true &&
+        !property.properties
+      ) {
+        // Workaround for fast-json-stringify
+        // If object's property is arbitrary object,
+        // convert {type: 'object', additionalProperties: true} to {}
+        delete schema.properties[propertyKey].type;
+        delete schema.properties[propertyKey].additionalProperties;
+      }
+      schema.properties[propertyKey] = convertType(
+        schema.properties[propertyKey],
+      );
     }
     return schema;
   } else if (schema.type === 'array' && schema.items) {

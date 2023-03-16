@@ -153,12 +153,12 @@ describe('getSchema', () => {
   });
 
   fixtures.convertType.map(fixture => {
-    test(`getMetadataFromOutputDatum: ${fixture.description}`, async () => {
+    test(`convertType: ${fixture.description}`, async () => {
       expect(convertType(fixture.data)).toStrictEqual(fixture.result);
     });
   });
   fixtures.convertTypeError.map(fixture => {
-    test(`getMetadataFromOutputDatum: ${fixture.description}`, async () => {
+    test(`convertType: ${fixture.description}`, async () => {
       expect(() => convertType(fixture.data)).toThrowError(fixture.result);
     });
   });

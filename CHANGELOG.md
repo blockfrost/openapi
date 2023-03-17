@@ -14,6 +14,7 @@ Unreleased changes are in the `master` branch.
 ### Fixed
 
 - `getSchemaForEndpoint` compatibility with fast-json-stringify (array in `type` not supported except for `["<type>", "null"]`, fix for nested arbitrary objects)
+- generated ts types and schema for `/ipfs/gateway/{IPFS_path}`
 
 ## [0.1.56] - 2023-03-15
 

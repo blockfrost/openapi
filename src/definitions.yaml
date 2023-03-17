@@ -71,6 +71,15 @@ info:
           </td>
       </tr>
     </table>
+    <style>
+    .hosted {
+      background-color: #0168fa;
+      border-radius: 5px;
+      padding: 4px;
+      margin-right: 2px;
+      color: white;
+    }
+    </style>
 
     ## Milkomeda
 

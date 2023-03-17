@@ -71,6 +71,15 @@ info:
           </td>
       </tr>
     </table>
+    <style>
+    .hosted {
+      background-color: #0168fa;
+      border-radius: 5px;
+      padding: 4px;
+      margin-right: 2px;
+      color: white;
+    }
+    </style>
 
     ## Milkomeda
 
@@ -1650,7 +1659,10 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Submit a transaction
-      description: Submit an already serialized transaction to the network.
+      description: |
+        Submit an already serialized transaction to the network.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: header
           name: Content-Type
@@ -2291,7 +2303,12 @@ paths:
       tags:
         - Cardano » Mempool
       summary: Mempool
-      description: Return transactions that are currently stored in Blockfrost mempool, waiting to be included in a newly minted block. Shows only transactions submitted via Blockfrost.io.
+      description: |
+        Return transactions that are currently stored in Blockfrost mempool,
+        waiting to be included in a newly minted block.
+        Shows only transactions submitted via Blockfrost.io.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: query
           name: count
@@ -2347,7 +2364,10 @@ paths:
       tags:
         - Cardano » Mempool
       summary: Specific transaction
-      description: Return content of the requested transaction.
+      description: |
+        Return content of the requested transaction.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: path
           name: hash
@@ -2381,7 +2401,11 @@ paths:
       tags:
         - Cardano » Mempool
       summary: Mempool by address
-      description: List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address. Shows only transactions submitted via Blockfrost.io.
+      description: |
+        List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
+        Shows only transactions submitted via Blockfrost.io.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: path
           name: address
@@ -4324,7 +4348,10 @@ paths:
       tags:
         - Cardano » Utilities
       summary: Submit a transaction for execution units evaluation
-      description: Submit an already serialized transaction to evaluate how much execution units it requires.
+      description: |
+        Submit an already serialized transaction to evaluate how much execution units it requires.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: header
           name: Content-Type
@@ -4374,7 +4401,10 @@ paths:
       tags:
         - Cardano » Utilities
       summary: Submit a transaction for execution units evaluation (additional UTXO set)
-      description: Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires.
+      description: |
+        Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: header
           name: Content-Type
@@ -4489,6 +4519,8 @@ paths:
       description: |
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       x-codeSamples:
         - lang: curl
           source: |
@@ -4539,7 +4571,10 @@ paths:
       tags:
         - IPFS » Gateway
       summary: Relay to an IPFS gateway
-      description: Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+      description: |
+        Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: path
           required: true
@@ -4619,7 +4654,10 @@ paths:
       tags:
         - IPFS » Pins
       summary: List pinned objects
-      description: List objects pinned to local storage
+      description: |
+        List objects pinned to local storage
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: query
           name: count
@@ -4712,7 +4750,10 @@ paths:
       tags:
         - IPFS » Pins
       summary: Get details about pinned object
-      description: Get information about locally pinned IPFS object
+      description: |
+        Get information about locally pinned IPFS object
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: path
           required: true
@@ -4780,7 +4821,10 @@ paths:
       tags:
         - IPFS » Pins
       summary: Remove a IPFS pin
-      description: Remove pinned objects from local storage
+      description: |
+        Remove pinned objects from local storage
+
+        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
       parameters:
         - in: path
           required: true

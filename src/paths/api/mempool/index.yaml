@@ -2,7 +2,12 @@ get:
   tags:
     - Cardano » Mempool
   summary: Mempool
-  description: Return transactions that are currently stored in Blockfrost mempool, waiting to be included in a newly minted block. Shows only transactions submitted via Blockfrost.io.
+  description: |
+    Return transactions that are currently stored in Blockfrost mempool,
+    waiting to be included in a newly minted block.
+    Shows only transactions submitted via Blockfrost.io.
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: query
       name: count

@@ -4,7 +4,10 @@ get:
   tags:
     - IPFS » Pins
   summary: Get details about pinned object
-  description: Get information about locally pinned IPFS object
+  description: |
+    Get information about locally pinned IPFS object
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: path
       required: true

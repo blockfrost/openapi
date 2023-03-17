@@ -2,7 +2,10 @@ get:
   tags:
     - Cardano » Mempool
   summary: Specific transaction
-  description: Return content of the requested transaction.
+  description: |
+    Return content of the requested transaction.
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: path
       name: hash

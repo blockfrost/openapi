@@ -2,7 +2,10 @@ post:
   tags:
     - Cardano » Utilities
   summary: Submit a transaction for execution units evaluation
-  description: Submit an already serialized transaction to evaluate how much execution units it requires.
+  description: |
+    Submit an already serialized transaction to evaluate how much execution units it requires.
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: header
       name: Content-Type

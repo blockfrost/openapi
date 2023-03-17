@@ -2,7 +2,10 @@ post:
   tags:
     - Cardano » Utilities
   summary: Submit a transaction for execution units evaluation (additional UTXO set)
-  description: Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires.
+  description: |
+    Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: header
       name: Content-Type

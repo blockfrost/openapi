@@ -4,7 +4,10 @@ get:
   tags:
     - IPFS » Gateway
   summary: Relay to an IPFS gateway
-  description: Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+  description: |
+    Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: path
       required: true

@@ -1251,11 +1251,15 @@ export interface paths {
     /**
      * Submit a transaction 
      * @description Submit an already serialized transaction to the network.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     post: {
       /**
        * Submit a transaction 
        * @description Submit an already serialized transaction to the network.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
         header: {
@@ -1726,12 +1730,20 @@ export interface paths {
   "/mempool": {
     /**
      * Mempool 
-     * @description Return transactions that are currently stored in Blockfrost mempool, waiting to be included in a newly minted block. Shows only transactions submitted via Blockfrost.io.
+     * @description Return transactions that are currently stored in Blockfrost mempool,
+     * waiting to be included in a newly minted block.
+     * Shows only transactions submitted via Blockfrost.io.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     get: {
       /**
        * Mempool 
-       * @description Return transactions that are currently stored in Blockfrost mempool, waiting to be included in a newly minted block. Shows only transactions submitted via Blockfrost.io.
+       * @description Return transactions that are currently stored in Blockfrost mempool,
+       * waiting to be included in a newly minted block.
+       * Shows only transactions submitted via Blockfrost.io.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters?: {
           /** @description The number of results displayed on one page. */
@@ -1766,11 +1778,15 @@ export interface paths {
     /**
      * Specific transaction 
      * @description Return content of the requested transaction.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     get: {
       /**
        * Specific transaction 
        * @description Return content of the requested transaction.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
           /**
@@ -1800,12 +1816,18 @@ export interface paths {
   "/mempool/addresses/{address}": {
     /**
      * Mempool by address 
-     * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address. Shows only transactions submitted via Blockfrost.io.
+     * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
+     * Shows only transactions submitted via Blockfrost.io.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     get: {
       /**
        * Mempool by address 
-       * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address. Shows only transactions submitted via Blockfrost.io.
+       * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
+       * Shows only transactions submitted via Blockfrost.io.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
           /** @description The number of results displayed on one page. */
@@ -3347,11 +3369,15 @@ export interface paths {
     /**
      * Submit a transaction for execution units evaluation 
      * @description Submit an already serialized transaction to evaluate how much execution units it requires.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     post: {
       /**
        * Submit a transaction for execution units evaluation 
        * @description Submit an already serialized transaction to evaluate how much execution units it requires.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
         header: {
@@ -3384,12 +3410,16 @@ export interface paths {
   "/utils/txs/evaluate/utxos": {
     /**
      * Submit a transaction for execution units evaluation (additional UTXO set) 
-     * @description Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires.
+     * @description Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     post: {
       /**
        * Submit a transaction for execution units evaluation (additional UTXO set) 
-       * @description Submit a JSON payload with transaction CBOR and additional utxo set to evaluate how much execution units it requires.
+       * @description Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
         header: {
@@ -3435,12 +3465,16 @@ export interface paths {
      * Add a file to IPFS 
      * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
      * is being counted in your user account quota.
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     post: {
       /**
        * Add a file to IPFS 
        * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
        * is being counted in your user account quota.
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       responses: {
         /** @description Returns information about added IPFS object */
@@ -3478,11 +3512,15 @@ export interface paths {
     /**
      * Relay to an IPFS gateway 
      * @description Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     get: {
       /**
        * Relay to an IPFS gateway 
        * @description Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
         path: {
@@ -3549,11 +3587,15 @@ export interface paths {
     /**
      * List pinned objects 
      * @description List objects pinned to local storage
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     get: {
       /**
        * List pinned objects 
        * @description List objects pinned to local storage
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters?: {
           /** @description The number of results displayed on one page. */
@@ -3619,11 +3661,15 @@ export interface paths {
     /**
      * Get details about pinned object 
      * @description Get information about locally pinned IPFS object
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     get: {
       /**
        * Get details about pinned object 
        * @description Get information about locally pinned IPFS object
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
         path: {
@@ -3682,11 +3728,15 @@ export interface paths {
     /**
      * Remove a IPFS pin 
      * @description Remove pinned objects from local storage
+     * 
+     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      */
     post: {
       /**
        * Remove a IPFS pin 
        * @description Remove pinned objects from local storage
+       * 
+       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        */
       parameters: {
         path: {

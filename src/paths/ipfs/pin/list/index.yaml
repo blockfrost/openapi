@@ -4,7 +4,10 @@ get:
   tags:
     - IPFS » Pins
   summary: List pinned objects
-  description: List objects pinned to local storage
+  description: |
+    List objects pinned to local storage
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
   parameters:
     - in: query
       name: count

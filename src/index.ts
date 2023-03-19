@@ -2,6 +2,7 @@ import {
   getSchemaForEndpoint,
   getSchema,
   validateSchema,
+  generateSchemas,
 } from './functions/schema';
 import {
   getOnchainMetadata,
@@ -13,6 +14,7 @@ import {
 export {
   getSchemaForEndpoint,
   getSchema,
+  generateSchemas,
   validateSchema,
   getOnchainMetadata,
   getCIPstandard,

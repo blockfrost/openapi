@@ -3529,7 +3529,11 @@ export interface paths {
       };
       responses: {
         /** @description Returns the object content */
-        200: never;
+        200: {
+          content: {
+            "application/octet-stream": string;
+          };
+        };
         400: components["responses"]["400"];
         403: components["responses"]["403"];
         404: components["responses"]["404"];

@@ -1,6 +1,6 @@
 import { expect, describe, test } from 'vitest';
 import { getSchema } from '../../src/index';
-import { convertType } from '../../src/functions/schema';
+import { transformSchemaElement } from '../../src/functions/schema';
 import * as fixtures from '../fixtures/schema';
 
 describe('getSchema', () => {
@@ -152,14 +152,23 @@ describe('getSchema', () => {
     });
   });
 
-  fixtures.convertType.map(fixture => {
-    test(`getMetadataFromOutputDatum: ${fixture.description}`, async () => {
-      expect(convertType(fixture.data)).toStrictEqual(fixture.result);
+  fixtures.transformSchemaElement.map(fixture => {
+    test(`transformSchemaElement: ${fixture.description}`, async () => {
+      expect(transformSchemaElement(fixture.data)).toStrictEqual(
+        fixture.result,
+      );
     });
   });
-  fixtures.convertTypeError.map(fixture => {
-    test(`getMetadataFromOutputDatum: ${fixture.description}`, async () => {
-      expect(() => convertType(fixture.data)).toThrowError(fixture.result);
+  fixtures.transformSchemaElementError.map(fixture => {
+    test(`transformSchemaElement: ${fixture.description}`, async () => {
+      expect(() => transformSchemaElement(fixture.data)).toThrowError(
+        fixture.result,
+      );
+    });
+    test(`transformSchemaElement: ${fixture.description}`, async () => {
+      expect(() => transformSchemaElement(fixture.data)).toThrowError(
+        fixture.result,
+      );
     });
   });
 });

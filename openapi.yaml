@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  version: 0.1.56
+  version: 0.1.57
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -4585,6 +4585,11 @@ paths:
       responses:
         '200':
           description: Returns the object content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
         '400':
           $ref: '#/components/responses/400'
         '403':

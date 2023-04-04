@@ -1,4 +1,5 @@
 import { expect, describe, test } from 'vitest';
+import { generateSchemas } from '../../src/functions/schema';
 import { getSchemaForEndpoint } from '../../src/index';
 import {
   error400,
@@ -836,5 +837,960 @@ describe('getSchemaForEndpoint', () => {
         properties: { slot_number: { type: 'integer' } },
       },
     });
+  });
+
+  test('/utils/txs/evaluate/utxos', () => {
+    expect(getSchemaForEndpoint('/utils/txs/evaluate/utxos')).toStrictEqual({
+      response: {
+        '200': { type: 'object', additionalProperties: true },
+        '400': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 400 },
+            error: { type: 'string', example: 'Bad Request' },
+            message: {
+              type: 'string',
+              example: 'Backend did not understand your request.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '403': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 403 },
+            error: { type: 'string', example: 'Forbidden' },
+            message: { type: 'string', example: 'Invalid project token.' },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '404': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 404 },
+            error: { type: 'string', example: 'Not Found' },
+            message: {
+              type: 'string',
+              example: 'The requested component has not been found.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '418': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 418 },
+            error: { type: 'string', example: 'Requested Banned' },
+            message: {
+              type: 'string',
+              example: 'IP has been auto-banned for flooding.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '425': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 425 },
+            error: { type: 'string', example: 'Mempool Full' },
+            message: {
+              type: 'string',
+              example: 'Mempool is full, please try resubmitting again later.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '429': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 429 },
+            error: { type: 'string', example: 'Project Over Limit' },
+            message: { type: 'string', example: 'Usage is over limit.' },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '500': {
+          type: 'object',
+          properties: {
+            status_code: { type: 'integer', example: 500 },
+            error: { type: 'string', example: 'Internal Server Error' },
+            message: {
+              type: 'string',
+              example: 'An unexpected response was received from the backend.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+      },
+    });
+  });
+
+  test('/scripts/datum/{datum_hash}', () => {
+    expect(getSchemaForEndpoint('/scripts/datum/{datum_hash}')).toStrictEqual({
+      response: {
+        '200': {
+          type: 'object',
+          properties: {
+            json_value: {
+              description: 'JSON content of the datum',
+            },
+          },
+          required: ['json_value'],
+          example: {
+            json_value: {
+              int: 42,
+            },
+          },
+        },
+        '400': {
+          type: 'object',
+          properties: {
+            status_code: {
+              type: 'integer',
+              example: 400,
+            },
+            error: {
+              type: 'string',
+              example: 'Bad Request',
+            },
+            message: {
+              type: 'string',
+              example: 'Backend did not understand your request.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '403': {
+          type: 'object',
+          properties: {
+            status_code: {
+              type: 'integer',
+              example: 403,
+            },
+            error: {
+              type: 'string',
+              example: 'Forbidden',
+            },
+            message: {
+              type: 'string',
+              example: 'Invalid project token.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '404': {
+          type: 'object',
+          properties: {
+            status_code: {
+              type: 'integer',
+              example: 404,
+            },
+            error: {
+              type: 'string',
+              example: 'Not Found',
+            },
+            message: {
+              type: 'string',
+              example: 'The requested component has not been found.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '418': {
+          type: 'object',
+          properties: {
+            status_code: {
+              type: 'integer',
+              example: 418,
+            },
+            error: {
+              type: 'string',
+              example: 'Requested Banned',
+            },
+            message: {
+              type: 'string',
+              example: 'IP has been auto-banned for flooding.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '429': {
+          type: 'object',
+          properties: {
+            status_code: {
+              type: 'integer',
+              example: 429,
+            },
+            error: {
+              type: 'string',
+              example: 'Project Over Limit',
+            },
+            message: {
+              type: 'string',
+              example: 'Usage is over limit.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+        '500': {
+          type: 'object',
+          properties: {
+            status_code: {
+              type: 'integer',
+              example: 500,
+            },
+            error: {
+              type: 'string',
+              example: 'Internal Server Error',
+            },
+            message: {
+              type: 'string',
+              example: 'An unexpected response was received from the backend.',
+            },
+          },
+          required: ['status_code', 'error', 'message'],
+        },
+      },
+      params: {
+        type: 'object',
+        properties: {
+          datum_hash: {
+            type: 'string',
+          },
+        },
+      },
+    });
+  });
+  test('/scripts/{script_hash}/json', () => {
+    expect(getSchemaForEndpoint('/scripts/{script_hash}/json'))
+      .toMatchInlineSnapshot(`
+      {
+        "params": {
+          "properties": {
+            "script_hash": {
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "response": {
+          "200": {
+            "properties": {
+              "json": {
+                "nullable": true,
+              },
+            },
+            "required": [
+              "json",
+            ],
+            "type": "object",
+          },
+          "400": {
+            "properties": {
+              "error": {
+                "example": "Bad Request",
+                "type": "string",
+              },
+              "message": {
+                "example": "Backend did not understand your request.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 400,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "403": {
+            "properties": {
+              "error": {
+                "example": "Forbidden",
+                "type": "string",
+              },
+              "message": {
+                "example": "Invalid project token.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 403,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "404": {
+            "properties": {
+              "error": {
+                "example": "Not Found",
+                "type": "string",
+              },
+              "message": {
+                "example": "The requested component has not been found.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 404,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "418": {
+            "properties": {
+              "error": {
+                "example": "Requested Banned",
+                "type": "string",
+              },
+              "message": {
+                "example": "IP has been auto-banned for flooding.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 418,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "429": {
+            "properties": {
+              "error": {
+                "example": "Project Over Limit",
+                "type": "string",
+              },
+              "message": {
+                "example": "Usage is over limit.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 429,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "500": {
+            "properties": {
+              "error": {
+                "example": "Internal Server Error",
+                "type": "string",
+              },
+              "message": {
+                "example": "An unexpected response was received from the backend.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 500,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+        },
+      }
+    `);
+  });
+
+  test('/txs/{hash}/metadata', () => {
+    expect(getSchemaForEndpoint('/txs/{hash}/metadata')).toMatchInlineSnapshot(`
+      {
+        "params": {
+          "properties": {
+            "hash": {
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "response": {
+          "200": {
+            "items": {
+              "properties": {
+                "json_metadata": {},
+                "label": {
+                  "type": "string",
+                },
+              },
+              "required": [
+                "label",
+                "json_metadata",
+              ],
+              "type": "object",
+            },
+            "type": "array",
+          },
+          "400": {
+            "properties": {
+              "error": {
+                "example": "Bad Request",
+                "type": "string",
+              },
+              "message": {
+                "example": "Backend did not understand your request.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 400,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "403": {
+            "properties": {
+              "error": {
+                "example": "Forbidden",
+                "type": "string",
+              },
+              "message": {
+                "example": "Invalid project token.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 403,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "404": {
+            "properties": {
+              "error": {
+                "example": "Not Found",
+                "type": "string",
+              },
+              "message": {
+                "example": "The requested component has not been found.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 404,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "418": {
+            "properties": {
+              "error": {
+                "example": "Requested Banned",
+                "type": "string",
+              },
+              "message": {
+                "example": "IP has been auto-banned for flooding.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 418,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "429": {
+            "properties": {
+              "error": {
+                "example": "Project Over Limit",
+                "type": "string",
+              },
+              "message": {
+                "example": "Usage is over limit.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 429,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "500": {
+            "properties": {
+              "error": {
+                "example": "Internal Server Error",
+                "type": "string",
+              },
+              "message": {
+                "example": "An unexpected response was received from the backend.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 500,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+        },
+      }
+    `);
+  });
+  test('/metadata/txs/labels/{label}', () => {
+    expect(getSchemaForEndpoint('/metadata/txs/labels/{label}'))
+      .toMatchInlineSnapshot(`
+      {
+        "params": {
+          "properties": {
+            "label": {
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "querystring": {
+          "properties": {
+            "count": {
+              "default": 100,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer",
+            },
+            "order": {
+              "default": "asc",
+              "enum": [
+                "asc",
+                "desc",
+              ],
+              "type": "string",
+            },
+            "page": {
+              "default": 1,
+              "maximum": 21474836,
+              "minimum": 1,
+              "type": "integer",
+            },
+          },
+          "type": "object",
+        },
+        "response": {
+          "200": {
+            "example": [
+              {
+                "json_metadata": {
+                  "ADAUSD": [
+                    {
+                      "source": "ergoOracles",
+                      "value": "0.10409800535729975",
+                    },
+                  ],
+                },
+                "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
+              },
+              {
+                "json_metadata": {
+                  "ADAUSD": [
+                    {
+                      "source": "ergoOracles",
+                      "value": "0.15409850555139935",
+                    },
+                  ],
+                },
+                "tx_hash": "e865f2cc01ca7381cf98dcdc4de07a5e8674b8ea16e6a18e3ed60c186fde2b9c",
+              },
+              {
+                "json_metadata": null,
+                "tx_hash": "4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be",
+              },
+            ],
+            "items": {
+              "properties": {
+                "json_metadata": {
+                  "additionalProperties": true,
+                  "anyOf": [
+                    {
+                      "type": "string",
+                    },
+                    {
+                      "additionalProperties": true,
+                      "type": "object",
+                    },
+                    {
+                      "items": {},
+                      "type": "array",
+                    },
+                    {
+                      "type": "integer",
+                    },
+                    {
+                      "type": "number",
+                    },
+                    {
+                      "type": "boolean",
+                    },
+                    {
+                      "type": "null",
+                    },
+                  ],
+                  "description": "Content of the JSON metadata",
+                  "nullable": true,
+                },
+                "tx_hash": {
+                  "description": "Transaction hash that contains the specific metadata",
+                  "type": "string",
+                },
+              },
+              "required": [
+                "tx_hash",
+                "json_metadata",
+              ],
+              "type": "object",
+            },
+            "type": "array",
+          },
+          "400": {
+            "properties": {
+              "error": {
+                "example": "Bad Request",
+                "type": "string",
+              },
+              "message": {
+                "example": "Backend did not understand your request.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 400,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "403": {
+            "properties": {
+              "error": {
+                "example": "Forbidden",
+                "type": "string",
+              },
+              "message": {
+                "example": "Invalid project token.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 403,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "404": {
+            "properties": {
+              "error": {
+                "example": "Not Found",
+                "type": "string",
+              },
+              "message": {
+                "example": "The requested component has not been found.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 404,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "418": {
+            "properties": {
+              "error": {
+                "example": "Requested Banned",
+                "type": "string",
+              },
+              "message": {
+                "example": "IP has been auto-banned for flooding.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 418,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "429": {
+            "properties": {
+              "error": {
+                "example": "Project Over Limit",
+                "type": "string",
+              },
+              "message": {
+                "example": "Usage is over limit.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 429,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "500": {
+            "properties": {
+              "error": {
+                "example": "Internal Server Error",
+                "type": "string",
+              },
+              "message": {
+                "example": "An unexpected response was received from the backend.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 500,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+        },
+      }
+    `);
+  });
+
+  test('/ipfs/gateway/{IPFS_path}', () => {
+    expect(getSchemaForEndpoint('/ipfs/gateway/{IPFS_path}'))
+      .toMatchInlineSnapshot(`
+      {
+        "params": {
+          "properties": {
+            "IPFS_path": {
+              "description": "Path to the IPFS object",
+              "type": "string",
+            },
+          },
+          "type": "object",
+        },
+        "response": {
+          "200": {
+            "format": "binary",
+            "type": "string",
+          },
+          "400": {
+            "properties": {
+              "error": {
+                "example": "Bad Request",
+                "type": "string",
+              },
+              "message": {
+                "example": "Backend did not understand your request.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 400,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "403": {
+            "properties": {
+              "error": {
+                "example": "Forbidden",
+                "type": "string",
+              },
+              "message": {
+                "example": "Invalid project token.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 403,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "404": {
+            "properties": {
+              "error": {
+                "example": "Not Found",
+                "type": "string",
+              },
+              "message": {
+                "example": "The requested component has not been found.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 404,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "418": {
+            "properties": {
+              "error": {
+                "example": "Requested Banned",
+                "type": "string",
+              },
+              "message": {
+                "example": "IP has been auto-banned for flooding.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 418,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "429": {
+            "properties": {
+              "error": {
+                "example": "Project Over Limit",
+                "type": "string",
+              },
+              "message": {
+                "example": "Usage is over limit.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 429,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+          "500": {
+            "properties": {
+              "error": {
+                "example": "Internal Server Error",
+                "type": "string",
+              },
+              "message": {
+                "example": "An unexpected response was received from the backend.",
+                "type": "string",
+              },
+              "status_code": {
+                "example": 500,
+                "type": "integer",
+              },
+            },
+            "required": [
+              "status_code",
+              "error",
+              "message",
+            ],
+            "type": "object",
+          },
+        },
+      }
+    `);
+  });
+
+  test(`generateSchemas`, async () => {
+    expect(generateSchemas()).toMatchSnapshot();
   });
 });

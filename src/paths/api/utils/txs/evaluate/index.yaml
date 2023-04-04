@@ -1,0 +1,51 @@
+post:
+  tags:
+    - Cardano » Utilities
+  summary: Submit a transaction for execution units evaluation
+  description: |
+    Submit an already serialized transaction to evaluate how much execution units it requires.
+
+    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+  parameters:
+    - in: header
+      name: Content-Type
+      required: true
+      schema:
+        type: string
+        enum: ["application/cbor"]
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        # Assuming `tx.data` is a CBOR serialized transaction on the file-system.
+        # (encoded using base16 or base64)
+        curl "https://cardano-mainnet.blockfrost.io/api/v0/utils/txs/evaluate" \
+          -X POST \
+          -H "Content-Type: application/cbor" \
+          -H "project_id: $PROJECT_ID" \
+          --data @./tx.data
+  responses:
+    "200":
+      description: |
+        Returns result of EvaluateTx function from Ogmios see
+        <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+        and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: true
+    "400":
+      $ref: ../../../../../responses/errors/400.yaml
+    "403":
+      $ref: ../../../../../responses/errors/403.yaml
+    "404":
+      $ref: ../../../../../responses/errors/404.yaml
+    "418":
+      $ref: ../../../../../responses/errors/418.yaml
+    "425":
+      $ref: ../../../../../responses/errors/425.yaml
+    "429":
+      $ref: ../../../../../responses/errors/429.yaml
+    "500":
+      $ref: ../../../../../responses/errors/500.yaml

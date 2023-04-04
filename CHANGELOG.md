@@ -7,15 +7,82 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 
 Unreleased changes are in the `master` branch.
 
-## [0.1.x] - Unreleased
+## [Unreleased]
+
+## [0.1.57] - 2023-03-17
+
+### Fixed
+
+- `getSchemaForEndpoint` compatibility with fast-json-stringify (array in `type` not supported except for `["<type>", "null"]`, fix for nested arbitrary objects)
+- generated ts types and schema for `/ipfs/gateway/{IPFS_path}`
+
+## [0.1.56] - 2023-03-15
+
+### Fix
+
+- `nutlink/{address}` metadata type
+
+## [0.1.55] - 2023-03-15
+
+### Added
+
+- `/utils/txs/evaluate/utxos` method
+- initial support for POST endpoints to `getSchemaForEndpoint`
+- additional IPFS description
+
+### Changed
+
+- Migrated to OpenAPI 3.1.0
+
+### Removed
+
+- named error responses from OpenAPI spec (overusage_limit, mempool_full, pin_queue_full, autobanned, not_found, internal_server_error, unauthorized_error, bad_request).
+
+### Fixed
+
+- CIP25v2 metadata validation improvements (gracefully handling of CIP25v1 metadata passed as v2)
+
+## [0.1.54] - 2023-02-03
+
+### Fixed
+
+- missing `CIP68v1` in `onchain_metadata_standard` enum
+
+## [0.1.53] - 2023-02-02
+
+### Added
+
+- `/mempool/addresses/{address}` endpoint
+
+### Fixed
+
+- `/mempool/{hash}` field `inline_datum` in transaction output now returns CBOR
+- `/utils/txs/evaluate` example and Ogmios API Reference URL
+- CIP25v2 validation (`getOnchainMetadata`)
+
+## [0.1.52] 2023-01-02
+
+### Added
+
+- `validateCIP68Metadata` util function returns the validated metadata with proper TS type
+
+### Changed
+
+- document data source of `decimals` field in `/addresses/{address}/extended`
+
+## [0.1.51] - 2022-12-29
+
+### Added
+
+- `validateCIP68Metadata` util function to validate CIP68 metadata
 
 ## [0.1.50] - 2022-12-13
 
-## Added
+### Added
 
 - `address` field to `/addresses/{address}/utxos` and `/addresses/{address}/utxos/{asset}`
 
-## Fixed
+### Fixed
 
 - table HTML tags
 - missing summaries

@@ -1,7 +1,9 @@
 type: object
 properties:
- json_value:
-   description: JSON content of the datum
+  json_value:
+    type: object
+    additionalProperties: true
+    description: JSON content of the datum
 required:
   - json_value
 example:

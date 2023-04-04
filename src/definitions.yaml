@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
-  version: "0.1.50"
+  version: "0.1.57"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -71,6 +71,15 @@ info:
           </td>
       </tr>
     </table>
+    <style>
+    .hosted {
+      background-color: #0168fa;
+      border-radius: 5px;
+      padding: 4px;
+      margin-right: 2px;
+      color: white;
+    }
+    </style>
 
     ## Milkomeda
 
@@ -90,6 +99,8 @@ info:
     * All hex encoded values are lower case.
     * Examples are not based on real data. Any resemblance to actual events is purely coincidental.
     * We allow to upload files up to 100MB of size to IPFS. This might increase in the future.
+    * Only pinned IPFS files are counted towards the IPFS quota.
+    * Non-pinned IPFS files are subject to regular garbage collection and will be removed unless pinned.
     * We allow maximum of 100 queued pins per IPFS user.
 
     ## Errors
@@ -408,6 +419,9 @@ paths:
   /mempool/{hash}:
     $ref: ./paths/api/mempool/{hash}/index.yaml
 
+  /mempool/addresses/{address}:
+    $ref: ./paths/api/mempool/addresses/{address}/index.yaml
+
   /metadata/txs/labels:
     $ref: ./paths/api/metadata/txs/labels/index.yaml
 
@@ -517,7 +531,10 @@ paths:
     $ref: ./paths/api/utils/addresses/xpub/{xpub}/{role}/{index}/index.yaml
 
   /utils/txs/evaluate:
-    $ref: ./paths/api/utils/txs/evaluate.yaml
+    $ref: ./paths/api/utils/txs/evaluate/index.yaml
+
+  /utils/txs/evaluate/utxos:
+    $ref: ./paths/api/utils/txs/evaluate/utxos.yaml
 
   /ipfs/add:
     $ref: ./paths/ipfs/add.yaml
@@ -565,31 +582,37 @@ components:
   schemas:
     onchain_metadata_cip25:
       $ref: ./schemas/assets/asset_onchain_metadata_cip25.yaml
+    onchain_metadata_cip68_ft_333:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip68_ft_333.yaml
+    onchain_metadata_cip68_nft_222:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip68_nft_222.yaml
 
-  responses:
-    overusage_limit:
-      $ref: ./responses/errors/429.yaml
+  # TODO: these below break OpenAPI 3.1.0 types gen
+  # Not sure if there are used tho
+  # responses:
+  #   overusage_limit:
+  #     $ref: ./responses/errors/429.yaml
 
-    mempool_full:
-      $ref: ./responses/errors/425.yaml
+  #   mempool_full:
+  #     $ref: ./responses/errors/425.yaml
 
-    pin_queue_full:
-      $ref: ./responses/errors/425-2.yaml
+  #   pin_queue_full:
+  #     $ref: ./responses/errors/425-2.yaml
 
-    autobanned:
-      $ref: ./responses/errors/418.yaml
+  #   autobanned:
+  #     $ref: ./responses/errors/418.yaml
 
-    not_found:
-      $ref: ./responses/errors/404.yaml
+  #   not_found:
+  #     $ref: ./responses/errors/404.yaml
 
-    internal_server_error:
-      $ref: ./responses/errors/500.yaml
+  #   internal_server_error:
+  #     $ref: ./responses/errors/500.yaml
 
-    unauthorized_error:
-      $ref: ./responses/errors/403.yaml
+  #   unauthorized_error:
+  #     $ref: ./responses/errors/403.yaml
 
-    bad_request:
-      $ref: ./responses/errors/400.yaml
+  #   bad_request:
+  #     $ref: ./responses/errors/400.yaml
 
   securitySchemes:
     ApiKeyAuth:

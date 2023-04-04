@@ -9,8 +9,9 @@ properties:
     example: true
     description: Registration state of an account
   active_epoch:
-    type: integer
-    nullable: true
+    type:
+      - integer
+      - "null"
     example: 412
     description: Epoch of the most recent action - registration or deregistration
   controlled_amount:
@@ -38,8 +39,9 @@ properties:
     example: "319154618165"
     description: Sum of available rewards that haven't been withdrawn yet for the account in the Lovelaces
   pool_id:
-    type: string
-    nullable: true
+    type:
+      - string
+      - "null"
     example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
     description: Bech32 pool ID that owns the account
 required:

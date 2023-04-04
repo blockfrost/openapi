@@ -6,10 +6,10 @@ items:
       type: string
       description: Metadata label
     json_metadata:
-      additionalProperties: true
       oneOf:
         - type: string
         - type: object
+          additionalProperties: true
       description: Content of the metadata
   required:
     - label

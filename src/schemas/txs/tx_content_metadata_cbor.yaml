@@ -7,12 +7,14 @@ items:
       description: Metadata label
     cbor_metadata:
       deprecated: true
-      type: string
-      nullable: true
+      type:
+        - string
+        - "null"
       description: Content of the CBOR metadata
     metadata:
-      type: string
-      nullable: true
+      type:
+        - string
+        - "null"
       description: Content of the CBOR metadata in hex
   required:
     - label

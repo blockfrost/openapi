@@ -38,37 +38,44 @@ items:
       example:
         - "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
     metadata:
-      type: object
-      nullable: true
+      type:
+        - object
+        - "null"
       properties:
         url:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           example: "https://stakenuts.com/mainnet.json"
           description: URL to the stake pool metadata
         hash:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           example: "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
           description: Hash of the metadata file
         ticker:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           example: "NUTS"
           description: Ticker of the stake pool
         name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           example: "Stake Nuts"
           description: Name of the stake pool
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           example: "The best pool ever"
           description: Description of the stake pool
         homepage:
-          type: string
-          nullable: true
+          type:
+            - string
+            - "null"
           example: "https://stakentus.com/"
           description: Home page of the stake pool
       required:
@@ -84,23 +91,27 @@ items:
         type: object
         properties:
           ipv4:
-            type: string
-            nullable: true
+            type:
+              - string
+              - "null"
             example: "4.4.4.4"
             description: IPv4 address of the relay
           ipv6:
-            type: string
-            nullable: true
+            type:
+              - string
+              - "null"
             example: "https://stakenuts.com/mainnet.json"
             description: IPv6 address of the relay
           dns:
-            type: string
-            nullable: true
+            type:
+              - string
+              - "null"
             example: "relay1.stakenuts.com"
             description: DNS name of the relay
           dns_srv:
-            type: string
-            nullable: true
+            type:
+              - string
+              - "null"
             example: "_relays._tcp.relays.stakenuts.com"
             description: DNS SRV entry of the relay
           port:

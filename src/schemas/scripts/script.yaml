@@ -10,8 +10,9 @@ properties:
     example: "plutusV1"
     description: Type of the script language
   serialised_size:
-    type: integer
-    nullable: true
+    type:
+      - integer
+      - "null"
     description: The size of the CBOR serialised script, if a Plutus script
     example: 3119
 required:

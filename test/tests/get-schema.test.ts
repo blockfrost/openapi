@@ -1,5 +1,7 @@
 import { expect, describe, test } from 'vitest';
 import { getSchema } from '../../src/index';
+import { transformSchemaElement } from '../../src/functions/schema';
+import * as fixtures from '../fixtures/schema';
 
 describe('getSchema', () => {
   test('health schema - no refs', () => {
@@ -12,8 +14,7 @@ describe('getSchema', () => {
           description: 'Block creation time in UNIX time',
         },
         height: {
-          type: 'integer',
-          nullable: true,
+          type: ['integer', 'null'],
           example: 15243593,
           description: 'Block number',
         },
@@ -24,20 +25,17 @@ describe('getSchema', () => {
           description: 'Hash of the block',
         },
         slot: {
-          type: 'integer',
-          nullable: true,
+          type: ['integer', 'null'],
           example: 412162133,
           description: 'Slot number',
         },
         epoch: {
-          type: 'integer',
-          nullable: true,
+          type: ['integer', 'null'],
           example: 425,
           description: 'Epoch number',
         },
         epoch_slot: {
-          type: 'integer',
-          nullable: true,
+          type: ['integer', 'null'],
           example: 12,
           description: 'Slot within the epoch',
         },
@@ -58,20 +56,17 @@ describe('getSchema', () => {
           description: 'Number of transactions in the block',
         },
         output: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example: '128314491794',
           description: 'Total output within the block in Lovelaces',
         },
         fees: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example: '592661',
           description: 'Total fees within the block in Lovelaces',
         },
         block_vrf: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example:
             'vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty',
           description: 'VRF key of the block',
@@ -79,30 +74,26 @@ describe('getSchema', () => {
           maxLength: 65,
         },
         op_cert: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example:
             'da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c',
           description:
             'The hash of the operational certificate of the block producer',
         },
         op_cert_counter: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example: '18',
           description:
             'The value of the counter used to produce the operational certificate',
         },
         previous_block: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example:
             '43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05',
           description: 'Hash of the previous block',
         },
         next_block: {
-          type: 'string',
-          nullable: true,
+          type: ['string', 'null'],
           example:
             '8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa',
           description: 'Hash of the next block',
@@ -158,6 +149,26 @@ describe('getSchema', () => {
         },
         required: ['cert_index', 'address', 'registration'],
       },
+    });
+  });
+
+  fixtures.transformSchemaElement.map(fixture => {
+    test(`transformSchemaElement: ${fixture.description}`, async () => {
+      expect(transformSchemaElement(fixture.data)).toStrictEqual(
+        fixture.result,
+      );
+    });
+  });
+  fixtures.transformSchemaElementError.map(fixture => {
+    test(`transformSchemaElement: ${fixture.description}`, async () => {
+      expect(() => transformSchemaElement(fixture.data)).toThrowError(
+        fixture.result,
+      );
+    });
+    test(`transformSchemaElement: ${fixture.description}`, async () => {
+      expect(() => transformSchemaElement(fixture.data)).toThrowError(
+        fixture.result,
+      );
     });
   });
 });

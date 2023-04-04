@@ -15,6 +15,88 @@ const file = fs.readFileSync(
 );
 const spec = YAML.parse(file);
 
+export const transformSchemaElement = (schema: any): any => {
+  // To generate response schema supported by fast-json-stringify
+  // We need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
+  // Note: Alternative approach for values with multiple types is to use anyOf/oneOf.
+  // https://github.com/fastify/fast-json-stringify#anyof-and-oneof
+
+  if (schema.type === 'object' && schema.properties) {
+    // convert type in object properties
+    for (const propertyKey of Object.keys(schema.properties)) {
+      const property = schema.properties[propertyKey];
+      if (
+        property.type === 'object' &&
+        property.additionalProperties === true &&
+        !property.properties
+      ) {
+        if (!property.anyOf && !property.oneOf) {
+          // Workaround for fast-json-stringify
+          // If object's property is arbitrary object,
+          // convert {type: 'object', additionalProperties: true} to {}
+          delete schema.properties[propertyKey].type;
+          delete schema.properties[propertyKey].additionalProperties;
+        }
+      }
+      if (property.anyOf) {
+        if (
+          property.anyOf.find(
+            (p: unknown) =>
+              typeof p === 'object' &&
+              p !== null &&
+              'type' in p &&
+              p.type === 'null',
+          )
+        ) {
+          // if array of anyOf items includes {"type": "null"} then set nullable to true on the parent
+          property.nullable = true;
+        }
+      }
+      schema.properties[propertyKey] = transformSchemaElement(
+        schema.properties[propertyKey],
+      );
+    }
+    return schema;
+  } else if (schema.type === 'array' && schema.items) {
+    // convert type in array items
+    schema.items = transformSchemaElement(schema.items);
+    return schema;
+  } else if (Array.isArray(schema.type)) {
+    const isNullable = schema.type.includes('null');
+    if (isNullable) {
+      if (schema.type.length > 2) {
+        throw Error(
+          `Error in ${JSON.stringify(
+            schema,
+          )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
+        );
+      }
+
+      return transformSchemaElement({
+        ...schema,
+        type: schema.type.filter((a: string) => a !== 'null')[0],
+        nullable: true,
+      });
+    } else {
+      // edge case where type is an array with only 1 element
+      if (schema.type.length === 1) {
+        return {
+          ...schema,
+          type: schema.type[0],
+        };
+      }
+      throw Error(
+        `Error in ${JSON.stringify(
+          schema,
+        )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
+      );
+    }
+  } else {
+    // do nothing
+    return schema;
+  }
+};
+
 export const getSchemaForEndpoint = (endpointName: string) => {
   if (!spec.paths[endpointName]) {
     throw Error(
@@ -23,13 +105,23 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   }
 
   const responses: any = { response: {} };
-  for (const response of Object.keys(spec.paths[endpointName].get.responses)) {
+
+  // Hacky way to support POST endpoints.
+  // Primarily pick GET with a fallback to POST
+  // TODO: return body of POST endpoints
+  // https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#validation
+  const method = 'post' in spec.paths[endpointName] ? 'post' : 'get';
+  const endpoint = spec.paths[endpointName][method];
+
+  for (const response of Object.keys(endpoint.responses)) {
     // success 200
     if (response === '200') {
+      const contentType =
+        'application/octet-stream' in endpoint.responses['200'].content
+          ? 'application/octet-stream'
+          : 'application/json';
       const referenceOrValue =
-        spec.paths[endpointName].get.responses['200'].content[
-          'application/json'
-        ].schema;
+        endpoint.responses['200'].content[contentType].schema;
 
       // is reference -> resolve references
       if (referenceOrValue['$ref']) {
@@ -50,20 +142,24 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           );
 
           if (schemaReferenceOrValue.type) {
-            responses.response[200] = {
+            responses.response[200] = transformSchemaElement({
               ...schemaReferenceOrValue,
               items: spec.components.schemas[nestedSchemaName],
-            };
+            });
           } else {
-            responses.response[200] = spec.components.schemas[nestedSchemaName];
+            responses.response[200] = transformSchemaElement(
+              spec.components.schemas[nestedSchemaName],
+            );
           }
         } else {
           // is not nested reference
-          responses.response[200] = spec.components.schemas[schemaName];
+          responses.response[200] = transformSchemaElement(
+            spec.components.schemas[schemaName],
+          );
         }
       } else {
         // is not reference
-        responses.response[200] = referenceOrValue;
+        responses.response[200] = transformSchemaElement(referenceOrValue);
       }
 
       // anyOf case
@@ -76,13 +172,16 @@ export const getSchemaForEndpoint = (endpointName: string) => {
             '',
           );
 
-          anyOfResult['anyOf'].push(spec.components.schemas[schemaName]);
+          const item = transformSchemaElement(
+            spec.components.schemas[schemaName],
+          );
+          anyOfResult['anyOf'].push(item);
         }
 
         responses.response[200] = anyOfResult;
       }
 
-      const parameters = spec.paths[endpointName].get.parameters;
+      const parameters = endpoint.parameters;
 
       if (parameters) {
         const queryParams = parameters.filter((i: any) => i.in === 'query');
@@ -100,12 +199,12 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           };
         }
 
-        const pathparams = parameters.filter((i: any) => i.in === 'path');
+        const pathParams = parameters.filter((i: any) => i.in === 'path');
 
-        if (pathparams && pathparams.length > 0) {
+        if (pathParams && pathParams.length > 0) {
           let pathProps: any = {};
 
-          pathparams.forEach((param: any) => {
+          pathParams.forEach((param: any) => {
             delete param.schema.format;
             pathProps[param.name] = param.schema;
           });
@@ -134,6 +233,7 @@ export const getSchemaForEndpoint = (endpointName: string) => {
       }
 
       if (endpointName === '/scripts/{script_hash}/json') {
+        // TODO: no longer necessary
         responses.response[200] = scriptsJsonSchema;
       }
     }
@@ -151,6 +251,22 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   // }
 
   return responses;
+};
+
+export const generateSchemas = () => {
+  // Returns fast-json-stringify compatible schema object indexed by endpoint name
+  const endpoints = Object.keys(spec.paths);
+
+  const schemas: Record<string, unknown> = {};
+  for (const endpoint of endpoints) {
+    try {
+      schemas[endpoint] = getSchemaForEndpoint(endpoint);
+    } catch (error) {
+      console.error(`Error while processing endpoint ${endpoint}`);
+      throw error;
+    }
+  }
+  return schemas;
 };
 
 export const getSchema = (schemaName: string) => {

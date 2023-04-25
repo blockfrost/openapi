@@ -14,6 +14,6 @@ content:
           type: string
           example: "Usage is over limit."
       required:
-        - status_code
         - error
         - message
+        - status_code

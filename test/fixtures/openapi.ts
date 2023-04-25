@@ -13,7 +13,7 @@ export const error400 = {
       type: 'integer',
     },
   },
-  required: ['status_code', 'error', 'message'],
+  required: ['error', 'message', 'status_code'],
   type: 'object',
 };
 
@@ -32,7 +32,7 @@ export const error403 = {
       type: 'integer',
     },
   },
-  required: ['status_code', 'error', 'message'],
+  required: ['error', 'message', 'status_code'],
   type: 'object',
 };
 
@@ -51,7 +51,7 @@ export const error418 = {
       type: 'integer',
     },
   },
-  required: ['status_code', 'error', 'message'],
+  required: ['error', 'message', 'status_code'],
   type: 'object',
 };
 
@@ -70,7 +70,7 @@ export const error429 = {
       type: 'integer',
     },
   },
-  required: ['status_code', 'error', 'message'],
+  required: ['error', 'message', 'status_code'],
   type: 'object',
 };
 
@@ -89,7 +89,7 @@ export const error500 = {
       type: 'integer',
     },
   },
-  required: ['status_code', 'error', 'message'],
+  required: ['error', 'message', 'status_code'],
   type: 'object',
 };
 
@@ -108,6 +108,6 @@ export const error404 = {
       type: 'integer',
     },
   },
-  required: ['status_code', 'error', 'message'],
+  required: ['error', 'message', 'status_code'],
   type: 'object',
 };

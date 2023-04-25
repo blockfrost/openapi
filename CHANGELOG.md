@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Changed
+
+- unify error message format order `{status_code, message, error}` -> `{error, message, status_code}`
+
 ## [0.1.57] - 2023-03-17
 
 ### Fixed

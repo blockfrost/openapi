@@ -14,6 +14,6 @@ content:
           type: string
           example: "IP has been auto-banned for flooding."
       required:
-        - status_code
         - error
         - message
+        - status_code

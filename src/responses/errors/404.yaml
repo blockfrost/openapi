@@ -14,6 +14,6 @@ content:
           type: string
           example: "The requested component has not been found."
       required:
-        - status_code
         - error
         - message
+        - status_code

@@ -8675,9 +8675,9 @@ components:
                 type: string
                 example: Backend did not understand your request.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '403':
       description: Authentication secret is missing or invalid
       content:
@@ -8695,9 +8695,9 @@ components:
                 type: string
                 example: Invalid project token.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '404':
       description: Component not found
       content:
@@ -8715,9 +8715,9 @@ components:
                 type: string
                 example: The requested component has not been found.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '418':
       description: IP has been auto-banned for extensive sending of requests after usage limit has been reached
       content:
@@ -8735,9 +8735,9 @@ components:
                 type: string
                 example: IP has been auto-banned for flooding.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '425':
       description: Mempool is already full, not accepting new txs straight away
       content:
@@ -8755,9 +8755,9 @@ components:
                 type: string
                 example: Mempool is full, please try resubmitting again later.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '429':
       description: Usage limit reached
       content:
@@ -8775,9 +8775,9 @@ components:
                 type: string
                 example: Usage is over limit.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '500':
       description: Internal Server Error
       content:
@@ -8795,9 +8795,9 @@ components:
                 type: string
                 example: An unexpected response was received from the backend.
             required:
-              - status_code
               - error
               - message
+              - status_code
     425-2:
       description: Pin queue is currently full, not accepting new txs straight away
       content:
@@ -8815,6 +8815,6 @@ components:
                 type: string
                 example: Your pin queue is currently full, please try pinning again later.
             required:
-              - status_code
               - error
               - message
+              - status_code

@@ -14,6 +14,6 @@ content:
           type: string
           example: "Mempool is full, please try resubmitting again later."
       required:
-        - status_code
         - error
         - message
+        - status_code

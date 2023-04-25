@@ -14,6 +14,6 @@ content:
           type: string
           example: "Backend did not understand your request."
       required:
-        - status_code
         - error
         - message
+        - status_code

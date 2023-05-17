@@ -20,21 +20,32 @@ export type validateCIP68MetadataOverload = {
   (input: validateCIP68MetadataInput, type: 'ft'):
     | {
         version: 'CIP68v1';
+        extra: string | undefined;
         metadata: Schemas['onchain_metadata_cip68_ft_333'];
       }
     | false;
   (input: validateCIP68MetadataInput, type: 'nft'):
     | {
         version: 'CIP68v1';
+        extra: string | undefined;
         metadata: Schemas['onchain_metadata_cip68_nft_222'];
       }
     | false;
-  (input: validateCIP68MetadataInput, type: 'nft' | 'ft'):
+  (input: validateCIP68MetadataInput, type: 'rft'):
     | {
         version: 'CIP68v1';
+        extra: string | undefined;
+        metadata: Schemas['onchain_metadata_cip68_rft_444'];
+      }
+    | false;
+  (input: validateCIP68MetadataInput, type: 'nft' | 'ft' | 'rft'):
+    | {
+        version: 'CIP68v1';
+        extra: string | undefined;
         metadata:
           | Schemas['onchain_metadata_cip68_nft_222']
-          | Schemas['onchain_metadata_cip68_ft_333'];
+          | Schemas['onchain_metadata_cip68_ft_333']
+          | Schemas['onchain_metadata_cip68_rft_444'];
       }
     | false;
 };

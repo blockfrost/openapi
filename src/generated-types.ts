@@ -4049,6 +4049,7 @@ export interface components {
     onchain_metadata_cip25: components["schemas"]["asset_onchain_metadata_cip25"];
     onchain_metadata_cip68_ft_333: components["schemas"]["asset_onchain_metadata_cip68_ft_333"];
     onchain_metadata_cip68_nft_222: components["schemas"]["asset_onchain_metadata_cip68_nft_222"];
+    onchain_metadata_cip68_rft_444: components["schemas"]["asset_onchain_metadata_cip68_rft_444"];
     block_content: {
       /**
        * @description Block creation time in UNIX time 
@@ -6361,6 +6362,8 @@ export interface components {
        * @enum {string|null}
        */
       onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | null;
+      /** @description Arbitrary plutus data (CIP68). */
+      onchain_metadata_extra?: OneOf<[string, null]>;
       /**
        * @description Off-chain metadata fetched from GitHub based on network.
        * Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
@@ -7062,6 +7065,56 @@ export interface components {
        * @example image/jpeg
        */
       mediaType?: string;
+      files?: ({
+          /**
+           * @description Name of the file 
+           * @example myimage
+           */
+          name?: string;
+          /**
+           * @description Mime sub-type of image 
+           * @example image/jpeg
+           */
+          mediaType: string;
+          /**
+           * @description URI pointing to a resource of this mime type 
+           * @example My NFT token description
+           */
+          src: string | (string)[];
+          [key: string]: unknown | undefined;
+        })[];
+      [key: string]: unknown | undefined;
+    };
+    /**
+     * @description On-chain metadata stored in the datum of the reference NFT output
+     * which adheres to 222 NFT Standard https://cips.cardano.org/cips/cip68/
+     */
+    asset_onchain_metadata_cip68_rft_444: {
+      /**
+       * @description Name of the asset 
+       * @example My NFT token
+       */
+      name: string;
+      /**
+       * @description URI(s) of the associated asset 
+       * @example ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+       */
+      image: string;
+      /**
+       * @description Additional description 
+       * @example My NFT token description
+       */
+      description?: string;
+      /**
+       * @description Mime sub-type of image 
+       * @example image/jpeg
+       */
+      mediaType?: string;
+      /**
+       * @description Number of decimals 
+       * @example 8
+       */
+      decimals?: number;
       files?: ({
           /**
            * @description Name of the file 

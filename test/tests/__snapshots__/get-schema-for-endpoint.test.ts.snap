@@ -4414,6 +4414,12 @@ based on which we perform the look up and display the asset
             "nullable": true,
             "type": "object",
           },
+          "onchain_metadata_extra": {
+            "description": "Arbitrary plutus data (CIP68).
+",
+            "nullable": true,
+            "type": "string",
+          },
           "onchain_metadata_standard": {
             "description": "If on-chain metadata passes validation, we display the standard
 under which it is valid

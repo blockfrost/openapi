@@ -586,6 +586,8 @@ components:
       $ref: ./schemas/assets/asset_onchain_metadata_cip68_ft_333.yaml
     onchain_metadata_cip68_nft_222:
       $ref: ./schemas/assets/asset_onchain_metadata_cip68_nft_222.yaml
+    onchain_metadata_cip68_rft_444:
+      $ref: ./schemas/assets/asset_onchain_metadata_cip68_rft_444.yaml
 
   # TODO: these below break OpenAPI 3.1.0 types gen
   # Not sure if there are used tho

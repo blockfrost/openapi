@@ -9,6 +9,11 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- CIP68 RFT 444 support
+- `onchain_metadata_extra` in asset schema
+
 ### Changed
 
 - unify error message format order `{status_code, message, error}` -> `{error, message, status_code}`

@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.58] - 2023-05-17
+
 ### Added
 
 - CIP68 RFT 444 support
@@ -470,7 +472,7 @@ Unreleased changes are in the `master` branch.
 ### Fixed
 
 - `onchain_metadata` in `/assets/{asset}/total` endpoint that could have been missing in some special cases
-- `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow https://github.com/cardano-foundation/CIPs/pull/85/files
+- `onchain_metadata` in `/assets/:asset` endpoint to return null on malformed data which do not follow <https://github.com/cardano-foundation/CIPs/pull/85/files>
 
 ## [0.1.15] - 2021-05-19
 

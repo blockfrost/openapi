@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- `ajv` as dev instead of devDep in package.json
+
 ## [0.1.58] - 2023-05-17
 
 ### Added

@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Changed
+
+- URL for downloading OpenAPI spec
+
 ### Fixed
 
 - `ajv` as dev instead of devDep in package.json

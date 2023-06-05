@@ -14,25 +14,21 @@
     "prepublish": "yarn build",
     "bundle": "openapi bundle -o ./openapi.yaml src/definitions.yaml",
     "lint": "openapi lint src/definitions.yaml",
-    "generate-docs": "redoc-cli build -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
+    "generate-docs": "yarn redocly build-docs -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
     "generate-types": "openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "build": "rimraf lib && yarn bundle && yarn generate-types && yarn generate-docs && yarn tsc",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@redocly/cli": "^1.0.0-beta.123",
     "@vitest/coverage-c8": "^0.25.3",
-    "core-js": "3.1.4",
     "openapi-typescript": "6.1.0",
-    "react-is": "16.8.2",
-    "redoc-cli": "^0.13.20",
     "rimraf": "^3.0.2",
     "typescript": "^5.0.2",
-    "vite": "^3.2.4",
     "vitest": "^0.24.3"
   },
   "dependencies": {
-    "@redocly/cli": "^1.0.0-beta.123",
     "ajv": "^8.11.2",
     "cbor": "^8.1.0",
     "yaml": "^2.2.1"

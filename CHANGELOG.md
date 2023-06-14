@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- exported patched fastify-compatible JSONSchema to `json-schema.json`
+
 ### Changed
 
 - URL for downloading OpenAPI spec

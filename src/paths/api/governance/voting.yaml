@@ -9,7 +9,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: ../../../schemas/xxx
+            $ref: ../../../schemas/blo
     "400":
       $ref: ../../../responses/errors/400.yaml
     "403":

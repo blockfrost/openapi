@@ -474,6 +474,174 @@ export interface paths {
       };
     };
   };
+  "/governance/actions": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{id}": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/distribution/{epoch_number}": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals/voting": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/treasury": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/voting": {
+    /**
+     * xxx 
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx 
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/epochs/latest": {
     /**
      * Latest epoch 
@@ -4452,6 +4620,111 @@ export interface components {
        * @example 34482
        */
       coins_per_utxo_word: OneOf<[string, null]>;
+      /**
+       * @description DRep Vote threshold for motion of no-confidence. 
+       * @example 1
+       */
+      p1: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for new committee/threshold (normal state). 
+       * @example 1
+       */
+      p2a: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for new committee/threshold (state of no-confidence). 
+       * @example 1
+       */
+      p2b: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for update to the Constitution. 
+       * @example 1
+       */
+      p3: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for update to the Constitution. 
+       * @example 1
+       */
+      p4: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, network group. 
+       * @example 1
+       */
+      p5a: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, economic group. 
+       * @example 1
+       */
+      p5b: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, technical group. 
+       * @example 1
+       */
+      p5c: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, governance group. 
+       * @example 1
+       */
+      p5d: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for treasury withdrawal. 
+       * @example 1
+       */
+      p6: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for info 
+       * @example 1
+       */
+      p7: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for motion of no-confidence. 
+       * @example 1
+       */
+      q1: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for new committee/threshold (normal state). 
+       * @example 1
+       */
+      q2a: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for new committee/threshold (state of no-confidence). 
+       * @example 1
+       */
+      q2b: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for hard-fork initiation. 
+       * @example 1
+       */
+      q4: OneOf<[number, null]>;
+      /**
+       * @description Minimal constitutional committee size. 
+       * @example 20
+       */
+      min_c_c_size: OneOf<[string, null]>;
+      /**
+       * @description Constitutional committee term limits. 
+       * @example 2000000
+       */
+      cc_term_limit: OneOf<[string, null]>;
+      /**
+       * @description Governance action expiration. 
+       * @example 1
+       */
+      gov_expiration: OneOf<[string, null]>;
+      /**
+       * @description Governance action deposit. 
+       * @example 1000000
+       */
+      gov_deposit: OneOf<[string, null]>;
+      /**
+       * @description DRep activity period. 
+       * @example 1000000
+       */
+      drep_activity: OneOf<[string, null]>;
+      /**
+       * @description The Tx table index for the transaction that contains this parameter proposal. 
+       * @example 1
+       */
+      registered_tx_id: OneOf<[number, null]>;
     };
     epoch_content_array: (components["schemas"]["epoch_content"])[];
     epoch_stake_content: ({

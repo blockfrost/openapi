@@ -6,10 +6,10 @@ get:
   responses:
     "200":
       description: Return the genesis parameters.
-      content:
-        application/json:
-          schema:
-            $ref: ../../../schemas/xxx
+      # content:
+      #   application/json:
+      #     schema:
+      #       $ref: ../../../schemas/xxx
     "400":
       $ref: ../../../../responses/errors/400.yaml
     "403":

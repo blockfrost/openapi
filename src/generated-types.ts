@@ -3,14 +3,19 @@
  * Do not make direct changes to the file.
  */
 
-
 /** OneOf type helpers */
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
-type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
-type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+type XOR<T, U> = T | U extends object
+  ? (Without<T, U> & U) | (Without<U, T> & T)
+  : T | U;
+type OneOf<T extends any[]> = T extends [infer Only]
+  ? Only
+  : T extends [infer A, infer B, ...infer Rest]
+  ? OneOf<[XOR<A, B>, ...Rest]>
+  : never;
 
 export interface paths {
-  "/": {
+  '/': {
     /**
      * Root endpoint
      * @description Root endpoint has no other function than to point end users to documentation.
@@ -20,7 +25,7 @@ export interface paths {
         /** @description Information pointing to the documentation. */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               /** @example https://blockfrost.io/ */
               url: string;
               /** @example 0.1.0 */
@@ -28,15 +33,15 @@ export interface paths {
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/health": {
+  '/health': {
     /**
      * Backend health status
      * @description Return backend status as a boolean. Your application should handle situations when backend for the given chain is unavailable.
@@ -46,21 +51,21 @@ export interface paths {
         /** @description Return the boolean indicating the health of the backend. */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               /** @example true */
               is_healthy: boolean;
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/health/clock": {
+  '/health/clock': {
     /**
      * Current backend time
      * @description This endpoint provides the current UNIX time. Your application might
@@ -71,7 +76,7 @@ export interface paths {
         /** @description Return the current UNIX time in milliseconds. */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               /**
                * Format: int64
                * @example 1603400958947
@@ -80,15 +85,15 @@ export interface paths {
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/latest": {
+  '/blocks/latest': {
     /**
      * Latest block
      * @description Return the latest block available to the backends, also known as the
@@ -99,19 +104,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content"];
+            'application/json': components['schemas']['block_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/latest/txs": {
+  '/blocks/latest/txs': {
     /**
      * Latest block transactions
      * @description Return the transactions within the latest block.
@@ -128,26 +133,26 @@ export interface paths {
            * The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content_txs"];
+            'application/json': components['schemas']['block_content_txs'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/{hash_or_number}": {
+  '/blocks/{hash_or_number}': {
     /**
      * Specific block
      * @description Return the content of a requested block.
@@ -166,19 +171,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content"];
+            'application/json': components['schemas']['block_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/{hash_or_number}/next": {
+  '/blocks/{hash_or_number}/next': {
     /**
      * Listing of next blocks
      * @description Return the list of blocks following a specific block.
@@ -203,19 +208,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content_array"];
+            'application/json': components['schemas']['block_content_array'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/{hash_or_number}/previous": {
+  '/blocks/{hash_or_number}/previous': {
     /**
      * Listing of previous blocks
      * @description Return the list of blocks preceding a specific block.
@@ -240,19 +245,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content_array"];
+            'application/json': components['schemas']['block_content_array'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/slot/{slot_number}": {
+  '/blocks/slot/{slot_number}': {
     /**
      * Specific block in a slot
      * @description Return the content of a requested block for a specific slot.
@@ -271,19 +276,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content"];
+            'application/json': components['schemas']['block_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/epoch/{epoch_number}/slot/{slot_number}": {
+  '/blocks/epoch/{epoch_number}/slot/{slot_number}': {
     /**
      * Specific block in a slot in an epoch
      * @description Return the content of a requested block for a specific slot in an epoch.
@@ -307,19 +312,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content"];
+            'application/json': components['schemas']['block_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/{hash_or_number}/txs": {
+  '/blocks/{hash_or_number}/txs': {
     /**
      * Block transactions
      * @description Return the transactions within the block.
@@ -336,7 +341,7 @@ export interface paths {
            * The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -350,19 +355,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content_txs"];
+            'application/json': components['schemas']['block_content_txs'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/blocks/{hash_or_number}/addresses": {
+  '/blocks/{hash_or_number}/addresses': {
     /**
      * Addresses affected in a specific block
      * @description Return list of addresses affected in the specified block with additional information, sorted by the bech32 address, ascending.
@@ -387,19 +392,19 @@ export interface paths {
         /** @description Return the contents of the block */
         200: {
           content: {
-            "application/json": components["schemas"]["block_content_addresses"];
+            'application/json': components['schemas']['block_content_addresses'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/genesis": {
+  '/genesis': {
     /**
      * Blockchain genesis
      * @description Return the information about blockchain genesis.
@@ -409,18 +414,186 @@ export interface paths {
         /** @description Return the genesis parameters. */
         200: {
           content: {
-            "application/json": components["schemas"]["genesis_content"];
+            'application/json': components['schemas']['genesis_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/latest": {
+  '/governance/actions': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/dreps': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/dreps/{id}': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/dreps/distribution/{epoch_number}': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/proposals': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/proposals/voting': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/treasury': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/governance/voting': {
+    /**
+     * xxx
+     * @description xxx
+     */
+    get: {
+      /**
+       * xxx
+       * @description xxx
+       */
+      responses: {
+        /** @description Return the genesis parameters. */
+        200: never;
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
+      };
+    };
+  };
+  '/epochs/latest': {
     /**
      * Latest epoch
      * @description Return the information about the latest, therefore current, epoch.
@@ -430,19 +603,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_content"];
+            'application/json': components['schemas']['epoch_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/latest/parameters": {
+  '/epochs/latest/parameters': {
     /**
      * Latest epoch protocol parameters
      * @description Return the protocol parameters for the latest epoch.
@@ -452,19 +625,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_param_content"];
+            'application/json': components['schemas']['epoch_param_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}": {
+  '/epochs/{number}': {
     /**
      * Specific epoch
      * @description Return the content of the requested epoch.
@@ -483,19 +656,19 @@ export interface paths {
         /** @description Return the epoch data. */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_content"];
+            'application/json': components['schemas']['epoch_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/next": {
+  '/epochs/{number}/next': {
     /**
      * Listing of next epochs
      * @description Return the list of epochs following a specific epoch.
@@ -520,19 +693,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_content_array"];
+            'application/json': components['schemas']['epoch_content_array'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/previous": {
+  '/epochs/{number}/previous': {
     /**
      * Listing of previous epochs
      * @description Return the list of epochs preceding a specific epoch.
@@ -557,19 +730,19 @@ export interface paths {
         /** @description Return the epoch data */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_content_array"];
+            'application/json': components['schemas']['epoch_content_array'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/stakes": {
+  '/epochs/{number}/stakes': {
     /**
      * Stake distribution
      * @description Return the active stake distribution for the specified epoch.
@@ -594,19 +767,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_stake_content"];
+            'application/json': components['schemas']['epoch_stake_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/stakes/{pool_id}": {
+  '/epochs/{number}/stakes/{pool_id}': {
     /**
      * Stake distribution by pool
      * @description Return the active stake distribution for the epoch specified by stake pool.
@@ -636,19 +809,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_stake_pool_content"];
+            'application/json': components['schemas']['epoch_stake_pool_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/blocks": {
+  '/epochs/{number}/blocks': {
     /**
      * Block distribution
      * @description Return the blocks minted for the epoch specified.
@@ -664,7 +837,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -678,19 +851,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_block_content"];
+            'application/json': components['schemas']['epoch_block_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/blocks/{pool_id}": {
+  '/epochs/{number}/blocks/{pool_id}': {
     /**
      * Block distribution by pool
      * @description Return the block minted for the epoch specified by stake pool.
@@ -706,7 +879,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -725,19 +898,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_block_content"];
+            'application/json': components['schemas']['epoch_block_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/epochs/{number}/parameters": {
+  '/epochs/{number}/parameters': {
     /**
      * Protocol parameters
      * @description Return the protocol parameters for the epoch specified.
@@ -756,19 +929,19 @@ export interface paths {
         /** @description Return the data about the epoch */
         200: {
           content: {
-            "application/json": components["schemas"]["epoch_param_content"];
+            'application/json': components['schemas']['epoch_param_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}": {
+  '/txs/{hash}': {
     /**
      * Specific transaction
      * @description Return content of the requested transaction.
@@ -787,19 +960,19 @@ export interface paths {
         /** @description Return the contents of the transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content"];
+            'application/json': components['schemas']['tx_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/utxos": {
+  '/txs/{hash}/utxos': {
     /**
      * Transaction UTXOs
      * @description Return the inputs and UTXOs of the specific transaction.
@@ -818,19 +991,19 @@ export interface paths {
         /** @description Return the contents of the transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_utxo"];
+            'application/json': components['schemas']['tx_content_utxo'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/stakes": {
+  '/txs/{hash}/stakes': {
     /**
      * Transaction stake addresses certificates
      * @description Obtain information about (de)registration of stake addresses within a transaction.
@@ -849,19 +1022,19 @@ export interface paths {
         /** @description Obtain information about (de)registration of stake addresses within a transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_stake_addr"];
+            'application/json': components['schemas']['tx_content_stake_addr'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/delegations": {
+  '/txs/{hash}/delegations': {
     /**
      * Transaction delegation certificates
      * @description Obtain information about delegation certificates of a specific transaction.
@@ -880,19 +1053,19 @@ export interface paths {
         /** @description Obtain information about delegation certificates of a specific transaction */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_delegations"];
+            'application/json': components['schemas']['tx_content_delegations'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/withdrawals": {
+  '/txs/{hash}/withdrawals': {
     /**
      * Transaction withdrawal
      * @description Obtain information about withdrawals of a specific transaction.
@@ -911,19 +1084,19 @@ export interface paths {
         /** @description Obtain information about withdrawals of a specific transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_withdrawals"];
+            'application/json': components['schemas']['tx_content_withdrawals'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/mirs": {
+  '/txs/{hash}/mirs': {
     /**
      * Transaction MIRs
      * @description Obtain information about Move Instantaneous Rewards (MIRs) of a specific transaction.
@@ -942,19 +1115,19 @@ export interface paths {
         /** @description Obtain information about Move Instantaneous Rewards (MIRs) of a specific transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_mirs"];
+            'application/json': components['schemas']['tx_content_mirs'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/pool_updates": {
+  '/txs/{hash}/pool_updates': {
     /**
      * Transaction stake pool registration and update certificates
      * @description Obtain information about stake pool registration and update certificates of a specific transaction.
@@ -973,19 +1146,19 @@ export interface paths {
         /** @description Obtain information about stake pool certificates of a specific transaction */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_pool_certs"];
+            'application/json': components['schemas']['tx_content_pool_certs'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/pool_retires": {
+  '/txs/{hash}/pool_retires': {
     /**
      * Transaction stake pool retirement certificates
      * @description Obtain information about stake pool retirements within a specific transaction.
@@ -1004,19 +1177,19 @@ export interface paths {
         /** @description Obtain information about stake pool retirements within a specific transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_pool_retires"];
+            'application/json': components['schemas']['tx_content_pool_retires'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/metadata": {
+  '/txs/{hash}/metadata': {
     /**
      * Transaction metadata
      * @description Obtain the transaction metadata.
@@ -1035,19 +1208,19 @@ export interface paths {
         /** @description Obtain metadata information associated with a specific transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_metadata"];
+            'application/json': components['schemas']['tx_content_metadata'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/metadata/cbor": {
+  '/txs/{hash}/metadata/cbor': {
     /**
      * Transaction metadata in CBOR
      * @description Obtain the transaction metadata in CBOR.
@@ -1066,19 +1239,19 @@ export interface paths {
         /** @description Obtain metadata information associated with a specific transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_metadata_cbor"];
+            'application/json': components['schemas']['tx_content_metadata_cbor'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/redeemers": {
+  '/txs/{hash}/redeemers': {
     /**
      * Transaction redeemers
      * @description Obtain the transaction redeemers.
@@ -1097,19 +1270,19 @@ export interface paths {
         /** @description Obtain information about redeemers within a specific transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_redeemers"];
+            'application/json': components['schemas']['tx_content_redeemers'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/txs/{hash}/required_signers": {
+  '/txs/{hash}/required_signers': {
     /**
      * Transaction required signers
      * @description Extra transaction witnesses
@@ -1128,19 +1301,19 @@ export interface paths {
         /** @description Query required signers (extra transaction witnesses) */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_content_required_signers"];
+            'application/json': components['schemas']['tx_content_required_signers'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/tx/submit": {
+  '/tx/submit': {
     /**
      * Submit a transaction
      * @description Submit an already serialized transaction to the network.
@@ -1154,27 +1327,27 @@ export interface paths {
       requestBody: {
         content: {
           /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573 */
-          "application/cbor": string;
+          'application/cbor': string;
         };
       };
       responses: {
         /** @description Return the ID of the submitted transaction. */
         200: {
           content: {
-            "application/json": string;
+            'application/json': string;
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        425: components["responses"]["425"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        425: components['responses']['425'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}": {
+  '/accounts/{stake_address}': {
     /**
      * Specific account address
      * @description Obtain information about a specific stake account.
@@ -1193,19 +1366,19 @@ export interface paths {
         /** @description Return the account content. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_content"];
+            'application/json': components['schemas']['account_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/rewards": {
+  '/accounts/{stake_address}/rewards': {
     /**
      * Account reward history
      * @description Obtain information about the reward history of a specific account.
@@ -1221,7 +1394,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1235,19 +1408,19 @@ export interface paths {
         /** @description Return the account content. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_reward_content"];
+            'application/json': components['schemas']['account_reward_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/history": {
+  '/accounts/{stake_address}/history': {
     /**
      * Account history
      * @description Obtain information about the history of a specific account.
@@ -1263,7 +1436,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1277,19 +1450,19 @@ export interface paths {
         /** @description Return the account content. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_history_content"];
+            'application/json': components['schemas']['account_history_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/delegations": {
+  '/accounts/{stake_address}/delegations': {
     /**
      * Account delegation history
      * @description Obtain information about the delegation of a specific account.
@@ -1305,7 +1478,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1319,19 +1492,19 @@ export interface paths {
         /** @description Return the account delegations content */
         200: {
           content: {
-            "application/json": components["schemas"]["account_delegation_content"];
+            'application/json': components['schemas']['account_delegation_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/registrations": {
+  '/accounts/{stake_address}/registrations': {
     /**
      * Account registration history
      * @description Obtain information about the registrations and deregistrations of a specific account.
@@ -1347,7 +1520,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1361,19 +1534,19 @@ export interface paths {
         /** @description Return the account registration content. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_registration_content"];
+            'application/json': components['schemas']['account_registration_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/withdrawals": {
+  '/accounts/{stake_address}/withdrawals': {
     /**
      * Account withdrawal history
      * @description Obtain information about the withdrawals of a specific account.
@@ -1389,7 +1562,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1403,19 +1576,19 @@ export interface paths {
         /** @description Return the account withdrawal content. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_withdrawal_content"];
+            'application/json': components['schemas']['account_withdrawal_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/mirs": {
+  '/accounts/{stake_address}/mirs': {
     /**
      * Account MIR history
      * @description Obtain information about the MIRs of a specific account.
@@ -1431,7 +1604,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1445,19 +1618,19 @@ export interface paths {
         /** @description Return the account MIR content. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_mir_content"];
+            'application/json': components['schemas']['account_mir_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/addresses": {
+  '/accounts/{stake_address}/addresses': {
     /**
      * Account associated addresses
      * @description Obtain information about the addresses of a specific account.
@@ -1474,7 +1647,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1488,19 +1661,19 @@ export interface paths {
         /** @description Return the account addresses content */
         200: {
           content: {
-            "application/json": components["schemas"]["account_addresses_content"];
+            'application/json': components['schemas']['account_addresses_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/addresses/assets": {
+  '/accounts/{stake_address}/addresses/assets': {
     /**
      * Assets associated with the account addresses
      * @description Obtain information about assets associated with addresses of a specific account.
@@ -1517,7 +1690,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1531,19 +1704,19 @@ export interface paths {
         /** @description Return the account addresses content */
         200: {
           content: {
-            "application/json": components["schemas"]["account_addresses_assets"];
+            'application/json': components['schemas']['account_addresses_assets'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/accounts/{stake_address}/addresses/total": {
+  '/accounts/{stake_address}/addresses/total': {
     /**
      * Detailed information about account associated addresses
      * @description Obtain summed details about all addresses associated with a given account.
@@ -1563,19 +1736,19 @@ export interface paths {
         /** @description Return the Address details. */
         200: {
           content: {
-            "application/json": components["schemas"]["account_addresses_total"];
+            'application/json': components['schemas']['account_addresses_total'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/mempool": {
+  '/mempool': {
     /**
      * Mempool
      * @description Return transactions that are currently stored in Blockfrost mempool,
@@ -1597,26 +1770,26 @@ export interface paths {
            * @description Ordered by the time of transaction submission.
            * By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the contents of the mempool */
         200: {
           content: {
-            "application/json": components["schemas"]["mempool_content"];
+            'application/json': components['schemas']['mempool_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/mempool/{hash}": {
+  '/mempool/{hash}': {
     /**
      * Specific transaction in the mempool
      * @description Return content of the requested transaction.
@@ -1639,19 +1812,19 @@ export interface paths {
         /** @description Return the contents of the transaction. */
         200: {
           content: {
-            "application/json": components["schemas"]["mempool_tx_content"];
+            'application/json': components['schemas']['mempool_tx_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/mempool/addresses/{address}": {
+  '/mempool/addresses/{address}': {
     /**
      * Mempool by address
      * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
@@ -1672,7 +1845,7 @@ export interface paths {
            * @description Ordered by the time of transaction submission.
            * By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1686,19 +1859,19 @@ export interface paths {
         /** @description Return the contents of the mempool */
         200: {
           content: {
-            "application/json": components["schemas"]["mempool_addresses_content"];
+            'application/json': components['schemas']['mempool_addresses_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/metadata/txs/labels": {
+  '/metadata/txs/labels': {
     /**
      * Transaction metadata labels
      * @description List of all used transaction metadata labels.
@@ -1714,26 +1887,26 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the account metadata content in CBOR */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_metadata_labels"];
+            'application/json': components['schemas']['tx_metadata_labels'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/metadata/txs/labels/{label}": {
+  '/metadata/txs/labels/{label}': {
     /**
      * Transaction metadata content in JSON
      * @description Transaction metadata per label.
@@ -1749,7 +1922,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1763,19 +1936,19 @@ export interface paths {
         /** @description Return the account metadata content */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_metadata_label_json"];
+            'application/json': components['schemas']['tx_metadata_label_json'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/metadata/txs/labels/{label}/cbor": {
+  '/metadata/txs/labels/{label}/cbor': {
     /**
      * Transaction metadata content in CBOR
      * @description Transaction metadata per label.
@@ -1791,7 +1964,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1805,19 +1978,19 @@ export interface paths {
         /** @description Return the account metadata content in CBOR */
         200: {
           content: {
-            "application/json": components["schemas"]["tx_metadata_label_cbor"];
+            'application/json': components['schemas']['tx_metadata_label_cbor'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}": {
+  '/addresses/{address}': {
     /**
      * Specific address
      * @description Obtain information about a specific address.
@@ -1836,19 +2009,19 @@ export interface paths {
         /** @description Return the address content. */
         200: {
           content: {
-            "application/json": components["schemas"]["address_content"];
+            'application/json': components['schemas']['address_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}/extended": {
+  '/addresses/{address}/extended': {
     /**
      * Extended information of a specific address
      * @description Obtain extended information about a specific address.
@@ -1867,19 +2040,19 @@ export interface paths {
         /** @description Return the address content. */
         200: {
           content: {
-            "application/json": components["schemas"]["address_content_extended"];
+            'application/json': components['schemas']['address_content_extended'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}/total": {
+  '/addresses/{address}/total': {
     /**
      * Address details
      * @description Obtain details about an address.
@@ -1898,19 +2071,19 @@ export interface paths {
         /** @description Return the Address details. */
         200: {
           content: {
-            "application/json": components["schemas"]["address_content_total"];
+            'application/json': components['schemas']['address_content_total'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}/utxos": {
+  '/addresses/{address}/utxos': {
     /**
      * Address UTXOs
      * @description UTXOs of the address.
@@ -1926,7 +2099,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1940,19 +2113,19 @@ export interface paths {
         /** @description Return the address content */
         200: {
           content: {
-            "application/json": components["schemas"]["address_utxo_content"];
+            'application/json': components['schemas']['address_utxo_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}/utxos/{asset}": {
+  '/addresses/{address}/utxos/{asset}': {
     /**
      * Address UTXOs of a given asset
      * @description UTXOs of the address.
@@ -1968,7 +2141,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -1987,19 +2160,19 @@ export interface paths {
         /** @description Return the address content */
         200: {
           content: {
-            "application/json": components["schemas"]["address_utxo_content"];
+            'application/json': components['schemas']['address_utxo_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}/txs": {
+  '/addresses/{address}/txs': {
     /**
      * Address txs
      * @deprecated
@@ -2016,7 +2189,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2030,19 +2203,19 @@ export interface paths {
         /** @description Return the address content */
         200: {
           content: {
-            "application/json": components["schemas"]["address_txs_content"];
+            'application/json': components['schemas']['address_txs_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/addresses/{address}/transactions": {
+  '/addresses/{address}/transactions': {
     /**
      * Address transactions
      * @description Transactions on the address.
@@ -2058,7 +2231,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
           /**
            * @description The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
            * Has to be lower than or equal to `to` parameter.
@@ -2086,19 +2259,19 @@ export interface paths {
         /** @description Return the address content */
         200: {
           content: {
-            "application/json": components["schemas"]["address_transactions_content"];
+            'application/json': components['schemas']['address_transactions_content'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools": {
+  '/pools': {
     /**
      * List of stake pools
      * @description List of registered stake pools.
@@ -2114,26 +2287,26 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the list of pools. */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_list"];
+            'application/json': components['schemas']['pool_list'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/extended": {
+  '/pools/extended': {
     /**
      * List of stake pools with additional information
      * @description List of registered stake pools with additional information.
@@ -2149,26 +2322,26 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the list of pools. */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_list_extended"];
+            'application/json': components['schemas']['pool_list_extended'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/retired": {
+  '/pools/retired': {
     /**
      * List of retired stake pools
      * @description List of already retired pools.
@@ -2184,26 +2357,26 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the pool information content */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_list_retire"];
+            'application/json': components['schemas']['pool_list_retire'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/retiring": {
+  '/pools/retiring': {
     /**
      * List of retiring stake pools
      * @description List of stake pools retiring in the upcoming epochs
@@ -2219,26 +2392,26 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return the pool information content */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_list_retire"];
+            'application/json': components['schemas']['pool_list_retire'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}": {
+  '/pools/{pool_id}': {
     /**
      * Specific stake pool
      * @description Pool information.
@@ -2257,19 +2430,19 @@ export interface paths {
         /** @description Return the pool information content */
         200: {
           content: {
-            "application/json": components["schemas"]["pool"];
+            'application/json': components['schemas']['pool'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}/history": {
+  '/pools/{pool_id}/history': {
     /**
      * Stake pool history
      * @description History of stake pool parameters over epochs.
@@ -2285,7 +2458,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2299,19 +2472,19 @@ export interface paths {
         /** @description Return the pool information content. */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_history"];
+            'application/json': components['schemas']['pool_history'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}/metadata": {
+  '/pools/{pool_id}/metadata': {
     /**
      * Stake pool metadata
      * @description Stake pool registration metadata.
@@ -2330,19 +2503,21 @@ export interface paths {
         /** @description Return the pool metadata content. */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_metadata"] | components["schemas"]["empty_object"];
+            'application/json':
+              | components['schemas']['pool_metadata']
+              | components['schemas']['empty_object'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}/relays": {
+  '/pools/{pool_id}/relays': {
     /**
      * Stake pool relays
      * @description Relays of a stake pool.
@@ -2361,19 +2536,19 @@ export interface paths {
         /** @description Return the pool relays information content. */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_relays"];
+            'application/json': components['schemas']['pool_relays'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}/delegators": {
+  '/pools/{pool_id}/delegators': {
     /**
      * Stake pool delegators
      * @description List of current stake pools delegators.
@@ -2389,7 +2564,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2403,19 +2578,19 @@ export interface paths {
         /** @description Return the pool delegations. */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_delegators"];
+            'application/json': components['schemas']['pool_delegators'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}/blocks": {
+  '/pools/{pool_id}/blocks': {
     /**
      * Stake pool blocks
      * @description List of stake pools blocks.
@@ -2431,7 +2606,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2445,19 +2620,19 @@ export interface paths {
         /** @description Return the pool block list */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_blocks"];
+            'application/json': components['schemas']['pool_blocks'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/pools/{pool_id}/updates": {
+  '/pools/{pool_id}/updates': {
     /**
      * Stake pool updates
      * @description List of certificate updates to the stake pool.
@@ -2473,7 +2648,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2487,19 +2662,19 @@ export interface paths {
         /** @description Return the pool updates history */
         200: {
           content: {
-            "application/json": components["schemas"]["pool_updates"];
+            'application/json': components['schemas']['pool_updates'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets": {
+  '/assets': {
     /**
      * Assets
      * @description List of assets. If an asset is completely burned,
@@ -2517,26 +2692,26 @@ export interface paths {
            * not the page listing itself. By default, we return oldest first, newest last.
            * Ordering in this case is based on the time of the first mint transaction.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return list of assets */
         200: {
           content: {
-            "application/json": components["schemas"]["assets"];
+            'application/json': components['schemas']['assets'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets/{asset}": {
+  '/assets/{asset}': {
     /**
      * Specific asset
      * @description Information about a specific asset
@@ -2555,19 +2730,19 @@ export interface paths {
         /** @description Return the information about a specific asset */
         200: {
           content: {
-            "application/json": components["schemas"]["asset"];
+            'application/json': components['schemas']['asset'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets/{asset}/history": {
+  '/assets/{asset}/history': {
     /**
      * Asset history
      * @description History of a specific asset
@@ -2583,7 +2758,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2597,19 +2772,19 @@ export interface paths {
         /** @description Return the information about the history of a specific asset */
         200: {
           content: {
-            "application/json": components["schemas"]["asset_history"];
+            'application/json': components['schemas']['asset_history'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets/{asset}/txs": {
+  '/assets/{asset}/txs': {
     /**
      * Asset txs
      * @deprecated
@@ -2626,7 +2801,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2640,19 +2815,19 @@ export interface paths {
         /** @description Return the information about the history of a specific asset */
         200: {
           content: {
-            "application/json": components["schemas"]["asset_txs"];
+            'application/json': components['schemas']['asset_txs'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets/{asset}/transactions": {
+  '/assets/{asset}/transactions': {
     /**
      * Asset transactions
      * @description List of a specific asset transactions
@@ -2668,7 +2843,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2682,19 +2857,19 @@ export interface paths {
         /** @description Return the information about the history of a specific asset */
         200: {
           content: {
-            "application/json": components["schemas"]["asset_transactions"];
+            'application/json': components['schemas']['asset_transactions'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets/{asset}/addresses": {
+  '/assets/{asset}/addresses': {
     /**
      * Asset addresses
      * @description List of a addresses containing a specific asset
@@ -2710,7 +2885,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2724,19 +2899,19 @@ export interface paths {
         /** @description Return the information about the history of a specific asset */
         200: {
           content: {
-            "application/json": components["schemas"]["asset_addresses"];
+            'application/json': components['schemas']['asset_addresses'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/assets/policy/{policy_id}": {
+  '/assets/policy/{policy_id}': {
     /**
      * Assets of a specific policy
      * @description List of asset minted under a specific policy
@@ -2752,7 +2927,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2766,19 +2941,19 @@ export interface paths {
         /** @description Return the information about a specific asset */
         200: {
           content: {
-            "application/json": components["schemas"]["asset_policy"];
+            'application/json': components['schemas']['asset_policy'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts": {
+  '/scripts': {
     /**
      * Scripts
      * @description List of scripts.
@@ -2794,26 +2969,26 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Return list of scripts */
         200: {
           content: {
-            "application/json": components["schemas"]["scripts"];
+            'application/json': components['schemas']['scripts'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts/{script_hash}": {
+  '/scripts/{script_hash}': {
     /**
      * Specific script
      * @description Information about a specific script
@@ -2832,19 +3007,19 @@ export interface paths {
         /** @description Return the information about a specific script */
         200: {
           content: {
-            "application/json": components["schemas"]["script"];
+            'application/json': components['schemas']['script'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts/{script_hash}/json": {
+  '/scripts/{script_hash}/json': {
     /**
      * Script JSON
      * @description JSON representation of a `timelock` script
@@ -2863,19 +3038,19 @@ export interface paths {
         /** @description Return the JSON representation of a `timelock` script */
         200: {
           content: {
-            "application/json": components["schemas"]["script_json"];
+            'application/json': components['schemas']['script_json'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts/{script_hash}/cbor": {
+  '/scripts/{script_hash}/cbor': {
     /**
      * Script CBOR
      * @description CBOR representation of a `plutus` script
@@ -2894,19 +3069,19 @@ export interface paths {
         /** @description Return the CBOR representation of a `plutus` script */
         200: {
           content: {
-            "application/json": components["schemas"]["script_cbor"];
+            'application/json': components['schemas']['script_cbor'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts/{script_hash}/redeemers": {
+  '/scripts/{script_hash}/redeemers': {
     /**
      * Redeemers of a specific script
      * @description List of redeemers of a specific script
@@ -2922,7 +3097,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           /**
@@ -2936,19 +3111,19 @@ export interface paths {
         /** @description Return the information about redeemers of a specific script */
         200: {
           content: {
-            "application/json": components["schemas"]["script_redeemers"];
+            'application/json': components['schemas']['script_redeemers'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts/datum/{datum_hash}": {
+  '/scripts/datum/{datum_hash}': {
     /**
      * Datum value
      * @description Query JSON value of a datum by its hash
@@ -2967,19 +3142,19 @@ export interface paths {
         /** @description Return the datum value */
         200: {
           content: {
-            "application/json": components["schemas"]["script_datum"];
+            'application/json': components['schemas']['script_datum'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/scripts/datum/{datum_hash}/cbor": {
+  '/scripts/datum/{datum_hash}/cbor': {
     /**
      * Datum CBOR value
      * @description Query CBOR serialised datum by its hash
@@ -2998,19 +3173,19 @@ export interface paths {
         /** @description Return the CBOR serialised datum value */
         200: {
           content: {
-            "application/json": components["schemas"]["script_datum_cbor"];
+            'application/json': components['schemas']['script_datum_cbor'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/utils/addresses/xpub/{xpub}/{role}/{index}": {
+  '/utils/addresses/xpub/{xpub}/{role}/{index}': {
     /**
      * Derive an address
      * @description Derive Shelley address from an xpub
@@ -3039,19 +3214,19 @@ export interface paths {
         /** @description Return derivated Shelley address */
         200: {
           content: {
-            "application/json": components["schemas"]["utils_addresses_xpub"];
+            'application/json': components['schemas']['utils_addresses_xpub'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/utils/txs/evaluate": {
+  '/utils/txs/evaluate': {
     /**
      * Submit a transaction for execution units evaluation
      * @description Submit an already serialized transaction to evaluate how much execution units it requires.
@@ -3063,14 +3238,14 @@ export interface paths {
     post: {
       parameters: {
         header: {
-          "Content-Type": "application/cbor";
+          'Content-Type': 'application/cbor';
         };
       };
       /** @description The transaction to submit, serialized in CBOR. */
       requestBody: {
         content: {
           /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573 */
-          "application/cbor": string;
+          'application/cbor': string;
         };
       };
       responses: {
@@ -3084,22 +3259,22 @@ export interface paths {
          */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               [key: string]: unknown;
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        425: components["responses"]["425"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        425: components['responses']['425'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/utils/txs/evaluate/utxos": {
+  '/utils/txs/evaluate/utxos': {
     /**
      * Submit a transaction for execution units evaluation (additional UTXO set)
      * @description Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
@@ -3111,22 +3286,24 @@ export interface paths {
     post: {
       parameters: {
         header: {
-          "Content-Type": "application/json";
+          'Content-Type': 'application/json';
         };
       };
       /** @description JSON payload */
       requestBody: {
         content: {
-          "application/json": {
+          'application/json': {
             /** @description Transaction CBOR (encoded using base64 or base16). */
             cbor: string;
             /** @description Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set. */
-            additionalUtxoSet?: (({
+            additionalUtxoSet?: (
+              | {
                   /** @description Transaction hash for the input */
                   txId?: string;
                   /** @description Index of the output within the transaction */
                   index?: number;
-                } | {
+                }
+              | {
                   /** @description Output address */
                   address: string;
                   value: {
@@ -3144,7 +3321,8 @@ export interface paths {
                   script?: {
                     [key: string]: unknown;
                   };
-                })[])[];
+                }
+            )[][];
           };
         };
       };
@@ -3159,22 +3337,22 @@ export interface paths {
          */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               [key: string]: unknown;
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        425: components["responses"]["425"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        425: components['responses']['425'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/ipfs/add": {
+  '/ipfs/add': {
     /**
      * Add a file to IPFS
      * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
@@ -3184,9 +3362,9 @@ export interface paths {
      *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      * </p>
      */
-    post: operations["ipfs_add"];
+    post: operations['ipfs_add'];
   };
-  "/ipfs/gateway/{IPFS_path}": {
+  '/ipfs/gateway/{IPFS_path}': {
     /**
      * Relay to an IPFS gateway
      * @description Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
@@ -3205,19 +3383,19 @@ export interface paths {
         /** @description Returns the object content */
         200: {
           content: {
-            "application/octet-stream": string;
+            'application/octet-stream': string;
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/ipfs/pin/add/{IPFS_path}": {
+  '/ipfs/pin/add/{IPFS_path}': {
     /**
      * Pin an object
      * @description Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
@@ -3232,7 +3410,7 @@ export interface paths {
         /** @description Returns pinned object */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               /**
                * @description IPFS hash of the pinned object
                * @example QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8
@@ -3243,21 +3421,21 @@ export interface paths {
                * @example queued
                * @enum {string}
                */
-              state: "queued|pinned|unpinned|failed|gc";
+              state: 'queued|pinned|unpinned|failed|gc';
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        425: components["responses"]["425-2"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        425: components['responses']['425-2'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/ipfs/pin/list": {
+  '/ipfs/pin/list': {
     /**
      * List pinned objects
      * @description List objects pinned to local storage
@@ -3277,57 +3455,57 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
       };
       responses: {
         /** @description Returns pinned objects */
         200: {
           content: {
-            "application/json": ({
-                /**
-                 * @description Creation time of the IPFS object on our backends
-                 * @example 1615551024
-                 */
-                time_created: number;
-                /**
-                 * @description Pin time of the IPFS object on our backends
-                 * @example 1615551024
-                 */
-                time_pinned: number;
-                /**
-                 * @description IPFS hash of the pinned object
-                 * @example QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx
-                 */
-                ipfs_hash: string;
-                /**
-                 * @description Size of the object in Bytes
-                 * @example 1615551024
-                 */
-                size: string;
-                /**
-                 * @description State of the pinned object, which is `queued` when we are retriving object. If this
-                 * is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
-                 * pinned item has been garbage collected due to account being over storage quota or after it has
-                 * been moved to `unpinned` state by removing the object pin.
-                 *
-                 * @example pinned
-                 * @enum {string}
-                 */
-                state: "queued|pinned|unpinned|failed|gc";
-              })[];
+            'application/json': {
+              /**
+               * @description Creation time of the IPFS object on our backends
+               * @example 1615551024
+               */
+              time_created: number;
+              /**
+               * @description Pin time of the IPFS object on our backends
+               * @example 1615551024
+               */
+              time_pinned: number;
+              /**
+               * @description IPFS hash of the pinned object
+               * @example QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx
+               */
+              ipfs_hash: string;
+              /**
+               * @description Size of the object in Bytes
+               * @example 1615551024
+               */
+              size: string;
+              /**
+               * @description State of the pinned object, which is `queued` when we are retriving object. If this
+               * is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
+               * pinned item has been garbage collected due to account being over storage quota or after it has
+               * been moved to `unpinned` state by removing the object pin.
+               *
+               * @example pinned
+               * @enum {string}
+               */
+              state: 'queued|pinned|unpinned|failed|gc';
+            }[];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/ipfs/pin/list/{IPFS_path}": {
+  '/ipfs/pin/list/{IPFS_path}': {
     /**
      * Get details about pinned object
      * @description Get information about locally pinned IPFS object
@@ -3346,7 +3524,7 @@ export interface paths {
         /** @description Returns the pins pinned */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               /**
                * @description Time of the creation of the IPFS object on our backends
                * @example 1615551024
@@ -3377,20 +3555,20 @@ export interface paths {
                * @example pinned
                * @enum {string}
                */
-              state: "queued|pinned|unpinned|failed|gc";
+              state: 'queued|pinned|unpinned|failed|gc';
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/ipfs/pin/remove/{IPFS_path}": {
+  '/ipfs/pin/remove/{IPFS_path}': {
     /**
      * Remove a IPFS pin
      * @description Remove pinned objects from local storage
@@ -3409,7 +3587,7 @@ export interface paths {
         /** @description Returns the pins removed */
         200: {
           content: {
-            "application/json": {
+            'application/json': {
               /**
                * @description IPFS hash of the pinned object
                * @example QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8
@@ -3420,20 +3598,20 @@ export interface paths {
                * @example unpinned
                * @enum {string}
                */
-              state: "queued|pinned|unpinned|failed|gc";
+              state: 'queued|pinned|unpinned|failed|gc';
             };
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/metrics": {
+  '/metrics': {
     /**
      * Blockfrost usage metrics
      * @description History of your Blockfrost usage metrics in the past 30 days.
@@ -3443,19 +3621,19 @@ export interface paths {
         /** @description Return the last 30 days of metrics */
         200: {
           content: {
-            "application/json": components["schemas"]["metrics"];
+            'application/json': components['schemas']['metrics'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/metrics/endpoints": {
+  '/metrics/endpoints': {
     /**
      * Blockfrost endpoint usage metrics
      * @description History of your Blockfrost usage metrics per endpoint in the past 30 days.
@@ -3465,19 +3643,19 @@ export interface paths {
         /** @description Return the last 30 days of metrics */
         200: {
           content: {
-            "application/json": components["schemas"]["metrics_endpoints"];
+            'application/json': components['schemas']['metrics_endpoints'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/network": {
+  '/network': {
     /**
      * Network information
      * @description Return detailed network information.
@@ -3487,19 +3665,19 @@ export interface paths {
         /** @description Return detailed network information. */
         200: {
           content: {
-            "application/json": components["schemas"]["network"];
+            'application/json': components['schemas']['network'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/network/eras": {
+  '/network/eras': {
     /**
      * Query summary of blockchain eras
      * @description Returns start and end of each era along with
@@ -3510,20 +3688,20 @@ export interface paths {
         /** @description Returns era summaries content. */
         200: {
           content: {
-            "application/json": components["schemas"]["network-eras"];
+            'application/json': components['schemas']['network-eras'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        425: components["responses"]["425"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        425: components['responses']['425'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/nutlink/{address}": {
+  '/nutlink/{address}': {
     /**
      * Specific nut.link address
      * @description List metadata about specific address
@@ -3538,19 +3716,19 @@ export interface paths {
         /** @description Return the metadata about metadata oracle */
         200: {
           content: {
-            "application/json": components["schemas"]["nutlink_address"];
+            'application/json': components['schemas']['nutlink_address'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/nutlink/{address}/tickers": {
+  '/nutlink/{address}/tickers': {
     /**
      * List of tickers of an oracle
      * @description List of records of a specific oracle
@@ -3566,7 +3744,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           address: string;
@@ -3576,19 +3754,19 @@ export interface paths {
         /** @description Return the tickers provided by the metadata oracle */
         200: {
           content: {
-            "application/json": components["schemas"]["nutlink_address_tickers"];
+            'application/json': components['schemas']['nutlink_address_tickers'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/nutlink/{address}/tickers/{ticker}": {
+  '/nutlink/{address}/tickers/{ticker}': {
     /**
      * Specific ticker for an address
      * @description List of records of a specific ticker
@@ -3604,7 +3782,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           address: string;
@@ -3615,19 +3793,19 @@ export interface paths {
         /** @description Return the tickers provided by the metadata oracle */
         200: {
           content: {
-            "application/json": components["schemas"]["nutlink_address_ticker"];
+            'application/json': components['schemas']['nutlink_address_ticker'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
-  "/nutlink/tickers/{ticker}": {
+  '/nutlink/tickers/{ticker}': {
     /**
      * Specific ticker
      * @description List of records of a specific ticker
@@ -3643,7 +3821,7 @@ export interface paths {
            * @description The ordering of items from the point of view of the blockchain,
            * not the page listing itself. By default, we return oldest first, newest last.
            */
-          order?: "asc" | "desc";
+          order?: 'asc' | 'desc';
         };
         path: {
           ticker: string;
@@ -3653,15 +3831,15 @@ export interface paths {
         /** @description Return the tickers provided by the metadata oracle */
         200: {
           content: {
-            "application/json": components["schemas"]["nutlink_tickers_ticker"];
+            'application/json': components['schemas']['nutlink_tickers_ticker'];
           };
         };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
+        400: components['responses']['400'];
+        403: components['responses']['403'];
+        404: components['responses']['404'];
+        418: components['responses']['418'];
+        429: components['responses']['429'];
+        500: components['responses']['500'];
       };
     };
   };
@@ -3671,10 +3849,10 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    onchain_metadata_cip25: components["schemas"]["asset_onchain_metadata_cip25"];
-    onchain_metadata_cip68_ft_333: components["schemas"]["asset_onchain_metadata_cip68_ft_333"];
-    onchain_metadata_cip68_nft_222: components["schemas"]["asset_onchain_metadata_cip68_nft_222"];
-    onchain_metadata_cip68_rft_444: components["schemas"]["asset_onchain_metadata_cip68_rft_444"];
+    onchain_metadata_cip25: components['schemas']['asset_onchain_metadata_cip25'];
+    onchain_metadata_cip68_ft_333: components['schemas']['asset_onchain_metadata_cip68_ft_333'];
+    onchain_metadata_cip68_nft_222: components['schemas']['asset_onchain_metadata_cip68_nft_222'];
+    onchain_metadata_cip68_rft_444: components['schemas']['asset_onchain_metadata_cip68_rft_444'];
     block_content: {
       /**
        * @description Block creation time in UNIX time
@@ -3771,7 +3949,7 @@ export interface components {
      * ]
      */
     block_content_txs: string[];
-    block_content_array: components["schemas"]["block_content"][];
+    block_content_array: components['schemas']['block_content'][];
     /**
      * @example [
      *   {
@@ -3793,13 +3971,13 @@ export interface components {
      * ]
      */
     block_content_addresses: {
-        /** @description Address that was affected in the specified block */
-        address: string;
-        /** @description List of transactions containing the address either in their inputs or outputs. Sorted by transaction index within a block, ascending. */
-        transactions: {
-            tx_hash: string;
-          }[];
+      /** @description Address that was affected in the specified block */
+      address: string;
+      /** @description List of transactions containing the address either in their inputs or outputs. Sorted by transaction index within a block, ascending. */
+      transactions: {
+        tx_hash: string;
       }[];
+    }[];
     genesis_content: {
       /**
        * @description The proportion of slots in which blocks should be issued
@@ -4077,37 +4255,142 @@ export interface components {
        * @example 34482
        */
       coins_per_utxo_word: string | null;
+      /**
+       * @description DRep Vote threshold for motion of no-confidence.
+       * @example 1
+       */
+      p1: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for new committee/threshold (normal state).
+       * @example 1
+       */
+      p2a: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for new committee/threshold (state of no-confidence).
+       * @example 1
+       */
+      p2b: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for update to the Constitution.
+       * @example 1
+       */
+      p3: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for update to the Constitution.
+       * @example 1
+       */
+      p4: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, network group.
+       * @example 1
+       */
+      p5a: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, economic group.
+       * @example 1
+       */
+      p5b: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, technical group.
+       * @example 1
+       */
+      p5c: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for protocol parameter changes, governance group.
+       * @example 1
+       */
+      p5d: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for treasury withdrawal.
+       * @example 1
+       */
+      p6: OneOf<[number, null]>;
+      /**
+       * @description DRep Vote threshold for info
+       * @example 1
+       */
+      p7: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for motion of no-confidence.
+       * @example 1
+       */
+      q1: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for new committee/threshold (normal state).
+       * @example 1
+       */
+      q2a: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for new committee/threshold (state of no-confidence).
+       * @example 1
+       */
+      q2b: OneOf<[number, null]>;
+      /**
+       * @description Spo Vote threshold for hard-fork initiation.
+       * @example 1
+       */
+      q4: OneOf<[number, null]>;
+      /**
+       * @description Minimal constitutional committee size.
+       * @example 20
+       */
+      min_c_c_size: OneOf<[string, null]>;
+      /**
+       * @description Constitutional committee term limits.
+       * @example 2000000
+       */
+      cc_term_limit: OneOf<[string, null]>;
+      /**
+       * @description Governance action expiration.
+       * @example 1
+       */
+      gov_expiration: OneOf<[string, null]>;
+      /**
+       * @description Governance action deposit.
+       * @example 1000000
+       */
+      gov_deposit: OneOf<[string, null]>;
+      /**
+       * @description DRep activity period.
+       * @example 1000000
+       */
+      drep_activity: OneOf<[string, null]>;
+      /**
+       * @description The Tx table index for the transaction that contains this parameter proposal.
+       * @example 1
+       */
+      registered_tx_id: OneOf<[number, null]>;
     };
-    epoch_content_array: components["schemas"]["epoch_content"][];
+    epoch_content_array: components['schemas']['epoch_content'][];
     epoch_stake_content: {
-        /**
-         * @description Stake address
-         * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
-         */
-        stake_address: string;
-        /**
-         * @description Bech32 prefix of the pool delegated to
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-         */
-        pool_id: string;
-        /**
-         * @description Amount of active delegated stake in Lovelaces
-         * @example 4440295078
-         */
-        amount: string;
-      }[];
+      /**
+       * @description Stake address
+       * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
+       */
+      stake_address: string;
+      /**
+       * @description Bech32 prefix of the pool delegated to
+       * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+       */
+      pool_id: string;
+      /**
+       * @description Amount of active delegated stake in Lovelaces
+       * @example 4440295078
+       */
+      amount: string;
+    }[];
     epoch_stake_pool_content: {
-        /**
-         * @description Stake address
-         * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
-         */
-        stake_address: string;
-        /**
-         * @description Amount of active delegated stake in Lovelaces
-         * @example 4440295078
-         */
-        amount: string;
-      }[];
+      /**
+       * @description Stake address
+       * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
+       */
+      stake_address: string;
+      /**
+       * @description Amount of active delegated stake in Lovelaces
+       * @example 4440295078
+       */
+      amount: string;
+    }[];
     /**
      * @example [
      *   "d0fa315687e99ccdc96b14cc2ea74a767405d64427b648c470731a9b69e4606e",
@@ -4160,14 +4443,14 @@ export interface components {
        * ]
        */
       output_amount: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-        }[];
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
       /**
        * @description Fees of the transaction in Lovelaces
        * @example 182485
@@ -4250,327 +4533,327 @@ export interface components {
        * @example 1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477
        */
       hash: string;
-      inputs: ({
-          /**
-           * @description Input address
-           * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
-           */
-          address: string;
-          /**
-           * @example [
-           *   {
-           *     "unit": "lovelace",
-           *     "quantity": "42000000"
-           *   },
-           *   {
-           *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
-           *     "quantity": "12"
-           *   }
-           * ]
-           */
-          amount: {
-              /**
-               * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-               * @description The unit of the value
-               */
-              unit: string;
-              /** @description The quantity of the unit */
-              quantity: string;
-            }[];
-          /**
-           * @description Hash of the UTXO transaction
-           * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
-           */
-          tx_hash: string;
-          /**
-           * @description UTXO index in the transaction
-           * @example 0
-           */
-          output_index: number;
-          /**
-           * @description The hash of the transaction output datum
-           * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
-           */
-          data_hash: string | null;
-          /**
-           * @description CBOR encoded inline datum
-           * @example 19a6aa
-           */
-          inline_datum: string | null;
-          /**
-           * @description The hash of the reference script of the input
-           * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-           */
-          reference_script_hash: string | null;
-          /**
-           * @description Whether the input is a collateral consumed on script validation failure
-           * @example false
-           */
-          collateral: boolean;
-          /**
-           * @description Whether the input is a reference transaction input
-           * @example false
-           */
-          reference?: boolean;
-        })[];
-      outputs: ({
-          /**
-           * @description Output address
-           * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
-           */
-          address: string;
-          /**
-           * @example [
-           *   {
-           *     "unit": "lovelace",
-           *     "quantity": "42000000"
-           *   },
-           *   {
-           *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
-           *     "quantity": "12"
-           *   }
-           * ]
-           */
-          amount: {
-              /**
-               * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-               * @description The unit of the value
-               */
-              unit: string;
-              /** @description The quantity of the unit */
-              quantity: string;
-            }[];
-          /**
-           * @description UTXO index in the transaction
-           * @example 0
-           */
-          output_index: number;
-          /**
-           * @description The hash of the transaction output datum
-           * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
-           */
-          data_hash: string | null;
-          /**
-           * @description CBOR encoded inline datum
-           * @example 19a6aa
-           */
-          inline_datum: string | null;
-          /**
-           * @description Whether the output is a collateral output
-           * @example false
-           */
-          collateral: boolean;
-          /**
-           * @description The hash of the reference script of the output
-           * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-           */
-          reference_script_hash: string | null;
-        })[];
-    };
-    tx_content_stake_addr: {
+      inputs: {
         /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Delegation stake address
-         * @example stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda
+         * @description Input address
+         * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
          */
         address: string;
-        /**
-         * @description Registration boolean, false if deregistration
-         * @example true
-         */
-        registration: boolean;
-      }[];
-    tx_content_delegations: {
-        /**
-         * @deprecated
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        index: number;
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Bech32 delegation stake address
-         * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
-         */
-        address: string;
-        /**
-         * @description Bech32 ID of delegated stake pool
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-         */
-        pool_id: string;
-        /**
-         * @description Epoch in which the delegation becomes active
-         * @example 210
-         */
-        active_epoch: number;
-      }[];
-    tx_content_withdrawals: {
-        /**
-         * @description Bech32 withdrawal address
-         * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
-         */
-        address: string;
-        /**
-         * @description Withdrawal amount in Lovelaces
-         * @example 431833601
-         */
-        amount: string;
-      }[];
-    tx_content_mirs: ({
-        /**
-         * @description Source of MIR funds
-         * @example reserve
-         * @enum {string}
-         */
-        pot: "reserve" | "treasury";
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Bech32 stake address
-         * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
-         */
-        address: string;
-        /**
-         * @description MIR amount in Lovelaces
-         * @example 431833601
-         */
-        amount: string;
-      })[];
-    tx_content_pool_certs: ({
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Bech32 encoded pool ID
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-         */
-        pool_id: string;
-        /**
-         * @description VRF key hash
-         * @example 0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233
-         */
-        vrf_key: string;
-        /**
-         * @description Stake pool certificate pledge in Lovelaces
-         * @example 5000000000
-         */
-        pledge: string;
-        /**
-         * @description Margin tax cost of the stake pool
-         * @example 0.05
-         */
-        margin_cost: number;
-        /**
-         * @description Fixed tax cost of the stake pool in Lovelaces
-         * @example 340000000
-         */
-        fixed_cost: string;
-        /**
-         * @description Bech32 reward account of the stake pool
-         * @example stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f
-         */
-        reward_account: string;
         /**
          * @example [
-         *   "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
+         *   {
+         *     "unit": "lovelace",
+         *     "quantity": "42000000"
+         *   },
+         *   {
+         *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *     "quantity": "12"
+         *   }
          * ]
          */
-        owners: string[];
-        metadata: ({
+        amount: {
           /**
-           * @description URL to the stake pool metadata
-           * @example https://stakenuts.com/mainnet.json
+           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+           * @description The unit of the value
            */
-          url: string | null;
-          /**
-           * @description Hash of the metadata file
-           * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
-           */
-          hash: string | null;
-          /**
-           * @description Ticker of the stake pool
-           * @example NUTS
-           */
-          ticker: string | null;
-          /**
-           * @description Name of the stake pool
-           * @example Stake Nuts
-           */
-          name: string | null;
-          /**
-           * @description Description of the stake pool
-           * @example The best pool ever
-           */
-          description: string | null;
-          /**
-           * @description Home page of the stake pool
-           * @example https://stakentus.com/
-           */
-          homepage: string | null;
-        }) | null;
-        relays: ({
-            /**
-             * @description IPv4 address of the relay
-             * @example 4.4.4.4
-             */
-            ipv4: string | null;
-            /**
-             * @description IPv6 address of the relay
-             * @example https://stakenuts.com/mainnet.json
-             */
-            ipv6: string | null;
-            /**
-             * @description DNS name of the relay
-             * @example relay1.stakenuts.com
-             */
-            dns: string | null;
-            /**
-             * @description DNS SRV entry of the relay
-             * @example _relays._tcp.relays.stakenuts.com
-             */
-            dns_srv: string | null;
-            /**
-             * @description Network port of the relay
-             * @example 3001
-             */
-            port: number;
-          })[];
+          unit: string;
+          /** @description The quantity of the unit */
+          quantity: string;
+        }[];
         /**
-         * @description Epoch in which the update becomes active
-         * @example 210
+         * @description Hash of the UTXO transaction
+         * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
          */
-        active_epoch: number;
-      })[];
-    tx_content_pool_retires: {
+        tx_hash: string;
         /**
-         * @description Index of the certificate within the transaction
+         * @description UTXO index in the transaction
          * @example 0
          */
-        cert_index: number;
+        output_index: number;
         /**
-         * @description Bech32 stake pool ID
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+         * @description The hash of the transaction output datum
+         * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
          */
-        pool_id: string;
+        data_hash: string | null;
         /**
-         * @description Epoch in which the pool becomes retired
-         * @example 216
+         * @description CBOR encoded inline datum
+         * @example 19a6aa
          */
-        retiring_epoch: number;
+        inline_datum: string | null;
+        /**
+         * @description The hash of the reference script of the input
+         * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+         */
+        reference_script_hash: string | null;
+        /**
+         * @description Whether the input is a collateral consumed on script validation failure
+         * @example false
+         */
+        collateral: boolean;
+        /**
+         * @description Whether the input is a reference transaction input
+         * @example false
+         */
+        reference?: boolean;
       }[];
+      outputs: {
+        /**
+         * @description Output address
+         * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+         */
+        address: string;
+        /**
+         * @example [
+         *   {
+         *     "unit": "lovelace",
+         *     "quantity": "42000000"
+         *   },
+         *   {
+         *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *     "quantity": "12"
+         *   }
+         * ]
+         */
+        amount: {
+          /**
+           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+           * @description The unit of the value
+           */
+          unit: string;
+          /** @description The quantity of the unit */
+          quantity: string;
+        }[];
+        /**
+         * @description UTXO index in the transaction
+         * @example 0
+         */
+        output_index: number;
+        /**
+         * @description The hash of the transaction output datum
+         * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+         */
+        data_hash: string | null;
+        /**
+         * @description CBOR encoded inline datum
+         * @example 19a6aa
+         */
+        inline_datum: string | null;
+        /**
+         * @description Whether the output is a collateral output
+         * @example false
+         */
+        collateral: boolean;
+        /**
+         * @description The hash of the reference script of the output
+         * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+         */
+        reference_script_hash: string | null;
+      }[];
+    };
+    tx_content_stake_addr: {
+      /**
+       * @description Index of the certificate within the transaction
+       * @example 0
+       */
+      cert_index: number;
+      /**
+       * @description Delegation stake address
+       * @example stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda
+       */
+      address: string;
+      /**
+       * @description Registration boolean, false if deregistration
+       * @example true
+       */
+      registration: boolean;
+    }[];
+    tx_content_delegations: {
+      /**
+       * @deprecated
+       * @description Index of the certificate within the transaction
+       * @example 0
+       */
+      index: number;
+      /**
+       * @description Index of the certificate within the transaction
+       * @example 0
+       */
+      cert_index: number;
+      /**
+       * @description Bech32 delegation stake address
+       * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
+       */
+      address: string;
+      /**
+       * @description Bech32 ID of delegated stake pool
+       * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+       */
+      pool_id: string;
+      /**
+       * @description Epoch in which the delegation becomes active
+       * @example 210
+       */
+      active_epoch: number;
+    }[];
+    tx_content_withdrawals: {
+      /**
+       * @description Bech32 withdrawal address
+       * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
+       */
+      address: string;
+      /**
+       * @description Withdrawal amount in Lovelaces
+       * @example 431833601
+       */
+      amount: string;
+    }[];
+    tx_content_mirs: {
+      /**
+       * @description Source of MIR funds
+       * @example reserve
+       * @enum {string}
+       */
+      pot: 'reserve' | 'treasury';
+      /**
+       * @description Index of the certificate within the transaction
+       * @example 0
+       */
+      cert_index: number;
+      /**
+       * @description Bech32 stake address
+       * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
+       */
+      address: string;
+      /**
+       * @description MIR amount in Lovelaces
+       * @example 431833601
+       */
+      amount: string;
+    }[];
+    tx_content_pool_certs: {
+      /**
+       * @description Index of the certificate within the transaction
+       * @example 0
+       */
+      cert_index: number;
+      /**
+       * @description Bech32 encoded pool ID
+       * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+       */
+      pool_id: string;
+      /**
+       * @description VRF key hash
+       * @example 0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233
+       */
+      vrf_key: string;
+      /**
+       * @description Stake pool certificate pledge in Lovelaces
+       * @example 5000000000
+       */
+      pledge: string;
+      /**
+       * @description Margin tax cost of the stake pool
+       * @example 0.05
+       */
+      margin_cost: number;
+      /**
+       * @description Fixed tax cost of the stake pool in Lovelaces
+       * @example 340000000
+       */
+      fixed_cost: string;
+      /**
+       * @description Bech32 reward account of the stake pool
+       * @example stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f
+       */
+      reward_account: string;
+      /**
+       * @example [
+       *   "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
+       * ]
+       */
+      owners: string[];
+      metadata: {
+        /**
+         * @description URL to the stake pool metadata
+         * @example https://stakenuts.com/mainnet.json
+         */
+        url: string | null;
+        /**
+         * @description Hash of the metadata file
+         * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
+         */
+        hash: string | null;
+        /**
+         * @description Ticker of the stake pool
+         * @example NUTS
+         */
+        ticker: string | null;
+        /**
+         * @description Name of the stake pool
+         * @example Stake Nuts
+         */
+        name: string | null;
+        /**
+         * @description Description of the stake pool
+         * @example The best pool ever
+         */
+        description: string | null;
+        /**
+         * @description Home page of the stake pool
+         * @example https://stakentus.com/
+         */
+        homepage: string | null;
+      } | null;
+      relays: {
+        /**
+         * @description IPv4 address of the relay
+         * @example 4.4.4.4
+         */
+        ipv4: string | null;
+        /**
+         * @description IPv6 address of the relay
+         * @example https://stakenuts.com/mainnet.json
+         */
+        ipv6: string | null;
+        /**
+         * @description DNS name of the relay
+         * @example relay1.stakenuts.com
+         */
+        dns: string | null;
+        /**
+         * @description DNS SRV entry of the relay
+         * @example _relays._tcp.relays.stakenuts.com
+         */
+        dns_srv: string | null;
+        /**
+         * @description Network port of the relay
+         * @example 3001
+         */
+        port: number;
+      }[];
+      /**
+       * @description Epoch in which the update becomes active
+       * @example 210
+       */
+      active_epoch: number;
+    }[];
+    tx_content_pool_retires: {
+      /**
+       * @description Index of the certificate within the transaction
+       * @example 0
+       */
+      cert_index: number;
+      /**
+       * @description Bech32 stake pool ID
+       * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+       */
+      pool_id: string;
+      /**
+       * @description Epoch in which the pool becomes retired
+       * @example 216
+       */
+      retiring_epoch: number;
+    }[];
     /**
      * @example [
      *   {
@@ -4594,13 +4877,18 @@ export interface components {
      * ]
      */
     tx_content_metadata: {
-        /** @description Metadata label */
-        label: string;
-        /** @description Content of the metadata */
-        json_metadata: OneOf<[string, {
-          [key: string]: unknown;
-        }]>;
-      }[];
+      /** @description Metadata label */
+      label: string;
+      /** @description Content of the metadata */
+      json_metadata: OneOf<
+        [
+          string,
+          {
+            [key: string]: unknown;
+          },
+        ]
+      >;
+    }[];
     /**
      * @example [
      *   {
@@ -4610,61 +4898,61 @@ export interface components {
      *   }
      * ]
      */
-    tx_content_metadata_cbor: ({
-        /** @description Metadata label */
-        label: string;
-        /**
-         * @deprecated
-         * @description Content of the CBOR metadata
-         */
-        cbor_metadata: string | null;
-        /** @description Content of the CBOR metadata in hex */
-        metadata: string | null;
-      })[];
-    tx_content_redeemers: ({
-        /**
-         * @description Index of the redeemer within the transaction
-         * @example 0
-         */
-        tx_index: number;
-        /**
-         * @description Validation purpose
-         * @example spend
-         * @enum {string}
-         */
-        purpose: "spend" | "mint" | "cert" | "reward";
-        /**
-         * @description Script hash
-         * @example ec26b89af41bef0f7585353831cb5da42b5b37185e0c8a526143b824
-         */
-        script_hash: string;
-        /**
-         * @description Redeemer data hash
-         * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
-         */
-        redeemer_data_hash: string;
-        /**
-         * @deprecated
-         * @description Datum hash
-         * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
-         */
-        datum_hash: string;
-        /**
-         * @description The budget in Memory to run a script
-         * @example 1700
-         */
-        unit_mem: string;
-        /**
-         * @description The budget in CPU steps to run a script
-         * @example 476468
-         */
-        unit_steps: string;
-        /**
-         * @description The fee consumed to run the script
-         * @example 172033
-         */
-        fee: string;
-      })[];
+    tx_content_metadata_cbor: {
+      /** @description Metadata label */
+      label: string;
+      /**
+       * @deprecated
+       * @description Content of the CBOR metadata
+       */
+      cbor_metadata: string | null;
+      /** @description Content of the CBOR metadata in hex */
+      metadata: string | null;
+    }[];
+    tx_content_redeemers: {
+      /**
+       * @description Index of the redeemer within the transaction
+       * @example 0
+       */
+      tx_index: number;
+      /**
+       * @description Validation purpose
+       * @example spend
+       * @enum {string}
+       */
+      purpose: 'spend' | 'mint' | 'cert' | 'reward';
+      /**
+       * @description Script hash
+       * @example ec26b89af41bef0f7585353831cb5da42b5b37185e0c8a526143b824
+       */
+      script_hash: string;
+      /**
+       * @description Redeemer data hash
+       * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+       */
+      redeemer_data_hash: string;
+      /**
+       * @deprecated
+       * @description Datum hash
+       * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+       */
+      datum_hash: string;
+      /**
+       * @description The budget in Memory to run a script
+       * @example 1700
+       */
+      unit_mem: string;
+      /**
+       * @description The budget in CPU steps to run a script
+       * @example 476468
+       */
+      unit_steps: string;
+      /**
+       * @description The fee consumed to run the script
+       * @example 172033
+       */
+      fee: string;
+    }[];
     /**
      * @example [
      *   "d52e11f3e48436dd42dbec6d88c239732e503b8b7a32af58e5f87625",
@@ -4766,19 +5054,19 @@ export interface components {
      *   }
      * ]
      */
-    account_reward_content: ({
-        /** @description Epoch of the associated reward */
-        epoch: number;
-        /** @description Rewards for given epoch in Lovelaces */
-        amount: string;
-        /** @description Bech32 pool ID being delegated to */
-        pool_id: string;
-        /**
-         * @description Type of the reward
-         * @enum {string}
-         */
-        type: "leader" | "member" | "pool_deposit_refund";
-      })[];
+    account_reward_content: {
+      /** @description Epoch of the associated reward */
+      epoch: number;
+      /** @description Rewards for given epoch in Lovelaces */
+      amount: string;
+      /** @description Bech32 pool ID being delegated to */
+      pool_id: string;
+      /**
+       * @description Type of the reward
+       * @enum {string}
+       */
+      type: 'leader' | 'member' | 'pool_deposit_refund';
+    }[];
     /**
      * @example [
      *   {
@@ -4794,16 +5082,16 @@ export interface components {
      * ]
      */
     account_history_content: {
-        /**
-         * @description Epoch in which the stake was active
-         * @example 210
-         */
-        active_epoch: number;
-        /** @description Stake amount in Lovelaces */
-        amount: string;
-        /** @description Bech32 ID of pool being delegated to */
-        pool_id: string;
-      }[];
+      /**
+       * @description Epoch in which the stake was active
+       * @example 210
+       */
+      active_epoch: number;
+      /** @description Stake amount in Lovelaces */
+      amount: string;
+      /** @description Bech32 ID of pool being delegated to */
+      pool_id: string;
+    }[];
     /**
      * @example [
      *   {
@@ -4821,18 +5109,18 @@ export interface components {
      * ]
      */
     account_delegation_content: {
-        /**
-         * @description Epoch in which the delegation becomes active
-         * @example 210
-         */
-        active_epoch: number;
-        /** @description Hash of the transaction containing the delegation */
-        tx_hash: string;
-        /** @description Rewards for given epoch in Lovelaces */
-        amount: string;
-        /** @description Bech32 ID of pool being delegated to */
-        pool_id: string;
-      }[];
+      /**
+       * @description Epoch in which the delegation becomes active
+       * @example 210
+       */
+      active_epoch: number;
+      /** @description Hash of the transaction containing the delegation */
+      tx_hash: string;
+      /** @description Rewards for given epoch in Lovelaces */
+      amount: string;
+      /** @description Bech32 ID of pool being delegated to */
+      pool_id: string;
+    }[];
     /**
      * @example [
      *   {
@@ -4845,15 +5133,15 @@ export interface components {
      *   }
      * ]
      */
-    account_registration_content: ({
-        /** @description Hash of the transaction containing the (de)registration certificate */
-        tx_hash: string;
-        /**
-         * @description Action in the certificate
-         * @enum {string}
-         */
-        action: "registered" | "deregistered";
-      })[];
+    account_registration_content: {
+      /** @description Hash of the transaction containing the (de)registration certificate */
+      tx_hash: string;
+      /**
+       * @description Action in the certificate
+       * @enum {string}
+       */
+      action: 'registered' | 'deregistered';
+    }[];
     /**
      * @example [
      *   {
@@ -4867,11 +5155,11 @@ export interface components {
      * ]
      */
     account_withdrawal_content: {
-        /** @description Hash of the transaction containing the withdrawal */
-        tx_hash: string;
-        /** @description Withdrawal amount in Lovelaces */
-        amount: string;
-      }[];
+      /** @description Hash of the transaction containing the withdrawal */
+      tx_hash: string;
+      /** @description Withdrawal amount in Lovelaces */
+      amount: string;
+    }[];
     /**
      * @example [
      *   {
@@ -4885,11 +5173,11 @@ export interface components {
      * ]
      */
     account_mir_content: {
-        /** @description Hash of the transaction containing the MIR */
-        tx_hash: string;
-        /** @description MIR amount in Lovelaces */
-        amount: string;
-      }[];
+      /** @description Hash of the transaction containing the MIR */
+      tx_hash: string;
+      /** @description MIR amount in Lovelaces */
+      amount: string;
+    }[];
     /**
      * @example [
      *   {
@@ -4907,9 +5195,9 @@ export interface components {
      * ]
      */
     account_addresses_content: {
-        /** @description Address associated with the stake key */
-        address: string;
-      }[];
+      /** @description Address associated with the stake key */
+      address: string;
+    }[];
     /**
      * @example [
      *   {
@@ -4923,14 +5211,14 @@ export interface components {
      * ]
      */
     account_addresses_assets: {
-        /**
-         * Format: Concatenation of asset policy_id and hex-encoded asset_name
-         * @description The unit of the value
-         */
-        unit: string;
-        /** @description The quantity of the unit */
-        quantity: string;
-      }[];
+      /**
+       * Format: Concatenation of asset policy_id and hex-encoded asset_name
+       * @description The unit of the value
+       */
+      unit: string;
+      /** @description The quantity of the unit */
+      quantity: string;
+    }[];
     account_addresses_total: {
       /**
        * @description Bech32 encoded stake address
@@ -4950,14 +5238,14 @@ export interface components {
        * ]
        */
       received_sum: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-        }[];
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
       /**
        * @example [
        *   {
@@ -4971,14 +5259,14 @@ export interface components {
        * ]
        */
       sent_sum: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-        }[];
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
       /**
        * @description Count of all transactions for all addresses associated with the account
        * @example 12
@@ -4993,9 +5281,9 @@ export interface components {
      * ]
      */
     mempool_content: {
-        /** @description Hash of the transaction */
-        tx_hash: string;
-      }[];
+      /** @description Hash of the transaction */
+      tx_hash: string;
+    }[];
     mempool_tx_content: {
       tx: {
         /**
@@ -5016,14 +5304,14 @@ export interface components {
          * ]
          */
         output_amount: {
-            /**
-             * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-             * @description The unit of the value
-             */
-            unit: string;
-            /** @description The quantity of the unit */
-            quantity: string;
-          }[];
+          /**
+           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+           * @description The unit of the value
+           */
+          unit: string;
+          /** @description The quantity of the unit */
+          quantity: string;
+        }[];
         /**
          * @description Fees of the transaction in Lovelaces
          * @example 182485
@@ -5101,108 +5389,108 @@ export interface components {
         valid_contract: boolean;
       };
       inputs: {
+        /**
+         * @description Input address
+         * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+         */
+        address?: string;
+        /**
+         * @description Hash of the UTXO transaction
+         * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+         */
+        tx_hash: string;
+        /**
+         * @description UTXO index in the transaction
+         * @example 0
+         */
+        output_index: number;
+        /**
+         * @description Whether the input is a collateral consumed on script validation failure
+         * @example false
+         */
+        collateral: boolean;
+        /**
+         * @description Whether the input is a reference transaction input
+         * @example false
+         */
+        reference?: boolean;
+      }[];
+      outputs: {
+        /**
+         * @description Output address
+         * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+         */
+        address: string;
+        /**
+         * @example [
+         *   {
+         *     "unit": "lovelace",
+         *     "quantity": "42000000"
+         *   },
+         *   {
+         *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *     "quantity": "12"
+         *   }
+         * ]
+         */
+        amount: {
           /**
-           * @description Input address
-           * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
+           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+           * @description The unit of the value
            */
-          address?: string;
-          /**
-           * @description Hash of the UTXO transaction
-           * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
-           */
-          tx_hash: string;
-          /**
-           * @description UTXO index in the transaction
-           * @example 0
-           */
-          output_index: number;
-          /**
-           * @description Whether the input is a collateral consumed on script validation failure
-           * @example false
-           */
-          collateral: boolean;
-          /**
-           * @description Whether the input is a reference transaction input
-           * @example false
-           */
-          reference?: boolean;
+          unit: string;
+          /** @description The quantity of the unit */
+          quantity: string;
         }[];
-      outputs: ({
-          /**
-           * @description Output address
-           * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
-           */
-          address: string;
-          /**
-           * @example [
-           *   {
-           *     "unit": "lovelace",
-           *     "quantity": "42000000"
-           *   },
-           *   {
-           *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
-           *     "quantity": "12"
-           *   }
-           * ]
-           */
-          amount: {
-              /**
-               * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-               * @description The unit of the value
-               */
-              unit: string;
-              /** @description The quantity of the unit */
-              quantity: string;
-            }[];
-          /**
-           * @description UTXO index in the transaction
-           * @example 0
-           */
-          output_index: number;
-          /**
-           * @description The hash of the transaction output datum
-           * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
-           */
-          data_hash: string | null;
-          /**
-           * @description CBOR encoded inline datum
-           * @example 19a6aa
-           */
-          inline_datum: string | null;
-          /**
-           * @description Whether the output is a collateral output
-           * @example false
-           */
-          collateral: boolean;
-          /**
-           * @description The hash of the reference script of the output
-           * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-           */
-          reference_script_hash: string | null;
-        })[];
-      redeemers?: ({
-          /**
-           * @description Index of the redeemer within the transaction
-           * @example 0
-           */
-          tx_index: number;
-          /**
-           * @description Validation purpose
-           * @example spend
-           * @enum {string}
-           */
-          purpose: "spend" | "mint" | "cert" | "reward";
-          /**
-           * @description The budget in Memory to run a script
-           * @example 1700
-           */
-          unit_mem: string;
-          /**
-           * @description The budget in CPU steps to run a script
-           * @example 476468
-           */
-          unit_steps: string;
-        })[];
+        /**
+         * @description UTXO index in the transaction
+         * @example 0
+         */
+        output_index: number;
+        /**
+         * @description The hash of the transaction output datum
+         * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
+         */
+        data_hash: string | null;
+        /**
+         * @description CBOR encoded inline datum
+         * @example 19a6aa
+         */
+        inline_datum: string | null;
+        /**
+         * @description Whether the output is a collateral output
+         * @example false
+         */
+        collateral: boolean;
+        /**
+         * @description The hash of the reference script of the output
+         * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+         */
+        reference_script_hash: string | null;
+      }[];
+      redeemers?: {
+        /**
+         * @description Index of the redeemer within the transaction
+         * @example 0
+         */
+        tx_index: number;
+        /**
+         * @description Validation purpose
+         * @example spend
+         * @enum {string}
+         */
+        purpose: 'spend' | 'mint' | 'cert' | 'reward';
+        /**
+         * @description The budget in Memory to run a script
+         * @example 1700
+         */
+        unit_mem: string;
+        /**
+         * @description The budget in CPU steps to run a script
+         * @example 476468
+         */
+        unit_steps: string;
+      }[];
     };
     /**
      * @example [
@@ -5212,9 +5500,9 @@ export interface components {
      * ]
      */
     mempool_addresses_content: {
-        /** @description Hash of the transaction */
-        tx_hash: string;
-      }[];
+      /** @description Hash of the transaction */
+      tx_hash: string;
+    }[];
     /**
      * @example [
      *   {
@@ -5234,14 +5522,14 @@ export interface components {
      *   }
      * ]
      */
-    tx_metadata_labels: ({
-        /** @description Metadata label */
-        label: string;
-        /** @description CIP10 defined description */
-        cip10: string | null;
-        /** @description The count of metadata entries with a specific label */
-        count: string;
-      })[];
+    tx_metadata_labels: {
+      /** @description Metadata label */
+      label: string;
+      /** @description CIP10 defined description */
+      cip10: string | null;
+      /** @description The count of metadata entries with a specific label */
+      count: string;
+    }[];
     /**
      * @example [
      *   {
@@ -5272,16 +5560,24 @@ export interface components {
      *   }
      * ]
      */
-    tx_metadata_label_json: ({
-        /** @description Transaction hash that contains the specific metadata */
-        tx_hash: string;
-        /** @description Content of the JSON metadata */
-        json_metadata: ({
-          [key: string]: unknown;
-        } & (string | {
-          [key: string]: unknown;
-        } | unknown[] | number | boolean)) | null;
-      })[];
+    tx_metadata_label_json: {
+      /** @description Transaction hash that contains the specific metadata */
+      tx_hash: string;
+      /** @description Content of the JSON metadata */
+      json_metadata:
+        | ({
+            [key: string]: unknown;
+          } & (
+            | string
+            | {
+                [key: string]: unknown;
+              }
+            | unknown[]
+            | number
+            | boolean
+          ))
+        | null;
+    }[];
     /**
      * @example [
      *   {
@@ -5301,17 +5597,17 @@ export interface components {
      *   }
      * ]
      */
-    tx_metadata_label_cbor: ({
-        /** @description Transaction hash that contains the specific metadata */
-        tx_hash: string;
-        /**
-         * @deprecated
-         * @description Content of the CBOR metadata
-         */
-        cbor_metadata: string | null;
-        /** @description Content of the CBOR metadata in hex */
-        metadata: string | null;
-      })[];
+    tx_metadata_label_cbor: {
+      /** @description Transaction hash that contains the specific metadata */
+      tx_hash: string;
+      /**
+       * @deprecated
+       * @description Content of the CBOR metadata
+       */
+      cbor_metadata: string | null;
+      /** @description Content of the CBOR metadata in hex */
+      metadata: string | null;
+    }[];
     address_content: {
       /**
        * @description Bech32 encoded addresses
@@ -5331,14 +5627,14 @@ export interface components {
        * ]
        */
       amount: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-        }[];
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
       /**
        * @description Stake address that controls the key
        * @example stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
@@ -5349,7 +5645,7 @@ export interface components {
        * @example shelley
        * @enum {string}
        */
-      type: "byron" | "shelley";
+      type: 'byron' | 'shelley';
       /**
        * @description True if this is a script address
        * @example false
@@ -5378,19 +5674,19 @@ export interface components {
        *   }
        * ]
        */
-      amount: ({
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-          /** @description Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata. */
-          decimals: number | null;
-          /** @description True if the latest minting transaction includes metadata (best-effort) */
-          has_nft_onchain_metadata: boolean;
-        })[];
+      amount: {
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+        /** @description Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata. */
+        decimals: number | null;
+        /** @description True if the latest minting transaction includes metadata (best-effort) */
+        has_nft_onchain_metadata: boolean;
+      }[];
       /**
        * @description Stake address that controls the key
        * @example stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
@@ -5401,7 +5697,7 @@ export interface components {
        * @example shelley
        * @enum {string}
        */
-      type: "byron" | "shelley";
+      type: 'byron' | 'shelley';
       /**
        * @description True if this is a script address
        * @example false
@@ -5427,14 +5723,14 @@ export interface components {
        * ]
        */
       received_sum: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-        }[];
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
       /**
        * @example [
        *   {
@@ -5448,14 +5744,14 @@ export interface components {
        * ]
        */
       sent_sum: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
-        }[];
+        /**
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
+         */
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
       /**
        * @description Count of all transactions on the address
        * @example 12
@@ -5515,45 +5811,45 @@ export interface components {
      *   }
      * ]
      */
-    address_utxo_content: ({
+    address_utxo_content: {
+      /**
+       * @description Bech32 encoded addresses - useful when querying by payment_cred
+       * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+       */
+      address: string;
+      /** @description Transaction hash of the UTXO */
+      tx_hash: string;
+      /**
+       * @deprecated
+       * @description UTXO index in the transaction
+       */
+      tx_index: number;
+      /** @description UTXO index in the transaction */
+      output_index: number;
+      amount: {
         /**
-         * @description Bech32 encoded addresses - useful when querying by payment_cred
-         * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+         * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+         * @description The unit of the value
          */
-        address: string;
-        /** @description Transaction hash of the UTXO */
-        tx_hash: string;
-        /**
-         * @deprecated
-         * @description UTXO index in the transaction
-         */
-        tx_index: number;
-        /** @description UTXO index in the transaction */
-        output_index: number;
-        amount: {
-            /**
-             * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-             * @description The unit of the value
-             */
-            unit: string;
-            /** @description The quantity of the unit */
-            quantity: string;
-          }[];
-        /** @description Block hash of the UTXO */
-        block: string;
-        /** @description The hash of the transaction output datum */
-        data_hash: string | null;
-        /**
-         * @description CBOR encoded inline datum
-         * @example 19a6aa
-         */
-        inline_datum: string | null;
-        /**
-         * @description The hash of the reference script of the output
-         * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-         */
-        reference_script_hash: string | null;
-      })[];
+        unit: string;
+        /** @description The quantity of the unit */
+        quantity: string;
+      }[];
+      /** @description Block hash of the UTXO */
+      block: string;
+      /** @description The hash of the transaction output datum */
+      data_hash: string | null;
+      /**
+       * @description CBOR encoded inline datum
+       * @example 19a6aa
+       */
+      inline_datum: string | null;
+      /**
+       * @description The hash of the reference script of the output
+       * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+       */
+      reference_script_hash: string | null;
+    }[];
     /**
      * @example [
      *   "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
@@ -5584,15 +5880,15 @@ export interface components {
      * ]
      */
     address_transactions_content: {
-        /** @description Hash of the transaction */
-        tx_hash: string;
-        /** @description Transaction index within the block */
-        tx_index: number;
-        /** @description Block height */
-        block_height: number;
-        /** @description Block creation time in UNIX time */
-        block_time: number;
-      }[];
+      /** @description Hash of the transaction */
+      tx_hash: string;
+      /** @description Transaction index within the block */
+      tx_index: number;
+      /** @description Block height */
+      block_height: number;
+      /** @description Block creation time in UNIX time */
+      block_time: number;
+    }[];
     /**
      * @example [
      *   "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
@@ -5624,27 +5920,27 @@ export interface components {
      * ]
      */
     pool_list_extended: {
-        /**
-         * @description Bech32 encoded pool ID
-         * @example pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt
-         */
-        pool_id: string;
-        /**
-         * @description Hexadecimal pool ID.
-         * @example 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
-         */
-        hex: string;
-        /**
-         * @description Active delegated amount
-         * @example 4200000000
-         */
-        active_stake: string;
-        /**
-         * @description Currently delegated amount
-         * @example 6900000000
-         */
-        live_stake: string;
-      }[];
+      /**
+       * @description Bech32 encoded pool ID
+       * @example pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt
+       */
+      pool_id: string;
+      /**
+       * @description Hexadecimal pool ID.
+       * @example 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
+       */
+      hex: string;
+      /**
+       * @description Active delegated amount
+       * @example 4200000000
+       */
+      active_stake: string;
+      /**
+       * @description Currently delegated amount
+       * @example 6900000000
+       */
+      live_stake: string;
+    }[];
     /**
      * @example [
      *   {
@@ -5662,17 +5958,17 @@ export interface components {
      * ]
      */
     pool_list_retire: {
-        /**
-         * @description Bech32 encoded pool ID
-         * @example pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt
-         */
-        pool_id: string;
-        /**
-         * @description Retirement epoch number
-         * @example 242
-         */
-        epoch: number;
-      }[];
+      /**
+       * @description Bech32 encoded pool ID
+       * @example pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt
+       */
+      pool_id: string;
+      /**
+       * @description Retirement epoch number
+       * @example 242
+       */
+      epoch: number;
+    }[];
     pool: {
       /**
        * @description Bech32 pool ID
@@ -5753,42 +6049,42 @@ export interface components {
       retirement: string[];
     };
     pool_history: {
-        /**
-         * @description Epoch number
-         * @example 233
-         */
-        epoch: number;
-        /**
-         * @description Number of blocks created by pool
-         * @example 22
-         */
-        blocks: number;
-        /**
-         * @description Active (Snapshot of live stake 2 epochs ago) stake in Lovelaces
-         * @example 20485965693569
-         */
-        active_stake: string;
-        /**
-         * @description Pool size (percentage) of overall active stake at that epoch
-         * @example 1.2345
-         */
-        active_size: number;
-        /**
-         * @description Number of delegators for epoch
-         * @example 115
-         */
-        delegators_count: number;
-        /**
-         * @description Total rewards received before distribution to delegators
-         * @example 206936253674159
-         */
-        rewards: string;
-        /**
-         * @description Pool operator rewards
-         * @example 1290968354
-         */
-        fees: string;
-      }[];
+      /**
+       * @description Epoch number
+       * @example 233
+       */
+      epoch: number;
+      /**
+       * @description Number of blocks created by pool
+       * @example 22
+       */
+      blocks: number;
+      /**
+       * @description Active (Snapshot of live stake 2 epochs ago) stake in Lovelaces
+       * @example 20485965693569
+       */
+      active_stake: string;
+      /**
+       * @description Pool size (percentage) of overall active stake at that epoch
+       * @example 1.2345
+       */
+      active_size: number;
+      /**
+       * @description Number of delegators for epoch
+       * @example 115
+       */
+      delegators_count: number;
+      /**
+       * @description Total rewards received before distribution to delegators
+       * @example 206936253674159
+       */
+      rewards: string;
+      /**
+       * @description Pool operator rewards
+       * @example 1290968354
+       */
+      fees: string;
+    }[];
     pool_metadata: {
       /**
        * @description Bech32 pool ID
@@ -5832,33 +6128,33 @@ export interface components {
       homepage: string | null;
     };
     empty_object: Record<string, never>;
-    pool_relays: ({
-        /**
-         * @description IPv4 address of the relay
-         * @example 4.4.4.4
-         */
-        ipv4: string | null;
-        /**
-         * @description IPv6 address of the relay
-         * @example https://stakenuts.com/mainnet.json
-         */
-        ipv6: string | null;
-        /**
-         * @description DNS name of the relay
-         * @example relay1.stakenuts.com
-         */
-        dns: string | null;
-        /**
-         * @description DNS SRV entry of the relay
-         * @example _relays._tcp.relays.stakenuts.com
-         */
-        dns_srv: string | null;
-        /**
-         * @description Network port of the relay
-         * @example 3001
-         */
-        port: number;
-      })[];
+    pool_relays: {
+      /**
+       * @description IPv4 address of the relay
+       * @example 4.4.4.4
+       */
+      ipv4: string | null;
+      /**
+       * @description IPv6 address of the relay
+       * @example https://stakenuts.com/mainnet.json
+       */
+      ipv6: string | null;
+      /**
+       * @description DNS name of the relay
+       * @example relay1.stakenuts.com
+       */
+      dns: string | null;
+      /**
+       * @description DNS SRV entry of the relay
+       * @example _relays._tcp.relays.stakenuts.com
+       */
+      dns_srv: string | null;
+      /**
+       * @description Network port of the relay
+       * @example 3001
+       */
+      port: number;
+    }[];
     /**
      * @example [
      *   {
@@ -5876,11 +6172,11 @@ export interface components {
      * ]
      */
     pool_delegators: {
-        /** @description Bech32 encoded stake addresses */
-        address: string;
-        /** @description Currently delegated amount */
-        live_stake: string;
-      }[];
+      /** @description Bech32 encoded stake addresses */
+      address: string;
+      /** @description Currently delegated amount */
+      live_stake: string;
+    }[];
     /**
      * @example [
      *   "d8982ca42cfe76b747cc681d35d671050a9e41e9cfe26573eb214e94fe6ff21d",
@@ -5909,17 +6205,17 @@ export interface components {
      *   }
      * ]
      */
-    pool_updates: ({
-        /** @description Transaction ID */
-        tx_hash: string;
-        /** @description Certificate within the transaction */
-        cert_index: number;
-        /**
-         * @description Action in the certificate
-         * @enum {string}
-         */
-        action: "registered" | "deregistered";
-      })[];
+    pool_updates: {
+      /** @description Transaction ID */
+      tx_hash: string;
+      /** @description Certificate within the transaction */
+      cert_index: number;
+      /**
+       * @description Action in the certificate
+       * @enum {string}
+       */
+      action: 'registered' | 'deregistered';
+    }[];
     /**
      * @example [
      *   {
@@ -5937,14 +6233,14 @@ export interface components {
      * ]
      */
     assets: {
-        /**
-         * Format: Concatenation of the policy_id and hex-encoded asset_name
-         * @description Asset identifier
-         */
-        asset: string;
-        /** @description Current asset quantity */
-        quantity: string;
-      }[];
+      /**
+       * Format: Concatenation of the policy_id and hex-encoded asset_name
+       * @description Asset identifier
+       */
+      asset: string;
+      /** @description Current asset quantity */
+      quantity: string;
+    }[];
     asset: {
       /**
        * @description Hex-encoded asset full name
@@ -5995,7 +6291,7 @@ export interface components {
        *
        * @enum {string|null}
        */
-      onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | null;
+      onchain_metadata_standard?: 'CIP25v1' | 'CIP25v2' | 'CIP68v1' | null;
       /** @description Arbitrary plutus data (CIP68). */
       onchain_metadata_extra?: string | null;
       /**
@@ -6003,7 +6299,7 @@ export interface components {
        * Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
        * Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
        */
-      metadata: ({
+      metadata: {
         /**
          * @description Asset name
          * @example nutcoin
@@ -6031,7 +6327,7 @@ export interface components {
          * @example 6
          */
         decimals: number | null;
-      }) | null;
+      } | null;
     };
     /**
      * @example [
@@ -6052,17 +6348,17 @@ export interface components {
      *   }
      * ]
      */
-    asset_history: ({
-        /** @description Hash of the transaction containing the asset action */
-        tx_hash: string;
-        /**
-         * @description Action executed upon the asset policy
-         * @enum {string}
-         */
-        action: "minted" | "burned";
-        /** @description Asset amount of the specific action */
-        amount: string;
-      })[];
+    asset_history: {
+      /** @description Hash of the transaction containing the asset action */
+      tx_hash: string;
+      /**
+       * @description Action executed upon the asset policy
+       * @enum {string}
+       */
+      action: 'minted' | 'burned';
+      /** @description Asset amount of the specific action */
+      amount: string;
+    }[];
     /**
      * @example [
      *   "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
@@ -6094,18 +6390,18 @@ export interface components {
      * ]
      */
     asset_transactions: {
-        /** @description Hash of the transaction */
-        tx_hash: string;
-        /** @description Transaction index within the block */
-        tx_index: number;
-        /** @description Block height */
-        block_height: number;
-        /**
-         * @description Block creation time in UNIX time
-         * @example 1635505891
-         */
-        block_time: number;
-      }[];
+      /** @description Hash of the transaction */
+      tx_hash: string;
+      /** @description Transaction index within the block */
+      tx_index: number;
+      /** @description Block height */
+      block_height: number;
+      /**
+       * @description Block creation time in UNIX time
+       * @example 1635505891
+       */
+      block_time: number;
+    }[];
     /**
      * @example [
      *   {
@@ -6123,11 +6419,11 @@ export interface components {
      * ]
      */
     asset_addresses: {
-        /** @description Address containing the specific asset */
-        address: string;
-        /** @description Asset quantity on the specific address */
-        quantity: string;
-      }[];
+      /** @description Address containing the specific asset */
+      address: string;
+      /** @description Asset quantity on the specific address */
+      quantity: string;
+    }[];
     /**
      * @example [
      *   {
@@ -6145,11 +6441,11 @@ export interface components {
      * ]
      */
     asset_policy: {
-        /** @description Concatenation of the policy_id and hex-encoded asset_name */
-        asset: string;
-        /** @description Current asset quantity */
-        quantity: string;
-      }[];
+      /** @description Concatenation of the policy_id and hex-encoded asset_name */
+      asset: string;
+      /** @description Current asset quantity */
+      quantity: string;
+    }[];
     /**
      * @example [
      *   {
@@ -6164,9 +6460,9 @@ export interface components {
      * ]
      */
     scripts: {
-        /** @description Script hash */
-        script_hash: string;
-      }[];
+      /** @description Script hash */
+      script_hash: string;
+    }[];
     script: {
       /**
        * @description Script hash
@@ -6178,7 +6474,7 @@ export interface components {
        * @example plutusV1
        * @enum {string}
        */
-      type: "timelock" | "plutusV1" | "plutusV2";
+      type: 'timelock' | 'plutusV1' | 'plutusV2';
       /**
        * @description The size of the CBOR serialised script, if a Plutus script
        * @example 3119
@@ -6209,11 +6505,19 @@ export interface components {
      */
     script_json: {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
-      json: ({
-        [key: string]: unknown;
-      } & (string | {
-        [key: string]: unknown;
-      } | unknown[] | number | boolean)) | null;
+      json:
+        | ({
+            [key: string]: unknown;
+          } & (
+            | string
+            | {
+                [key: string]: unknown;
+              }
+            | unknown[]
+            | number
+            | boolean
+          ))
+        | null;
     };
     /**
      * @example {
@@ -6224,50 +6528,50 @@ export interface components {
       /** @description CBOR contents of the `plutus` script, null for `timelocks` */
       cbor: string | null;
     };
-    script_redeemers: ({
-        /**
-         * @description Hash of the transaction
-         * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
-         */
-        tx_hash: string;
-        /**
-         * @description The index of the redeemer pointer in the transaction
-         * @example 0
-         */
-        tx_index: number;
-        /**
-         * @description Validation purpose
-         * @example spend
-         * @enum {string}
-         */
-        purpose: "spend" | "mint" | "cert" | "reward";
-        /**
-         * @description Datum hash of the redeemer
-         * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
-         */
-        redeemer_data_hash: string;
-        /**
-         * @deprecated
-         * @description Datum hash
-         * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
-         */
-        datum_hash: string;
-        /**
-         * @description The budget in Memory to run a script
-         * @example 1700
-         */
-        unit_mem: string;
-        /**
-         * @description The budget in CPU steps to run a script
-         * @example 476468
-         */
-        unit_steps: string;
-        /**
-         * @description The fee consumed to run the script
-         * @example 172033
-         */
-        fee: string;
-      })[];
+    script_redeemers: {
+      /**
+       * @description Hash of the transaction
+       * @example 1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0
+       */
+      tx_hash: string;
+      /**
+       * @description The index of the redeemer pointer in the transaction
+       * @example 0
+       */
+      tx_index: number;
+      /**
+       * @description Validation purpose
+       * @example spend
+       * @enum {string}
+       */
+      purpose: 'spend' | 'mint' | 'cert' | 'reward';
+      /**
+       * @description Datum hash of the redeemer
+       * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+       */
+      redeemer_data_hash: string;
+      /**
+       * @deprecated
+       * @description Datum hash
+       * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec
+       */
+      datum_hash: string;
+      /**
+       * @description The budget in Memory to run a script
+       * @example 1700
+       */
+      unit_mem: string;
+      /**
+       * @description The budget in CPU steps to run a script
+       * @example 476468
+       */
+      unit_steps: string;
+      /**
+       * @description The fee consumed to run the script
+       * @example 172033
+       */
+      fee: string;
+    }[];
     /**
      * @example {
      *   "json_value": {
@@ -6323,11 +6627,11 @@ export interface components {
      * ]
      */
     metrics: {
-        /** @description Starting time of the call count interval (ends midnight UTC) in UNIX time */
-        time: number;
-        /** @description Sum of all calls for a particular day */
-        calls: number;
-      }[];
+      /** @description Starting time of the call count interval (ends midnight UTC) in UNIX time */
+      time: number;
+      /** @description Sum of all calls for a particular day */
+      calls: number;
+    }[];
     /**
      * @example [
      *   {
@@ -6358,13 +6662,13 @@ export interface components {
      * ]
      */
     metrics_endpoints: {
-        /** @description Starting time of the call count interval (ends midnight UTC) in UNIX time */
-        time: number;
-        /** @description Sum of all calls for a particular day and endpoint */
-        calls: number;
-        /** @description Endpoint parent name */
-        endpoint: string;
-      }[];
+      /** @description Starting time of the call count interval (ends midnight UTC) in UNIX time */
+      time: number;
+      /** @description Sum of all calls for a particular day and endpoint */
+      calls: number;
+      /** @description Endpoint parent name */
+      endpoint: string;
+    }[];
     network: {
       supply: {
         /**
@@ -6449,41 +6753,41 @@ export interface components {
      *   }
      * ]
      */
-    "network-eras": {
-        /**
-         * @description Start of the blockchain era,
-         * relative to the start of the network
-         */
-        start: {
-          /** @description Time in seconds relative to the start time of the network */
-          time: number;
-          /** @description Absolute slot number */
-          slot: number;
-          /** @description Epoch number */
-          epoch: number;
-        };
-        /**
-         * @description End of the blockchain era,
-         * relative to the start of the network
-         */
-        end: {
-          /** @description Time in seconds relative to the start time of the network */
-          time: number;
-          /** @description Absolute slot number */
-          slot: number;
-          /** @description Epoch number */
-          epoch: number;
-        };
-        /** @description Era parameters */
-        parameters: {
-          /** @description Epoch length in number of slots */
-          epoch_length: number;
-          /** @description Slot length in seconds */
-          slot_length: number;
-          /** @description Zone in which it is guaranteed that no hard fork can take place */
-          safe_zone: number;
-        };
-      }[];
+    'network-eras': {
+      /**
+       * @description Start of the blockchain era,
+       * relative to the start of the network
+       */
+      start: {
+        /** @description Time in seconds relative to the start time of the network */
+        time: number;
+        /** @description Absolute slot number */
+        slot: number;
+        /** @description Epoch number */
+        epoch: number;
+      };
+      /**
+       * @description End of the blockchain era,
+       * relative to the start of the network
+       */
+      end: {
+        /** @description Time in seconds relative to the start time of the network */
+        time: number;
+        /** @description Absolute slot number */
+        slot: number;
+        /** @description Epoch number */
+        epoch: number;
+      };
+      /** @description Era parameters */
+      parameters: {
+        /** @description Epoch length in number of slots */
+        epoch_length: number;
+        /** @description Slot length in seconds */
+        slot_length: number;
+        /** @description Zone in which it is guaranteed that no hard fork can take place */
+        safe_zone: number;
+      };
+    }[];
     nutlink_address: {
       /**
        * @description Bech32 encoded address
@@ -6525,13 +6829,13 @@ export interface components {
      * ]
      */
     nutlink_address_tickers: {
-        /** @description Name of the ticker */
-        name: string;
-        /** @description Number of ticker records */
-        count: number;
-        /** @description Block height of the latest record */
-        latest_block: number;
-      }[];
+      /** @description Name of the ticker */
+      name: string;
+      /** @description Number of ticker records */
+      count: number;
+      /** @description Block height of the latest record */
+      latest_block: number;
+    }[];
     /**
      * @example [
      *   {
@@ -6551,18 +6855,18 @@ export interface components {
      *   }
      * ]
      */
-    nutlink_address_ticker: ({
-        /** @description Hash of the transaction */
-        tx_hash: string;
-        /** @description Block height of the record */
-        block_height: number;
-        /** @description Transaction index within the block */
-        tx_index: number;
-        /** @description Content of the ticker */
-        payload: {
-          [key: string]: unknown;
-        } & (string | Record<string, never> | unknown[] | number | boolean);
-      })[];
+    nutlink_address_ticker: {
+      /** @description Hash of the transaction */
+      tx_hash: string;
+      /** @description Block height of the record */
+      block_height: number;
+      /** @description Transaction index within the block */
+      tx_index: number;
+      /** @description Content of the ticker */
+      payload: {
+        [key: string]: unknown;
+      } & (string | Record<string, never> | unknown[] | number | boolean);
+    }[];
     /**
      * @example [
      *   {
@@ -6583,20 +6887,20 @@ export interface components {
      *   }
      * ]
      */
-    nutlink_tickers_ticker: ({
-        /** @description Address of a metadata oracle */
-        address: string;
-        /** @description Hash of the transaction */
-        tx_hash: string;
-        /** @description Block height of the record */
-        block_height: number;
-        /** @description Transaction index within the block */
-        tx_index: number;
-        /** @description Content of the ticker */
-        payload: {
-          [key: string]: unknown;
-        } & (string | Record<string, never> | unknown[] | number | boolean);
-      })[];
+    nutlink_tickers_ticker: {
+      /** @description Address of a metadata oracle */
+      address: string;
+      /** @description Hash of the transaction */
+      tx_hash: string;
+      /** @description Block height of the record */
+      block_height: number;
+      /** @description Transaction index within the block */
+      tx_index: number;
+      /** @description Content of the ticker */
+      payload: {
+        [key: string]: unknown;
+      } & (string | Record<string, never> | unknown[] | number | boolean);
+    }[];
     /**
      * @description On-chain metadata stored in the minting transaction under label 721,
      * which adheres to https://cips.cardano.org/cips/cip25/
@@ -6622,24 +6926,24 @@ export interface components {
        * @example image/jpeg
        */
       mediaType?: string;
-      files?: ({
-          /**
-           * @description Name of the file
-           * @example myimage
-           */
-          name?: string;
-          /**
-           * @description Mime sub-type of image
-           * @example image/jpeg
-           */
-          mediaType: string;
-          /**
-           * @description URI pointing to a resource of this mime type
-           * @example My NFT token description
-           */
-          src: string | string[];
-          [key: string]: unknown;
-        })[];
+      files?: {
+        /**
+         * @description Name of the file
+         * @example myimage
+         */
+        name?: string;
+        /**
+         * @description Mime sub-type of image
+         * @example image/jpeg
+         */
+        mediaType: string;
+        /**
+         * @description URI pointing to a resource of this mime type
+         * @example My NFT token description
+         */
+        src: string | string[];
+        [key: string]: unknown;
+      }[];
       [key: string]: unknown;
     };
     /**
@@ -6699,24 +7003,24 @@ export interface components {
        * @example image/jpeg
        */
       mediaType?: string;
-      files?: ({
-          /**
-           * @description Name of the file
-           * @example myimage
-           */
-          name?: string;
-          /**
-           * @description Mime sub-type of image
-           * @example image/jpeg
-           */
-          mediaType: string;
-          /**
-           * @description URI pointing to a resource of this mime type
-           * @example My NFT token description
-           */
-          src: string | string[];
-          [key: string]: unknown;
-        })[];
+      files?: {
+        /**
+         * @description Name of the file
+         * @example myimage
+         */
+        name?: string;
+        /**
+         * @description Mime sub-type of image
+         * @example image/jpeg
+         */
+        mediaType: string;
+        /**
+         * @description URI pointing to a resource of this mime type
+         * @example My NFT token description
+         */
+        src: string | string[];
+        [key: string]: unknown;
+      }[];
       [key: string]: unknown;
     };
     /**
@@ -6749,24 +7053,24 @@ export interface components {
        * @example 8
        */
       decimals?: number;
-      files?: ({
-          /**
-           * @description Name of the file
-           * @example myimage
-           */
-          name?: string;
-          /**
-           * @description Mime sub-type of image
-           * @example image/jpeg
-           */
-          mediaType: string;
-          /**
-           * @description URI pointing to a resource of this mime type
-           * @example My NFT token description
-           */
-          src: string | string[];
-          [key: string]: unknown;
-        })[];
+      files?: {
+        /**
+         * @description Name of the file
+         * @example myimage
+         */
+        name?: string;
+        /**
+         * @description Mime sub-type of image
+         * @example image/jpeg
+         */
+        mediaType: string;
+        /**
+         * @description URI pointing to a resource of this mime type
+         * @example My NFT token description
+         */
+        src: string | string[];
+        [key: string]: unknown;
+      }[];
       [key: string]: unknown;
     };
   };
@@ -6774,7 +7078,7 @@ export interface components {
     /** @description Bad request */
     400: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 400 */
           status_code: number;
           /** @example Bad Request */
@@ -6787,7 +7091,7 @@ export interface components {
     /** @description Authentication secret is missing or invalid */
     403: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 403 */
           status_code: number;
           /** @example Forbidden */
@@ -6800,7 +7104,7 @@ export interface components {
     /** @description Component not found */
     404: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 404 */
           status_code: number;
           /** @example Not Found */
@@ -6813,7 +7117,7 @@ export interface components {
     /** @description IP has been auto-banned for extensive sending of requests after usage limit has been reached */
     418: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 418 */
           status_code: number;
           /** @example Requested Banned */
@@ -6826,7 +7130,7 @@ export interface components {
     /** @description Mempool is already full, not accepting new txs straight away */
     425: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 425 */
           status_code: number;
           /** @example Mempool Full */
@@ -6839,7 +7143,7 @@ export interface components {
     /** @description Usage limit reached */
     429: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 429 */
           status_code: number;
           /** @example Project Over Limit */
@@ -6852,7 +7156,7 @@ export interface components {
     /** @description Internal Server Error */
     500: {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 500 */
           status_code: number;
           /** @example Internal Server Error */
@@ -6863,9 +7167,9 @@ export interface components {
       };
     };
     /** @description Pin queue is currently full, not accepting new txs straight away */
-    "425-2": {
+    '425-2': {
       content: {
-        "application/json": {
+        'application/json': {
           /** @example 425 */
           status_code: number;
           /** @example Pin Queue Full */
@@ -6887,7 +7191,6 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
-
   /**
    * Add a file to IPFS
    * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
@@ -6900,7 +7203,7 @@ export interface operations {
   ipfs_add: {
     requestBody?: {
       content: {
-        "multipart/form-data": {
+        'multipart/form-data': {
           /** Format: binary */
           file?: string;
         };
@@ -6910,7 +7213,7 @@ export interface operations {
       /** @description Returns information about added IPFS object */
       200: {
         content: {
-          "application/json": {
+          'application/json': {
             /**
              * @description Name of the file
              * @example README.md
@@ -6929,12 +7232,12 @@ export interface operations {
           };
         };
       };
-      400: components["responses"]["400"];
-      403: components["responses"]["403"];
-      404: components["responses"]["404"];
-      418: components["responses"]["418"];
-      429: components["responses"]["429"];
-      500: components["responses"]["500"];
+      400: components['responses']['400'];
+      403: components['responses']['403'];
+      404: components['responses']['404'];
+      418: components['responses']['418'];
+      429: components['responses']['429'];
+      500: components['responses']['500'];
     };
   };
 }

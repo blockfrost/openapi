@@ -265,6 +265,8 @@ tags:
   - name: Cardano » Assets
   - name: Cardano » Blocks
   - name: Cardano » Epochs
+  - name: Cardano » Genesis
+  - name: Cardano » Governance
   - name: Cardano » Ledger
   - name: Cardano » Mempool
   - name: Cardano » Metadata
@@ -281,11 +283,15 @@ paths:
   /:
     $ref: ./paths/api/root/index.yaml
 
+  # health
+
   /health:
     $ref: ./paths/api/health/index.yaml
 
   /health/clock:
     $ref: ./paths/api/health/clock.yaml
+
+  # blocks
 
   /blocks/latest:
     $ref: ./paths/api/blocks/latest/index.yaml
@@ -314,8 +320,38 @@ paths:
   /blocks/{hash_or_number}/addresses:
     $ref: ./paths/api/blocks/addresses/index.yaml
 
+  # genesis
+
   /genesis:
     $ref: ./paths/api/genesis/index.yaml
+
+  # governance
+
+  /governance/actions:
+    $ref: ./paths/api/governance/actions.yaml
+
+  /governance/dreps:
+    $ref: ./paths/api/governance/dreps/index.yaml
+
+  /governance/dreps/{id}:
+    $ref: ./paths/api/governance/dreps/{id}.yaml
+
+  /governance/dreps/distribution/{epoch_number}:
+    $ref: ./paths/api/governance/dreps/distribution/{epoch_number}.yaml
+
+  /governance/proposals:
+    $ref: ./paths/api/governance/proposals/index.yaml
+
+  /governance/proposals/voting:
+    $ref: ./paths/api/governance/proposals/voting.yaml
+
+  /governance/treasury:
+    $ref: ./paths/api/governance/treasury.yaml
+
+  /governance/voting:
+    $ref: ./paths/api/governance/voting.yaml
+
+  # epochs
 
   /epochs/latest:
     $ref: ./paths/api/epochs/latest/index.yaml
@@ -346,6 +382,8 @@ paths:
 
   /epochs/{number}/parameters:
     $ref: ./paths/api/epochs/{number}/parameters.yaml
+
+  # transactions
 
   /txs/{hash}:
     $ref: ./paths/api/txs/{hash}/index.yaml
@@ -380,8 +418,12 @@ paths:
   /txs/{hash}/redeemers:
     $ref: ./paths/api/txs/{hash}/redeemers.yaml
 
+  # submit
+
   /tx/submit:
     $ref: ./paths/api/tx/submit.yaml
+
+  # accounts
 
   /accounts/{stake_address}:
     $ref: ./paths/api/accounts/{stake_address}/index.yaml
@@ -413,6 +455,8 @@ paths:
   /accounts/{stake_address}/addresses/total:
     $ref: ./paths/api/accounts/{stake_address}/addresses/total.yaml
 
+  # mempool
+
   /mempool:
     $ref: ./paths/api/mempool/index.yaml
 
@@ -422,6 +466,8 @@ paths:
   /mempool/addresses/{address}:
     $ref: ./paths/api/mempool/addresses/{address}/index.yaml
 
+  # metadata
+
   /metadata/txs/labels:
     $ref: ./paths/api/metadata/txs/labels/index.yaml
 
@@ -430,6 +476,8 @@ paths:
 
   /metadata/txs/labels/{label}/cbor:
     $ref: ./paths/api/metadata/txs/labels/{label}/cbor.yaml
+
+  # addresses
 
   /addresses/{address}:
     $ref: ./paths/api/addresses/{address}/index.yaml
@@ -451,6 +499,8 @@ paths:
 
   /addresses/{address}/transactions:
     $ref: ./paths/api/addresses/{address}/transactions.yaml
+
+  # pools
 
   /pools:
     $ref: ./paths/api/pools/index.yaml
@@ -485,6 +535,8 @@ paths:
   /pools/{pool_id}/updates:
     $ref: ./paths/api/pools/{pool_id}/updates.yaml
 
+  # assets
+
   /assets:
     $ref: ./paths/api/assets/index.yaml
 
@@ -505,6 +557,8 @@ paths:
 
   /assets/policy/{policy_id}:
     $ref: ./paths/api/assets/policy/{policy_id}/index.yaml
+
+  # scripts
 
   /scripts:
     $ref: ./paths/api/scripts/index.yaml
@@ -527,6 +581,8 @@ paths:
   /scripts/datum/{datum_hash}/cbor:
     $ref: ./paths/api/scripts/datum/{datum_hash}/cbor.yaml
 
+  # utils
+
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     $ref: ./paths/api/utils/addresses/xpub/{xpub}/{role}/{index}/index.yaml
 
@@ -535,6 +591,8 @@ paths:
 
   /utils/txs/evaluate/utxos:
     $ref: ./paths/api/utils/txs/evaluate/utxos.yaml
+
+  # ipfs
 
   /ipfs/add:
     $ref: ./paths/ipfs/add.yaml
@@ -554,17 +612,23 @@ paths:
   /ipfs/pin/remove/{IPFS_path}:
     $ref: ./paths/ipfs/pin/remove/{IPFS_path}/index.yaml
 
+  # metrics
+
   /metrics:
     $ref: ./paths/api/metrics/index.yaml
 
   /metrics/endpoints:
     $ref: ./paths/api/metrics/endpoints.yaml
 
+  # network
+
   /network:
     $ref: ./paths/api/network/index.yaml
 
   /network/eras:
     $ref: ./paths/api/network/eras.yaml
+
+  # nutlink
 
   /nutlink/{address}:
     $ref: ./paths/api/nutlink/{address}/index.yaml

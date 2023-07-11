@@ -21,6 +21,8 @@
     "timelock",
     "UTXO",
     "utxos",
-    "xpub"
+    "xpub",
+    "dreps",
+    "ipfs"
   ]
 }

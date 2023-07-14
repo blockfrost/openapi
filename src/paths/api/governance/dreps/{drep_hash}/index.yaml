@@ -5,11 +5,11 @@ get:
   description: xxx
   responses:
     "200":
-      description: Return the genesis parameters.
+      description: Return the information about Delegation Representative (DRep)
       # content:
       #   application/json:
       #     schema:
-      #       $ref: ../../../schemas/xxx
+      #       $ref: ../../../../../schemas/xxx
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

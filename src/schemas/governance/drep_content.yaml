@@ -4,26 +4,39 @@ items:
   properties:
     id:
       type: integer
-      description: Address that was affected in the specified block
-    raw:
-      type: array
-      description: List of transactions containing the address either in their inputs or outputs. Sorted by transaction index within a block, ascending.
-    view:
-      description: List of transactions containing the address either in their inputs or outputs. Sorted by transaction index within a block, ascending.
+      description: Id
+    hash:
+      type: string
+      description: The raw bytes of the DRep.
+    address:
+      type: string
+      description: The Bech32 encoding of the DRep hash.
     has_script:
       type: boolean
-      description: Whether the address has a script attached to it
+      description: Flag which shows if this DRep credentials are a script hash
+    is_registered:
+      type: boolean
+      description: Flags which shows if the drep is registered or not
+    voting_power:
+      type: string
+      description: The total amount of voting power this DRep is delegated.
   required:
     - id
-    - raw
-    - view
+    - hash
+    - address
     - has_script
+    - is_registered
+    - voting_power
 example:
   - id: "2"
-    raw: "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
-    view: "4ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c87443"
+    hash: "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
+    address: "4ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c87443"
     has_script: true
+    is_registered: true
+    voting_power: "100000000"
   - id: "3"
-    raw: "3788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
+    hash: "3788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b"
     view: "2ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c8744v"
     has_script: false
+    is_registered: false
+    voting_power: "250000000"

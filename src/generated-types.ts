@@ -518,17 +518,35 @@ export interface paths {
   };
   "/governance/dreps/{id}": {
     /**
-     * xxx 
-     * @description xxx
+     * Delegate Representatives (DReps) 
+     * @description Return the information about Delegate Representatives (DReps)
      */
     get: {
       /**
-       * xxx 
-       * @description xxx
+       * Delegate Representatives (DReps) 
+       * @description Return the information about Delegate Representatives (DReps)
        */
+      parameters?: {
+          /** @description The number of results displayed on one page. */
+          /** @description The page number for listing the results. */
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
+        query?: {
+          count?: number;
+          page?: number;
+          order?: "asc" | "desc";
+        };
+      };
       responses: {
-        /** @description Return the genesis parameters. */
-        200: never;
+        /** @description Paginated array with the Delegate Representatives (DReps) data */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_content"];
+          };
+        };
         400: components["responses"]["400"];
         403: components["responses"]["403"];
         418: components["responses"]["418"];
@@ -4395,6 +4413,40 @@ export interface components {
        */
       security_param: number;
     };
+    /**
+     * @example [
+     *   {
+     *     "id": "2",
+     *     "hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
+     *     "address": "4ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c87443",
+     *     "has_script": true,
+     *     "is_registered": true,
+     *     "voting_power": "100000000"
+     *   },
+     *   {
+     *     "id": "3",
+     *     "hash": "3788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
+     *     "view": "2ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c8744v",
+     *     "has_script": false,
+     *     "is_registered": false,
+     *     "voting_power": "250000000"
+     *   }
+     * ]
+     */
+    drep_content: ({
+        /** @description Id */
+        id: number;
+        /** @description The raw bytes of the DRep. */
+        hash: string;
+        /** @description The Bech32 encoding of the DRep hash. */
+        address: string;
+        /** @description Flag which shows if this DRep credentials are a script hash */
+        has_script: boolean;
+        /** @description Flags which shows if the drep is registered or not */
+        is_registered: boolean;
+        /** @description The total amount of voting power this DRep is delegated. */
+        voting_power: string;
+      })[];
     epoch_content: {
       /**
        * @description Epoch number 

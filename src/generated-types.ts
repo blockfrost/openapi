@@ -497,27 +497,6 @@ export interface paths {
   };
   "/governance/dreps": {
     /**
-     * xxx 
-     * @description xxx
-     */
-    get: {
-      /**
-       * xxx 
-       * @description xxx
-       */
-      responses: {
-        /** @description Return the genesis parameters. */
-        200: never;
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
-  };
-  "/governance/dreps/{id}": {
-    /**
      * Delegate Representatives (DReps) 
      * @description Return the information about Delegate Representatives (DReps)
      */
@@ -555,7 +534,7 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/distribution/{epoch_number}": {
+  "/governance/dreps/{drep_hash}": {
     /**
      * xxx 
      * @description xxx
@@ -566,8 +545,55 @@ export interface paths {
        * @description xxx
        */
       responses: {
-        /** @description Return the genesis parameters. */
+        /** @description Return the information about Delegation Representative (DRep) */
         200: never;
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{drep_hash}/distribution": {
+    /**
+     * DRep voting power distribution 
+     * @description Distribution of voting power per DRep
+     */
+    get: {
+      /**
+       * DRep voting power distribution 
+       * @description Distribution of voting power per DRep
+       */
+      parameters: {
+          /** @description The number of results displayed on one page. */
+          /** @description The page number for listing the results. */
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is
+           *  based on the time of the first mint transaction.
+           */
+        query?: {
+          count?: number;
+          page?: number;
+          order?: "asc" | "desc";
+        };
+          /**
+           * @description DRep hash 
+           * @example xxx
+           */
+        path: {
+          drep_hash: string;
+        };
+      };
+      responses: {
+        /** @description xxx */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_distribution_content"];
+          };
+        };
         400: components["responses"]["400"];
         403: components["responses"]["403"];
         418: components["responses"]["418"];
@@ -4446,6 +4472,24 @@ export interface components {
         is_registered: boolean;
         /** @description The total amount of voting power this DRep is delegated. */
         voting_power: string;
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "amount": "2000000",
+     *     "epoch": 432
+     *   },
+     *   {
+     *     "amount": "300000000",
+     *     "epoch": 433
+     *   }
+     * ]
+     */
+    drep_distribution_content: ({
+        /** @description The total amount of voting power this DRep is delegated. */
+        amount: string;
+        /** @description The epoch no this distribution is about. */
+        epoch: number;
       })[];
     epoch_content: {
       /**

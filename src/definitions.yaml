@@ -333,11 +333,11 @@ paths:
   /governance/dreps:
     $ref: ./paths/api/governance/dreps/index.yaml
 
-  /governance/dreps/{id}:
-    $ref: ./paths/api/governance/dreps/{id}.yaml
+  /governance/dreps/{drep_hash}:
+    $ref: ./paths/api/governance/dreps/{drep_hash}/index.yaml
 
-  /governance/dreps/distribution/{epoch_number}:
-    $ref: ./paths/api/governance/dreps/distribution/{epoch_number}.yaml
+  /governance/dreps/{drep_hash}/distribution:
+    $ref: ./paths/api/governance/dreps/{drep_hash}/distribution.yaml
 
   /governance/proposals:
     $ref: ./paths/api/governance/proposals/index.yaml

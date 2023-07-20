@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.59] - 2023-07-20
+
 ### Added
 
 - exported patched fastify-compatible JSONSchema to `json-schema.json`

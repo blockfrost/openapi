@@ -14,6 +14,6 @@ content:
           type: string
           example: "Your pin queue is currently full, please try pinning again later."
       required:
-        - status_code
         - error
         - message
+        - status_code

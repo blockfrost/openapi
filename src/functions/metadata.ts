@@ -202,6 +202,7 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
       ? {
           version: 'CIP68v1',
           metadata: input.metadata,
+          extra: input.extra,
         }
       : false;
   } else if (schema === 'ft') {
@@ -214,6 +215,20 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
       ? {
           version: 'CIP68v1',
           metadata: input.metadata,
+          extra: input.extra,
+        }
+      : false;
+  } else if (schema === 'rft') {
+    const { isValid: isValidRFT } = validateSchema(
+      'asset_onchain_metadata_cip68_rft_444',
+      input.metadata,
+    );
+
+    return isValidRFT
+      ? {
+          version: 'CIP68v1',
+          metadata: input.metadata,
+          extra: input.extra,
         }
       : false;
   } else {

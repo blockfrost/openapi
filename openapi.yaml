@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  version: 0.1.57
+  version: 0.1.59
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -5207,6 +5207,8 @@ components:
       $ref: '#/components/schemas/asset_onchain_metadata_cip68_ft_333'
     onchain_metadata_cip68_nft_222:
       $ref: '#/components/schemas/asset_onchain_metadata_cip68_nft_222'
+    onchain_metadata_cip68_rft_444:
+      $ref: '#/components/schemas/asset_onchain_metadata_cip68_rft_444'
     block_content:
       type: object
       properties:
@@ -7820,6 +7822,12 @@ components:
           description: |
             If on-chain metadata passes validation, we display the standard
             under which it is valid
+        onchain_metadata_extra:
+          type:
+            - string
+            - 'null'
+          description: |
+            Arbitrary plutus data (CIP68).
         metadata:
           type:
             - object
@@ -8648,6 +8656,61 @@ components:
       required:
         - name
         - image
+    asset_onchain_metadata_cip68_rft_444:
+      type: object
+      additionalProperties: true
+      description: |
+        On-chain metadata stored in the datum of the reference NFT output
+        which adheres to 222 NFT Standard https://cips.cardano.org/cips/cip68/
+      properties:
+        name:
+          type: string
+          description: Name of the asset
+          example: My NFT token
+        image:
+          type: string
+          description: URI(s) of the associated asset
+          example: ipfs://ipfs/QmfKyJ4tuvHowwKQCbCHj4L5T3fSj8cjs7Aau8V7BWv226
+        description:
+          type: string
+          description: Additional description
+          example: My NFT token description
+        mediaType:
+          type: string
+          description: Mime sub-type of image
+          example: image/jpeg
+        decimals:
+          type: number
+          description: Number of decimals
+          example: 8
+        files:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              name:
+                type: string
+                description: Name of the file
+                example: myimage
+              mediaType:
+                type: string
+                description: Mime sub-type of image
+                example: image/jpeg
+              src:
+                oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+                description: URI pointing to a resource of this mime type
+                example: My NFT token description
+            required:
+              - mediaType
+              - src
+      required:
+        - name
+        - image
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -8675,9 +8738,9 @@ components:
                 type: string
                 example: Backend did not understand your request.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '403':
       description: Authentication secret is missing or invalid
       content:
@@ -8695,9 +8758,9 @@ components:
                 type: string
                 example: Invalid project token.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '404':
       description: Component not found
       content:
@@ -8715,9 +8778,9 @@ components:
                 type: string
                 example: The requested component has not been found.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '418':
       description: IP has been auto-banned for extensive sending of requests after usage limit has been reached
       content:
@@ -8735,9 +8798,9 @@ components:
                 type: string
                 example: IP has been auto-banned for flooding.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '425':
       description: Mempool is already full, not accepting new txs straight away
       content:
@@ -8755,9 +8818,9 @@ components:
                 type: string
                 example: Mempool is full, please try resubmitting again later.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '429':
       description: Usage limit reached
       content:
@@ -8775,9 +8838,9 @@ components:
                 type: string
                 example: Usage is over limit.
             required:
-              - status_code
               - error
               - message
+              - status_code
     '500':
       description: Internal Server Error
       content:
@@ -8795,9 +8858,9 @@ components:
                 type: string
                 example: An unexpected response was received from the backend.
             required:
-              - status_code
               - error
               - message
+              - status_code
     425-2:
       description: Pin queue is currently full, not accepting new txs straight away
       content:
@@ -8815,6 +8878,6 @@ components:
                 type: string
                 example: Your pin queue is currently full, please try pinning again later.
             required:
-              - status_code
               - error
               - message
+              - status_code

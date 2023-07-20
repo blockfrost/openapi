@@ -50,6 +50,12 @@ properties:
     description: |
       If on-chain metadata passes validation, we display the standard
       under which it is valid
+  onchain_metadata_extra:
+    type:
+      - string
+      - "null"
+    description: |
+      Arbitrary plutus data (CIP68).
   metadata:
     type:
       - object

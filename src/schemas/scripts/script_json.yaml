@@ -11,7 +11,7 @@ properties:
       - type: integer
       - type: number
       - type: boolean
-      - type: "null"
+    nullable: true
     description: JSON contents of the `timelock` script, null for `plutus` scripts
 required:
   - json

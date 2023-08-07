@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   version: 0.1.59
   title: Blockfrost.io ~ API Documentation
@@ -5217,9 +5217,8 @@ components:
           example: 1641338934
           description: Block creation time in UNIX time
         height:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 15243593
           description: Block number
         hash:
@@ -5227,21 +5226,18 @@ components:
           example: 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a
           description: Hash of the block
         slot:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 412162133
           description: Slot number
         epoch:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 425
           description: Epoch number
         epoch_slot:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 12
           description: Slot within the epoch
         slot_leader:
@@ -5257,47 +5253,40 @@ components:
           example: 1
           description: Number of transactions in the block
         output:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '128314491794'
           description: Total output within the block in Lovelaces
         fees:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '592661'
           description: Total fees within the block in Lovelaces
         block_vrf:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty
           description: VRF key of the block
           minLength: 65
           maxLength: 65
         op_cert:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c
           description: The hash of the operational certificate of the block producer
         op_cert_counter:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '18'
           description: The value of the counter used to produce the operational certificate
         previous_block:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05
           description: Hash of the previous block
         next_block:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa
           description: Hash of the next block
         confirmations:
@@ -5458,9 +5447,8 @@ components:
           example: '4203312194'
           description: Sum of all the fees within the epoch in Lovelaces
         active_stake:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '784953934049314'
           description: Sum of all the active stakes within the epoch in Lovelaces
       required:
@@ -5534,9 +5522,8 @@ components:
           example: 0.5
           description: Percentage of blocks produced by federated nodes
         extra_entropy:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: null
           description: Seed for extra entropy
         protocol_major_ver:
@@ -5561,9 +5548,8 @@ components:
           description: Epoch number only used once
         cost_models:
           additionalProperties: true
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           example:
             PlutusV1:
               addInteger-cpu-arguments-intercept: 197209
@@ -5573,69 +5559,58 @@ components:
               addInteger-cpu-arguments-slope: 0
           description: Cost models parameters for Plutus Core scripts
         price_mem:
-          type:
-            - number
-            - 'null'
+          type: number
+          nullable: true
           example: 0.0577
           description: The per word cost of script memory usage
         price_step:
-          type:
-            - number
-            - 'null'
+          type: number
+          nullable: true
           example: 0.0000721
           description: The cost of script execution step usage
         max_tx_ex_mem:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '10000000'
           description: The maximum number of execution memory allowed to be used in a single transaction
         max_tx_ex_steps:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '10000000000'
           description: The maximum number of execution steps allowed to be used in a single transaction
         max_block_ex_mem:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '50000000'
           description: The maximum number of execution memory allowed to be used in a single block
         max_block_ex_steps:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '40000000000'
           description: The maximum number of execution steps allowed to be used in a single block
         max_val_size:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '5000'
           description: The maximum Val size
         collateral_percent:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 150
           description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
         max_collateral_inputs:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 3
           description: The maximum number of collateral inputs allowed in a transaction
         coins_per_utxo_size:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '34482'
           description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
         coins_per_utxo_word:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '34482'
           description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
           deprecated: true
@@ -5782,15 +5757,13 @@ components:
           example: 433
           description: Size of the transaction in Bytes
         invalid_before:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: null
           description: Left (included) endpoint of the timelock validity intervals
         invalid_hereafter:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '13885913'
           description: Right (excluded) endpoint of the timelock validity intervals
         utxo_count:
@@ -5902,21 +5875,18 @@ components:
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the transaction output datum
                 example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: CBOR encoded inline datum
                 example: 19a6aa
               reference_script_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the reference script of the input
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
               collateral:
@@ -5971,15 +5941,13 @@ components:
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the transaction output datum
                 example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: CBOR encoded inline datum
                 example: 19a6aa
               collateral:
@@ -5987,9 +5955,8 @@ components:
                 example: false
                 description: Whether the output is a collateral output
               reference_script_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
             required:
@@ -6143,44 +6110,37 @@ components:
             example:
               - stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v
           metadata:
-            type:
-              - object
-              - 'null'
+            type: object
+            nullable: true
             properties:
               url:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: https://stakenuts.com/mainnet.json
                 description: URL to the stake pool metadata
               hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
                 description: Hash of the metadata file
               ticker:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: NUTS
                 description: Ticker of the stake pool
               name:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: Stake Nuts
                 description: Name of the stake pool
               description:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: The best pool ever
                 description: Description of the stake pool
               homepage:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: https://stakentus.com/
                 description: Home page of the stake pool
             required:
@@ -6196,27 +6156,23 @@ components:
               type: object
               properties:
                 ipv4:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: 4.4.4.4
                   description: IPv4 address of the relay
                 ipv6:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: https://stakenuts.com/mainnet.json
                   description: IPv6 address of the relay
                 dns:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: relay1.stakenuts.com
                   description: DNS name of the relay
                 dns_srv:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: _relays._tcp.relays.stakenuts.com
                   description: DNS SRV entry of the relay
                 port:
@@ -6303,14 +6259,12 @@ components:
             description: Metadata label
           cbor_metadata:
             deprecated: true
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata
           metadata:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata in hex
         required:
           - label
@@ -6384,9 +6338,8 @@ components:
           example: true
           description: Registration state of an account
         active_epoch:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 412
           description: Epoch of the most recent action - registration or deregistration
         controlled_amount:
@@ -6414,9 +6367,8 @@ components:
           example: '319154618165'
           description: Sum of available rewards that haven't been withdrawn yet for the account in the Lovelaces
         pool_id:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
           description: Bech32 pool ID that owns the account
       required:
@@ -6749,15 +6701,13 @@ components:
               example: 433
               description: Size of the transaction in Bytes
             invalid_before:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: null
               description: Left (included) endpoint of the timelock validity intervals
             invalid_hereafter:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: '13885913'
               description: Right (excluded) endpoint of the timelock validity intervals
             utxo_count:
@@ -6882,15 +6832,13 @@ components:
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the transaction output datum
                 example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: CBOR encoded inline datum
                 example: 19a6aa
               collateral:
@@ -6898,9 +6846,8 @@ components:
                 example: false
                 description: Whether the output is a collateral output
               reference_script_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
             required:
@@ -6967,9 +6914,8 @@ components:
             type: string
             description: Metadata label
           cip10:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: CIP10 defined description
           count:
             type: string
@@ -7035,14 +6981,12 @@ components:
             description: Transaction hash that contains the specific metadata
           cbor_metadata:
             deprecated: true
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata
           metadata:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata in hex
         required:
           - tx_hash
@@ -7087,9 +7031,8 @@ components:
             - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         stake_address:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
           description: Stake address that controls the key
         type:
@@ -7130,9 +7073,8 @@ components:
                 type: string
                 description: The quantity of the unit
               decimals:
-                type:
-                  - integer
-                  - 'null'
+                type: integer
+                nullable: true
                 description: Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata.
               has_nft_onchain_metadata:
                 type: boolean
@@ -7152,9 +7094,8 @@ components:
               decimals: null
               has_nft_onchain_metadata: true
         stake_address:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
           description: Stake address that controls the key
         type:
@@ -7271,20 +7212,17 @@ components:
             type: string
             description: Block hash of the UTXO
           data_hash:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: The hash of the transaction output datum
           inline_datum:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: CBOR encoded inline datum
             example: 19a6aa
           reference_script_hash:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: The hash of the reference script of the output
             example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
         required:
@@ -7600,39 +7538,33 @@ components:
           example: 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
           description: Hexadecimal pool ID
         url:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: https://stakenuts.com/mainnet.json
           description: URL to the stake pool metadata
         hash:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
           description: Hash of the metadata file
         ticker:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: NUTS
           description: Ticker of the stake pool
         name:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: Stake Nuts
           description: Name of the stake pool
         description:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: The best pool ever
           description: Description of the stake pool
         homepage:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: https://stakentus.com/
           description: Home page of the stake pool
       required:
@@ -7652,27 +7584,23 @@ components:
         type: object
         properties:
           ipv4:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: 4.4.4.4
             description: IPv4 address of the relay
           ipv6:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: https://stakenuts.com/mainnet.json
             description: IPv6 address of the relay
           dns:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: relay1.stakenuts.com
             description: DNS name of the relay
           dns_srv:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: _relays._tcp.relays.stakenuts.com
             description: DNS SRV entry of the relay
           port:
@@ -7781,9 +7709,8 @@ components:
           example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a7
           description: Policy ID of the asset
         asset_name:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 6e7574636f696e
           description: Hex-encoded asset name of the asset
         fingerprint:
@@ -7803,18 +7730,16 @@ components:
           example: 1
           description: Count of mint and burn transactions
         onchain_metadata:
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           additionalProperties: true
           description: |
             On-chain metadata which SHOULD adhere to the valid standards,
             based on which we perform the look up and display the asset
             (best effort)
         onchain_metadata_standard:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           enum:
             - CIP25v1
             - CIP25v2
@@ -7823,15 +7748,13 @@ components:
             If on-chain metadata passes validation, we display the standard
             under which it is valid
         onchain_metadata_extra:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           description: |
             Arbitrary plutus data (CIP68).
         metadata:
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           description: |
             Off-chain metadata fetched from GitHub based on network.
             Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
@@ -7846,26 +7769,22 @@ components:
               example: The Nut Coin
               description: Asset description
             ticker:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: nutc
             url:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: https://www.stakenuts.com/
               description: Asset website
             logo:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: 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
               description: Base64 encoded logo of the asset
             decimals:
-              type:
-                - integer
-                - 'null'
+              type: integer
+              nullable: true
               maximum: 255
               example: 6
               description: Number of decimal places of the asset unit
@@ -8034,9 +7953,8 @@ components:
           example: plutusV1
           description: Type of the script language
         serialised_size:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           description: The size of the CBOR serialised script, if a Plutus script
           example: 3119
       required:
@@ -8076,9 +7994,8 @@ components:
       type: object
       properties:
         cbor:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           description: CBOR contents of the `plutus` script, null for `timelocks`
       required:
         - cbor
@@ -8395,9 +8312,8 @@ components:
           description: Hash of the metadata file
           example: 6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af
         metadata:
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           description: The cached metadata of the `metadata_url` file.
           additionalProperties: true
       required:

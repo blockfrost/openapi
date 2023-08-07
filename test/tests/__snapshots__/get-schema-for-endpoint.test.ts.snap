@@ -4406,13 +4406,11 @@ Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
             "type": "integer",
           },
           "onchain_metadata": {
-            "additionalProperties": true,
             "description": "On-chain metadata which SHOULD adhere to the valid standards,
 based on which we perform the look up and display the asset
 (best effort)
 ",
             "nullable": true,
-            "type": "object",
           },
           "onchain_metadata_extra": {
             "description": "Arbitrary plutus data (CIP68).
@@ -13990,10 +13988,8 @@ relative to the start of the network
             "type": "string",
           },
           "metadata": {
-            "additionalProperties": true,
             "description": "The cached metadata of the \`metadata_url\` file.",
             "nullable": true,
-            "type": "object",
           },
           "metadata_hash": {
             "description": "Hash of the metadata file",

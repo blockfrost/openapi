@@ -16,8 +16,9 @@ const file = fs.readFileSync(
 const spec = YAML.parse(file);
 
 export const transformSchemaElement = (schema: any): any => {
-  // To generate response schema supported by fast-json-stringify
-  // We need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
+  // Note: This is mostly for OpenAPI 3.1 definitions which we stopped using due to too much incompatibility with 3rd party tools 
+  // To generate response schema supported by fast-json-stringify,
+  // we need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
   // Note: Alternative approach for values with multiple types is to use anyOf/oneOf.
   // https://github.com/fastify/fast-json-stringify#anyof-and-oneof
 

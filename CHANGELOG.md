@@ -8,6 +8,9 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
+### Changed
+
+- downgrade to OpenAPI 3.0.0
 
 ## [0.1.59] - 2023-07-20
 

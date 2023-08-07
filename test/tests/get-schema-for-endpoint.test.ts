@@ -932,7 +932,9 @@ describe('getSchemaForEndpoint', () => {
           type: 'object',
           properties: {
             json_value: {
+              additionalProperties: true,
               description: 'JSON content of the datum',
+              type: 'object',
             },
           },
           required: ['json_value'],
@@ -1477,9 +1479,6 @@ describe('getSchemaForEndpoint', () => {
                       },
                       {
                         "type": "boolean",
-                      },
-                      {
-                        "type": "null",
                       },
                     ],
                     "description": "Content of the JSON metadata",

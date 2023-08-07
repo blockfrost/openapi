@@ -4406,11 +4406,13 @@ Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
             "type": "integer",
           },
           "onchain_metadata": {
+            "additionalProperties": true,
             "description": "On-chain metadata which SHOULD adhere to the valid standards,
 based on which we perform the look up and display the asset
 (best effort)
 ",
             "nullable": true,
+            "type": "object",
           },
           "onchain_metadata_extra": {
             "description": "Arbitrary plutus data (CIP68).
@@ -7837,6 +7839,7 @@ under which it is valid
             "type": "integer",
           },
           "cost_models": {
+            "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
             "example": {
               "PlutusV1": {
@@ -7849,6 +7852,7 @@ under which it is valid
               },
             },
             "nullable": true,
+            "type": "object",
           },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
@@ -9011,6 +9015,7 @@ under which it is valid
             "type": "integer",
           },
           "cost_models": {
+            "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
             "example": {
               "PlutusV1": {
@@ -9023,6 +9028,7 @@ under which it is valid
               },
             },
             "nullable": true,
+            "type": "object",
           },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
@@ -12558,9 +12564,6 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                 {
                   "type": "boolean",
                 },
-                {
-                  "type": "null",
-                },
               ],
               "description": "Content of the JSON metadata",
               "nullable": true,
@@ -13988,8 +13991,10 @@ relative to the start of the network
             "type": "string",
           },
           "metadata": {
+            "additionalProperties": true,
             "description": "The cached metadata of the \`metadata_url\` file.",
             "nullable": true,
+            "type": "object",
           },
           "metadata_hash": {
             "description": "Hash of the metadata file",
@@ -17036,7 +17041,9 @@ relative to the start of the network
         },
         "properties": {
           "json_value": {
+            "additionalProperties": true,
             "description": "JSON content of the datum",
+            "type": "object",
           },
         },
         "required": [

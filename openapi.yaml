@@ -6953,7 +6953,7 @@ components:
               - type: integer
               - type: number
               - type: boolean
-              - type: 'null'
+            nullable: true
             description: Content of the JSON metadata
         required:
           - tx_hash
@@ -7975,7 +7975,7 @@ components:
             - type: integer
             - type: number
             - type: boolean
-            - type: 'null'
+          nullable: true
           description: JSON contents of the `timelock` script, null for `plutus` scripts
       required:
         - json

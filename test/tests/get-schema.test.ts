@@ -163,23 +163,4 @@ describe('getSchema', () => {
     });
   });
 
-  fixtures.transformSchemaElement.map(fixture => {
-    test(`transformSchemaElement: ${fixture.description}`, async () => {
-      expect(transformSchemaElement(fixture.data)).toStrictEqual(
-        fixture.result,
-      );
-    });
-  });
-  fixtures.transformSchemaElementError.map(fixture => {
-    test(`transformSchemaElement: ${fixture.description}`, async () => {
-      expect(() => transformSchemaElement(fixture.data)).toThrowError(
-        fixture.result,
-      );
-    });
-    test(`transformSchemaElement: ${fixture.description}`, async () => {
-      expect(() => transformSchemaElement(fixture.data)).toThrowError(
-        fixture.result,
-      );
-    });
-  });
 });

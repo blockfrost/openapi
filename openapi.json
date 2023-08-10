@@ -6037,66 +6037,68 @@
                       "type": "array",
                       "minItems": 2,
                       "maxItems": 2,
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "description": "TxIn",
-                          "properties": {
-                            "txId": {
-                              "type": "string",
-                              "description": "Transaction hash for the input"
-                            },
-                            "index": {
-                              "type": "number",
-                              "description": "Index of the output within the transaction"
-                            }
-                          }
-                        },
-                        {
-                          "type": "object",
-                          "description": "TxOut",
-                          "properties": {
-                            "address": {
-                              "type": "string",
-                              "description": "Output address"
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "coins": {
-                                  "type": "number",
-                                  "description": "Lovelace amount"
-                                },
-                                "assets": {
-                                  "type": "object",
-                                  "description": "Assets amount",
-                                  "additionalProperties": {
-                                    "type": "number"
-                                  }
-                                }
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "description": "TxIn",
+                            "properties": {
+                              "txId": {
+                                "type": "string",
+                                "description": "Transaction hash for the input"
                               },
-                              "required": [
-                                "coins"
-                              ]
-                            },
-                            "datum_hash": {
-                              "type": "string"
-                            },
-                            "datum": {
-                              "type": "object",
-                              "additionalProperties": true
-                            },
-                            "script": {
-                              "type": "object",
-                              "additionalProperties": true
+                              "index": {
+                                "type": "number",
+                                "description": "Index of the output within the transaction"
+                              }
                             }
                           },
-                          "required": [
-                            "address",
-                            "value"
-                          ]
-                        }
-                      ]
+                          {
+                            "type": "object",
+                            "description": "TxOut",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "description": "Output address"
+                              },
+                              "value": {
+                                "type": "object",
+                                "properties": {
+                                  "coins": {
+                                    "type": "number",
+                                    "description": "Lovelace amount"
+                                  },
+                                  "assets": {
+                                    "type": "object",
+                                    "description": "Assets amount",
+                                    "additionalProperties": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "coins"
+                                ]
+                              },
+                              "datum_hash": {
+                                "type": "string"
+                              },
+                              "datum": {
+                                "type": "object",
+                                "additionalProperties": true
+                              },
+                              "script": {
+                                "type": "object",
+                                "additionalProperties": true
+                              }
+                            },
+                            "required": [
+                              "address",
+                              "value"
+                            ]
+                          }
+                        ]
+                      }
                     }
                   }
                 },

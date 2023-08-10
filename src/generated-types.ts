@@ -3433,7 +3433,30 @@ export interface paths {
             /** @description Transaction CBOR (encoded using base64 or base16). */
             cbor: string;
             /** @description Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set. */
-            additionalUtxoSet?: ((unknown)[])[];
+            additionalUtxoSet?: (({
+                  /** @description Transaction hash for the input */
+                  txId?: string;
+                  /** @description Index of the output within the transaction */
+                  index?: number;
+                } | ({
+                  /** @description Output address */
+                  address: string;
+                  value: {
+                    /** @description Lovelace amount */
+                    coins: number;
+                    /** @description Assets amount */
+                    assets?: {
+                      [key: string]: number | undefined;
+                    };
+                  };
+                  datum_hash?: string;
+                  datum?: {
+                    [key: string]: unknown | undefined;
+                  };
+                  script?: {
+                    [key: string]: unknown | undefined;
+                  };
+                }))[])[];
           };
         };
       };

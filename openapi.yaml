@@ -75,7 +75,7 @@ info:
     ## Milkomeda
 
     For more information about how to use Milkomeda as well as the list of available endpoints, see the
-    <a href="https://blockfrost.dev/docs/start-building/milkomeda">Milkomeda section on blockfrost.dev</a>.
+    <a href="/docs/start-building/milkomeda">Milkomeda section</a>.
 
     ## Concepts
 
@@ -8627,7 +8627,7 @@ components:
       description: |
         There are multiple token types available based on network you choose
         when creating a Blockfrost a project, for a list of token types
-        see [Available networks](#section/Available-networks)
+        see [Available networks](#available-networks)
   responses:
     '400':
       description: Bad request

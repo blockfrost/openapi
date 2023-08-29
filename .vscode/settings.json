@@ -1,9 +1,18 @@
 {
     "cSpell.words": [
+        "Bech",
         "blockfrost",
+        "cbor",
+        "delegators",
+        "IPFS",
+        "Lovelaces",
         "Milkomeda",
+        "mirs",
+        "nutlink",
         "openapi",
         "redoc",
-        "redocly"
+        "redocly",
+        "utxos",
+        "xpub"
     ]
 }

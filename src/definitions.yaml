@@ -74,8 +74,11 @@ info:
 
     ## Milkomeda
 
-    For more information about how to use Milkomeda as well as the list of available endpoints, see the
-    <a href="/docs/start-building/milkomeda">Milkomeda section</a>.
+    <div>
+      <span>
+        For more information about how to use Milkomeda as well as the list of available endpoints, see the <a href="/docs/start-building/milkomeda">Milkomeda section</a>.
+      </span>
+    </div>
 
     ## Concepts
 
@@ -130,7 +133,7 @@ info:
 
     The second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow
     each user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another
-    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
+    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attempts to make a call 3 seconds after whole burst, 30 requests will be processed.
     We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
     we will make sure to take it into account as much as we can.
 
@@ -615,4 +618,4 @@ components:
       description: |
         There are multiple token types available based on network you choose
         when creating a Blockfrost a project, for a list of token types
-        see [Available networks](#available-networks)
+        see available networks.

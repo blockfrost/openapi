@@ -249,7 +249,7 @@ servers:
     description: local
 
 security:
-  - ApiKeyAuth: []
+  - project_id: []
 
 tags:
   - name: Health
@@ -611,7 +611,7 @@ components:
   #     $ref: ./responses/errors/400.yaml
 
   securitySchemes:
-    ApiKeyAuth:
+    project_id:
       type: apiKey
       in: header
       name: project_id

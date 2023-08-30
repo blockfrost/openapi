@@ -39,7 +39,7 @@
   ],
   "security": [
     {
-      "ApiKeyAuth": []
+      "project_id": []
     }
   ],
   "tags": [
@@ -11826,7 +11826,7 @@
       }
     },
     "securitySchemes": {
-      "ApiKeyAuth": {
+      "project_id": {
         "type": "apiKey",
         "in": "header",
         "name": "project_id",

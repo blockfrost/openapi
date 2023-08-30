@@ -1656,7 +1656,9 @@ paths:
       description: |
         Submit an already serialized transaction to the network.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: header
           name: Content-Type
@@ -2361,7 +2363,9 @@ paths:
       description: |
         Return content of the requested transaction.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           name: hash
@@ -2399,7 +2403,9 @@ paths:
         List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
         Shows only transactions submitted via Blockfrost.io.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           name: address
@@ -4345,7 +4351,9 @@ paths:
       description: |
         Submit an already serialized transaction to evaluate how much execution units it requires.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: header
           name: Content-Type
@@ -4398,7 +4406,9 @@ paths:
       description: |
         Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: header
           name: Content-Type
@@ -4515,7 +4525,9 @@ paths:
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       x-codeSamples:
         - lang: curl
           source: |
@@ -4569,7 +4581,9 @@ paths:
       description: |
         Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           required: true
@@ -4657,7 +4671,9 @@ paths:
       description: |
         List objects pinned to local storage
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: query
           name: count
@@ -4753,7 +4769,9 @@ paths:
       description: |
         Get information about locally pinned IPFS object
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           required: true
@@ -4824,7 +4842,9 @@ paths:
       description: |
         Remove pinned objects from local storage
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           required: true

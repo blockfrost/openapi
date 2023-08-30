@@ -8,7 +8,9 @@ post:
     You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
     is being counted in your user account quota.
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   x-codeSamples:
     - lang: "curl"
       source: |

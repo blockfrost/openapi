@@ -5,7 +5,9 @@ post:
   description: |
     Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: header
       name: Content-Type

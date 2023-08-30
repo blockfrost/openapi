@@ -5,7 +5,9 @@ get:
   description: |
     Return content of the requested transaction.
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: path
       name: hash

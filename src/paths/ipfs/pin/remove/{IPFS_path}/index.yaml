@@ -7,7 +7,9 @@ post:
   description: |
     Remove pinned objects from local storage
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: path
       required: true

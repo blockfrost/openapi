@@ -7,7 +7,9 @@ get:
     waiting to be included in a newly minted block.
     Shows only transactions submitted via Blockfrost.io.
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: query
       name: count

@@ -7,7 +7,9 @@ get:
   description: |
     List objects pinned to local storage
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: query
       name: count

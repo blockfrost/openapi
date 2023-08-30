@@ -5,7 +5,9 @@ post:
   description: |
     Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: header
       name: Content-Type
@@ -31,49 +33,50 @@ post:
                 type: array
                 minItems: 2
                 maxItems: 2
-                # TODO: openapi-typescript bug, generated ts type is unknown[][]
-                prefixItems:
-                  # TxIn
-                  - type: object
-                    description: TxIn
-                    properties:
-                      txId:
-                        type: string
-                        description: Transaction hash for the input
-                      index:
-                        type: number
-                        description: Index of the output within the transaction
-                  # TxOut
-                  - type: object
-                    description: TxOut
-                    properties:
-                      address:
-                        type: string
-                        description: Output address
-                      value:
-                        type: object
-                        properties:
-                          coins:
-                            type: number
-                            description: Lovelace amount
-                          assets:
-                            type: object
-                            description: Assets amount
-                            additionalProperties:
+                # TODO: define as tuple once we migrate to OpenAPI 3.1.0
+                items:
+                  anyOf:
+                    # TxIn
+                    - type: object
+                      description: TxIn
+                      properties:
+                        txId:
+                          type: string
+                          description: Transaction hash for the input
+                        index:
+                          type: number
+                          description: Index of the output within the transaction
+                    # TxOut
+                    - type: object
+                      description: TxOut
+                      properties:
+                        address:
+                          type: string
+                          description: Output address
+                        value:
+                          type: object
+                          properties:
+                            coins:
                               type: number
-                        required:
-                          - coins
-                      datum_hash:
-                        type: string
-                      datum:
-                        type: object
-                        additionalProperties: true
-                      script:
-                        type: object
-                        additionalProperties: true
-                    required:
-                      - address
-                      - value
+                              description: Lovelace amount
+                            assets:
+                              type: object
+                              description: Assets amount
+                              additionalProperties:
+                                type: number
+                          required:
+                            - coins
+                        datum_hash:
+                          type: string
+                        datum:
+                          type: object
+                          additionalProperties: true
+                        script:
+                          type: object
+                          additionalProperties: true
+                      required:
+                        - address
+                        - value
           required:
             - cbor
   x-codeSamples:

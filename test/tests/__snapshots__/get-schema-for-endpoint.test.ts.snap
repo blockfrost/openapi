@@ -7839,6 +7839,7 @@ under which it is valid
             "type": "integer",
           },
           "cost_models": {
+            "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
             "example": {
               "PlutusV1": {
@@ -7851,6 +7852,7 @@ under which it is valid
               },
             },
             "nullable": true,
+            "type": "object",
           },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
@@ -9013,6 +9015,7 @@ under which it is valid
             "type": "integer",
           },
           "cost_models": {
+            "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
             "example": {
               "PlutusV1": {
@@ -9025,6 +9028,7 @@ under which it is valid
               },
             },
             "nullable": true,
+            "type": "object",
           },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
@@ -12559,9 +12563,6 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                 },
                 {
                   "type": "boolean",
-                },
-                {
-                  "type": "null",
                 },
               ],
               "description": "Content of the JSON metadata",
@@ -17040,7 +17041,9 @@ relative to the start of the network
         },
         "properties": {
           "json_value": {
+            "additionalProperties": true,
             "description": "JSON content of the datum",
+            "type": "object",
           },
         },
         "required": [

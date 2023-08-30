@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.0",
   "info": {
     "version": "0.1.59",
     "title": "Blockfrost.io ~ API Documentation",
@@ -17,7 +17,7 @@
       "url": "https://opensource.org/licenses/MIT"
     },
     "termsOfService": "https://blockfrost.io/terms",
-    "description": "Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.\n\n## Tokens\n\nAfter signing up on https://blockfrost.io, a `project_id` token is automatically generated for each project.\nHTTP header of your request MUST include this `project_id` in order to authenticate against Blockfrost servers.\n\n## Available networks\n\nAt the moment, you can use the following networks. Please, note that each network has its own `project_id`.\n\n<table>\n  <tr>\n    <td>\n        <b>Network</b>\n    </td>\n    <td>\n        <b>Endpoint</b>\n    </td>\n  </tr>\n  <tr>\n      <td>Cardano mainnet</td>\n      <td>\n          <code>https://cardano-mainnet.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Cardano preprod</td>\n      <td>\n          <code>https://cardano-preprod.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Cardano preview</td>\n      <td>\n          <code>https://cardano-preview.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>InterPlanetary File System</td>\n      <td>\n          <code>https://ipfs.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Milkomeda mainnet</td>\n      <td>\n          <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Milkomeda testnet</td>\n      <td>\n          <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n</table>\n<style>\n.hosted {\n  background-color: #0168fa;\n  border-radius: 5px;\n  padding: 4px;\n  margin-right: 2px;\n  color: white;\n}\n</style>\n\n## Milkomeda\n\nFor more information about how to use Milkomeda as well as the list of available endpoints, see the\n<a href=\"https://blockfrost.dev/docs/start-building/milkomeda\">Milkomeda section on blockfrost.dev</a>.\n\n## Concepts\n\n* All endpoints return either a JSON object or an array.\n* Data is returned in *ascending* (oldest first, newest last) order, if not stated otherwise.\n  * You might use the `?order=desc` query parameter to reverse this order.\n* By default, we return 100 results at a time. You have to use `?page=2` to list through the results.\n* All time and timestamp related fields (except `server_time`) are in seconds of UNIX time.\n* All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces.\n* Addresses, accounts and pool IDs are in Bech32 format.\n* All values are case sensitive.\n* All hex encoded values are lower case.\n* Examples are not based on real data. Any resemblance to actual events is purely coincidental.\n* We allow to upload files up to 100MB of size to IPFS. This might increase in the future.\n* Only pinned IPFS files are counted towards the IPFS quota.\n* Non-pinned IPFS files are subject to regular garbage collection and will be removed unless pinned.\n* We allow maximum of 100 queued pins per IPFS user.\n\n## Errors\n\n### HTTP Status codes\n\nThe following are HTTP status code your application might receive when reaching Blockfrost endpoints and\nit should handle all of these cases.\n\n* HTTP `400` return code is used when the request is not valid.\n* HTTP `402` return code is used when the projects exceed their daily request limit.\n* HTTP `403` return code is used when the request is not authenticated.\n* HTTP `404` return code is used when the resource doesn't exist.\n* HTTP `418` return code is used when the user has been auto-banned for flooding too much after previously receiving error code `402` or `429`.\n* HTTP `425` return code is used in Cardano networks, when the user has submitted a transaction when the mempool is already full, not accepting new txs straight away.\n* HTTP `425` return code is used in IPFS network, when the user has submitted a pin when the pin queue is already full, not accepting new pins straight away.\n* HTTP `429` return code is used when the user has sent too many requests in a given amount of time and therefore has been rate-limited.\n* HTTP `500` return code is used when our endpoints are having a problem.\n\n### Error codes\n\nAn internal error code number is used for better indication of the error in question. It is passed using the following payload.\n\n```json\n{\n  \"status_code\": 403,\n  \"error\": \"Forbidden\",\n  \"message\": \"Invalid project token.\"\n}\n```\n## Limits\n\nThere are two types of limits we are enforcing:\n\nThe first depends on your plan and is the number of request we allow per day. We defined the day from midnight to midnight of UTC time.\n\nThe second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow\neach user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another\nwhole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.\nWe believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and\nwe will make sure to take it into account as much as we can.\n\n## SDKs\n\nWe support a number of SDKs that will help you in developing your application on top of Blockfrost.\n\n<table>\n  <tr>\n      <td><b>Programming language</b></td>\n      <td><b>SDK</b></td>\n  </tr>\n  <tr>\n      <td>JavaScript</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-js\">blockfrost-js</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Haskell</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-haskell\">blockfrost-haskell</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Python</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-python\">blockfrost-python</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Rust</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-rust\">blockfrost-rust</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Golang</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-go\">blockfrost-go</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Ruby</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-ruby\">blockfrost-ruby</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Java</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-java\">blockfrost-java</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Scala</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-scala\">blockfrost-scala</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Swift</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-swift\">blockfrost-swift</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Kotlin</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-kotlin\">blockfrost-kotlin</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Elixir</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-elixir\">blockfrost-elixir</a>\n      </td>\n  </tr>\n  <tr>\n      <td>.NET</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-dotnet\">blockfrost-dotnet</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Arduino</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-arduino\">blockfrost-arduino</a>\n      </td>\n  </tr>\n  <tr>\n      <td>PHP</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-php\">blockfrost-php</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Crystal</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-crystal\">blockfrost-crystal</a>\n      </td>\n  </tr>\n</table>\n"
+    "description": "Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.\n\n## Tokens\n\nAfter signing up on https://blockfrost.io, a `project_id` token is automatically generated for each project.\nHTTP header of your request MUST include this `project_id` in order to authenticate against Blockfrost servers.\n\n## Available networks\n\nAt the moment, you can use the following networks. Please, note that each network has its own `project_id`.\n\n<table>\n  <tr>\n    <td>\n        <b>Network</b>\n    </td>\n    <td>\n        <b>Endpoint</b>\n    </td>\n  </tr>\n  <tr>\n      <td>Cardano mainnet</td>\n      <td>\n          <code>https://cardano-mainnet.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Cardano preprod</td>\n      <td>\n          <code>https://cardano-preprod.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Cardano preview</td>\n      <td>\n          <code>https://cardano-preview.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>InterPlanetary File System</td>\n      <td>\n          <code>https://ipfs.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Milkomeda mainnet</td>\n      <td>\n          <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n  <tr>\n      <td>Milkomeda testnet</td>\n      <td>\n          <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>\n      </td>\n  </tr>\n</table>\n\n## Milkomeda\n\n<p>\n  <span>\n    For more information about how to use Milkomeda as well as the list of available endpoints, see the <a href=\"/start-building/milkomeda\">Milkomeda section</a>.\n  </span>\n</p>\n\n## Concepts\n\n* All endpoints return either a JSON object or an array.\n* Data is returned in *ascending* (oldest first, newest last) order, if not stated otherwise.\n  * You might use the `?order=desc` query parameter to reverse this order.\n* By default, we return 100 results at a time. You have to use `?page=2` to list through the results.\n* All time and timestamp related fields (except `server_time`) are in seconds of UNIX time.\n* All amounts are returned in Lovelaces, where 1 ADA = 1 000 000 Lovelaces.\n* Addresses, accounts and pool IDs are in Bech32 format.\n* All values are case sensitive.\n* All hex encoded values are lower case.\n* Examples are not based on real data. Any resemblance to actual events is purely coincidental.\n* We allow to upload files up to 100MB of size to IPFS. This might increase in the future.\n* Only pinned IPFS files are counted towards the IPFS quota.\n* Non-pinned IPFS files are subject to regular garbage collection and will be removed unless pinned.\n* We allow maximum of 100 queued pins per IPFS user.\n\n## Errors\n\n### HTTP Status codes\n\nThe following are HTTP status code your application might receive when reaching Blockfrost endpoints and\nit should handle all of these cases.\n\n* HTTP `400` return code is used when the request is not valid.\n* HTTP `402` return code is used when the projects exceed their daily request limit.\n* HTTP `403` return code is used when the request is not authenticated.\n* HTTP `404` return code is used when the resource doesn't exist.\n* HTTP `418` return code is used when the user has been auto-banned for flooding too much after previously receiving error code `402` or `429`.\n* HTTP `425` return code is used in Cardano networks, when the user has submitted a transaction when the mempool is already full, not accepting new txs straight away.\n* HTTP `425` return code is used in IPFS network, when the user has submitted a pin when the pin queue is already full, not accepting new pins straight away.\n* HTTP `429` return code is used when the user has sent too many requests in a given amount of time and therefore has been rate-limited.\n* HTTP `500` return code is used when our endpoints are having a problem.\n\n### Error codes\n\nAn internal error code number is used for better indication of the error in question. It is passed using the following payload.\n\n```json\n{\n  \"status_code\": 403,\n  \"error\": \"Forbidden\",\n  \"message\": \"Invalid project token.\"\n}\n```\n## Limits\n\nThere are two types of limits we are enforcing:\n\nThe first depends on your plan and is the number of request we allow per day. We defined the day from midnight to midnight of UTC time.\n\nThe second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow\neach user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another\nwhole burst after (currently) 500/10 = 50 seconds. E.g. if a user attempts to make a call 3 seconds after whole burst, 30 requests will be processed.\nWe believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and\nwe will make sure to take it into account as much as we can.\n\n## SDKs\n\nWe support a number of SDKs that will help you in developing your application on top of Blockfrost.\n\n<table>\n  <tr>\n      <td><b>Programming language</b></td>\n      <td><b>SDK</b></td>\n  </tr>\n  <tr>\n      <td>JavaScript</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-js\">blockfrost-js</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Haskell</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-haskell\">blockfrost-haskell</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Python</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-python\">blockfrost-python</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Rust</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-rust\">blockfrost-rust</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Golang</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-go\">blockfrost-go</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Ruby</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-ruby\">blockfrost-ruby</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Java</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-java\">blockfrost-java</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Scala</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-scala\">blockfrost-scala</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Swift</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-swift\">blockfrost-swift</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Kotlin</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-kotlin\">blockfrost-kotlin</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Elixir</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-elixir\">blockfrost-elixir</a>\n      </td>\n  </tr>\n  <tr>\n      <td>.NET</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-dotnet\">blockfrost-dotnet</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Arduino</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-arduino\">blockfrost-arduino</a>\n      </td>\n  </tr>\n  <tr>\n      <td>PHP</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-php\">blockfrost-php</a>\n      </td>\n  </tr>\n  <tr>\n      <td>Crystal</td>\n      <td>\n          <a href=\"https://github.com/blockfrost/blockfrost-crystal\">blockfrost-crystal</a>\n      </td>\n  </tr>\n</table>\n"
   },
   "servers": [
     {
@@ -39,7 +39,7 @@
   ],
   "security": [
     {
-      "ApiKeyAuth": []
+      "project_id": []
     }
   ],
   "tags": [
@@ -2136,7 +2136,7 @@
           "Cardano » Transactions"
         ],
         "summary": "Submit a transaction",
-        "description": "Submit an already serialized transaction to the network.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Submit an already serialized transaction to the network.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "header",
@@ -3021,7 +3021,7 @@
           "Cardano » Mempool"
         ],
         "summary": "Mempool",
-        "description": "Return transactions that are currently stored in Blockfrost mempool,\nwaiting to be included in a newly minted block.\nShows only transactions submitted via Blockfrost.io.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Return transactions that are currently stored in Blockfrost mempool,\nwaiting to be included in a newly minted block.\nShows only transactions submitted via Blockfrost.io.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "query",
@@ -3099,8 +3099,8 @@
         "tags": [
           "Cardano » Mempool"
         ],
-        "summary": "Specific transaction",
-        "description": "Return content of the requested transaction.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "summary": "Specific transaction in the mempool",
+        "description": "Return content of the requested transaction.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "path",
@@ -3152,7 +3152,7 @@
           "Cardano » Mempool"
         ],
         "summary": "Mempool by address",
-        "description": "List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.\nShows only transactions submitted via Blockfrost.io.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.\nShows only transactions submitted via Blockfrost.io.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "path",
@@ -3840,7 +3840,7 @@
         "tags": [
           "Cardano » Addresses"
         ],
-        "summary": "Address transactions",
+        "summary": "Address txs",
         "description": "Transactions on the address.",
         "parameters": [
           {
@@ -5090,7 +5090,7 @@
         "tags": [
           "Cardano » Assets"
         ],
-        "summary": "Asset transactions",
+        "summary": "Asset txs",
         "description": "List of a specific asset transactions",
         "parameters": [
           {
@@ -5941,7 +5941,7 @@
           "Cardano » Utilities"
         ],
         "summary": "Submit a transaction for execution units evaluation",
-        "description": "Submit an already serialized transaction to evaluate how much execution units it requires.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Submit an already serialized transaction to evaluate how much execution units it requires.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "header",
@@ -6004,7 +6004,7 @@
           "Cardano » Utilities"
         ],
         "summary": "Submit a transaction for execution units evaluation (additional UTXO set)",
-        "description": "Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "header",
@@ -6037,66 +6037,68 @@
                       "type": "array",
                       "minItems": 2,
                       "maxItems": 2,
-                      "prefixItems": [
-                        {
-                          "type": "object",
-                          "description": "TxIn",
-                          "properties": {
-                            "txId": {
-                              "type": "string",
-                              "description": "Transaction hash for the input"
-                            },
-                            "index": {
-                              "type": "number",
-                              "description": "Index of the output within the transaction"
-                            }
-                          }
-                        },
-                        {
-                          "type": "object",
-                          "description": "TxOut",
-                          "properties": {
-                            "address": {
-                              "type": "string",
-                              "description": "Output address"
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "coins": {
-                                  "type": "number",
-                                  "description": "Lovelace amount"
-                                },
-                                "assets": {
-                                  "type": "object",
-                                  "description": "Assets amount",
-                                  "additionalProperties": {
-                                    "type": "number"
-                                  }
-                                }
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "description": "TxIn",
+                            "properties": {
+                              "txId": {
+                                "type": "string",
+                                "description": "Transaction hash for the input"
                               },
-                              "required": [
-                                "coins"
-                              ]
-                            },
-                            "datum_hash": {
-                              "type": "string"
-                            },
-                            "datum": {
-                              "type": "object",
-                              "additionalProperties": true
-                            },
-                            "script": {
-                              "type": "object",
-                              "additionalProperties": true
+                              "index": {
+                                "type": "number",
+                                "description": "Index of the output within the transaction"
+                              }
                             }
                           },
-                          "required": [
-                            "address",
-                            "value"
-                          ]
-                        }
-                      ]
+                          {
+                            "type": "object",
+                            "description": "TxOut",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "description": "Output address"
+                              },
+                              "value": {
+                                "type": "object",
+                                "properties": {
+                                  "coins": {
+                                    "type": "number",
+                                    "description": "Lovelace amount"
+                                  },
+                                  "assets": {
+                                    "type": "object",
+                                    "description": "Assets amount",
+                                    "additionalProperties": {
+                                      "type": "number"
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "coins"
+                                ]
+                              },
+                              "datum_hash": {
+                                "type": "string"
+                              },
+                              "datum": {
+                                "type": "object",
+                                "additionalProperties": true
+                              },
+                              "script": {
+                                "type": "object",
+                                "additionalProperties": true
+                              }
+                            },
+                            "required": [
+                              "address",
+                              "value"
+                            ]
+                          }
+                        ]
+                      }
                     }
                   }
                 },
@@ -6161,7 +6163,7 @@
           "IPFS » Add"
         ],
         "summary": "Add a file to IPFS",
-        "description": "You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage\nis being counted in your user account quota.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage\nis being counted in your user account quota.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "x-codeSamples": [
           {
             "lang": "curl",
@@ -6233,7 +6235,7 @@
           "IPFS » Gateway"
         ],
         "summary": "Relay to an IPFS gateway",
-        "description": "Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "path",
@@ -6366,7 +6368,7 @@
           "IPFS » Pins"
         ],
         "summary": "List pinned objects",
-        "description": "List objects pinned to local storage\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "List objects pinned to local storage\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "query",
@@ -6490,7 +6492,7 @@
           "IPFS » Pins"
         ],
         "summary": "Get details about pinned object",
-        "description": "Get information about locally pinned IPFS object\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Get information about locally pinned IPFS object\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "path",
@@ -6582,7 +6584,7 @@
           "IPFS » Pins"
         ],
         "summary": "Remove a IPFS pin",
-        "description": "Remove pinned objects from local storage\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Remove pinned objects from local storage\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "path",
@@ -6947,7 +6949,7 @@
         "tags": [
           "Nut.link"
         ],
-        "summary": "Specific ticker",
+        "summary": "Specific ticker for an address",
         "description": "List of records of a specific ticker",
         "parameters": [
           {
@@ -7151,10 +7153,8 @@
             "description": "Block creation time in UNIX time"
           },
           "height": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 15243593,
             "description": "Block number"
           },
@@ -7164,26 +7164,20 @@
             "description": "Hash of the block"
           },
           "slot": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 412162133,
             "description": "Slot number"
           },
           "epoch": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 425,
             "description": "Epoch number"
           },
           "epoch_slot": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 12,
             "description": "Slot within the epoch"
           },
@@ -7203,60 +7197,46 @@
             "description": "Number of transactions in the block"
           },
           "output": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "128314491794",
             "description": "Total output within the block in Lovelaces"
           },
           "fees": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "592661",
             "description": "Total fees within the block in Lovelaces"
           },
           "block_vrf": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty",
             "description": "VRF key of the block",
             "minLength": 65,
             "maxLength": 65
           },
           "op_cert": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c",
             "description": "The hash of the operational certificate of the block producer"
           },
           "op_cert_counter": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "18",
             "description": "The value of the counter used to produce the operational certificate"
           },
           "previous_block": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05",
             "description": "Hash of the previous block"
           },
           "next_block": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa",
             "description": "Hash of the next block"
           },
@@ -7470,10 +7450,8 @@
             "description": "Sum of all the fees within the epoch in Lovelaces"
           },
           "active_stake": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "784953934049314",
             "description": "Sum of all the active stakes within the epoch in Lovelaces"
           }
@@ -7565,10 +7543,8 @@
             "description": "Percentage of blocks produced by federated nodes"
           },
           "extra_entropy": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": null,
             "description": "Seed for extra entropy"
           },
@@ -7599,10 +7575,8 @@
           },
           "cost_models": {
             "additionalProperties": true,
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "example": {
               "PlutusV1": {
                 "addInteger-cpu-arguments-intercept": 197209,
@@ -7616,90 +7590,68 @@
             "description": "Cost models parameters for Plutus Core scripts"
           },
           "price_mem": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "example": 0.0577,
             "description": "The per word cost of script memory usage"
           },
           "price_step": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "example": 0.0000721,
             "description": "The cost of script execution step usage"
           },
           "max_tx_ex_mem": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "10000000",
             "description": "The maximum number of execution memory allowed to be used in a single transaction"
           },
           "max_tx_ex_steps": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "10000000000",
             "description": "The maximum number of execution steps allowed to be used in a single transaction"
           },
           "max_block_ex_mem": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "50000000",
             "description": "The maximum number of execution memory allowed to be used in a single block"
           },
           "max_block_ex_steps": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "40000000000",
             "description": "The maximum number of execution steps allowed to be used in a single block"
           },
           "max_val_size": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "5000",
             "description": "The maximum Val size"
           },
           "collateral_percent": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 150,
             "description": "The percentage of the transactions fee which must be provided as collateral when including non-native scripts"
           },
           "max_collateral_inputs": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 3,
             "description": "The maximum number of collateral inputs allowed in a transaction"
           },
           "coins_per_utxo_size": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "34482",
             "description": "Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later."
           },
           "coins_per_utxo_word": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "34482",
             "description": "Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.",
             "deprecated": true
@@ -7888,18 +7840,14 @@
             "description": "Size of the transaction in Bytes"
           },
           "invalid_before": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": null,
             "description": "Left (included) endpoint of the timelock validity intervals"
           },
           "invalid_hereafter": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "13885913",
             "description": "Right (excluded) endpoint of the timelock validity intervals"
           },
@@ -8040,26 +7988,20 @@
                   "description": "UTXO index in the transaction"
                 },
                 "data_hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "The hash of the transaction output datum",
                   "example": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
                 },
                 "inline_datum": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "CBOR encoded inline datum",
                   "example": "19a6aa"
                 },
                 "reference_script_hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "The hash of the reference script of the input",
                   "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
                 },
@@ -8134,18 +8076,14 @@
                   "description": "UTXO index in the transaction"
                 },
                 "data_hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "The hash of the transaction output datum",
                   "example": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
                 },
                 "inline_datum": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "CBOR encoded inline datum",
                   "example": "19a6aa"
                 },
@@ -8155,10 +8093,8 @@
                   "description": "Whether the output is a collateral output"
                 },
                 "reference_script_hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "The hash of the reference script of the output",
                   "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
                 }
@@ -8361,56 +8297,42 @@
               ]
             },
             "metadata": {
-              "type": [
-                "object",
-                "null"
-              ],
+              "type": "object",
+              "nullable": true,
               "properties": {
                 "url": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "example": "https://stakenuts.com/mainnet.json",
                   "description": "URL to the stake pool metadata"
                 },
                 "hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "example": "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c",
                   "description": "Hash of the metadata file"
                 },
                 "ticker": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "example": "NUTS",
                   "description": "Ticker of the stake pool"
                 },
                 "name": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "example": "Stake Nuts",
                   "description": "Name of the stake pool"
                 },
                 "description": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "example": "The best pool ever",
                   "description": "Description of the stake pool"
                 },
                 "homepage": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "example": "https://stakentus.com/",
                   "description": "Home page of the stake pool"
                 }
@@ -8430,34 +8352,26 @@
                 "type": "object",
                 "properties": {
                   "ipv4": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
+                    "nullable": true,
                     "example": "4.4.4.4",
                     "description": "IPv4 address of the relay"
                   },
                   "ipv6": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
+                    "nullable": true,
                     "example": "https://stakenuts.com/mainnet.json",
                     "description": "IPv6 address of the relay"
                   },
                   "dns": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
+                    "nullable": true,
                     "example": "relay1.stakenuts.com",
                     "description": "DNS name of the relay"
                   },
                   "dns_srv": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
+                    "nullable": true,
                     "example": "_relays._tcp.relays.stakenuts.com",
                     "description": "DNS SRV entry of the relay"
                   },
@@ -8584,17 +8498,13 @@
             },
             "cbor_metadata": {
               "deprecated": true,
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "Content of the CBOR metadata"
             },
             "metadata": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "Content of the CBOR metadata in hex"
             }
           },
@@ -8691,10 +8601,8 @@
             "description": "Registration state of an account"
           },
           "active_epoch": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 412,
             "description": "Epoch of the most recent action - registration or deregistration"
           },
@@ -8729,10 +8637,8 @@
             "description": "Sum of available rewards that haven't been withdrawn yet for the account in the Lovelaces"
           },
           "pool_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
             "description": "Bech32 pool ID that owns the account"
           }
@@ -9225,18 +9131,14 @@
                 "description": "Size of the transaction in Bytes"
               },
               "invalid_before": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "example": null,
                 "description": "Left (included) endpoint of the timelock validity intervals"
               },
               "invalid_hereafter": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "example": "13885913",
                 "description": "Right (excluded) endpoint of the timelock validity intervals"
               },
@@ -9397,18 +9299,14 @@
                   "description": "UTXO index in the transaction"
                 },
                 "data_hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "The hash of the transaction output datum",
                   "example": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
                 },
                 "inline_datum": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "CBOR encoded inline datum",
                   "example": "19a6aa"
                 },
@@ -9418,10 +9316,8 @@
                   "description": "Whether the output is a collateral output"
                 },
                 "reference_script_hash": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": "string",
+                  "nullable": true,
                   "description": "The hash of the reference script of the output",
                   "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
                 }
@@ -9514,10 +9410,8 @@
               "description": "Metadata label"
             },
             "cip10": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "CIP10 defined description"
             },
             "count": {
@@ -9580,11 +9474,9 @@
                 },
                 {
                   "type": "boolean"
-                },
-                {
-                  "type": "null"
                 }
               ],
+              "nullable": true,
               "description": "Content of the JSON metadata"
             }
           },
@@ -9633,17 +9525,13 @@
             },
             "cbor_metadata": {
               "deprecated": true,
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "Content of the CBOR metadata"
             },
             "metadata": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "Content of the CBOR metadata in hex"
             }
           },
@@ -9712,10 +9600,8 @@
             ]
           },
           "stake_address": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7",
             "description": "Stake address that controls the key"
           },
@@ -9766,10 +9652,8 @@
                   "description": "The quantity of the unit"
                 },
                 "decimals": {
-                  "type": [
-                    "integer",
-                    "null"
-                  ],
+                  "type": "integer",
+                  "nullable": true,
                   "description": "Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata."
                 },
                 "has_nft_onchain_metadata": {
@@ -9800,10 +9684,8 @@
             ]
           },
           "stake_address": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7",
             "description": "Stake address that controls the key"
           },
@@ -9965,25 +9847,19 @@
               "description": "Block hash of the UTXO"
             },
             "data_hash": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "The hash of the transaction output datum"
             },
             "inline_datum": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "CBOR encoded inline datum",
               "example": "19a6aa"
             },
             "reference_script_hash": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "description": "The hash of the reference script of the output",
               "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
             }
@@ -10411,50 +10287,38 @@
             "description": "Hexadecimal pool ID"
           },
           "url": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "https://stakenuts.com/mainnet.json",
             "description": "URL to the stake pool metadata"
           },
           "hash": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c",
             "description": "Hash of the metadata file"
           },
           "ticker": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "NUTS",
             "description": "Ticker of the stake pool"
           },
           "name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "Stake Nuts",
             "description": "Name of the stake pool"
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "The best pool ever",
             "description": "Description of the stake pool"
           },
           "homepage": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "https://stakentus.com/",
             "description": "Home page of the stake pool"
           }
@@ -10479,34 +10343,26 @@
           "type": "object",
           "properties": {
             "ipv4": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "example": "4.4.4.4",
               "description": "IPv4 address of the relay"
             },
             "ipv6": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "example": "https://stakenuts.com/mainnet.json",
               "description": "IPv6 address of the relay"
             },
             "dns": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "example": "relay1.stakenuts.com",
               "description": "DNS name of the relay"
             },
             "dns_srv": {
-              "type": [
-                "string",
-                "null"
-              ],
+              "type": "string",
+              "nullable": true,
               "example": "_relays._tcp.relays.stakenuts.com",
               "description": "DNS SRV entry of the relay"
             },
@@ -10667,10 +10523,8 @@
             "description": "Policy ID of the asset"
           },
           "asset_name": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "6e7574636f696e",
             "description": "Hex-encoded asset name of the asset"
           },
@@ -10695,18 +10549,14 @@
             "description": "Count of mint and burn transactions"
           },
           "onchain_metadata": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "additionalProperties": true,
             "description": "On-chain metadata which SHOULD adhere to the valid standards,\nbased on which we perform the look up and display the asset\n(best effort)\n"
           },
           "onchain_metadata_standard": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "enum": [
               "CIP25v1",
               "CIP25v2",
@@ -10715,17 +10565,13 @@
             "description": "If on-chain metadata passes validation, we display the standard\nunder which it is valid\n"
           },
           "onchain_metadata_extra": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Arbitrary plutus data (CIP68).\n"
           },
           "metadata": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "description": "Off-chain metadata fetched from GitHub based on network.\nMainnet: https://github.com/cardano-foundation/cardano-token-registry/\nTestnet: https://github.com/input-output-hk/metadata-registry-testnet/\n",
             "properties": {
               "name": {
@@ -10739,33 +10585,25 @@
                 "description": "Asset description"
               },
               "ticker": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "example": "nutc"
               },
               "url": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "example": "https://www.stakenuts.com/",
                 "description": "Asset website"
               },
               "logo": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "example": "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",
                 "description": "Base64 encoded logo of the asset"
               },
               "decimals": {
-                "type": [
-                  "integer",
-                  "null"
-                ],
+                "type": "integer",
+                "nullable": true,
                 "maximum": 255,
                 "example": 6,
                 "description": "Number of decimal places of the asset unit"
@@ -11015,10 +10853,8 @@
             "description": "Type of the script language"
           },
           "serialised_size": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "The size of the CBOR serialised script, if a Plutus script",
             "example": 3119
           }
@@ -11054,11 +10890,9 @@
               },
               {
                 "type": "boolean"
-              },
-              {
-                "type": "null"
               }
             ],
+            "nullable": true,
             "description": "JSON contents of the `timelock` script, null for `plutus` scripts"
           }
         },
@@ -11090,10 +10924,8 @@
         "type": "object",
         "properties": {
           "cbor": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "CBOR contents of the `plutus` script, null for `timelocks`"
           }
         },
@@ -11527,10 +11359,8 @@
             "example": "6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af"
           },
           "metadata": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "description": "The cached metadata of the `metadata_url` file.",
             "additionalProperties": true
           }
@@ -11996,11 +11826,11 @@
       }
     },
     "securitySchemes": {
-      "ApiKeyAuth": {
+      "project_id": {
         "type": "apiKey",
         "in": "header",
         "name": "project_id",
-        "description": "There are multiple token types available based on network you choose\nwhen creating a Blockfrost a project, for a list of token types\nsee [Available networks](#section/Available-networks)\n"
+        "description": "There are multiple token types available based on network you choose\nwhen creating a Blockfrost a project, for a list of token types\nsee available networks.\n"
       }
     },
     "responses": {

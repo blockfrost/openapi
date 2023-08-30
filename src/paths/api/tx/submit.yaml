@@ -5,7 +5,9 @@ post:
   description: |
     Submit an already serialized transaction to the network.
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: header
       name: Content-Type

@@ -1252,14 +1252,18 @@ export interface paths {
      * Submit a transaction 
      * @description Submit an already serialized transaction to the network.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     post: {
       /**
        * Submit a transaction 
        * @description Submit an already serialized transaction to the network.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
         header: {
@@ -1734,7 +1738,9 @@ export interface paths {
      * waiting to be included in a newly minted block.
      * Shows only transactions submitted via Blockfrost.io.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
@@ -1743,7 +1749,9 @@ export interface paths {
        * waiting to be included in a newly minted block.
        * Shows only transactions submitted via Blockfrost.io.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters?: {
           /** @description The number of results displayed on one page. */
@@ -1776,17 +1784,21 @@ export interface paths {
   };
   "/mempool/{hash}": {
     /**
-     * Specific transaction 
+     * Specific transaction in the mempool 
      * @description Return content of the requested transaction.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
-       * Specific transaction 
+       * Specific transaction in the mempool 
        * @description Return content of the requested transaction.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
           /**
@@ -1819,7 +1831,9 @@ export interface paths {
      * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
      * Shows only transactions submitted via Blockfrost.io.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
@@ -1827,7 +1841,9 @@ export interface paths {
        * @description List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
        * Shows only transactions submitted via Blockfrost.io.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
           /** @description The number of results displayed on one page. */
@@ -2200,13 +2216,13 @@ export interface paths {
   };
   "/addresses/{address}/txs": {
     /**
-     * Address transactions 
+     * Address txs 
      * @deprecated 
      * @description Transactions on the address.
      */
     get: {
       /**
-       * Address transactions 
+       * Address txs 
        * @deprecated 
        * @description Transactions on the address.
        */
@@ -2876,13 +2892,13 @@ export interface paths {
   };
   "/assets/{asset}/txs": {
     /**
-     * Asset transactions 
+     * Asset txs 
      * @deprecated 
      * @description List of a specific asset transactions
      */
     get: {
       /**
-       * Asset transactions 
+       * Asset txs 
        * @deprecated 
        * @description List of a specific asset transactions
        */
@@ -3370,14 +3386,18 @@ export interface paths {
      * Submit a transaction for execution units evaluation 
      * @description Submit an already serialized transaction to evaluate how much execution units it requires.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     post: {
       /**
        * Submit a transaction for execution units evaluation 
        * @description Submit an already serialized transaction to evaluate how much execution units it requires.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
         header: {
@@ -3412,14 +3432,18 @@ export interface paths {
      * Submit a transaction for execution units evaluation (additional UTXO set) 
      * @description Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     post: {
       /**
        * Submit a transaction for execution units evaluation (additional UTXO set) 
        * @description Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
         header: {
@@ -3433,7 +3457,30 @@ export interface paths {
             /** @description Transaction CBOR (encoded using base64 or base16). */
             cbor: string;
             /** @description Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set. */
-            additionalUtxoSet?: ((unknown)[])[];
+            additionalUtxoSet?: (({
+                  /** @description Transaction hash for the input */
+                  txId?: string;
+                  /** @description Index of the output within the transaction */
+                  index?: number;
+                } | ({
+                  /** @description Output address */
+                  address: string;
+                  value: {
+                    /** @description Lovelace amount */
+                    coins: number;
+                    /** @description Assets amount */
+                    assets?: {
+                      [key: string]: number | undefined;
+                    };
+                  };
+                  datum_hash?: string;
+                  datum?: {
+                    [key: string]: unknown | undefined;
+                  };
+                  script?: {
+                    [key: string]: unknown | undefined;
+                  };
+                }))[])[];
           };
         };
       };
@@ -3466,7 +3513,9 @@ export interface paths {
      * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
      * is being counted in your user account quota.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     post: {
       /**
@@ -3474,7 +3523,9 @@ export interface paths {
        * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
        * is being counted in your user account quota.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       responses: {
         /** @description Returns information about added IPFS object */
@@ -3513,14 +3564,18 @@ export interface paths {
      * Relay to an IPFS gateway 
      * @description Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
        * Relay to an IPFS gateway 
        * @description Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
         path: {
@@ -3592,14 +3647,18 @@ export interface paths {
      * List pinned objects 
      * @description List objects pinned to local storage
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
        * List pinned objects 
        * @description List objects pinned to local storage
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters?: {
           /** @description The number of results displayed on one page. */
@@ -3666,14 +3725,18 @@ export interface paths {
      * Get details about pinned object 
      * @description Get information about locally pinned IPFS object
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
        * Get details about pinned object 
        * @description Get information about locally pinned IPFS object
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
         path: {
@@ -3733,14 +3796,18 @@ export interface paths {
      * Remove a IPFS pin 
      * @description Remove pinned objects from local storage
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     post: {
       /**
        * Remove a IPFS pin 
        * @description Remove pinned objects from local storage
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters: {
         path: {
@@ -3957,12 +4024,12 @@ export interface paths {
   };
   "/nutlink/{address}/tickers/{ticker}": {
     /**
-     * Specific ticker 
+     * Specific ticker for an address 
      * @description List of records of a specific ticker
      */
     get: {
       /**
-       * Specific ticker 
+       * Specific ticker for an address 
        * @description List of records of a specific ticker
        */
       parameters: {
@@ -4060,7 +4127,7 @@ export interface components {
        * @description Block number 
        * @example 15243593
        */
-      height: OneOf<[number, null]>;
+      height: number | null;
       /**
        * @description Hash of the block 
        * @example 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a
@@ -4070,17 +4137,17 @@ export interface components {
        * @description Slot number 
        * @example 412162133
        */
-      slot: OneOf<[number, null]>;
+      slot: number | null;
       /**
        * @description Epoch number 
        * @example 425
        */
-      epoch: OneOf<[number, null]>;
+      epoch: number | null;
       /**
        * @description Slot within the epoch 
        * @example 12
        */
-      epoch_slot: OneOf<[number, null]>;
+      epoch_slot: number | null;
       /**
        * @description Bech32 ID of the slot leader or specific block description in case there is no slot leader 
        * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy
@@ -4100,37 +4167,37 @@ export interface components {
        * @description Total output within the block in Lovelaces 
        * @example 128314491794
        */
-      output: OneOf<[string, null]>;
+      output: string | null;
       /**
        * @description Total fees within the block in Lovelaces 
        * @example 592661
        */
-      fees: OneOf<[string, null]>;
+      fees: string | null;
       /**
        * @description VRF key of the block 
        * @example vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty
        */
-      block_vrf: OneOf<[string, null]>;
+      block_vrf: string | null;
       /**
        * @description The hash of the operational certificate of the block producer 
        * @example da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c
        */
-      op_cert: OneOf<[string, null]>;
+      op_cert: string | null;
       /**
        * @description The value of the counter used to produce the operational certificate 
        * @example 18
        */
-      op_cert_counter: OneOf<[string, null]>;
+      op_cert_counter: string | null;
       /**
        * @description Hash of the previous block 
        * @example 43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05
        */
-      previous_block: OneOf<[string, null]>;
+      previous_block: string | null;
       /**
        * @description Hash of the next block 
        * @example 8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa
        */
-      next_block: OneOf<[string, null]>;
+      next_block: string | null;
       /**
        * @description Number of block confirmations 
        * @example 4698
@@ -4277,7 +4344,7 @@ export interface components {
        * @description Sum of all the active stakes within the epoch in Lovelaces 
        * @example 784953934049314
        */
-      active_stake: OneOf<[string, null]>;
+      active_stake: string | null;
     };
     epoch_param_content: {
       /**
@@ -4354,7 +4421,7 @@ export interface components {
        * @description Seed for extra entropy 
        * @example null
        */
-      extra_entropy: OneOf<[string, null]>;
+      extra_entropy: string | null;
       /**
        * @description Accepted protocol major version 
        * @example 2
@@ -4393,65 +4460,65 @@ export interface components {
        *   }
        * }
        */
-      cost_models: OneOf<[{
+      cost_models: ({
         [key: string]: unknown | undefined;
-      }, null]>;
+      }) | null;
       /**
        * @description The per word cost of script memory usage 
        * @example 0.0577
        */
-      price_mem: OneOf<[number, null]>;
+      price_mem: number | null;
       /**
        * @description The cost of script execution step usage 
        * @example 0.0000721
        */
-      price_step: OneOf<[number, null]>;
+      price_step: number | null;
       /**
        * @description The maximum number of execution memory allowed to be used in a single transaction 
        * @example 10000000
        */
-      max_tx_ex_mem: OneOf<[string, null]>;
+      max_tx_ex_mem: string | null;
       /**
        * @description The maximum number of execution steps allowed to be used in a single transaction 
        * @example 10000000000
        */
-      max_tx_ex_steps: OneOf<[string, null]>;
+      max_tx_ex_steps: string | null;
       /**
        * @description The maximum number of execution memory allowed to be used in a single block 
        * @example 50000000
        */
-      max_block_ex_mem: OneOf<[string, null]>;
+      max_block_ex_mem: string | null;
       /**
        * @description The maximum number of execution steps allowed to be used in a single block 
        * @example 40000000000
        */
-      max_block_ex_steps: OneOf<[string, null]>;
+      max_block_ex_steps: string | null;
       /**
        * @description The maximum Val size 
        * @example 5000
        */
-      max_val_size: OneOf<[string, null]>;
+      max_val_size: string | null;
       /**
        * @description The percentage of the transactions fee which must be provided as collateral when including non-native scripts 
        * @example 150
        */
-      collateral_percent: OneOf<[number, null]>;
+      collateral_percent: number | null;
       /**
        * @description The maximum number of collateral inputs allowed in a transaction 
        * @example 3
        */
-      max_collateral_inputs: OneOf<[number, null]>;
+      max_collateral_inputs: number | null;
       /**
        * @description Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later. 
        * @example 34482
        */
-      coins_per_utxo_size: OneOf<[string, null]>;
+      coins_per_utxo_size: string | null;
       /**
        * @deprecated 
        * @description Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later. 
        * @example 34482
        */
-      coins_per_utxo_word: OneOf<[string, null]>;
+      coins_per_utxo_word: string | null;
     };
     epoch_content_array: (components["schemas"]["epoch_content"])[];
     epoch_stake_content: ({
@@ -4562,12 +4629,12 @@ export interface components {
        * @description Left (included) endpoint of the timelock validity intervals 
        * @example null
        */
-      invalid_before: OneOf<[string, null]>;
+      invalid_before: string | null;
       /**
        * @description Right (excluded) endpoint of the timelock validity intervals 
        * @example 13885913
        */
-      invalid_hereafter: OneOf<[string, null]>;
+      invalid_hereafter: string | null;
       /**
        * @description Count of UTXOs within the transaction 
        * @example 4
@@ -4666,17 +4733,17 @@ export interface components {
            * @description The hash of the transaction output datum 
            * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
            */
-          data_hash: OneOf<[string, null]>;
+          data_hash: string | null;
           /**
            * @description CBOR encoded inline datum 
            * @example 19a6aa
            */
-          inline_datum: OneOf<[string, null]>;
+          inline_datum: string | null;
           /**
            * @description The hash of the reference script of the input 
            * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
            */
-          reference_script_hash: OneOf<[string, null]>;
+          reference_script_hash: string | null;
           /**
            * @description Whether the input is a collateral consumed on script validation failure 
            * @example false
@@ -4724,12 +4791,12 @@ export interface components {
            * @description The hash of the transaction output datum 
            * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
            */
-          data_hash: OneOf<[string, null]>;
+          data_hash: string | null;
           /**
            * @description CBOR encoded inline datum 
            * @example 19a6aa
            */
-          inline_datum: OneOf<[string, null]>;
+          inline_datum: string | null;
           /**
            * @description Whether the output is a collateral output 
            * @example false
@@ -4739,7 +4806,7 @@ export interface components {
            * @description The hash of the reference script of the output 
            * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
            */
-          reference_script_hash: OneOf<[string, null]>;
+          reference_script_hash: string | null;
         })[];
     };
     tx_content_stake_addr: ({
@@ -4864,59 +4931,59 @@ export interface components {
          * ]
          */
         owners: (string)[];
-        metadata: OneOf<[{
+        metadata: ({
           /**
            * @description URL to the stake pool metadata 
            * @example https://stakenuts.com/mainnet.json
            */
-          url: OneOf<[string, null]>;
+          url: string | null;
           /**
            * @description Hash of the metadata file 
            * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
            */
-          hash: OneOf<[string, null]>;
+          hash: string | null;
           /**
            * @description Ticker of the stake pool 
            * @example NUTS
            */
-          ticker: OneOf<[string, null]>;
+          ticker: string | null;
           /**
            * @description Name of the stake pool 
            * @example Stake Nuts
            */
-          name: OneOf<[string, null]>;
+          name: string | null;
           /**
            * @description Description of the stake pool 
            * @example The best pool ever
            */
-          description: OneOf<[string, null]>;
+          description: string | null;
           /**
            * @description Home page of the stake pool 
            * @example https://stakentus.com/
            */
-          homepage: OneOf<[string, null]>;
-        }, null]>;
+          homepage: string | null;
+        }) | null;
         relays: ({
             /**
              * @description IPv4 address of the relay 
              * @example 4.4.4.4
              */
-            ipv4: OneOf<[string, null]>;
+            ipv4: string | null;
             /**
              * @description IPv6 address of the relay 
              * @example https://stakenuts.com/mainnet.json
              */
-            ipv6: OneOf<[string, null]>;
+            ipv6: string | null;
             /**
              * @description DNS name of the relay 
              * @example relay1.stakenuts.com
              */
-            dns: OneOf<[string, null]>;
+            dns: string | null;
             /**
              * @description DNS SRV entry of the relay 
              * @example _relays._tcp.relays.stakenuts.com
              */
-            dns_srv: OneOf<[string, null]>;
+            dns_srv: string | null;
             /**
              * @description Network port of the relay 
              * @example 3001
@@ -4992,9 +5059,9 @@ export interface components {
          * @deprecated 
          * @description Content of the CBOR metadata
          */
-        cbor_metadata: OneOf<[string, null]>;
+        cbor_metadata: string | null;
         /** @description Content of the CBOR metadata in hex */
-        metadata: OneOf<[string, null]>;
+        metadata: string | null;
       })[];
     tx_content_redeemers: ({
         /**
@@ -5055,7 +5122,7 @@ export interface components {
        * @description Epoch of the most recent action - registration or deregistration 
        * @example 412
        */
-      active_epoch: OneOf<[number, null]>;
+      active_epoch: number | null;
       /**
        * @description Balance of the account in Lovelaces 
        * @example 619154618165
@@ -5090,7 +5157,7 @@ export interface components {
        * @description Bech32 pool ID that owns the account 
        * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
        */
-      pool_id: OneOf<[string, null]>;
+      pool_id: string | null;
     };
     /**
      * @example [
@@ -5409,12 +5476,12 @@ export interface components {
          * @description Left (included) endpoint of the timelock validity intervals 
          * @example null
          */
-        invalid_before: OneOf<[string, null]>;
+        invalid_before: string | null;
         /**
          * @description Right (excluded) endpoint of the timelock validity intervals 
          * @example 13885913
          */
-        invalid_hereafter: OneOf<[string, null]>;
+        invalid_hereafter: string | null;
         /**
          * @description Count of UTXOs within the transaction 
          * @example 4
@@ -5529,12 +5596,12 @@ export interface components {
            * @description The hash of the transaction output datum 
            * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
            */
-          data_hash: OneOf<[string, null]>;
+          data_hash: string | null;
           /**
            * @description CBOR encoded inline datum 
            * @example 19a6aa
            */
-          inline_datum: OneOf<[string, null]>;
+          inline_datum: string | null;
           /**
            * @description Whether the output is a collateral output 
            * @example false
@@ -5544,7 +5611,7 @@ export interface components {
            * @description The hash of the reference script of the output 
            * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
            */
-          reference_script_hash: OneOf<[string, null]>;
+          reference_script_hash: string | null;
         })[];
       redeemers?: ({
           /**
@@ -5604,7 +5671,7 @@ export interface components {
         /** @description Metadata label */
         label: string;
         /** @description CIP10 defined description */
-        cip10: OneOf<[string, null]>;
+        cip10: string | null;
         /** @description The count of metadata entries with a specific label */
         count: string;
       })[];
@@ -5642,11 +5709,11 @@ export interface components {
         /** @description Transaction hash that contains the specific metadata */
         tx_hash: string;
         /** @description Content of the JSON metadata */
-        json_metadata: ({
+        json_metadata: (({
           [key: string]: unknown | undefined;
         }) & (string | ({
           [key: string]: unknown | undefined;
-        }) | (Record<string, never>)[] | number | number | boolean | null);
+        }) | (Record<string, never>)[] | number | number | boolean)) | null;
       })[];
     /**
      * @example [
@@ -5674,9 +5741,9 @@ export interface components {
          * @deprecated 
          * @description Content of the CBOR metadata
          */
-        cbor_metadata: OneOf<[string, null]>;
+        cbor_metadata: string | null;
         /** @description Content of the CBOR metadata in hex */
-        metadata: OneOf<[string, null]>;
+        metadata: string | null;
       })[];
     address_content: {
       /**
@@ -5709,7 +5776,7 @@ export interface components {
        * @description Stake address that controls the key 
        * @example stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
        */
-      stake_address: OneOf<[string, null]>;
+      stake_address: string | null;
       /**
        * @description Address era 
        * @example shelley 
@@ -5753,7 +5820,7 @@ export interface components {
           /** @description The quantity of the unit */
           quantity: string;
           /** @description Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata. */
-          decimals: OneOf<[number, null]>;
+          decimals: number | null;
           /** @description True if the latest minting transaction includes metadata (best-effort) */
           has_nft_onchain_metadata: boolean;
         })[];
@@ -5761,7 +5828,7 @@ export interface components {
        * @description Stake address that controls the key 
        * @example stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
        */
-      stake_address: OneOf<[string, null]>;
+      stake_address: string | null;
       /**
        * @description Address era 
        * @example shelley 
@@ -5908,17 +5975,17 @@ export interface components {
         /** @description Block hash of the UTXO */
         block: string;
         /** @description The hash of the transaction output datum */
-        data_hash: OneOf<[string, null]>;
+        data_hash: string | null;
         /**
          * @description CBOR encoded inline datum 
          * @example 19a6aa
          */
-        inline_datum: OneOf<[string, null]>;
+        inline_datum: string | null;
         /**
          * @description The hash of the reference script of the output 
          * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
          */
-        reference_script_hash: OneOf<[string, null]>;
+        reference_script_hash: string | null;
       })[];
     /**
      * @example [
@@ -6170,32 +6237,32 @@ export interface components {
        * @description URL to the stake pool metadata 
        * @example https://stakenuts.com/mainnet.json
        */
-      url: OneOf<[string, null]>;
+      url: string | null;
       /**
        * @description Hash of the metadata file 
        * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
        */
-      hash: OneOf<[string, null]>;
+      hash: string | null;
       /**
        * @description Ticker of the stake pool 
        * @example NUTS
        */
-      ticker: OneOf<[string, null]>;
+      ticker: string | null;
       /**
        * @description Name of the stake pool 
        * @example Stake Nuts
        */
-      name: OneOf<[string, null]>;
+      name: string | null;
       /**
        * @description Description of the stake pool 
        * @example The best pool ever
        */
-      description: OneOf<[string, null]>;
+      description: string | null;
       /**
        * @description Home page of the stake pool 
        * @example https://stakentus.com/
        */
-      homepage: OneOf<[string, null]>;
+      homepage: string | null;
     };
     empty_object: Record<string, never>;
     pool_relays: ({
@@ -6203,22 +6270,22 @@ export interface components {
          * @description IPv4 address of the relay 
          * @example 4.4.4.4
          */
-        ipv4: OneOf<[string, null]>;
+        ipv4: string | null;
         /**
          * @description IPv6 address of the relay 
          * @example https://stakenuts.com/mainnet.json
          */
-        ipv6: OneOf<[string, null]>;
+        ipv6: string | null;
         /**
          * @description DNS name of the relay 
          * @example relay1.stakenuts.com
          */
-        dns: OneOf<[string, null]>;
+        dns: string | null;
         /**
          * @description DNS SRV entry of the relay 
          * @example _relays._tcp.relays.stakenuts.com
          */
-        dns_srv: OneOf<[string, null]>;
+        dns_srv: string | null;
         /**
          * @description Network port of the relay 
          * @example 3001
@@ -6326,7 +6393,7 @@ export interface components {
        * @description Hex-encoded asset name of the asset 
        * @example 6e7574636f696e
        */
-      asset_name: OneOf<[string, null]>;
+      asset_name: string | null;
       /**
        * @description CIP14 based user-facing fingerprint 
        * @example asset1pkpwyknlvul7az0xx8czhl60pyel45rpje4z8w
@@ -6352,9 +6419,9 @@ export interface components {
        * based on which we perform the look up and display the asset
        * (best effort)
        */
-      onchain_metadata: OneOf<[{
+      onchain_metadata: ({
         [key: string]: unknown | undefined;
-      }, null]>;
+      }) | null;
       /**
        * @description If on-chain metadata passes validation, we display the standard
        * under which it is valid
@@ -6363,13 +6430,13 @@ export interface components {
        */
       onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | null;
       /** @description Arbitrary plutus data (CIP68). */
-      onchain_metadata_extra?: OneOf<[string, null]>;
+      onchain_metadata_extra?: string | null;
       /**
        * @description Off-chain metadata fetched from GitHub based on network.
        * Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
        * Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
        */
-      metadata: OneOf<[{
+      metadata: ({
         /**
          * @description Asset name 
          * @example nutcoin
@@ -6381,23 +6448,23 @@ export interface components {
          */
         description: string;
         /** @example nutc */
-        ticker: OneOf<[string, null]>;
+        ticker: string | null;
         /**
          * @description Asset website 
          * @example https://www.stakenuts.com/
          */
-        url: OneOf<[string, null]>;
+        url: string | null;
         /**
          * @description Base64 encoded logo of the asset 
          * @example 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
          */
-        logo: OneOf<[string, null]>;
+        logo: string | null;
         /**
          * @description Number of decimal places of the asset unit 
          * @example 6
          */
-        decimals: OneOf<[number, null]>;
-      }, null]>;
+        decimals: number | null;
+      }) | null;
     };
     /**
      * @example [
@@ -6549,7 +6616,7 @@ export interface components {
        * @description The size of the CBOR serialised script, if a Plutus script 
        * @example 3119
        */
-      serialised_size: OneOf<[number, null]>;
+      serialised_size: number | null;
     };
     /**
      * @example {
@@ -6575,11 +6642,11 @@ export interface components {
      */
     script_json: {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
-      json: ({
+      json: (({
         [key: string]: unknown | undefined;
       }) & (string | ({
         [key: string]: unknown | undefined;
-      }) | (Record<string, never>)[] | number | number | boolean | null);
+      }) | (Record<string, never>)[] | number | number | boolean)) | null;
     };
     /**
      * @example {
@@ -6588,7 +6655,7 @@ export interface components {
      */
     script_cbor: {
       /** @description CBOR contents of the `plutus` script, null for `timelocks` */
-      cbor: OneOf<[string, null]>;
+      cbor: string | null;
     };
     script_redeemers: ({
         /**
@@ -6867,9 +6934,9 @@ export interface components {
        */
       metadata_hash: string;
       /** @description The cached metadata of the `metadata_url` file. */
-      metadata: OneOf<[{
+      metadata: ({
         [key: string]: unknown | undefined;
-      }, null]>;
+      }) | null;
     };
     /**
      * @example [

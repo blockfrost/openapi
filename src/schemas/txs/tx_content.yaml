@@ -58,15 +58,13 @@ properties:
     example: 433
     description: Size of the transaction in Bytes
   invalid_before:
-    type:
-      - string
-      - "null"
+    type: string
+    nullable: true
     example: null
     description: Left (included) endpoint of the timelock validity intervals
   invalid_hereafter:
-    type:
-      - string
-      - "null"
+    type: string
+    nullable: true
     example: "13885913"
     description: Right (excluded) endpoint of the timelock validity intervals
   utxo_count:

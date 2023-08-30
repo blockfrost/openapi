@@ -2,7 +2,7 @@ get:
   deprecated: true
   tags:
     - Cardano » Assets
-  summary: Asset transactions
+  summary: Asset txs
   description: List of a specific asset transactions
   parameters:
     - in: path

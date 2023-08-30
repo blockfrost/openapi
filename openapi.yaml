@@ -2304,7 +2304,9 @@ paths:
         waiting to be included in a newly minted block.
         Shows only transactions submitted via Blockfrost.io.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: query
           name: count
@@ -2359,7 +2361,7 @@ paths:
     get:
       tags:
         - Cardano » Mempool
-      summary: Specific transaction
+      summary: Specific transaction in the mempool
       description: |
         Return content of the requested transaction.
 
@@ -2885,7 +2887,7 @@ paths:
       deprecated: true
       tags:
         - Cardano » Addresses
-      summary: Address transactions
+      summary: Address txs
       description: Transactions on the address.
       parameters:
         - in: path
@@ -3764,7 +3766,7 @@ paths:
       deprecated: true
       tags:
         - Cardano » Assets
-      summary: Asset transactions
+      summary: Asset txs
       description: List of a specific asset transactions
       parameters:
         - in: path
@@ -5088,7 +5090,7 @@ paths:
     get:
       tags:
         - Nut.link
-      summary: Specific ticker
+      summary: Specific ticker for an address
       description: List of records of a specific ticker
       parameters:
         - in: path

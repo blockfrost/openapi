@@ -3021,7 +3021,7 @@
           "Cardano » Mempool"
         ],
         "summary": "Mempool",
-        "description": "Return transactions that are currently stored in Blockfrost mempool,\nwaiting to be included in a newly minted block.\nShows only transactions submitted via Blockfrost.io.\n\n<span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n",
+        "description": "Return transactions that are currently stored in Blockfrost mempool,\nwaiting to be included in a newly minted block.\nShows only transactions submitted via Blockfrost.io.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
             "in": "query",
@@ -3099,7 +3099,7 @@
         "tags": [
           "Cardano » Mempool"
         ],
-        "summary": "Specific transaction",
+        "summary": "Specific transaction in the mempool",
         "description": "Return content of the requested transaction.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "parameters": [
           {
@@ -3840,7 +3840,7 @@
         "tags": [
           "Cardano » Addresses"
         ],
-        "summary": "Address transactions",
+        "summary": "Address txs",
         "description": "Transactions on the address.",
         "parameters": [
           {
@@ -5090,7 +5090,7 @@
         "tags": [
           "Cardano » Assets"
         ],
-        "summary": "Asset transactions",
+        "summary": "Asset txs",
         "description": "List of a specific asset transactions",
         "parameters": [
           {
@@ -6949,7 +6949,7 @@
         "tags": [
           "Nut.link"
         ],
-        "summary": "Specific ticker",
+        "summary": "Specific ticker for an address",
         "description": "List of records of a specific ticker",
         "parameters": [
           {

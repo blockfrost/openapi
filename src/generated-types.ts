@@ -1738,7 +1738,9 @@ export interface paths {
      * waiting to be included in a newly minted block.
      * Shows only transactions submitted via Blockfrost.io.
      * 
-     * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
      */
     get: {
       /**
@@ -1747,7 +1749,9 @@ export interface paths {
        * waiting to be included in a newly minted block.
        * Shows only transactions submitted via Blockfrost.io.
        * 
-       * <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * <p>
+       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+       * </p>
        */
       parameters?: {
           /** @description The number of results displayed on one page. */
@@ -1780,7 +1784,7 @@ export interface paths {
   };
   "/mempool/{hash}": {
     /**
-     * Specific transaction 
+     * Specific transaction in the mempool 
      * @description Return content of the requested transaction.
      * 
      * <p>
@@ -1789,7 +1793,7 @@ export interface paths {
      */
     get: {
       /**
-       * Specific transaction 
+       * Specific transaction in the mempool 
        * @description Return content of the requested transaction.
        * 
        * <p>
@@ -2212,13 +2216,13 @@ export interface paths {
   };
   "/addresses/{address}/txs": {
     /**
-     * Address transactions 
+     * Address txs 
      * @deprecated 
      * @description Transactions on the address.
      */
     get: {
       /**
-       * Address transactions 
+       * Address txs 
        * @deprecated 
        * @description Transactions on the address.
        */
@@ -2888,13 +2892,13 @@ export interface paths {
   };
   "/assets/{asset}/txs": {
     /**
-     * Asset transactions 
+     * Asset txs 
      * @deprecated 
      * @description List of a specific asset transactions
      */
     get: {
       /**
-       * Asset transactions 
+       * Asset txs 
        * @deprecated 
        * @description List of a specific asset transactions
        */
@@ -4020,12 +4024,12 @@ export interface paths {
   };
   "/nutlink/{address}/tickers/{ticker}": {
     /**
-     * Specific ticker 
+     * Specific ticker for an address 
      * @description List of records of a specific ticker
      */
     get: {
       /**
-       * Specific ticker 
+       * Specific ticker for an address 
        * @description List of records of a specific ticker
        */
       parameters: {

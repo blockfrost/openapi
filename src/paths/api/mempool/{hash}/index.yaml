@@ -1,7 +1,7 @@
 get:
   tags:
     - Cardano » Mempool
-  summary: Specific transaction
+  summary: Specific transaction in the mempool
   description: |
     Return content of the requested transaction.
 

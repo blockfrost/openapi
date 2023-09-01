@@ -6166,7 +6166,7 @@
         "description": "You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage\nis being counted in your user account quota.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "x-codeSamples": [
           {
-            "lang": "curl",
+            "lang": "cURL",
             "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/add\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n  -F \"file=@./README.md\"\n"
           }
         ],

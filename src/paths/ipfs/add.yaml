@@ -12,7 +12,7 @@ post:
       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
     </p>
   x-codeSamples:
-    - lang: "curl"
+    - lang: "cURL"
       source: |
         curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
           -X POST \

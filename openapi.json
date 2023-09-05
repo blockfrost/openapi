@@ -5964,7 +5964,7 @@
         ],
         "responses": {
           "200": {
-            "description": "<span>\n  Returns result of EvaluateTx function from Ogmios see\n  <a class=\"custom-link\" href=\"https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx\">EvaluateTx</a>\n  and <a class=\"custom-link href=\"https://ogmios.dev/api/\">API reference (EvaluateTxResponse)</a> for related errors.\n</span>\n",
+            "description": "<p>\n  <div class=\"custom-paragraph\">\n    Returns result of EvaluateTx function from Ogmios see <a class=\"custom-link\" href=\"https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx\">EvaluateTx</a>\n    and<a href=\"https://ogmios.dev/api/\"> API reference (EvaluateTxResponse)</a> for related errors.\n  </div>\n</p>\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -6118,7 +6118,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns result of EvaluateTx function from Ogmios see\n<a href=\"https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx\">EvaluateTx</a>\nand <a href=\"https://ogmios.dev/api/\">API reference (EvaluateTxResponse)</a> for related errors.\n",
+            "description": "<p>\n  <div class=\"custom-paragraph\">\n    Returns result of EvaluateTx function from Ogmios see <a class=\"custom-link\" href=\"https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx\">EvaluateTx</a>\n    and<a href=\"https://ogmios.dev/api/\"> API reference (EvaluateTxResponse)</a> for related errors.\n  </div>\n</p>\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -6163,6 +6163,7 @@
           "IPFS » Add"
         ],
         "summary": "Add a file to IPFS",
+        "operationId": "ipfs_add",
         "description": "You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage\nis being counted in your user account quota.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
         "x-codeSamples": [
           {

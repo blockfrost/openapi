@@ -4382,11 +4382,12 @@ paths:
       responses:
         '200':
           description: |
-            <span>
-              Returns result of EvaluateTx function from Ogmios see
-              <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-              and <a class="custom-link href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
-            </span>
+            <p>
+              <div class="custom-paragraph">
+                Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+                and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+              </div>
+            </p>
           content:
             application/json:
               schema:
@@ -4500,9 +4501,12 @@ paths:
       responses:
         '200':
           description: |
-            Returns result of EvaluateTx function from Ogmios see
-            <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-            and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+            <p>
+              <div class="custom-paragraph">
+                Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+                and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+              </div>
+            </p>
           content:
             application/json:
               schema:
@@ -4529,6 +4533,7 @@ paths:
       tags:
         - IPFS » Add
       summary: Add a file to IPFS
+      operationId: ipfs_add
       description: |
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.

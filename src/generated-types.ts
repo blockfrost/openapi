@@ -3406,9 +3406,11 @@ export interface paths {
       };
       responses: {
         /**
-         * @description Returns result of EvaluateTx function from Ogmios see
-         * <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-         * and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+         * @description <span>
+         *   Returns result of EvaluateTx function from Ogmios see
+         *   <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+         *   and <a class="custom-link href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+         * </span>
          */
         200: {
           content: {

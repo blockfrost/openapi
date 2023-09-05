@@ -12,6 +12,7 @@
         "openapi",
         "redoc",
         "redocly",
+        "tbody",
         "utxos",
         "xpub"
     ]

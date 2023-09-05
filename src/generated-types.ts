@@ -3527,6 +3527,14 @@ export interface paths {
        *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        * </p>
        */
+      requestBody?: {
+        content: {
+          "multipart/form-data": {
+            /** Format: binary */
+            file?: string;
+          };
+        };
+      };
       responses: {
         /** @description Returns information about added IPFS object */
         200: {

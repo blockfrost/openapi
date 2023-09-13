@@ -1265,9 +1265,11 @@ export interface paths {
        *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
        * </p>
        */
-      parameters: {
-        header: {
-          "Content-Type": "application/cbor";
+      /** @description The transaction to submit, serialized in CBOR. */
+      requestBody: {
+        content: {
+          /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573 */
+          "application/cbor": string;
         };
       };
       responses: {
@@ -3406,9 +3408,12 @@ export interface paths {
       };
       responses: {
         /**
-         * @description Returns result of EvaluateTx function from Ogmios see
-         * <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-         * and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+         * @description <p>
+         *   <div class="custom-paragraph">
+         *     Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+         *     and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+         *   </div>
+         * </p>
          */
         200: {
           content: {
@@ -3486,9 +3491,12 @@ export interface paths {
       };
       responses: {
         /**
-         * @description Returns result of EvaluateTx function from Ogmios see
-         * <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-         * and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+         * @description <p>
+         *   <div class="custom-paragraph">
+         *     Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+         *     and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+         *   </div>
+         * </p>
          */
         200: {
           content: {
@@ -3517,47 +3525,7 @@ export interface paths {
      *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
      * </p>
      */
-    post: {
-      /**
-       * Add a file to IPFS 
-       * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
-       * is being counted in your user account quota.
-       * 
-       * <p>
-       *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
-       * </p>
-       */
-      responses: {
-        /** @description Returns information about added IPFS object */
-        200: {
-          content: {
-            "application/json": {
-              /**
-               * @description Name of the file 
-               * @example README.md
-               */
-              name: string;
-              /**
-               * @description IPFS hash of the file 
-               * @example QmZbHqiCxKEVX7QfijzJTkZiSi3WEVTcvANgNAWzDYgZDr
-               */
-              ipfs_hash: string;
-              /**
-               * @description IPFS node size in Bytes 
-               * @example 125297
-               */
-              size: string;
-            };
-          };
-        };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        404: components["responses"]["404"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
+    post: operations["ipfs_add"];
   };
   "/ipfs/gateway/{IPFS_path}": {
     /**
@@ -7317,4 +7285,55 @@ export interface components {
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
+export interface operations {
+
+  ipfs_add: {
+    /**
+     * Add a file to IPFS 
+     * @description You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
+     * is being counted in your user account quota.
+     * 
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
+     */
+    requestBody?: {
+      content: {
+        "multipart/form-data": {
+          /** Format: binary */
+          file?: string;
+        };
+      };
+    };
+    responses: {
+      /** @description Returns information about added IPFS object */
+      200: {
+        content: {
+          "application/json": {
+            /**
+             * @description Name of the file 
+             * @example README.md
+             */
+            name: string;
+            /**
+             * @description IPFS hash of the file 
+             * @example QmZbHqiCxKEVX7QfijzJTkZiSi3WEVTcvANgNAWzDYgZDr
+             */
+            ipfs_hash: string;
+            /**
+             * @description IPFS node size in Bytes 
+             * @example 125297
+             */
+            size: string;
+          };
+        };
+      };
+      400: components["responses"]["400"];
+      403: components["responses"]["403"];
+      404: components["responses"]["404"];
+      418: components["responses"]["418"];
+      429: components["responses"]["429"];
+      500: components["responses"]["500"];
+    };
+  };
+}

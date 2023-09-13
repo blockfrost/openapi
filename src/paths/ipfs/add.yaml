@@ -4,6 +4,7 @@ post:
   tags:
     - IPFS » Add
   summary: Add a file to IPFS
+  operationId: ipfs_add
   description: |
     You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
     is being counted in your user account quota.
@@ -12,12 +13,22 @@ post:
       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
     </p>
   x-codeSamples:
-    - lang: "curl"
+    - lang: "Shell"
+      label: "cURL"
       source: |
         curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
           -X POST \
           -H "project_id: $PROJECT_ID" \
           -F "file=@./README.md"
+  requestBody:
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file:
+              type: string
+              format: binary
   responses:
     "200":
       description: Returns information about added IPFS object

@@ -8,6 +8,13 @@ and this project will adhere to [Semantic Versioning](https://semver.org/spec/v2
 Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
+
+### Fixed
+
+- HTML table is SDKs
+- requestBody for `/tx/submit` and `/ipfs/add` endpoint
+- CODE language for `curl` examples
+
 ### Changed
 
 - downgrade to OpenAPI 3.0.0

@@ -147,20 +147,19 @@ export const getOnchainMetadata = (
         onchainMetadataCbor,
       );
       const foundMetadata = foundAssetInCbor
-        ? internalOnchainMetadata[policyIdVersion2][assetNameVersion2] 
+        ? internalOnchainMetadata[policyIdVersion2][assetNameVersion2]
         : null;
       if (foundMetadata) {
         onchainMetadataResult = foundMetadata;
         isFound = true;
       } else {
-        
         const foundHexStringMetadata = foundAssetInCbor
-          ? internalOnchainMetadata[assetNameBase][policyId] 
+          ? internalOnchainMetadata[policyId][assetNameBase] 
           : null;
-          if (foundHexStringMetadata) {
-            onchainMetadataResult = foundHexStringMetadata;
-            isFound = true;
-          }else{
+        if (foundHexStringMetadata) {
+          onchainMetadataResult = foundHexStringMetadata;
+          isFound = true;
+        }else{
             // Fallback
             // Due to previously missing and then incorrect implementation, metadata submitted as v2
             // (i.e. "version" field encoded in CBOR was set to 2) with mistakenly text-encoded

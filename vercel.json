@@ -3,6 +3,30 @@
     {
       "source": "/",
       "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation"
+    },
+    {
+      "source": "/#section/Tokens",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#tokens"
+    },
+    {
+      "source": "/#section/Available-networks",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#available-networks"
+    },
+    {
+      "source": "/#section/Milkomeda",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#milkomeda"
+    },
+    {
+      "source": "/#section/Concepts",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#concepts"
+    },
+    {
+      "source": "/#section/Errors",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#errors"
+    },
+    {
+      "source": "/#section/SDKs",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#sdks"
     }
   ]
 }

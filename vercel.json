@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation"
+    }
+  ]
+}

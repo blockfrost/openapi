@@ -1,4 +1,4 @@
-name: CIcko
+name: ci
 
 on: [push]
 

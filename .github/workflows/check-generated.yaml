@@ -2,7 +2,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: "actions/checkout@v1"
+      - uses: 'actions/checkout@v1'
         with:
           fetch-depth: 2
       - uses: borales/actions-yarn@v3.0.0
@@ -11,9 +11,6 @@ jobs:
       - uses: borales/actions-yarn@v3.0.0
         with:
           cmd: run bundle
-      - uses: borales/actions-yarn@v3.0.0
-        with:
-          cmd: run generate-docs
       - name: Check diff
         run: git diff --quiet || { echo "You forgot to run 'yarn run bundle && yarn run generate-docs && yarn run generate-types'"; exit 1; }
 

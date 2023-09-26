@@ -35,10 +35,12 @@
               'https://blockfrost.dev/api/blockfrost-io-api-documentation#sdks';
             break;
 
-          // Health
+          // Root
           case '#tag/Health/paths/~1/get':
             window.location.href = 'https://blockfrost.dev/api/root-endpoint';
             break;
+
+          // Health
           case '#tag/Health/paths/~1health/get':
             window.location.href =
               'https://blockfrost.dev/api/backend-health-status';
@@ -56,6 +58,396 @@
           case '#tag/Metrics/paths/~1metrics~1endpoints/get':
             window.location.href =
               'https://blockfrost.dev/api/blockfrost-endpoint-usage-metrics';
+            break;
+
+          // Accounts
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-account-address';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1rewards/get':
+            window.location.href =
+              'https://blockfrost.dev/api/account-reward-history';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1history/get':
+            window.location.href = 'https://blockfrost.dev/api/account-history';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1delegations/get':
+            window.location.href =
+              'https://blockfrost.dev/api/account-delegation-history';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1registrations/get':
+            window.location.href =
+              'https://blockfrost.dev/api/account-registration-history';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1withdrawals/get':
+            window.location.href =
+              'https://blockfrost.dev/api/account-withdrawal-history';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1mirs/get':
+            window.location.href =
+              'https://blockfrost.dev/api/account-mir-history';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses/get':
+            window.location.href =
+              'https://blockfrost.dev/api/account-associated-addresses';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses~1assets/get':
+            window.location.href =
+              'https://blockfrost.dev/api/assets-associated-with-the-account-addresses';
+            break;
+          case '#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses~1total/get':
+            window.location.href =
+              'https://blockfrost.dev/api/detailed-information-about-account-associated-addresses';
+            break;
+
+          // Addresses
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-address';
+            break;
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1extended/get':
+            window.location.href =
+              'https://blockfrost.dev/api/extended-information-of-a-specific-address';
+            break;
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1total/get':
+            window.location.href = 'https://blockfrost.dev/api/address-details';
+            break;
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1utxos/get':
+            window.location.href = 'https://blockfrost.dev/api/address-utx-os';
+            break;
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1utxos~1%7Basset%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/address-utx-os-of-a-given-asset';
+            break;
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1txs/get':
+            window.location.href = 'https://blockfrost.dev/api/address-txs';
+            break;
+          case '#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1transactions/get':
+            window.location.href =
+              'https://blockfrost.dev/api/address-transactions';
+            break;
+
+          // Assets
+          case '#tag/Cardano-Assets/paths/~1assets/get':
+            window.location.href = 'https://blockfrost.dev/api/assets';
+            break;
+          case '#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D/get':
+            window.location.href = 'https://blockfrost.dev/api/specific-asset';
+            break;
+          case '#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1history/get':
+            window.location.href = 'https://blockfrost.dev/api/asset-history';
+            break;
+          case '#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1txs/get':
+            window.location.href = 'https://blockfrost.dev/api/asset-txs';
+            break;
+          case '#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1transactions/get':
+            window.location.href =
+              'https://blockfrost.dev/api/asset-transactions';
+            break;
+          case '#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1addresses/get':
+            window.location.href = 'https://blockfrost.dev/api/asset-addresses';
+            break;
+          case '#tag/Cardano-Assets/paths/~1assets~1policy~1%7Bpolicy_id%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/assets-of-a-specific-policy';
+            break;
+
+          // Blocks
+          case '#tag/Cardano-Blocks/paths/~1blocks~1latest/get':
+            window.location.href = 'https://blockfrost.dev/api/latest-block';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1latest~1txs/get':
+            window.location.href =
+              'https://blockfrost.dev/api/latest-block-transactions';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D/get':
+            window.location.href = 'https://blockfrost.dev/api/specific-block';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1next/get':
+            window.location.href =
+              'https://blockfrost.dev/api/listing-of-next-blocks';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1previous/get':
+            window.location.href =
+              'https://blockfrost.dev/api/listing-of-previous-blocks';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1slot~1%7Bslot_number%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-block-in-a-slot';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1epoch~1%7Bepoch_number%7D~1slot~1%7Bslot_number%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-block-in-a-slot-in-an-epoch';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1txs/get':
+            window.location.href =
+              'https://blockfrost.dev/api/block-transactions';
+            break;
+          case '#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1addresses/get':
+            window.location.href =
+              'https://blockfrost.dev/api/addresses-affected-in-a-specific-block';
+            break;
+
+          // Epochs
+          case '#tag/Cardano-Epochs/paths/~1epochs~1latest/get':
+            window.location.href = 'https://blockfrost.dev/api/latest-epoch';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1latest~1parameters/get':
+            window.location.href =
+              'https://blockfrost.dev/api/latest-epoch-protocol-parameters';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D/get':
+            window.location.href = 'https://blockfrost.dev/api/specific-epoch';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1next/get':
+            window.location.href =
+              'https://blockfrost.dev/api/listing-of-next-epochs';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1previous/get':
+            window.location.href =
+              'https://blockfrost.dev/api/listing-of-previous-epochs';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1stakes/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-distribution';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1stakes~1%7Bpool_id%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-distribution-by-pool';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1blocks/get':
+            window.location.href =
+              'https://blockfrost.dev/api/block-distribution';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1blocks~1%7Bpool_id%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/block-distribution-by-pool';
+            break;
+          case '#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1parameters/get':
+            window.location.href =
+              'https://blockfrost.dev/api/protocol-parameters';
+            break;
+
+          // Ledger
+          case '#tag/Cardano-Ledger/paths/~1genesis/get':
+            window.location.href =
+              'https://blockfrost.dev/api/blockchain-genesis';
+            break;
+
+          // Mempool
+          case '#tag/Cardano-Mempool/paths/~1mempool/get':
+            window.location.href = 'https://blockfrost.dev/api/mempool';
+            break;
+          case '#tag/Cardano-Mempool/paths/~1mempool~1%7Bhash%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-transaction-in-the-mempool';
+            break;
+          case '#tag/Cardano-Mempool/paths/~1mempool~1addresses~1%7Baddress%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/mempool-by-address';
+            break;
+
+          // Metadata
+          case '#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-metadata-labels';
+            break;
+          case '#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels~1%7Blabel%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-metadata-content-in-json';
+            break;
+          case '#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels~1%7Blabel%7D~1cbor/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-metadata-content-in-cbor';
+            break;
+
+          // Network
+          case '#tag/Cardano-Network/paths/~1network/get':
+            window.location.href =
+              'https://blockfrost.dev/api/network-information';
+            break;
+          case '#tag/Cardano-Network/paths/~1network~1eras/get':
+            window.location.href =
+              'https://blockfrost.dev/api/query-summary-of-blockchain-eras';
+            break;
+
+          // Pools
+          case '#tag/Cardano-Pools/paths/~1pools/get':
+            window.location.href =
+              'https://blockfrost.dev/api/list-of-stake-pools';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1extended/get':
+            window.location.href =
+              'https://blockfrost.dev/api/list-of-stake-pools-with-additional-information';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1retired/get':
+            window.location.href =
+              'https://blockfrost.dev/api/list-of-retired-stake-pools';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1retiring/get':
+            window.location.href =
+              'https://blockfrost.dev/api/list-of-retiring-stake-pools';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-stake-pool';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1history/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-pool-history';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1metadata/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-pool-metadata';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1relays/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-pool-relays';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1delegators/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-pool-delegators';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1blocks/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-pool-blocks';
+            break;
+          case '#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1updates/get':
+            window.location.href =
+              'https://blockfrost.dev/api/stake-pool-updates';
+            break;
+
+          // Scripts
+          case '#tag/Cardano-Scripts/paths/~1scripts/get':
+            window.location.href = 'https://blockfrost.dev/api/scripts';
+            break;
+          case '#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D/get':
+            window.location.href = 'https://blockfrost.dev/api/specific-script';
+            break;
+          case '#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1json/get':
+            window.location.href = 'https://blockfrost.dev/api/script-json';
+            break;
+          case '#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1cbor/get':
+            window.location.href = 'https://blockfrost.dev/api/script-cbor';
+            break;
+          case '#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1redeemers/get':
+            window.location.href =
+              'https://blockfrost.dev/api/redeemers-of-a-specific-script';
+            break;
+          case '#tag/Cardano-Scripts/paths/~1scripts~1datum~1%7Bdatum_hash%7D/get':
+            window.location.href = 'https://blockfrost.dev/api/datum-value';
+            break;
+          case '#tag/Cardano-Scripts/paths/~1scripts~1datum~1%7Bdatum_hash%7D~1cbor/get':
+            window.location.href =
+              'https://blockfrost.dev/api/datum-cbor-value';
+            break;
+
+          // Transactions
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-transaction';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1utxos/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-utx-os';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1stakes/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-stake-addresses-certificates';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1delegations/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-delegation-certificates';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1withdrawals/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-withdrawal';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1mirs/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-mi-rs';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1pool_updates/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-stake-pool-registration-and-update-certificates';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1pool_retires/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-stake-pool-retirement-certificates';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1metadata/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-metadata';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1metadata~1cbor/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-metadata-in-cbor';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1redeemers/get':
+            window.location.href =
+              'https://blockfrost.dev/api/transaction-redeemers';
+            break;
+          case '#tag/Cardano-Transactions/paths/~1tx~1submit/post':
+            window.location.href =
+              'https://blockfrost.dev/api/submit-a-transaction';
+            break;
+
+          // Utils
+          case '#tag/Cardano-Utilities/paths/~1utils~1addresses~1xpub~1%7Bxpub%7D~1%7Brole%7D~1%7Bindex%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/derive-an-address';
+            break;
+          case '#tag/Cardano-Utilities/paths/~1utils~1txs~1evaluate/post':
+            window.location.href =
+              'https://blockfrost.dev/api/submit-a-transaction-for-execution-units-evaluation';
+            break;
+          case '#tag/Cardano-Utilities/paths/~1utils~1txs~1evaluate~1utxos/post':
+            window.location.href =
+              'https://blockfrost.dev/api/submit-a-transaction-for-execution-units-evaluation-additional-utxo-set';
+            break;
+
+          // IPFS
+          case '#tag/IPFS-Add/paths/~1ipfs~1add/post':
+            window.location.href = 'https://blockfrost.dev/api/ipfs-add';
+            break;
+          case '#tag/IPFS-Gateway/paths/~1ipfs~1gateway~1%7BIPFS_path%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/relay-to-an-ipfs-gateway';
+            break;
+          case '#tag/IPFS-Pins/paths/~1ipfs~1pin~1add~1%7BIPFS_path%7D/post':
+            window.location.href = 'https://blockfrost.dev/api/pin-an-object';
+            break;
+          case '#tag/IPFS-Pins/paths/~1ipfs~1pin~1list/get':
+            window.location.href =
+              'https://blockfrost.dev/api/list-pinned-objects';
+            break;
+          case '#tag/IPFS-Pins/paths/~1ipfs~1pin~1list~1%7BIPFS_path%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/get-details-about-pinned-object';
+            break;
+          case '#tag/IPFS-Pins/paths/~1ipfs~1pin~1remove~1%7BIPFS_path%7D/post':
+            window.location.href =
+              'https://blockfrost.dev/api/remove-a-ipfs-pin';
+            break;
+
+          case '#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-nut-link-address';
+            break;
+
+          case '#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D~1tickers/get':
+            window.location.href =
+              'https://blockfrost.dev/api/list-of-tickers-of-an-oracle';
+            break;
+
+          case '#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D~1tickers~1%7Bticker%7D/get':
+            window.location.href =
+              'https://blockfrost.dev/api/specific-ticker-for-an-address';
+            break;
+
+          case '#tag/Nut.link/paths/~1nutlink~1tickers~1%7Bticker%7D/get':
+            window.location.href = 'https://blockfrost.dev/api/specific-ticker';
             break;
 
           default:

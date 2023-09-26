@@ -6,13 +6,6 @@
   <body>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // Root - redirects to the main page
-        if (window.location.pathname === '/') {
-          window.location.href =
-            'https://blockfrost.dev/api/blockfrost-io-api-documentation';
-          return;
-        }
-
         const hash = window.location.hash;
 
         // Introduction - redirect to the correct sections

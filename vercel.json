@@ -2,31 +2,38 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation",
+      "permanent": true
     },
     {
       "source": "/#section/Tokens",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#tokens"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#tokens",
+      "permanent": true
     },
     {
       "source": "/#section/Available-networks",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#available-networks"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#available-networks",
+      "permanent": true
     },
     {
       "source": "/#section/Milkomeda",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#milkomeda"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#milkomeda",
+      "permanent": true
     },
     {
       "source": "/#section/Concepts",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#concepts"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#concepts",
+      "permanent": true
     },
     {
       "source": "/#section/Errors",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#errors"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#errors",
+      "permanent": true
     },
     {
       "source": "/#section/SDKs",
-      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#sdks"
+      "destination": "https://blockfrost.dev/api/blockfrost-io-api-documentation#sdks",
+      "permanent": true
     },
 
     {

@@ -12566,7 +12566,6 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                 },
               ],
               "description": "Content of the JSON metadata",
-              "nullable": true,
             },
             "tx_hash": {
               "description": "Transaction hash that contains the specific metadata",

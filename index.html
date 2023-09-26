@@ -1,0 +1,75 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Loading...</title>
+  </head>
+  <body>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Root - redirects to the main page
+        if (window.location.pathname === '/') {
+          window.location.href =
+            'https://blockfrost.dev/api/blockfrost-io-api-documentation';
+          return;
+        }
+
+        const hash = window.location.hash;
+
+        // Introduction - redirect to the correct sections
+        switch (hash) {
+          case '#section/Tokens':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation#tokens';
+            break;
+          case '#section/Available-networks':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation#available-networks';
+            break;
+          case '#section/Milkomeda':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation#milkomeda';
+            break;
+          case '#section/Concepts':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation#concepts';
+            break;
+          case '#section/Errors':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation#errors';
+            break;
+          case '#section/SDKs':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation#sdks';
+            break;
+
+          // Health
+          case '#tag/Health/paths/~1/get':
+            window.location.href = 'https://blockfrost.dev/api/root-endpoint';
+            break;
+          case '#tag/Health/paths/~1health/get':
+            window.location.href =
+              'https://blockfrost.dev/api/backend-health-status';
+            break;
+          case '#tag/Metrics/paths/~1metrics/get':
+            window.location.href =
+              'https://blockfrost.dev/api/current-backend-time';
+            break;
+
+          // Metrics
+          case '#tag/Metrics/paths/~1metrics~1endpoints/get':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-usage-metrics';
+            break;
+          case '#tag/Metrics/paths/~1metrics~1endpoints/get':
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-endpoint-usage-metrics';
+            break;
+
+          default:
+            window.location.href =
+              'https://blockfrost.dev/api/blockfrost-io-api-documentation';
+        }
+      });
+    </script>
+  </body>
+</html>

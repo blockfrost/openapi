@@ -1,3 +1,5 @@
 theme:
   openapi:
     specUrl: "https://raw.githubusercontent.com/blockfrost/openapi/master/openapi.json"
+extends:
+  - recommended

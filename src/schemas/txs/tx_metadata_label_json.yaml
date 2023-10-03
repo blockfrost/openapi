@@ -16,6 +16,7 @@ items:
         - type: integer
         - type: number
         - type: boolean
+        - type: 'null'
       description: Content of the JSON metadata
   required:
     - tx_hash

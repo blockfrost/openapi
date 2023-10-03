@@ -5681,7 +5681,7 @@ export interface components {
           [key: string]: unknown | undefined;
         }) & (string | ({
           [key: string]: unknown | undefined;
-        }) | (Record<string, never>)[] | number | number | boolean);
+        }) | (Record<string, never>)[] | number | number | boolean | null);
       })[];
     /**
      * @example [
@@ -6614,7 +6614,7 @@ export interface components {
         [key: string]: unknown | undefined;
       }) & (string | ({
         [key: string]: unknown | undefined;
-      }) | (Record<string, never>)[] | number | number | boolean);
+      }) | (Record<string, never>)[] | number | number | boolean | null);
     };
     /**
      * @example {

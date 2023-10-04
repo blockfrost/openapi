@@ -5679,7 +5679,9 @@ export interface components {
         /** @description Content of the JSON metadata */
         json_metadata: (({
           [key: string]: unknown | undefined;
-        }) & (string | Record<string, never> | (Record<string, never>)[] | number | number | boolean)) | null;
+        }) & (string | ({
+          [key: string]: unknown | undefined;
+        }) | (Record<string, never>)[] | number | number | boolean)) | null;
       })[];
     /**
      * @example [
@@ -6610,7 +6612,9 @@ export interface components {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
       json: (({
         [key: string]: unknown | undefined;
-      }) & (string | Record<string, never> | (Record<string, never>)[] | number | number | boolean)) | null;
+      }) & (string | ({
+        [key: string]: unknown | undefined;
+      }) | (Record<string, never>)[] | number | number | boolean)) | null;
     };
     /**
      * @example {

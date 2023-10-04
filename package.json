@@ -22,7 +22,7 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@redocly/cli": "^1.0.0-beta.123",
+    "@redocly/cli": "1.0.0-beta.123",
     "@vitest/coverage-c8": "^0.25.3",
     "openapi-typescript": "6.1.0",
     "rimraf": "^3.0.2",

@@ -9470,12 +9470,14 @@
               "description": "Transaction hash that contains the specific metadata"
             },
             "json_metadata": {
+              "additionalProperties": true,
               "anyOf": [
                 {
                   "type": "string"
                 },
                 {
-                  "type": "object"
+                  "type": "object",
+                  "additionalProperties": true
                 },
                 {
                   "type": "array",
@@ -9488,12 +9490,10 @@
                   "type": "number"
                 },
                 {
-                  "type": "boolean",
-                  "additionalProperties": true
+                  "type": "boolean"
                 }
               ],
               "nullable": true,
-              "additionalProperties": true,
               "description": "Content of the JSON metadata"
             }
           },
@@ -10886,12 +10886,14 @@
         "type": "object",
         "properties": {
           "json": {
+            "additionalProperties": true,
             "anyOf": [
               {
                 "type": "string"
               },
               {
-                "type": "object"
+                "type": "object",
+                "additionalProperties": true
               },
               {
                 "type": "array",
@@ -10904,12 +10906,10 @@
                 "type": "number"
               },
               {
-                "type": "boolean",
-                "additionalProperties": true
+                "type": "boolean"
               }
             ],
             "nullable": true,
-            "additionalProperties": true,
             "description": "JSON contents of the `timelock` script, null for `plutus` scripts"
           }
         },

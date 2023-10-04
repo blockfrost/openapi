@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
+        "Bdatum",
         "Bech",
         "blockfrost",
+        "Bscript",
+        "Bstake",
         "cbor",
         "delegators",
         "IPFS",
@@ -14,6 +17,7 @@
         "redoc",
         "redocly",
         "tbody",
+        "timelock",
         "UTXO",
         "utxos",
         "xpub"

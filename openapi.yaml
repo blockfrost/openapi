@@ -6985,17 +6985,17 @@ components:
             type: string
             description: Transaction hash that contains the specific metadata
           json_metadata:
-            additionalProperties: true
             anyOf:
               - type: string
               - type: object
-                additionalProperties: true
               - type: array
                 items: {}
               - type: integer
               - type: number
               - type: boolean
-              - type: 'null'
+                additionalProperties: true
+            nullable: true
+            additionalProperties: true
             description: Content of the JSON metadata
         required:
           - tx_hash
@@ -8007,17 +8007,17 @@ components:
       type: object
       properties:
         json:
-          additionalProperties: true
           anyOf:
             - type: string
             - type: object
-              additionalProperties: true
             - type: array
               items: {}
             - type: integer
             - type: number
             - type: boolean
-            - type: 'null'
+              additionalProperties: true
+          nullable: true
+          additionalProperties: true
           description: JSON contents of the `timelock` script, null for `plutus` scripts
       required:
         - json

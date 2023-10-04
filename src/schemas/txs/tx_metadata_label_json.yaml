@@ -6,17 +6,17 @@ items:
       type: string
       description: Transaction hash that contains the specific metadata
     json_metadata:
-      additionalProperties: true
       anyOf:
         - type: string
         - type: object
-          additionalProperties: true
         - type: array
           items: {}
         - type: integer
         - type: number
         - type: boolean
-        - type: 'null'
+          additionalProperties: true
+      nullable: true
+      additionalProperties: true
       description: Content of the JSON metadata
   required:
     - tx_hash

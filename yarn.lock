@@ -1499,7 +1499,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@blockfrost/openapi@workspace:."
   dependencies:
-    "@redocly/cli": ^1.2.0
+    "@redocly/cli": ^1.0.0-beta.123
     "@vitest/coverage-c8": ^0.25.3
     ajv: ^8.11.2
     cbor: ^8.1.0
@@ -1701,7 +1701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redocly/cli@npm:^1.2.0":
+"@redocly/cli@npm:^1.0.0-beta.123":
   version: 1.2.0
   resolution: "@redocly/cli@npm:1.2.0"
   dependencies:

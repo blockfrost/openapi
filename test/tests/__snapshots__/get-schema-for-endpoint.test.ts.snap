@@ -12542,7 +12542,6 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
         "items": {
           "properties": {
             "json_metadata": {
-              "additionalProperties": true,
               "anyOf": [
                 {
                   "type": "string",
@@ -12564,11 +12563,9 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                 {
                   "type": "boolean",
                 },
-                {
-                  "type": "null",
-                },
               ],
               "description": "Content of the JSON metadata",
+              "nullable": true,
             },
             "tx_hash": {
               "description": "Transaction hash that contains the specific metadata",

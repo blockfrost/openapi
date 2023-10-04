@@ -1458,7 +1458,6 @@ describe('getSchemaForEndpoint', () => {
               "items": {
                 "properties": {
                   "json_metadata": {
-                    "additionalProperties": true,
                     "anyOf": [
                       {
                         "type": "string",
@@ -1480,11 +1479,9 @@ describe('getSchemaForEndpoint', () => {
                       {
                         "type": "boolean",
                       },
-                      {
-                        "type": "null",
-                      },
                     ],
                     "description": "Content of the JSON metadata",
+                    "nullable": true,
                   },
                   "tx_hash": {
                     "description": "Transaction hash that contains the specific metadata",

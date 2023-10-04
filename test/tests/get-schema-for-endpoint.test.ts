@@ -1458,6 +1458,7 @@ describe('getSchemaForEndpoint', () => {
               "items": {
                 "properties": {
                   "json_metadata": {
+                    "additionalProperties": true,
                     "anyOf": [
                       {
                         "type": "string",

@@ -12542,6 +12542,7 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
         "items": {
           "properties": {
             "json_metadata": {
+              "additionalProperties": true,
               "anyOf": [
                 {
                   "type": "string",

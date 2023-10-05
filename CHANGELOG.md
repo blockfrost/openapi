@@ -14,6 +14,7 @@ Unreleased changes are in the `master` branch.
 - HTML table is SDKs
 - requestBody for `/tx/submit` and `/ipfs/add` endpoint
 - CODE language for `curl` examples
+- request body for `/utils/txs/evaluate` endpoint
 
 ### Changed
 

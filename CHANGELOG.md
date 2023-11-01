@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- rust models definitions
+
 ## [0.1.60] - 2023-10-05
 
 ### Fixed

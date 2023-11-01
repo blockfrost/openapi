@@ -4,7 +4,7 @@ description = "Blockfrost OpenAPI generated models"
 version = "0.0.1"
 edition = "2021"
 build = "build.rs"
-
+license = "Apache-2.0"
 
 [dependencies]
 serde = { features = ["derive"], version = "1.0.130" }

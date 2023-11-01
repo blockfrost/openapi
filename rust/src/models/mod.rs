@@ -62,7 +62,6 @@ pub mod script_cbor;
 pub mod asset_history_inner;
 pub mod account_registration_content_inner;
 pub mod network_eras_inner_parameters;
-pub mod mod;
 pub mod asset_metadata;
 pub mod _utils_txs_evaluate_utxos_post_request;
 pub mod script_json;

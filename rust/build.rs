@@ -15,21 +15,12 @@ fn main() {
         let file_stem = path.file_stem().unwrap();
 
         if let Some(file_name_str) = file_stem.to_str() {
+            if file_name_str == "mod" {
+                continue;
+            }
             content.push_str(&format!("pub mod {};\n", file_name_str));
         } else {
             panic!("File name is not valid Unicode: {:?}", file_stem);
-        }
-
-        // prepend serde
-        if path.is_file() {
-            let content = fs::read_to_string(&path).unwrap();
-            let prepend_line = "use serde::{Deserialize, Serialize};\n";
-
-            if !content.contains(prepend_line) {
-                let mut new_content = String::from(prepend_line);
-                new_content.push_str(&content);
-                fs::write(path, new_content).unwrap();
-            }
         }
     }
 

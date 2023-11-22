@@ -13,6 +13,10 @@ Unreleased changes are in the `master` branch.
 
 - rust models definitions
 
+### Changed
+
+- Updated deps - node 16 now required due to node-cbor pkg
+
 ## [0.1.60] - 2023-10-05
 
 ### Fixed

@@ -331,11 +331,11 @@ paths:
   /governance/dreps:
     $ref: ./paths/api/governance/dreps/index.yaml
 
-  /governance/dreps/{drep_hash}:
-    $ref: ./paths/api/governance/dreps/{drep_hash}/index.yaml
+  /governance/dreps/{hash}:
+    $ref: ./paths/api/governance/dreps/{hash}/index.yaml
 
-  /governance/dreps/{drep_hash}/distribution:
-    $ref: ./paths/api/governance/dreps/{drep_hash}/distribution.yaml
+  /governance/dreps/{hash}/distribution:
+    $ref: ./paths/api/governance/dreps/{hash}/distribution.yaml
 
   /governance/proposals:
     $ref: ./paths/api/governance/proposals/index.yaml

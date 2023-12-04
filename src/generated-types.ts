@@ -474,14 +474,14 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{drep_hash}": {
+  "/governance/dreps/{hash}": {
     /**
      * xxx
      * @description xxx
      */
     get: {
       responses: {
-        /** @description Return the information about Delegation Representative (DRep) */
+        /** @description xxx */
         200: {
           content: never;
         };
@@ -493,34 +493,12 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{drep_hash}/distribution": {
+  "/governance/dreps/{hash}/distribution": {
     /**
-     * DRep voting power distribution
-     * @description Distribution of voting power per DRep
+     * xxx
+     * @description xxx
      */
     get: {
-      parameters: {
-        query?: {
-          /** @description The number of results displayed on one page. */
-          count?: number;
-          /** @description The page number for listing the results. */
-          page?: number;
-          /**
-           * @description The ordering of items from the point of view of the blockchain,
-           * not the page listing itself. By default, we return oldest first, newest last.
-           * Ordering in this case is
-           *  based on the time of the first mint transaction.
-           */
-          order?: "asc" | "desc";
-        };
-        path: {
-          /**
-           * @description DRep hash
-           * @example xxx
-           */
-          drep_hash: string;
-        };
-      };
       responses: {
         /** @description xxx */
         200: {

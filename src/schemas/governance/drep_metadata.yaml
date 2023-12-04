@@ -1,0 +1,31 @@
+type: array
+items:
+  type: object
+  properties:
+    drep_id:
+      type: string
+      description: Bech32 encoded addresses
+    hex:
+      type: string
+      description: The raw bytes of the DRep
+    url:
+      type: string
+      nullable: true
+      example: "https://stakenuts.com/drep.json"
+      description: URL to the drep metadata
+    hash:
+      type: string
+      nullable: true
+      example: 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+      description: Hash of the metadata file
+
+  required:
+    - drep_id
+    - hex
+    - url
+    - hash
+example:
+  - drep_id: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+    hex: a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d
+    url: "https://stakenuts.com/drep.json"
+    hash: 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c

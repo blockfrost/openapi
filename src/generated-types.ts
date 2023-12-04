@@ -431,13 +431,11 @@ export interface paths {
      * @description xxx
      */
     get: {
-      /**
-       * xxx
-       * @description xxx
-       */
       responses: {
         /** @description Return the genesis parameters. */
-        200: never;
+        200: {
+          content: never;
+        };
         400: components['responses']['400'];
         403: components['responses']['403'];
         418: components['responses']['418'];
@@ -452,21 +450,17 @@ export interface paths {
      * @description Return the information about Delegate Representatives (DReps)
      */
     get: {
-      /**
-       * Delegate Representatives (DReps)
-       * @description Return the information about Delegate Representatives (DReps)
-       */
-      parameters?: {
-        /** @description The number of results displayed on one page. */
-        /** @description The page number for listing the results. */
-        /**
-         * @description The ordering of items from the point of view of the blockchain,
-         * not the page listing itself. By default, we return oldest first, newest last.
-         * Ordering in this case is based on the time of the first mint transaction.
-         */
+      parameters: {
         query?: {
+          /** @description The number of results displayed on one page. */
           count?: number;
+          /** @description The page number for listing the results. */
           page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
           order?: 'asc' | 'desc';
         };
       };
@@ -491,13 +485,11 @@ export interface paths {
      * @description xxx
      */
     get: {
-      /**
-       * xxx
-       * @description xxx
-       */
       responses: {
         /** @description Return the information about Delegation Representative (DRep) */
-        200: never;
+        200: {
+          content: never;
+        };
         400: components['responses']['400'];
         403: components['responses']['403'];
         418: components['responses']['418'];
@@ -512,29 +504,25 @@ export interface paths {
      * @description Distribution of voting power per DRep
      */
     get: {
-      /**
-       * DRep voting power distribution
-       * @description Distribution of voting power per DRep
-       */
       parameters: {
-        /** @description The number of results displayed on one page. */
-        /** @description The page number for listing the results. */
-        /**
-         * @description The ordering of items from the point of view of the blockchain,
-         * not the page listing itself. By default, we return oldest first, newest last.
-         * Ordering in this case is
-         *  based on the time of the first mint transaction.
-         */
         query?: {
+          /** @description The number of results displayed on one page. */
           count?: number;
+          /** @description The page number for listing the results. */
           page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is
+           *  based on the time of the first mint transaction.
+           */
           order?: 'asc' | 'desc';
         };
-        /**
-         * @description DRep hash
-         * @example xxx
-         */
         path: {
+          /**
+           * @description DRep hash
+           * @example xxx
+           */
           drep_hash: string;
         };
       };
@@ -559,13 +547,11 @@ export interface paths {
      * @description xxx
      */
     get: {
-      /**
-       * xxx
-       * @description xxx
-       */
       responses: {
         /** @description Return the genesis parameters. */
-        200: never;
+        200: {
+          content: never;
+        };
         400: components['responses']['400'];
         403: components['responses']['403'];
         418: components['responses']['418'];
@@ -580,13 +566,11 @@ export interface paths {
      * @description xxx
      */
     get: {
-      /**
-       * xxx
-       * @description xxx
-       */
       responses: {
         /** @description Return the genesis parameters. */
-        200: never;
+        200: {
+          content: never;
+        };
         400: components['responses']['400'];
         403: components['responses']['403'];
         418: components['responses']['418'];
@@ -601,13 +585,11 @@ export interface paths {
      * @description xxx
      */
     get: {
-      /**
-       * xxx
-       * @description xxx
-       */
       responses: {
         /** @description Return the genesis parameters. */
-        200: never;
+        200: {
+          content: never;
+        };
         400: components['responses']['400'];
         403: components['responses']['403'];
         418: components['responses']['418'];
@@ -622,13 +604,11 @@ export interface paths {
      * @description xxx
      */
     get: {
-      /**
-       * xxx
-       * @description xxx
-       */
       responses: {
         /** @description Return the genesis parameters. */
-        200: never;
+        200: {
+          content: never;
+        };
         400: components['responses']['400'];
         403: components['responses']['403'];
         418: components['responses']['418'];
@@ -4355,107 +4335,107 @@ export interface components {
        * @description DRep Vote threshold for motion of no-confidence.
        * @example 1
        */
-      p1: OneOf<[number, null]>;
+      p1: number | null;
       /**
        * @description DRep Vote threshold for new committee/threshold (normal state).
        * @example 1
        */
-      p2a: OneOf<[number, null]>;
+      p2a: number | null;
       /**
        * @description DRep Vote threshold for new committee/threshold (state of no-confidence).
        * @example 1
        */
-      p2b: OneOf<[number, null]>;
+      p2b: number | null;
       /**
        * @description DRep Vote threshold for update to the Constitution.
        * @example 1
        */
-      p3: OneOf<[number, null]>;
+      p3: number | null;
       /**
        * @description DRep Vote threshold for update to the Constitution.
        * @example 1
        */
-      p4: OneOf<[number, null]>;
+      p4: number | null;
       /**
        * @description DRep Vote threshold for protocol parameter changes, network group.
        * @example 1
        */
-      p5a: OneOf<[number, null]>;
+      p5a: number | null;
       /**
        * @description DRep Vote threshold for protocol parameter changes, economic group.
        * @example 1
        */
-      p5b: OneOf<[number, null]>;
+      p5b: number | null;
       /**
        * @description DRep Vote threshold for protocol parameter changes, technical group.
        * @example 1
        */
-      p5c: OneOf<[number, null]>;
+      p5c: number | null;
       /**
        * @description DRep Vote threshold for protocol parameter changes, governance group.
        * @example 1
        */
-      p5d: OneOf<[number, null]>;
+      p5d: number | null;
       /**
        * @description DRep Vote threshold for treasury withdrawal.
        * @example 1
        */
-      p6: OneOf<[number, null]>;
+      p6: number | null;
       /**
        * @description DRep Vote threshold for info
        * @example 1
        */
-      p7: OneOf<[number, null]>;
+      p7: number | null;
       /**
        * @description Spo Vote threshold for motion of no-confidence.
        * @example 1
        */
-      q1: OneOf<[number, null]>;
+      q1: number | null;
       /**
        * @description Spo Vote threshold for new committee/threshold (normal state).
        * @example 1
        */
-      q2a: OneOf<[number, null]>;
+      q2a: number | null;
       /**
        * @description Spo Vote threshold for new committee/threshold (state of no-confidence).
        * @example 1
        */
-      q2b: OneOf<[number, null]>;
+      q2b: number | null;
       /**
        * @description Spo Vote threshold for hard-fork initiation.
        * @example 1
        */
-      q4: OneOf<[number, null]>;
+      q4: number | null;
       /**
        * @description Minimal constitutional committee size.
        * @example 20
        */
-      min_c_c_size: OneOf<[string, null]>;
+      min_c_c_size: string | null;
       /**
        * @description Constitutional committee term limits.
        * @example 2000000
        */
-      cc_term_limit: OneOf<[string, null]>;
+      cc_term_limit: string | null;
       /**
        * @description Governance action expiration.
        * @example 1
        */
-      gov_expiration: OneOf<[string, null]>;
+      gov_expiration: string | null;
       /**
        * @description Governance action deposit.
        * @example 1000000
        */
-      gov_deposit: OneOf<[string, null]>;
+      gov_deposit: string | null;
       /**
        * @description DRep activity period.
        * @example 1000000
        */
-      drep_activity: OneOf<[string, null]>;
+      drep_activity: string | null;
       /**
        * @description The Tx table index for the transaction that contains this parameter proposal.
        * @example 1
        */
-      registered_tx_id: OneOf<[number, null]>;
+      registered_tx_id: number | null;
     };
     epoch_content_array: components['schemas']['epoch_content'][];
     epoch_stake_content: {

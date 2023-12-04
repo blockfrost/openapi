@@ -8,6 +8,10 @@ items:
     epoch:
       type: integer
       description: The epoch no this distribution is about.
+    active_until:
+      nullable: true
+      type: integer
+      description: The epoch no until this distribution is active.
   required:
     - amount
     - epoch

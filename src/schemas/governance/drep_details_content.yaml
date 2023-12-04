@@ -2,17 +2,31 @@ type: array
 items:
   type: object
   properties:
+    drep_id:
+      type: string
+      description: Bech32 encoded DRep address
+    hex:
+      type: string
+      description: The raw bytes of the DRep
     amount:
       type: string
       description: The total amount of voting power this DRep is delegated.
-    epoch:
-      type: integer
-      description: The epoch no this distribution is about.
+    is_registered:
+      type: boolean
+      description: Flags which shows if the drep is registered or not
+    has_script:
+      type: boolean
+      description: Flag which shows if this DRep credentials are a script hash
+
   required:
+    - drep_id
+    - hex
     - amount
-    - epoch
+    - is_registered
+    - has_script
 example:
-  - amount: "2000000"
-    epoch: 432
-  - amount: "300000000"
-    epoch: 433
+  - drep_id: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+    hex: a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d
+    amount: "2000000"
+    is_registered: true
+    has_script: true

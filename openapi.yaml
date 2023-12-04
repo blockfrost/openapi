@@ -814,25 +814,6 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /governance/actions:
-    get:
-      tags:
-        - Cardano » Governance
-      summary: xxx
-      description: xxx
-      responses:
-        '200':
-          description: Return the genesis parameters.
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '418':
-          $ref: '#/components/responses/418'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
   /governance/dreps:
     get:
       tags:
@@ -897,6 +878,10 @@ paths:
       responses:
         '200':
           description: xxx
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_details_content'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -920,82 +905,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/drep_distribution_content'
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '418':
-          $ref: '#/components/responses/418'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-  /governance/proposals:
-    get:
-      tags:
-        - Cardano » Governance
-      summary: xxx
-      description: xxx
-      responses:
-        '200':
-          description: Return the genesis parameters.
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '418':
-          $ref: '#/components/responses/418'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-  /governance/proposals/voting:
-    get:
-      tags:
-        - Cardano » Governance
-      summary: xxx
-      description: xxx
-      responses:
-        '200':
-          description: Return the genesis parameters.
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '418':
-          $ref: '#/components/responses/418'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-  /governance/treasury:
-    get:
-      tags:
-        - Cardano » Governance
-      summary: xxx
-      description: xxx
-      responses:
-        '200':
-          description: Return the genesis parameters.
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '418':
-          $ref: '#/components/responses/418'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-  /governance/voting:
-    get:
-      tags:
-        - Cardano » Governance
-      summary: xxx
-      description: xxx
-      responses:
-        '200':
-          description: Return the genesis parameters.
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5698,6 +5607,25 @@ components:
           has_script: false
           is_registered: false
           voting_power: '250000000'
+    drep_details_content:
+      type: array
+      items:
+        type: object
+        properties:
+          amount:
+            type: string
+            description: The total amount of voting power this DRep is delegated.
+          epoch:
+            type: integer
+            description: The epoch no this distribution is about.
+        required:
+          - amount
+          - epoch
+      example:
+        - amount: '2000000'
+          epoch: 432
+        - amount: '300000000'
+          epoch: 433
     drep_distribution_content:
       type: array
       items:

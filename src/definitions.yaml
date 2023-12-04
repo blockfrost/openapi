@@ -325,8 +325,8 @@ paths:
 
   # governance
 
-  /governance/actions:
-    $ref: ./paths/api/governance/actions.yaml
+  # /governance/actions:
+  #   $ref: ./paths/api/governance/actions.yaml
 
   /governance/dreps:
     $ref: ./paths/api/governance/dreps/index.yaml
@@ -337,17 +337,17 @@ paths:
   /governance/dreps/{hash}/distribution:
     $ref: ./paths/api/governance/dreps/{hash}/distribution.yaml
 
-  /governance/proposals:
-    $ref: ./paths/api/governance/proposals/index.yaml
+  # /governance/proposals:
+  #   $ref: ./paths/api/governance/proposals/index.yaml
 
-  /governance/proposals/voting:
-    $ref: ./paths/api/governance/proposals/voting.yaml
+  # /governance/proposals/voting:
+  #   $ref: ./paths/api/governance/proposals/voting.yaml
 
-  /governance/treasury:
-    $ref: ./paths/api/governance/treasury.yaml
+  # /governance/treasury:
+  #   $ref: ./paths/api/governance/treasury.yaml
 
-  /governance/voting:
-    $ref: ./paths/api/governance/voting.yaml
+  # /governance/voting:
+  #   $ref: ./paths/api/governance/voting.yaml
 
   # epochs
 

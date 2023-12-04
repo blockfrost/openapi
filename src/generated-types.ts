@@ -420,25 +420,6 @@ export interface paths {
       };
     };
   };
-  "/governance/actions": {
-    /**
-     * xxx
-     * @description xxx
-     */
-    get: {
-      responses: {
-        /** @description Return the genesis parameters. */
-        200: {
-          content: never;
-        };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
-  };
   "/governance/dreps": {
     /**
      * Delegate Representatives (DReps)
@@ -483,7 +464,9 @@ export interface paths {
       responses: {
         /** @description xxx */
         200: {
-          content: never;
+          content: {
+            "application/json": components["schemas"]["drep_details_content"];
+          };
         };
         400: components["responses"]["400"];
         403: components["responses"]["403"];
@@ -505,82 +488,6 @@ export interface paths {
           content: {
             "application/json": components["schemas"]["drep_distribution_content"];
           };
-        };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
-  };
-  "/governance/proposals": {
-    /**
-     * xxx
-     * @description xxx
-     */
-    get: {
-      responses: {
-        /** @description Return the genesis parameters. */
-        200: {
-          content: never;
-        };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
-  };
-  "/governance/proposals/voting": {
-    /**
-     * xxx
-     * @description xxx
-     */
-    get: {
-      responses: {
-        /** @description Return the genesis parameters. */
-        200: {
-          content: never;
-        };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
-  };
-  "/governance/treasury": {
-    /**
-     * xxx
-     * @description xxx
-     */
-    get: {
-      responses: {
-        /** @description Return the genesis parameters. */
-        200: {
-          content: never;
-        };
-        400: components["responses"]["400"];
-        403: components["responses"]["403"];
-        418: components["responses"]["418"];
-        429: components["responses"]["429"];
-        500: components["responses"]["500"];
-      };
-    };
-  };
-  "/governance/voting": {
-    /**
-     * xxx
-     * @description xxx
-     */
-    get: {
-      responses: {
-        /** @description Return the genesis parameters. */
-        200: {
-          content: never;
         };
         400: components["responses"]["400"];
         403: components["responses"]["403"];
@@ -4024,6 +3931,24 @@ export interface components {
         is_registered: boolean;
         /** @description The total amount of voting power this DRep is delegated. */
         voting_power: string;
+      }[];
+    /**
+     * @example [
+     *   {
+     *     "amount": "2000000",
+     *     "epoch": 432
+     *   },
+     *   {
+     *     "amount": "300000000",
+     *     "epoch": 433
+     *   }
+     * ]
+     */
+    drep_details_content: {
+        /** @description The total amount of voting power this DRep is delegated. */
+        amount: string;
+        /** @description The epoch no this distribution is about. */
+        epoch: number;
       }[];
     /**
      * @example [

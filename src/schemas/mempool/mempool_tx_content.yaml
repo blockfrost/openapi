@@ -41,15 +41,13 @@ properties:
         example: 433
         description: Size of the transaction in Bytes
       invalid_before:
-        type:
-          - string
-          - "null"
+        type: string
+        nullable: true
         example: null
         description: Left (included) endpoint of the timelock validity intervals
       invalid_hereafter:
-        type:
-          - string
-          - "null"
+        type: string
+        nullable: true
         example: "13885913"
         description: Right (excluded) endpoint of the timelock validity intervals
       utxo_count:
@@ -175,15 +173,13 @@ properties:
           example: 0
           description: UTXO index in the transaction
         data_hash:
-          type:
-            - string
-            - "null"
+          type: string
+          nullable: true
           description: The hash of the transaction output datum
           example: "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710"
         inline_datum:
-          type:
-            - string
-            - "null"
+          type: string
+          nullable: true
           description: CBOR encoded inline datum
           example: "19a6aa"
         collateral:
@@ -191,9 +187,8 @@ properties:
           example: false
           description: Whether the output is a collateral output
         reference_script_hash:
-          type:
-            - string
-            - "null"
+          type: string
+          nullable: true
           description: The hash of the reference script of the output
           example: "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
       required:

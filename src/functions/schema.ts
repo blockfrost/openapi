@@ -15,88 +15,6 @@ const file = fs.readFileSync(
 );
 const spec = YAML.parse(file);
 
-export const transformSchemaElement = (schema: any): any => {
-  // To generate response schema supported by fast-json-stringify
-  // We need to convert array type (["null", "<other type>"]) to type: "<other type>" with nullable set to true.
-  // Note: Alternative approach for values with multiple types is to use anyOf/oneOf.
-  // https://github.com/fastify/fast-json-stringify#anyof-and-oneof
-
-  if (schema.type === 'object' && schema.properties) {
-    // convert type in object properties
-    for (const propertyKey of Object.keys(schema.properties)) {
-      const property = schema.properties[propertyKey];
-      if (
-        property.type === 'object' &&
-        property.additionalProperties === true &&
-        !property.properties
-      ) {
-        if (!property.anyOf && !property.oneOf) {
-          // Workaround for fast-json-stringify
-          // If object's property is arbitrary object,
-          // convert {type: 'object', additionalProperties: true} to {}
-          delete schema.properties[propertyKey].type;
-          delete schema.properties[propertyKey].additionalProperties;
-        }
-      }
-      if (property.anyOf) {
-        if (
-          property.anyOf.find(
-            (p: unknown) =>
-              typeof p === 'object' &&
-              p !== null &&
-              'type' in p &&
-              p.type === 'null',
-          )
-        ) {
-          // if array of anyOf items includes {"type": "null"} then set nullable to true on the parent
-          property.nullable = true;
-        }
-      }
-      schema.properties[propertyKey] = transformSchemaElement(
-        schema.properties[propertyKey],
-      );
-    }
-    return schema;
-  } else if (schema.type === 'array' && schema.items) {
-    // convert type in array items
-    schema.items = transformSchemaElement(schema.items);
-    return schema;
-  } else if (Array.isArray(schema.type)) {
-    const isNullable = schema.type.includes('null');
-    if (isNullable) {
-      if (schema.type.length > 2) {
-        throw Error(
-          `Error in ${JSON.stringify(
-            schema,
-          )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
-        );
-      }
-
-      return transformSchemaElement({
-        ...schema,
-        type: schema.type.filter((a: string) => a !== 'null')[0],
-        nullable: true,
-      });
-    } else {
-      // edge case where type is an array with only 1 element
-      if (schema.type.length === 1) {
-        return {
-          ...schema,
-          type: schema.type[0],
-        };
-      }
-      throw Error(
-        `Error in ${JSON.stringify(
-          schema,
-        )}. Type doesn't support an array with multiple values. Use anyOf/oneOf.`,
-      );
-    }
-  } else {
-    // do nothing
-    return schema;
-  }
-};
-
 export const getSchemaForEndpoint = (endpointName: string) => {
   if (!spec.paths[endpointName]) {
     throw Error(
@@ -142,24 +60,20 @@ export const getSchemaForEndpoint = (endpointName: string) => {
           );
 
           if (schemaReferenceOrValue.type) {
-            responses.response[200] = transformSchemaElement({
+            responses.response[200] = {
               ...schemaReferenceOrValue,
               items: spec.components.schemas[nestedSchemaName],
-            });
+            };
           } else {
-            responses.response[200] = transformSchemaElement(
-              spec.components.schemas[nestedSchemaName],
-            );
+            responses.response[200] = spec.components.schemas[nestedSchemaName];
           }
         } else {
           // is not nested reference
-          responses.response[200] = transformSchemaElement(
-            spec.components.schemas[schemaName],
-          );
+          responses.response[200] = spec.components.schemas[schemaName];
         }
       } else {
         // is not reference
-        responses.response[200] = transformSchemaElement(referenceOrValue);
+        responses.response[200] = referenceOrValue;
       }
 
       // anyOf case
@@ -172,9 +86,7 @@ export const getSchemaForEndpoint = (endpointName: string) => {
             '',
           );
 
-          const item = transformSchemaElement(
-            spec.components.schemas[schemaName],
-          );
+          const item = spec.components.schemas[schemaName];
           anyOfResult['anyOf'].push(item);
         }
 

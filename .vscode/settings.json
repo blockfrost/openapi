@@ -1,15 +1,26 @@
 {
-    "cSpell.words": [
-        "Bech",
-        "blockfrost",
-        "decentralisation",
-        "drep",
-        "dreps",
-        "ipfs",
-        "nutlink",
-        "openapi",
-        "redoc",
-        "redocly",
-        "utxo"
-    ]
+  "cSpell.words": [
+    "Bdatum",
+    "Bech",
+    "blockfrost",
+    "Bscript",
+    "Bstake",
+    "cbor",
+    "decentralisation",
+    "delegators",
+    "IPFS",
+    "Lovelaces",
+    "Milkomeda",
+    "mirs",
+    "nutlink",
+    "Ogmios",
+    "openapi",
+    "redoc",
+    "redocly",
+    "tbody",
+    "timelock",
+    "UTXO",
+    "utxos",
+    "xpub"
+  ]
 }

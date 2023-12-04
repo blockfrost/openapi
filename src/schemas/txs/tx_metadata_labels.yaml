@@ -6,9 +6,8 @@ items:
       type: string
       description: Metadata label
     cip10:
-      type:
-        - string
-        - "null"
+      type: string
+      nullable: true
       description: CIP10 defined description
     count:
       type: string

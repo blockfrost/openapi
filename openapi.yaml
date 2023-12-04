@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
-  version: 0.1.58
+  version: 0.1.60
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -26,65 +26,61 @@ info:
     At the moment, you can use the following networks. Please, note that each network has its own `project_id`.
 
     <table>
-      <tr>
-        <td>
-            <b>Network</b>
-        </td>
-        <td>
-            <b>Endpoint</b>
-        </td>
-      </tr>
-      <tr>
-          <td>Cardano mainnet</td>
+      <tbody>
+        <tr>
           <td>
-              <code>https://cardano-mainnet.blockfrost.io/api/v0</code>
+              <b>Network</b>
           </td>
-      </tr>
-      <tr>
-          <td>Cardano preprod</td>
           <td>
-              <code>https://cardano-preprod.blockfrost.io/api/v0</code>
+              <b>Endpoint</b>
           </td>
-      </tr>
-      <tr>
-          <td>Cardano preview</td>
-          <td>
-              <code>https://cardano-preview.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
-      <tr>
-          <td>InterPlanetary File System</td>
-          <td>
-              <code>https://ipfs.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
-      <tr>
-          <td>Milkomeda mainnet</td>
-          <td>
-              <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
-      <tr>
-          <td>Milkomeda testnet</td>
-          <td>
-              <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
+        </tr>
+        <tr>
+            <td>Cardano mainnet</td>
+            <td>
+                <code>https://cardano-mainnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Cardano preprod</td>
+            <td>
+                <code>https://cardano-preprod.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Cardano preview</td>
+            <td>
+                <code>https://cardano-preview.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>InterPlanetary File System</td>
+            <td>
+                <code>https://ipfs.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Milkomeda mainnet</td>
+            <td>
+                <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Milkomeda testnet</td>
+            <td>
+                <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+      </tbody>
     </table>
-    <style>
-    .hosted {
-      background-color: #0168fa;
-      border-radius: 5px;
-      padding: 4px;
-      margin-right: 2px;
-      color: white;
-    }
-    </style>
 
     ## Milkomeda
 
-    For more information about how to use Milkomeda as well as the list of available endpoints, see the
-    <a href="https://blockfrost.dev/docs/start-building/milkomeda">Milkomeda section on blockfrost.dev</a>.
+    <p>
+      <span>
+        For more information about how to use Milkomeda as well as the list of available endpoints, see the <a href="/start-building/milkomeda">Milkomeda section</a>.
+      </span>
+    </p>
 
     ## Concepts
 
@@ -139,7 +135,7 @@ info:
 
     The second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow
     each user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another
-    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
+    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attempts to make a call 3 seconds after whole burst, 30 requests will be processed.
     We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
     we will make sure to take it into account as much as we can.
 
@@ -148,100 +144,102 @@ info:
     We support a number of SDKs that will help you in developing your application on top of Blockfrost.
 
     <table>
-      <tr>
-          <td><b>Programming language</b></td>
-          <td><b>SDK</b></td>
-      </tr>
-      <tr>
-          <td>JavaScript</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Haskell</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Python</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Rust</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Golang</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Ruby</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Java</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Scala</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-scala">blockfrost-scala</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Swift</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Kotlin</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Elixir</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a>
-          </td>
-      </tr>
-      <tr>
-          <td>.NET</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Arduino</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a>
-          </td>
-      </tr>
-      <tr>
-          <td>PHP</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Crystal</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a>
-          </td>
-      </tr>
+      <tbody>
+        <tr>
+            <td><b>Programming language</b></td>
+            <td><b>SDK</b></td>
+        </tr>
+        <tr>
+            <td>JavaScript</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Haskell</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Rust</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Golang</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Ruby</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Java</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Scala</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-scala">blockfrost-scala</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Swift</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Kotlin</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Elixir</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a>
+            </td>
+        </tr>
+        <tr>
+            <td>.NET</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Arduino</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a>
+            </td>
+        </tr>
+        <tr>
+            <td>PHP</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Crystal</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a>
+            </td>
+        </tr>
+      </tbody>
     </table>
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0
@@ -253,7 +251,7 @@ servers:
   - url: https://localhost:3000
     description: local
 security:
-  - ApiKeyAuth: []
+  - project_id: []
 tags:
   - name: Health
   - name: Metrics
@@ -1896,15 +1894,9 @@ paths:
       description: |
         Submit an already serialized transaction to the network.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
-      parameters:
-        - in: header
-          name: Content-Type
-          required: true
-          schema:
-            type: string
-            enum:
-              - application/cbor
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       x-codeSamples:
         - lang: Shell
           label: cURL
@@ -1925,6 +1917,18 @@ paths:
               -H "Content-Type: application/cbor" \
               -H "project_id: $PROJECT_ID" \
               --data-binary @./tx.submit-api.raw
+      requestBody:
+        description: |
+          The transaction to submit, serialized in CBOR.
+        required: true
+        content:
+          application/cbor:
+            schema:
+              type: string
+              description: |
+                The transaction to submit, serialized in CBOR.
+            example: |
+              83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573
       responses:
         '200':
           description: Return the ID of the submitted transaction.
@@ -2542,7 +2546,9 @@ paths:
         waiting to be included in a newly minted block.
         Shows only transactions submitted via Blockfrost.io.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: query
           name: count
@@ -2597,11 +2603,13 @@ paths:
     get:
       tags:
         - Cardano » Mempool
-      summary: Specific transaction
+      summary: Specific transaction in the mempool
       description: |
         Return content of the requested transaction.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           name: hash
@@ -2639,7 +2647,9 @@ paths:
         List of mempool transactions where at least one of the transaction inputs or outputs belongs to the address.
         Shows only transactions submitted via Blockfrost.io.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           name: address
@@ -3119,7 +3129,7 @@ paths:
       deprecated: true
       tags:
         - Cardano » Addresses
-      summary: Address transactions
+      summary: Address txs
       description: Transactions on the address.
       parameters:
         - in: path
@@ -3998,7 +4008,7 @@ paths:
       deprecated: true
       tags:
         - Cardano » Assets
-      summary: Asset transactions
+      summary: Asset txs
       description: List of a specific asset transactions
       parameters:
         - in: path
@@ -4585,7 +4595,9 @@ paths:
       description: |
         Submit an already serialized transaction to evaluate how much execution units it requires.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: header
           name: Content-Type
@@ -4605,12 +4617,27 @@ paths:
               -H "Content-Type: application/cbor" \
               -H "project_id: $PROJECT_ID" \
               --data @./tx.data
+      requestBody:
+        description: |
+          The transaction to submit, serialized in CBOR.
+        required: true
+        content:
+          application/cbor:
+            schema:
+              type: string
+              description: |
+                The transaction to submit, serialized in CBOR.
+            example: |
+              83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573
       responses:
         '200':
           description: |
-            Returns result of EvaluateTx function from Ogmios see
-            <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-            and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+            <p>
+              <div class="custom-paragraph">
+                Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+                and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+              </div>
+            </p>
           content:
             application/json:
               schema:
@@ -4638,7 +4665,9 @@ paths:
       description: |
         Submit a JSON payload with transaction CBOR and additional UTXO set to evaluate how much execution units it requires.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: header
           name: Content-Type
@@ -4665,46 +4694,47 @@ paths:
                     type: array
                     minItems: 2
                     maxItems: 2
-                    prefixItems:
-                      - type: object
-                        description: TxIn
-                        properties:
-                          txId:
-                            type: string
-                            description: Transaction hash for the input
-                          index:
-                            type: number
-                            description: Index of the output within the transaction
-                      - type: object
-                        description: TxOut
-                        properties:
-                          address:
-                            type: string
-                            description: Output address
-                          value:
-                            type: object
-                            properties:
-                              coins:
-                                type: number
-                                description: Lovelace amount
-                              assets:
-                                type: object
-                                description: Assets amount
-                                additionalProperties:
+                    items:
+                      anyOf:
+                        - type: object
+                          description: TxIn
+                          properties:
+                            txId:
+                              type: string
+                              description: Transaction hash for the input
+                            index:
+                              type: number
+                              description: Index of the output within the transaction
+                        - type: object
+                          description: TxOut
+                          properties:
+                            address:
+                              type: string
+                              description: Output address
+                            value:
+                              type: object
+                              properties:
+                                coins:
                                   type: number
-                            required:
-                              - coins
-                          datum_hash:
-                            type: string
-                          datum:
-                            type: object
-                            additionalProperties: true
-                          script:
-                            type: object
-                            additionalProperties: true
-                        required:
-                          - address
-                          - value
+                                  description: Lovelace amount
+                                assets:
+                                  type: object
+                                  description: Assets amount
+                                  additionalProperties:
+                                    type: number
+                              required:
+                                - coins
+                            datum_hash:
+                              type: string
+                            datum:
+                              type: object
+                              additionalProperties: true
+                            script:
+                              type: object
+                              additionalProperties: true
+                          required:
+                            - address
+                            - value
               required:
                 - cbor
       x-codeSamples:
@@ -4721,9 +4751,12 @@ paths:
       responses:
         '200':
           description: |
-            Returns result of EvaluateTx function from Ogmios see
-            <a href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-            and <a href="https://ogmios.dev/api/">API reference (EvaluateTxResponse)</a> for related errors.
+            <p>
+              <div class="custom-paragraph">
+                Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
+                and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+              </div>
+            </p>
           content:
             application/json:
               schema:
@@ -4750,18 +4783,31 @@ paths:
       tags:
         - IPFS » Add
       summary: Add a file to IPFS
+      operationId: ipfs_add
       description: |
         You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage
         is being counted in your user account quota.
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       x-codeSamples:
-        - lang: curl
+        - lang: Shell
+          label: cURL
           source: |
             curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
               -X POST \
               -H "project_id: $PROJECT_ID" \
               -F "file=@./README.md"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
       responses:
         '200':
           description: Returns information about added IPFS object
@@ -4808,7 +4854,9 @@ paths:
       description: |
         Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           required: true
@@ -4896,7 +4944,9 @@ paths:
       description: |
         List objects pinned to local storage
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: query
           name: count
@@ -4992,7 +5042,9 @@ paths:
       description: |
         Get information about locally pinned IPFS object
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           required: true
@@ -5063,7 +5115,9 @@ paths:
       description: |
         Remove pinned objects from local storage
 
-        <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
       parameters:
         - in: path
           required: true
@@ -5307,7 +5361,7 @@ paths:
     get:
       tags:
         - Nut.link
-      summary: Specific ticker
+      summary: Specific ticker for an address
       description: List of records of a specific ticker
       parameters:
         - in: path
@@ -5451,9 +5505,8 @@ components:
           example: 1641338934
           description: Block creation time in UNIX time
         height:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 15243593
           description: Block number
         hash:
@@ -5461,21 +5514,18 @@ components:
           example: 4ea1ba291e8eef538635a53e59fddba7810d1679631cc3aed7c8e6c4091a516a
           description: Hash of the block
         slot:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 412162133
           description: Slot number
         epoch:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 425
           description: Epoch number
         epoch_slot:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 12
           description: Slot within the epoch
         slot_leader:
@@ -5491,47 +5541,40 @@ components:
           example: 1
           description: Number of transactions in the block
         output:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '128314491794'
           description: Total output within the block in Lovelaces
         fees:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '592661'
           description: Total fees within the block in Lovelaces
         block_vrf:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: vrf_vk1wf2k6lhujezqcfe00l6zetxpnmh9n6mwhpmhm0dvfh3fxgmdnrfqkms8ty
           description: VRF key of the block
           minLength: 65
           maxLength: 65
         op_cert:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: da905277534faf75dae41732650568af545134ee08a3c0392dbefc8096ae177c
           description: The hash of the operational certificate of the block producer
         op_cert_counter:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '18'
           description: The value of the counter used to produce the operational certificate
         previous_block:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 43ebccb3ac72c7cebd0d9b755a4b08412c9f5dcb81b8a0ad1e3c197d29d47b05
           description: Hash of the previous block
         next_block:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 8367f026cf4b03e116ff8ee5daf149b55ba5a6ec6dec04803b8dc317721d15fa
           description: Hash of the next block
         confirmations:
@@ -5754,9 +5797,8 @@ components:
           example: '4203312194'
           description: Sum of all the fees within the epoch in Lovelaces
         active_stake:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '784953934049314'
           description: Sum of all the active stakes within the epoch in Lovelaces
       required:
@@ -5830,9 +5872,8 @@ components:
           example: 0.5
           description: Percentage of blocks produced by federated nodes
         extra_entropy:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: null
           description: Seed for extra entropy
         protocol_major_ver:
@@ -5857,9 +5898,8 @@ components:
           description: Epoch number only used once
         cost_models:
           additionalProperties: true
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           example:
             PlutusV1:
               addInteger-cpu-arguments-intercept: 197209
@@ -5869,69 +5909,58 @@ components:
               addInteger-cpu-arguments-slope: 0
           description: Cost models parameters for Plutus Core scripts
         price_mem:
-          type:
-            - number
-            - 'null'
+          type: number
+          nullable: true
           example: 0.0577
           description: The per word cost of script memory usage
         price_step:
-          type:
-            - number
-            - 'null'
+          type: number
+          nullable: true
           example: 0.0000721
           description: The cost of script execution step usage
         max_tx_ex_mem:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '10000000'
           description: The maximum number of execution memory allowed to be used in a single transaction
         max_tx_ex_steps:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '10000000000'
           description: The maximum number of execution steps allowed to be used in a single transaction
         max_block_ex_mem:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '50000000'
           description: The maximum number of execution memory allowed to be used in a single block
         max_block_ex_steps:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '40000000000'
           description: The maximum number of execution steps allowed to be used in a single block
         max_val_size:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '5000'
           description: The maximum Val size
         collateral_percent:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 150
           description: The percentage of the transactions fee which must be provided as collateral when including non-native scripts
         max_collateral_inputs:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 3
           description: The maximum number of collateral inputs allowed in a transaction
         coins_per_utxo_size:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '34482'
           description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
         coins_per_utxo_word:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '34482'
           description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
           deprecated: true
@@ -6225,15 +6254,13 @@ components:
           example: 433
           description: Size of the transaction in Bytes
         invalid_before:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: null
           description: Left (included) endpoint of the timelock validity intervals
         invalid_hereafter:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: '13885913'
           description: Right (excluded) endpoint of the timelock validity intervals
         utxo_count:
@@ -6345,21 +6372,18 @@ components:
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the transaction output datum
                 example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: CBOR encoded inline datum
                 example: 19a6aa
               reference_script_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the reference script of the input
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
               collateral:
@@ -6414,15 +6438,13 @@ components:
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the transaction output datum
                 example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: CBOR encoded inline datum
                 example: 19a6aa
               collateral:
@@ -6430,9 +6452,8 @@ components:
                 example: false
                 description: Whether the output is a collateral output
               reference_script_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
             required:
@@ -6586,44 +6607,37 @@ components:
             example:
               - stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v
           metadata:
-            type:
-              - object
-              - 'null'
+            type: object
+            nullable: true
             properties:
               url:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: https://stakenuts.com/mainnet.json
                 description: URL to the stake pool metadata
               hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
                 description: Hash of the metadata file
               ticker:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: NUTS
                 description: Ticker of the stake pool
               name:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: Stake Nuts
                 description: Name of the stake pool
               description:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: The best pool ever
                 description: Description of the stake pool
               homepage:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 example: https://stakentus.com/
                 description: Home page of the stake pool
             required:
@@ -6639,27 +6653,23 @@ components:
               type: object
               properties:
                 ipv4:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: 4.4.4.4
                   description: IPv4 address of the relay
                 ipv6:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: https://stakenuts.com/mainnet.json
                   description: IPv6 address of the relay
                 dns:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: relay1.stakenuts.com
                   description: DNS name of the relay
                 dns_srv:
-                  type:
-                    - string
-                    - 'null'
+                  type: string
+                  nullable: true
                   example: _relays._tcp.relays.stakenuts.com
                   description: DNS SRV entry of the relay
                 port:
@@ -6746,14 +6756,12 @@ components:
             description: Metadata label
           cbor_metadata:
             deprecated: true
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata
           metadata:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata in hex
         required:
           - label
@@ -6827,9 +6835,8 @@ components:
           example: true
           description: Registration state of an account
         active_epoch:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           example: 412
           description: Epoch of the most recent action - registration or deregistration
         controlled_amount:
@@ -6857,9 +6864,8 @@ components:
           example: '319154618165'
           description: Sum of available rewards that haven't been withdrawn yet for the account in the Lovelaces
         pool_id:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
           description: Bech32 pool ID that owns the account
       required:
@@ -7192,15 +7198,13 @@ components:
               example: 433
               description: Size of the transaction in Bytes
             invalid_before:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: null
               description: Left (included) endpoint of the timelock validity intervals
             invalid_hereafter:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: '13885913'
               description: Right (excluded) endpoint of the timelock validity intervals
             utxo_count:
@@ -7325,15 +7329,13 @@ components:
                 example: 0
                 description: UTXO index in the transaction
               data_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the transaction output datum
                 example: 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
               inline_datum:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: CBOR encoded inline datum
                 example: 19a6aa
               collateral:
@@ -7341,9 +7343,8 @@ components:
                 example: false
                 description: Whether the output is a collateral output
               reference_script_hash:
-                type:
-                  - string
-                  - 'null'
+                type: string
+                nullable: true
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
             required:
@@ -7410,9 +7411,8 @@ components:
             type: string
             description: Metadata label
           cip10:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: CIP10 defined description
           count:
             type: string
@@ -7450,7 +7450,7 @@ components:
               - type: integer
               - type: number
               - type: boolean
-              - type: 'null'
+            nullable: true
             description: Content of the JSON metadata
         required:
           - tx_hash
@@ -7478,14 +7478,12 @@ components:
             description: Transaction hash that contains the specific metadata
           cbor_metadata:
             deprecated: true
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata
           metadata:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: Content of the CBOR metadata in hex
         required:
           - tx_hash
@@ -7530,9 +7528,8 @@ components:
             - unit: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e
               quantity: '12'
         stake_address:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
           description: Stake address that controls the key
         type:
@@ -7573,9 +7570,8 @@ components:
                 type: string
                 description: The quantity of the unit
               decimals:
-                type:
-                  - integer
-                  - 'null'
+                type: integer
+                nullable: true
                 description: Number of decimal places of the asset unit. Primary data source is CIP68 reference NFT with a fallback to off-chain metadata.
               has_nft_onchain_metadata:
                 type: boolean
@@ -7595,9 +7591,8 @@ components:
               decimals: null
               has_nft_onchain_metadata: true
         stake_address:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
           description: Stake address that controls the key
         type:
@@ -7714,20 +7709,17 @@ components:
             type: string
             description: Block hash of the UTXO
           data_hash:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: The hash of the transaction output datum
           inline_datum:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: CBOR encoded inline datum
             example: 19a6aa
           reference_script_hash:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             description: The hash of the reference script of the output
             example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
         required:
@@ -8043,39 +8035,33 @@ components:
           example: 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
           description: Hexadecimal pool ID
         url:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: https://stakenuts.com/mainnet.json
           description: URL to the stake pool metadata
         hash:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
           description: Hash of the metadata file
         ticker:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: NUTS
           description: Ticker of the stake pool
         name:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: Stake Nuts
           description: Name of the stake pool
         description:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: The best pool ever
           description: Description of the stake pool
         homepage:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: https://stakentus.com/
           description: Home page of the stake pool
       required:
@@ -8095,27 +8081,23 @@ components:
         type: object
         properties:
           ipv4:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: 4.4.4.4
             description: IPv4 address of the relay
           ipv6:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: https://stakenuts.com/mainnet.json
             description: IPv6 address of the relay
           dns:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: relay1.stakenuts.com
             description: DNS name of the relay
           dns_srv:
-            type:
-              - string
-              - 'null'
+            type: string
+            nullable: true
             example: _relays._tcp.relays.stakenuts.com
             description: DNS SRV entry of the relay
           port:
@@ -8224,9 +8206,8 @@ components:
           example: b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a7
           description: Policy ID of the asset
         asset_name:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           example: 6e7574636f696e
           description: Hex-encoded asset name of the asset
         fingerprint:
@@ -8246,18 +8227,16 @@ components:
           example: 1
           description: Count of mint and burn transactions
         onchain_metadata:
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           additionalProperties: true
           description: |
             On-chain metadata which SHOULD adhere to the valid standards,
             based on which we perform the look up and display the asset
             (best effort)
         onchain_metadata_standard:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           enum:
             - CIP25v1
             - CIP25v2
@@ -8266,15 +8245,13 @@ components:
             If on-chain metadata passes validation, we display the standard
             under which it is valid
         onchain_metadata_extra:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           description: |
             Arbitrary plutus data (CIP68).
         metadata:
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           description: |
             Off-chain metadata fetched from GitHub based on network.
             Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
@@ -8289,26 +8266,22 @@ components:
               example: The Nut Coin
               description: Asset description
             ticker:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: nutc
             url:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: https://www.stakenuts.com/
               description: Asset website
             logo:
-              type:
-                - string
-                - 'null'
+              type: string
+              nullable: true
               example: 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
               description: Base64 encoded logo of the asset
             decimals:
-              type:
-                - integer
-                - 'null'
+              type: integer
+              nullable: true
               maximum: 255
               example: 6
               description: Number of decimal places of the asset unit
@@ -8477,9 +8450,8 @@ components:
           example: plutusV1
           description: Type of the script language
         serialised_size:
-          type:
-            - integer
-            - 'null'
+          type: integer
+          nullable: true
           description: The size of the CBOR serialised script, if a Plutus script
           example: 3119
       required:
@@ -8500,7 +8472,7 @@ components:
             - type: integer
             - type: number
             - type: boolean
-            - type: 'null'
+          nullable: true
           description: JSON contents of the `timelock` script, null for `plutus` scripts
       required:
         - json
@@ -8519,9 +8491,8 @@ components:
       type: object
       properties:
         cbor:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           description: CBOR contents of the `plutus` script, null for `timelocks`
       required:
         - cbor
@@ -8838,9 +8809,8 @@ components:
           description: Hash of the metadata file
           example: 6bf124f217d0e5a0a8adb1dbd8540e1334280d49ab861127868339f43b3948af
         metadata:
-          type:
-            - object
-            - 'null'
+          type: object
+          nullable: true
           description: The cached metadata of the `metadata_url` file.
           additionalProperties: true
       required:
@@ -9155,14 +9125,14 @@ components:
         - name
         - image
   securitySchemes:
-    ApiKeyAuth:
+    project_id:
       type: apiKey
       in: header
       name: project_id
       description: |
         There are multiple token types available based on network you choose
         when creating a Blockfrost a project, for a list of token types
-        see [Available networks](#section/Available-networks)
+        see available networks.
   responses:
     '400':
       description: Bad request

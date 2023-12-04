@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
-  version: "0.1.58"
+  version: "0.1.60"
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -26,65 +26,61 @@ info:
     At the moment, you can use the following networks. Please, note that each network has its own `project_id`.
 
     <table>
-      <tr>
-        <td>
-            <b>Network</b>
-        </td>
-        <td>
-            <b>Endpoint</b>
-        </td>
-      </tr>
-      <tr>
-          <td>Cardano mainnet</td>
+      <tbody>
+        <tr>
           <td>
-              <code>https://cardano-mainnet.blockfrost.io/api/v0</code>
+              <b>Network</b>
           </td>
-      </tr>
-      <tr>
-          <td>Cardano preprod</td>
           <td>
-              <code>https://cardano-preprod.blockfrost.io/api/v0</code>
+              <b>Endpoint</b>
           </td>
-      </tr>
-      <tr>
-          <td>Cardano preview</td>
-          <td>
-              <code>https://cardano-preview.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
-      <tr>
-          <td>InterPlanetary File System</td>
-          <td>
-              <code>https://ipfs.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
-      <tr>
-          <td>Milkomeda mainnet</td>
-          <td>
-              <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
-      <tr>
-          <td>Milkomeda testnet</td>
-          <td>
-              <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
-          </td>
-      </tr>
+        </tr>
+        <tr>
+            <td>Cardano mainnet</td>
+            <td>
+                <code>https://cardano-mainnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Cardano preprod</td>
+            <td>
+                <code>https://cardano-preprod.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Cardano preview</td>
+            <td>
+                <code>https://cardano-preview.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>InterPlanetary File System</td>
+            <td>
+                <code>https://ipfs.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Milkomeda mainnet</td>
+            <td>
+                <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Milkomeda testnet</td>
+            <td>
+                <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+      </tbody>
     </table>
-    <style>
-    .hosted {
-      background-color: #0168fa;
-      border-radius: 5px;
-      padding: 4px;
-      margin-right: 2px;
-      color: white;
-    }
-    </style>
 
     ## Milkomeda
 
-    For more information about how to use Milkomeda as well as the list of available endpoints, see the
-    <a href="https://blockfrost.dev/docs/start-building/milkomeda">Milkomeda section on blockfrost.dev</a>.
+    <p>
+      <span>
+        For more information about how to use Milkomeda as well as the list of available endpoints, see the <a href="/start-building/milkomeda">Milkomeda section</a>.
+      </span>
+    </p>
 
     ## Concepts
 
@@ -139,7 +135,7 @@ info:
 
     The second is rate limiting. We limit an end user, distinguished by IP address, to 10 requests per second. On top of that, we allow
     each user to send burst of 500 requests, which cools off at rate of 10 requests per second. In essence, a user is allowed to make another
-    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attemtps to make a call 3 seconds after whole burst, 30 requests will be processed.
+    whole burst after (currently) 500/10 = 50 seconds. E.g. if a user attempts to make a call 3 seconds after whole burst, 30 requests will be processed.
     We believe this should be sufficient for most of the use cases. If it is not and you have a specific use case, please get in touch with us, and
     we will make sure to take it into account as much as we can.
 
@@ -148,100 +144,102 @@ info:
     We support a number of SDKs that will help you in developing your application on top of Blockfrost.
 
     <table>
-      <tr>
-          <td><b>Programming language</b></td>
-          <td><b>SDK</b></td>
-      </tr>
-      <tr>
-          <td>JavaScript</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Haskell</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Python</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Rust</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Golang</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Ruby</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Java</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Scala</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-scala">blockfrost-scala</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Swift</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Kotlin</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Elixir</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a>
-          </td>
-      </tr>
-      <tr>
-          <td>.NET</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Arduino</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a>
-          </td>
-      </tr>
-      <tr>
-          <td>PHP</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a>
-          </td>
-      </tr>
-      <tr>
-          <td>Crystal</td>
-          <td>
-              <a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a>
-          </td>
-      </tr>
+      <tbody>
+        <tr>
+            <td><b>Programming language</b></td>
+            <td><b>SDK</b></td>
+        </tr>
+        <tr>
+            <td>JavaScript</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-js">blockfrost-js</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Haskell</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-haskell">blockfrost-haskell</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-python">blockfrost-python</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Rust</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-rust">blockfrost-rust</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Golang</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-go">blockfrost-go</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Ruby</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-ruby">blockfrost-ruby</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Java</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-java">blockfrost-java</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Scala</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-scala">blockfrost-scala</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Swift</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-swift">blockfrost-swift</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Kotlin</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-kotlin">blockfrost-kotlin</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Elixir</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-elixir">blockfrost-elixir</a>
+            </td>
+        </tr>
+        <tr>
+            <td>.NET</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-dotnet">blockfrost-dotnet</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Arduino</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-arduino">blockfrost-arduino</a>
+            </td>
+        </tr>
+        <tr>
+            <td>PHP</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-php">blockfrost-php</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Crystal</td>
+            <td>
+                <a href="https://github.com/blockfrost/blockfrost-crystal">blockfrost-crystal</a>
+            </td>
+        </tr>
+      </tbody>
     </table>
 
 servers:
@@ -255,7 +253,7 @@ servers:
     description: local
 
 security:
-  - ApiKeyAuth: []
+  - project_id: []
 
 tags:
   - name: Health
@@ -681,11 +679,11 @@ components:
   #     $ref: ./responses/errors/400.yaml
 
   securitySchemes:
-    ApiKeyAuth:
+    project_id:
       type: apiKey
       in: header
       name: project_id
       description: |
         There are multiple token types available based on network you choose
         when creating a Blockfrost a project, for a list of token types
-        see [Available networks](#section/Available-networks)
+        see available networks.

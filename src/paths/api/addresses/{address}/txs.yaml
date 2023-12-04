@@ -2,7 +2,7 @@ get:
   deprecated: true
   tags:
     - Cardano » Addresses
-  summary: Address transactions
+  summary: Address txs
   description: Transactions on the address.
   parameters:
     - in: path

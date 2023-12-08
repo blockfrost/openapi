@@ -3,8 +3,8 @@ with import <nixpkgs> { };
 stdenv.mkDerivation {
   name = "openapi";
   buildInputs = [
-    nodejs-20_x
-    (yarn.override { nodejs = nodejs-20_x; })
+    nodejs_20
+    (yarn.override { nodejs = nodejs_20; })
   ];
   shellHook = ''
     export PATH="$PATH:$(pwd)/node_modules/.bin"

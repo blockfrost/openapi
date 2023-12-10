@@ -1,15 +1,23 @@
 get:
   tags:
     - Cardano » Governance
-  summary: xxx
-  description: xxx
+  summary: DRep metadata
+  description: DRep information.
+  parameters:
+    - in: path
+      name: drep_id
+      required: true
+      schema:
+        type: string
+      description: Bech32 or hexadecimal DRep ID.
+      example: "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc"
   responses:
     "200":
-      description: xxx
+      description: Return the DRep metadata content.
       content:
         application/json:
           schema:
-            $ref: ../../../../../schemas/governance/drep_distribution_content.yaml
+            $ref: ../../../../../schemas/governance/drep_metadata.yaml
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

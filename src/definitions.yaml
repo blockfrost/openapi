@@ -334,8 +334,14 @@ paths:
   /governance/dreps/{hash}:
     $ref: ./paths/api/governance/dreps/{hash}/index.yaml
 
-  /governance/dreps/{hash}/distribution:
-    $ref: ./paths/api/governance/dreps/{hash}/distribution.yaml
+  /governance/dreps/{hash}/delegators:
+    $ref: ./paths/api/governance/dreps/{hash}/delegators.yaml
+
+  /governance/dreps/{hash}/metadata:
+    $ref: ./paths/api/governance/dreps/{hash}/metadata.yaml
+
+  /governance/dreps/{hash}/updates:
+    $ref: ./paths/api/governance/dreps/{hash}/updates.yaml
 
   # /governance/proposals:
   #   $ref: ./paths/api/governance/proposals/index.yaml

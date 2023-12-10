@@ -11,9 +11,13 @@ items:
     amount:
       type: string
       description: The total amount of voting power this DRep is delegated.
-    is_registered:
+    active:
       type: boolean
-      description: Flags which shows if the drep is registered or not
+      description: Registration state of the DRep
+    active_epoch:
+      type: integer
+      nullable: true
+      description: Epoch of the most recent action - registration or deregistration
     has_script:
       type: boolean
       description: Flag which shows if this DRep credentials are a script hash
@@ -22,11 +26,13 @@ items:
     - drep_id
     - hex
     - amount
-    - is_registered
+    - active
+    - active_epoch
     - has_script
 example:
   - drep_id: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
     hex: a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d
     amount: "2000000"
-    is_registered: true
+    active: true
+    active_epoch: 420
     has_script: true

@@ -457,12 +457,21 @@ export interface paths {
   };
   "/governance/dreps/{hash}": {
     /**
-     * xxx
-     * @description xxx
+     * Specific DRep
+     * @description DRep information.
      */
     get: {
+      parameters: {
+        path: {
+          /**
+           * @description Bech32 or hexadecimal DRep ID.
+           * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+           */
+          drep_id: string;
+        };
+      };
       responses: {
-        /** @description xxx */
+        /** @description Return the DRep information content */
         200: {
           content: {
             "application/json": components["schemas"]["drep_details_content"];
@@ -476,17 +485,108 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{hash}/distribution": {
+  "/governance/dreps/{hash}/delegators": {
     /**
-     * xxx
-     * @description xxx
+     * DRep pool delegators
+     * @description List of Drep delegators.
      */
     get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal drep ID.
+           * @example drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+           */
+          drep_id: string;
+        };
+      };
       responses: {
-        /** @description xxx */
+        /** @description Return the DRep delegations */
         200: {
           content: {
-            "application/json": components["schemas"]["drep_distribution_content"];
+            "application/json": components["schemas"]["drep_delegators"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{hash}/metadata": {
+    /**
+     * DRep metadata
+     * @description DRep information.
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * @description Bech32 or hexadecimal DRep ID.
+           * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the DRep metadata content. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_metadata"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{hash}/updates": {
+    /**
+     * DRep updates
+     * @description List of certificate updates to the DRep.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal DRep ID.
+           * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the Drep updates history */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_updates"];
           };
         };
         400: components["responses"]["400"];
@@ -3922,42 +4022,98 @@ export interface components {
      *     "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
      *     "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
      *     "amount": "2000000",
-     *     "is_registered": true,
+     *     "active": true,
+     *     "active_epoch": 420,
      *     "has_script": true
      *   }
      * ]
      */
-    drep_details_content: {
+    drep_details_content: ({
         /** @description Bech32 encoded DRep address */
         drep_id: string;
         /** @description The raw bytes of the DRep */
         hex: string;
         /** @description The total amount of voting power this DRep is delegated. */
         amount: string;
-        /** @description Flags which shows if the drep is registered or not */
-        is_registered: boolean;
+        /** @description Registration state of the DRep */
+        active: boolean;
+        /** @description Epoch of the most recent action - registration or deregistration */
+        active_epoch: number | null;
         /** @description Flag which shows if this DRep credentials are a script hash */
         has_script: boolean;
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "address": "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha",
+     *     "amount": "1137959159981411"
+     *   },
+     *   {
+     *     "address": "stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u",
+     *     "amount": "16958865648"
+     *   },
+     *   {
+     *     "address": "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck",
+     *     "amount": "18605647"
+     *   }
+     * ]
+     */
+    drep_delegators: {
+        /** @description Bech32 encoded stake addresses */
+        address: string;
+        /** @description Currently delegated amount */
+        amount: string;
       }[];
     /**
      * @example [
      *   {
-     *     "amount": "2000000",
-     *     "epoch": 432
-     *   },
-     *   {
-     *     "amount": "300000000",
-     *     "epoch": 433
+     *     "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+     *     "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
+     *     "url": "https://stakenuts.com/drep.json",
+     *     "hash": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
      *   }
      * ]
      */
-    drep_distribution_content: ({
-        /** @description The total amount of voting power this DRep is delegated. */
-        amount: string;
-        /** @description The epoch no this distribution is about. */
-        epoch: number;
-        /** @description The epoch no until this distribution is active. */
-        active_until?: number | null;
+    drep_metadata: ({
+        /** @description Bech32 encoded addresses */
+        drep_id: string;
+        /** @description The raw bytes of the DRep */
+        hex: string;
+        /**
+         * @description URL to the drep metadata
+         * @example https://stakenuts.com/drep.json
+         */
+        url: string | null;
+        /**
+         * @description Hash of the metadata file
+         * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+         */
+        hash: string | null;
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
+     *     "cert_index": 0,
+     *     "action": "registered"
+     *   },
+     *   {
+     *     "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
+     *     "cert_index": 0,
+     *     "action": "deregistered"
+     *   }
+     * ]
+     */
+    drep_updates: ({
+        /** @description Transaction ID */
+        tx_hash: string;
+        /** @description Certificate within the transaction */
+        cert_index: number;
+        /**
+         * @description Action in the certificate
+         * @enum {string}
+         */
+        action: "registered" | "deregistered";
       })[];
     epoch_content: {
       /**

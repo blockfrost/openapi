@@ -14,6 +14,7 @@
   "scripts": {
     "prepublish": "yarn build",
     "bundle": "yarn redocly bundle -o ./openapi.yaml src/definitions.yaml && yarn redocly bundle -o ./openapi.json src/definitions.yaml",
+    "generate-docs": "redoc-cli build -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
     "lint": "yarn redocly lint src/definitions.yaml",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
@@ -25,6 +26,7 @@
     "@redocly/cli": "1.0.0-beta.123",
     "@vitest/coverage-v8": "^0.34.6",
     "openapi-typescript": "6.7.1",
+    "redoc-cli": "^0.13.20",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.2",
     "vitest": "^0.34.6"

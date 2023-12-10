@@ -3901,54 +3901,43 @@ export interface components {
     /**
      * @example [
      *   {
-     *     "id": "2",
-     *     "hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
-     *     "address": "4ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c87443",
-     *     "has_script": true,
-     *     "is_registered": true,
-     *     "voting_power": "100000000"
+     *     "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+     *     "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23"
      *   },
      *   {
-     *     "id": "3",
-     *     "hash": "3788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
-     *     "view": "2ef47f6eb681d5d9fa2f7e16336cd629303c635e8da51e425b76088be9c8744v",
-     *     "has_script": false,
-     *     "is_registered": false,
-     *     "voting_power": "250000000"
+     *     "drep_id": "drep1cxayn4fgy27yaucvhamsvqj3v6835mh3tjjx6x8hdnr4",
+     *     "hex": "c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758"
      *   }
      * ]
      */
     drep_content: {
-        /** @description Id */
-        id: number;
-        /** @description The raw bytes of the DRep. */
-        hash: string;
-        /** @description The Bech32 encoding of the DRep hash. */
-        address: string;
-        /** @description Flag which shows if this DRep credentials are a script hash */
-        has_script: boolean;
-        /** @description Flags which shows if the drep is registered or not */
-        is_registered: boolean;
-        /** @description The total amount of voting power this DRep is delegated. */
-        voting_power: string;
+        /** @description The Bech32 encoded DRep address */
+        drep_id: string;
+        /** @description The raw bytes of the DRep */
+        hex: string;
       }[];
     /**
      * @example [
      *   {
+     *     "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+     *     "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
      *     "amount": "2000000",
-     *     "epoch": 432
-     *   },
-     *   {
-     *     "amount": "300000000",
-     *     "epoch": 433
+     *     "is_registered": true,
+     *     "has_script": true
      *   }
      * ]
      */
     drep_details_content: {
+        /** @description Bech32 encoded DRep address */
+        drep_id: string;
+        /** @description The raw bytes of the DRep */
+        hex: string;
         /** @description The total amount of voting power this DRep is delegated. */
         amount: string;
-        /** @description The epoch no this distribution is about. */
-        epoch: number;
+        /** @description Flags which shows if the drep is registered or not */
+        is_registered: boolean;
+        /** @description Flag which shows if this DRep credentials are a script hash */
+        has_script: boolean;
       }[];
     /**
      * @example [
@@ -3962,12 +3951,14 @@ export interface components {
      *   }
      * ]
      */
-    drep_distribution_content: {
+    drep_distribution_content: ({
         /** @description The total amount of voting power this DRep is delegated. */
         amount: string;
         /** @description The epoch no this distribution is about. */
         epoch: number;
-      }[];
+        /** @description The epoch no until this distribution is active. */
+        active_until?: number | null;
+      })[];
     epoch_content: {
       /**
        * @description Epoch number

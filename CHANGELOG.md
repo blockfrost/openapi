@@ -15,7 +15,7 @@ Unreleased changes are in the `master` branch.
 
 ### Changed
 
-- Updated deps - node 16 now required due to node-cbor pkg
+- Updated deps - node 18 now required due to node-cbor pkg
 
 ## [0.1.60] - 2023-10-05
 

@@ -959,7 +959,7 @@
         }
       }
     },
-    "/governance/dreps/{hash}": {
+    "/governance/dreps/{drep_id}": {
       "get": {
         "tags": [
           "Cardano » Governance"
@@ -1007,7 +1007,7 @@
         }
       }
     },
-    "/governance/dreps/{hash}/delegators": {
+    "/governance/dreps/{drep_id}/delegators": {
       "get": {
         "tags": [
           "Cardano » Governance"
@@ -1093,7 +1093,7 @@
         }
       }
     },
-    "/governance/dreps/{hash}/metadata": {
+    "/governance/dreps/{drep_id}/metadata": {
       "get": {
         "tags": [
           "Cardano » Governance"
@@ -1141,7 +1141,7 @@
         }
       }
     },
-    "/governance/dreps/{hash}/updates": {
+    "/governance/dreps/{drep_id}/updates": {
       "get": {
         "tags": [
           "Cardano » Governance"

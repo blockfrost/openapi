@@ -455,7 +455,7 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{hash}": {
+  "/governance/dreps/{drep_id}": {
     /**
      * Specific DRep
      * @description DRep information.
@@ -485,7 +485,7 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{hash}/delegators": {
+  "/governance/dreps/{drep_id}/delegators": {
     /**
      * DRep pool delegators
      * @description List of Drep delegators.
@@ -526,7 +526,7 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{hash}/metadata": {
+  "/governance/dreps/{drep_id}/metadata": {
     /**
      * DRep metadata
      * @description DRep information.
@@ -556,7 +556,7 @@ export interface paths {
       };
     };
   };
-  "/governance/dreps/{hash}/updates": {
+  "/governance/dreps/{drep_id}/updates": {
     /**
      * DRep updates
      * @description List of certificate updates to the DRep.

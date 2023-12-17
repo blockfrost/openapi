@@ -5,7 +5,7 @@ get:
   description: xxx
   responses:
     "200":
-      description: Return the genesis parameters.
+      description: Return the treasury parameters.
       # content:
       #   application/json:
       #     schema:

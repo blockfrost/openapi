@@ -5,10 +5,11 @@ get:
   description: xxx
   responses:
     "200":
-      # description: xxx
+      description: Return the actions parameters.
       # content:
       #   application/json:
       #     schema:
+      #       $ref: ../../../schemas/xxx
     "400":
       $ref: ../../../responses/errors/400.yaml
     "403":

@@ -330,17 +330,17 @@ paths:
   /governance/dreps:
     $ref: ./paths/api/governance/dreps/index.yaml
 
-  /governance/dreps/{hash}:
-    $ref: ./paths/api/governance/dreps/{hash}/index.yaml
+  /governance/dreps/{drep_id}:
+    $ref: ./paths/api/governance/dreps/{drep_id}/index.yaml
 
-  /governance/dreps/{hash}/delegators:
-    $ref: ./paths/api/governance/dreps/{hash}/delegators.yaml
+  /governance/dreps/{drep_id}/delegators:
+    $ref: ./paths/api/governance/dreps/{drep_id}/delegators.yaml
 
-  /governance/dreps/{hash}/metadata:
-    $ref: ./paths/api/governance/dreps/{hash}/metadata.yaml
+  /governance/dreps/{drep_id}/metadata:
+    $ref: ./paths/api/governance/dreps/{drep_id}/metadata.yaml
 
-  /governance/dreps/{hash}/updates:
-    $ref: ./paths/api/governance/dreps/{hash}/updates.yaml
+  /governance/dreps/{drep_id}/updates:
+    $ref: ./paths/api/governance/dreps/{drep_id}/updates.yaml
 
   # /governance/proposals:
   #   $ref: ./paths/api/governance/proposals/index.yaml

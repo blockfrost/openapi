@@ -4028,20 +4028,20 @@ export interface components {
      *   }
      * ]
      */
-    drep_details_content: ({
-        /** @description Bech32 encoded DRep address */
-        drep_id: string;
-        /** @description The raw bytes of the DRep */
-        hex: string;
-        /** @description The total amount of voting power this DRep is delegated. */
-        amount: string;
-        /** @description Registration state of the DRep */
-        active: boolean;
-        /** @description Epoch of the most recent action - registration or deregistration */
-        active_epoch: number | null;
-        /** @description Flag which shows if this DRep credentials are a script hash */
-        has_script: boolean;
-      })[];
+    drep_details_content: {
+      /** @description Bech32 encoded DRep address */
+      drep_id: string;
+      /** @description The raw bytes of the DRep */
+      hex: string;
+      /** @description The total amount of voting power this DRep is delegated. */
+      amount: string;
+      /** @description Registration state of the DRep */
+      active: boolean;
+      /** @description Epoch of the most recent action - registration or deregistration */
+      active_epoch: number | null;
+      /** @description Flag which shows if this DRep credentials are a script hash */
+      has_script: boolean;
+    };
     /**
      * @example [
      *   {
@@ -4074,22 +4074,22 @@ export interface components {
      *   }
      * ]
      */
-    drep_metadata: ({
-        /** @description Bech32 encoded addresses */
-        drep_id: string;
-        /** @description The raw bytes of the DRep */
-        hex: string;
-        /**
-         * @description URL to the drep metadata
-         * @example https://stakenuts.com/drep.json
-         */
-        url: string | null;
-        /**
-         * @description Hash of the metadata file
-         * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
-         */
-        hash: string | null;
-      })[];
+    drep_metadata: {
+      /** @description Bech32 encoded addresses */
+      drep_id: string;
+      /** @description The raw bytes of the DRep */
+      hex: string;
+      /**
+       * @description URL to the drep metadata
+       * @example https://stakenuts.com/drep.json
+       */
+      url: string | null;
+      /**
+       * @description Hash of the metadata file
+       * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+       */
+      hash: string | null;
+    };
     /**
      * @example [
      *   {

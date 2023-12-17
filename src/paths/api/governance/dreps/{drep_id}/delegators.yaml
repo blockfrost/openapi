@@ -10,7 +10,7 @@ get:
       schema:
         type: string
       description: Bech32 or hexadecimal drep ID.
-      example: "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn"
+      example: 'drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn'
     - in: query
       name: count
       required: false
@@ -40,19 +40,19 @@ get:
         The ordering of items from the point of view of the blockchain,
         not the page listing itself. By default, we return oldest first, newest last.
   responses:
-    "200":
+    '200':
       description: Return the DRep delegations
       content:
         application/json:
           schema:
             $ref: ../../../../../schemas/governance/drep_delegators.yaml
-    "400":
+    '400':
       $ref: ../../../../../responses/errors/400.yaml
-    "403":
+    '403':
       $ref: ../../../../../responses/errors/403.yaml
-    "429":
+    '429':
       $ref: ../../../../../responses/errors/429.yaml
-    "418":
+    '418':
       $ref: ../../../../../responses/errors/418.yaml
-    "500":
+    '500':
       $ref: ../../../../../responses/errors/500.yaml

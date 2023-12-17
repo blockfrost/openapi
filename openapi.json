@@ -7809,45 +7809,42 @@
         ]
       },
       "drep_details_content": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "drep_id": {
-              "type": "string",
-              "description": "Bech32 encoded DRep address"
-            },
-            "hex": {
-              "type": "string",
-              "description": "The raw bytes of the DRep"
-            },
-            "amount": {
-              "type": "string",
-              "description": "The total amount of voting power this DRep is delegated."
-            },
-            "active": {
-              "type": "boolean",
-              "description": "Registration state of the DRep"
-            },
-            "active_epoch": {
-              "type": "integer",
-              "nullable": true,
-              "description": "Epoch of the most recent action - registration or deregistration"
-            },
-            "has_script": {
-              "type": "boolean",
-              "description": "Flag which shows if this DRep credentials are a script hash"
-            }
+        "type": "object",
+        "properties": {
+          "drep_id": {
+            "type": "string",
+            "description": "Bech32 encoded DRep address"
           },
-          "required": [
-            "drep_id",
-            "hex",
-            "amount",
-            "active",
-            "active_epoch",
-            "has_script"
-          ]
+          "hex": {
+            "type": "string",
+            "description": "The raw bytes of the DRep"
+          },
+          "amount": {
+            "type": "string",
+            "description": "The total amount of voting power this DRep is delegated."
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Registration state of the DRep"
+          },
+          "active_epoch": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Epoch of the most recent action - registration or deregistration"
+          },
+          "has_script": {
+            "type": "boolean",
+            "description": "Flag which shows if this DRep credentials are a script hash"
+          }
         },
+        "required": [
+          "drep_id",
+          "hex",
+          "amount",
+          "active",
+          "active_epoch",
+          "has_script"
+        ],
         "example": [
           {
             "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
@@ -7894,38 +7891,35 @@
         ]
       },
       "drep_metadata": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "drep_id": {
-              "type": "string",
-              "description": "Bech32 encoded addresses"
-            },
-            "hex": {
-              "type": "string",
-              "description": "The raw bytes of the DRep"
-            },
-            "url": {
-              "type": "string",
-              "nullable": true,
-              "example": "https://stakenuts.com/drep.json",
-              "description": "URL to the drep metadata"
-            },
-            "hash": {
-              "type": "string",
-              "nullable": true,
-              "example": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c\"",
-              "description": "Hash of the metadata file"
-            }
+        "type": "object",
+        "properties": {
+          "drep_id": {
+            "type": "string",
+            "description": "Bech32 encoded addresses"
           },
-          "required": [
-            "drep_id",
-            "hex",
-            "url",
-            "hash"
-          ]
+          "hex": {
+            "type": "string",
+            "description": "The raw bytes of the DRep"
+          },
+          "url": {
+            "type": "string",
+            "nullable": true,
+            "example": "https://stakenuts.com/drep.json",
+            "description": "URL to the drep metadata"
+          },
+          "hash": {
+            "type": "string",
+            "nullable": true,
+            "example": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c\"",
+            "description": "Hash of the metadata file"
+          }
         },
+        "required": [
+          "drep_id",
+          "hex",
+          "url",
+          "hash"
+        ],
         "example": [
           {
             "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",

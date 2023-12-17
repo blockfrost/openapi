@@ -65,9 +65,6 @@
       "name": "Cardano » Epochs"
     },
     {
-      "name": "Cardano » Genesis"
-    },
-    {
       "name": "Cardano » Governance"
     },
     {
@@ -8235,170 +8232,128 @@
             "deprecated": true
           },
           "p1": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for motion of no-confidence."
           },
           "p2a": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for new committee/threshold (normal state)."
           },
           "p2b": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for new committee/threshold (state of no-confidence)."
           },
           "p3": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for update to the Constitution."
           },
           "p4": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for update to the Constitution."
           },
           "p5a": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for protocol parameter changes, network group."
           },
           "p5b": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for protocol parameter changes, economic group."
           },
           "p5c": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for protocol parameter changes, technical group."
           },
           "p5d": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for protocol parameter changes, governance group."
           },
           "p6": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for treasury withdrawal."
           },
           "p7": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "DRep Vote threshold for info"
           },
           "q1": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "Spo Vote threshold for motion of no-confidence."
           },
           "q2a": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "Spo Vote threshold for new committee/threshold (normal state)."
           },
           "q2b": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "Spo Vote threshold for new committee/threshold (state of no-confidence)."
           },
           "q4": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "Spo Vote threshold for hard-fork initiation."
           },
           "min_c_c_size": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "20",
             "description": "Minimal constitutional committee size."
           },
           "cc_term_limit": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "2000000",
             "description": "Constitutional committee term limits."
           },
           "gov_expiration": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": 1,
             "description": "Governance action expiration."
           },
           "gov_deposit": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "1000000",
             "description": "Governance action deposit."
           },
           "drep_activity": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "example": "1000000",
             "description": "DRep activity period."
           },
           "registered_tx_id": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "example": 1,
             "description": "The Tx table index for the transaction that contains this parameter proposal."
           }

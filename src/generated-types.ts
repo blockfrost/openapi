@@ -492,7 +492,7 @@ export interface paths {
   };
   '/governance/dreps/{drep_id}/delegators': {
     /**
-     * DRep pool delegators
+     * DRep delegators
      * @description List of Drep delegators.
      */
     get: {
@@ -534,7 +534,7 @@ export interface paths {
   '/governance/dreps/{drep_id}/metadata': {
     /**
      * DRep metadata
-     * @description DRep information.
+     * @description DRep metadata information.
      */
     get: {
       parameters: {

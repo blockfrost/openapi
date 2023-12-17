@@ -903,7 +903,7 @@ paths:
     get:
       tags:
         - Cardano » Governance
-      summary: DRep pool delegators
+      summary: DRep delegators
       description: List of Drep delegators.
       parameters:
         - in: path
@@ -965,7 +965,7 @@ paths:
       tags:
         - Cardano » Governance
       summary: DRep metadata
-      description: DRep information.
+      description: DRep metadata information.
       parameters:
         - in: path
           name: drep_id

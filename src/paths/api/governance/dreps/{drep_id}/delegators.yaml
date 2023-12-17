@@ -1,7 +1,7 @@
 get:
   tags:
     - Cardano » Governance
-  summary: DRep pool delegators
+  summary: DRep delegators
   description: List of Drep delegators.
   parameters:
     - in: path

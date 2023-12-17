@@ -2,7 +2,7 @@ get:
   tags:
     - Cardano » Governance
   summary: DRep metadata
-  description: DRep information.
+  description: DRep metadata information.
   parameters:
     - in: path
       name: drep_id

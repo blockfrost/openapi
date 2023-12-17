@@ -4082,7 +4082,7 @@ export interface components {
       active_epoch: number | null;
       /** @description Flag which shows if this DRep credentials are a script hash */
       has_script: boolean;
-    }[];
+    };
     /**
      * @example [
      *   {
@@ -4130,7 +4130,7 @@ export interface components {
        * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
        */
       hash: string | null;
-    }[];
+    };
     /**
      * @example [
      *   {

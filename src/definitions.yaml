@@ -378,6 +378,9 @@ paths:
   /txs/{hash}/redeemers:
     $ref: ./paths/api/txs/{hash}/redeemers.yaml
 
+  /txs/{hash}/required_signers:
+    $ref: ./paths/api/txs/{hash}/required_signers.yaml
+
   /tx/submit:
     $ref: ./paths/api/tx/submit.yaml
 

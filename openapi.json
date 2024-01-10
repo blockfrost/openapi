@@ -8274,133 +8274,103 @@
             "type": "string",
             "nullable": true,
             "example": "34482",
-            "description": "Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.",
-            "deprecated": true
+            "deprecated": true,
+            "description": "Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later."
           },
-          "p1": {
+          "cost_model_id": {
             "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for motion of no-confidence."
+            "format": "int64",
+            "description": "The CostModel table index for the proposal."
           },
-          "p2a": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for new committee/threshold (normal state)."
+          "pvt_motion_no_confidence": {
+            "type": "number",
+            "description": "Pool Voting threshold for motion of no-confidence. New in 13.2-Conway."
           },
-          "p2b": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for new committee/threshold (state of no-confidence)."
+          "pvt_committee_normal": {
+            "type": "number",
+            "description": "Pool Voting threshold for new committee/threshold (normal state). New in 13.2-Conway."
           },
-          "p3": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for update to the Constitution."
+          "pvt_committee_no_confidence": {
+            "type": "number",
+            "description": "Pool Voting threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway."
           },
-          "p4": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for update to the Constitution."
+          "pvt_hard_fork_initiation": {
+            "type": "number",
+            "description": "Pool Voting threshold for hard-fork initiation. New in 13.2-Conway."
           },
-          "p5a": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for protocol parameter changes, network group."
+          "dvt_motion_no_confidence": {
+            "type": "number",
+            "description": "DRep Vote threshold for motion of no-confidence. New in 13.2-Conway."
           },
-          "p5b": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for protocol parameter changes, economic group."
+          "dvt_committee_normal": {
+            "type": "number",
+            "description": "DRep Vote threshold for new committee/threshold (normal state). New in 13.2-Conway."
           },
-          "p5c": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for protocol parameter changes, technical group."
+          "dvt_committee_no_confidence": {
+            "type": "number",
+            "description": "DRep Vote threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway."
           },
-          "p5d": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for protocol parameter changes, governance group."
+          "dvt_update_to_constitution": {
+            "type": "number",
+            "description": "DRep Vote threshold for update to the Constitution. New in 13.2-Conway."
           },
-          "p6": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for treasury withdrawal."
+          "dvt_hard_fork_initiation": {
+            "type": "number",
+            "description": "DRep Vote threshold for hard-fork initiation. New in 13.2-Conway."
           },
-          "p7": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "DRep Vote threshold for info"
+          "dvt_p_p_network_group": {
+            "type": "number",
+            "description": "DRep Vote threshold for protocol parameter changes, network group. New in 13.2-Conway."
           },
-          "q1": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "Spo Vote threshold for motion of no-confidence."
+          "dvt_p_p_economic_group": {
+            "type": "number",
+            "description": "DRep Vote threshold for protocol parameter changes, economic group. New in 13.2-Conway."
           },
-          "q2a": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "Spo Vote threshold for new committee/threshold (normal state)."
+          "dvt_p_p_technical_group": {
+            "type": "number",
+            "description": "DRep Vote threshold for protocol parameter changes, technical group. New in 13.2-Conway."
           },
-          "q2b": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "Spo Vote threshold for new committee/threshold (state of no-confidence)."
+          "dvt_p_p_gov_group": {
+            "type": "number",
+            "description": "DRep Vote threshold for protocol parameter changes, governance group. New in 13.2-Conway."
           },
-          "q4": {
-            "type": "integer",
-            "nullable": true,
-            "example": 1,
-            "description": "Spo Vote threshold for hard-fork initiation."
+          "dvt_treasury_withdrawal": {
+            "type": "number",
+            "description": "DRep Vote threshold for treasury withdrawal. New in 13.2-Conway."
           },
-          "min_c_c_size": {
+          "committee_min_size": {
             "type": "string",
-            "nullable": true,
-            "example": "20",
-            "description": "Minimal constitutional committee size."
+            "format": "word64type",
+            "description": "Minimal constitutional committee size. New in 13.2-Conway."
           },
-          "cc_term_limit": {
+          "committee_max_term_length": {
             "type": "string",
-            "nullable": true,
-            "example": "2000000",
-            "description": "Constitutional committee term limits."
+            "format": "word64type",
+            "description": "Constitutional committee term limits. New in 13.2-Conway."
           },
-          "gov_expiration": {
+          "gov_action_lifetime": {
             "type": "string",
-            "nullable": true,
-            "example": 1,
-            "description": "Governance action expiration."
+            "format": "word64type",
+            "description": "Governance action expiration. New in 13.2-Conway."
           },
-          "gov_deposit": {
+          "gov_action_deposit": {
             "type": "string",
-            "nullable": true,
-            "example": "1000000",
-            "description": "Governance action deposit."
+            "format": "word64type",
+            "description": "Governance action deposit. New in 13.2-Conway."
+          },
+          "drep_deposit": {
+            "type": "string",
+            "format": "word64type",
+            "description": "DRep deposit amount. New in 13.2-Conway."
           },
           "drep_activity": {
             "type": "string",
-            "nullable": true,
-            "example": "1000000",
-            "description": "DRep activity period."
+            "format": "word64type",
+            "description": "DRep activity period. New in 13.2-Conway."
           },
           "registered_tx_id": {
             "type": "integer",
-            "nullable": true,
-            "example": 1,
+            "format": "int64",
             "description": "The Tx table index for the transaction that contains this parameter proposal."
           }
         },
@@ -8437,25 +8407,26 @@
           "max_collateral_inputs",
           "coins_per_utxo_size",
           "coins_per_utxo_word",
-          "p1",
-          "p2a",
-          "p2b",
-          "p3",
-          "p4",
-          "p5a",
-          "p5b",
-          "p5c",
-          "p5d",
-          "p6",
-          "p7",
-          "q1",
-          "q2a",
-          "q2b",
-          "q4",
-          "min_c_c_size",
-          "cc_term_limit",
-          "gov_expiration",
-          "gov_deposit",
+          "cost_model_id",
+          "pvt_motion_no_confidence",
+          "pvt_committee_normal",
+          "pvt_committee_no_confidence",
+          "pvt_hard_fork_initiation",
+          "dvt_motion_no_confidence",
+          "dvt_committee_normal",
+          "dvt_committee_no_confidence",
+          "dvt_update_to_constitution",
+          "dvt_hard_fork_initiation",
+          "dvt_p_p_network_group",
+          "dvt_p_p_economic_group",
+          "dvt_p_p_technical_group",
+          "dvt_p_p_gov_group",
+          "dvt_treasury_withdrawal",
+          "committee_min_size",
+          "committee_max_term_length",
+          "gov_action_lifetime",
+          "gov_action_deposit",
+          "drep_deposit",
           "drep_activity",
           "registered_tx_id"
         ]

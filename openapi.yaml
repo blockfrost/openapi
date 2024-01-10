@@ -6073,112 +6073,81 @@ components:
           type: string
           nullable: true
           example: '34482'
-          description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
           deprecated: true
-        p1:
+          description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
+        cost_model_id:
           type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for motion of no-confidence.
-        p2a:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for new committee/threshold (normal state).
-        p2b:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for new committee/threshold (state of no-confidence).
-        p3:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for update to the Constitution.
-        p4:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for update to the Constitution.
-        p5a:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for protocol parameter changes, network group.
-        p5b:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for protocol parameter changes, economic group.
-        p5c:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for protocol parameter changes, technical group.
-        p5d:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for protocol parameter changes, governance group.
-        p6:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for treasury withdrawal.
-        p7:
-          type: integer
-          nullable: true
-          example: 1
-          description: DRep Vote threshold for info
-        q1:
-          type: integer
-          nullable: true
-          example: 1
-          description: Spo Vote threshold for motion of no-confidence.
-        q2a:
-          type: integer
-          nullable: true
-          example: 1
-          description: Spo Vote threshold for new committee/threshold (normal state).
-        q2b:
-          type: integer
-          nullable: true
-          example: 1
-          description: Spo Vote threshold for new committee/threshold (state of no-confidence).
-        q4:
-          type: integer
-          nullable: true
-          example: 1
-          description: Spo Vote threshold for hard-fork initiation.
-        min_c_c_size:
+          format: int64
+          description: The CostModel table index for the proposal.
+        pvt_motion_no_confidence:
+          type: number
+          description: Pool Voting threshold for motion of no-confidence. New in 13.2-Conway.
+        pvt_committee_normal:
+          type: number
+          description: Pool Voting threshold for new committee/threshold (normal state). New in 13.2-Conway.
+        pvt_committee_no_confidence:
+          type: number
+          description: Pool Voting threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway.
+        pvt_hard_fork_initiation:
+          type: number
+          description: Pool Voting threshold for hard-fork initiation. New in 13.2-Conway.
+        dvt_motion_no_confidence:
+          type: number
+          description: DRep Vote threshold for motion of no-confidence. New in 13.2-Conway.
+        dvt_committee_normal:
+          type: number
+          description: DRep Vote threshold for new committee/threshold (normal state). New in 13.2-Conway.
+        dvt_committee_no_confidence:
+          type: number
+          description: DRep Vote threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway.
+        dvt_update_to_constitution:
+          type: number
+          description: DRep Vote threshold for update to the Constitution. New in 13.2-Conway.
+        dvt_hard_fork_initiation:
+          type: number
+          description: DRep Vote threshold for hard-fork initiation. New in 13.2-Conway.
+        dvt_p_p_network_group:
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, network group. New in 13.2-Conway.
+        dvt_p_p_economic_group:
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, economic group. New in 13.2-Conway.
+        dvt_p_p_technical_group:
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, technical group. New in 13.2-Conway.
+        dvt_p_p_gov_group:
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, governance group. New in 13.2-Conway.
+        dvt_treasury_withdrawal:
+          type: number
+          description: DRep Vote threshold for treasury withdrawal. New in 13.2-Conway.
+        committee_min_size:
           type: string
-          nullable: true
-          example: '20'
-          description: Minimal constitutional committee size.
-        cc_term_limit:
+          format: word64type
+          description: Minimal constitutional committee size. New in 13.2-Conway.
+        committee_max_term_length:
           type: string
-          nullable: true
-          example: '2000000'
-          description: Constitutional committee term limits.
-        gov_expiration:
+          format: word64type
+          description: Constitutional committee term limits. New in 13.2-Conway.
+        gov_action_lifetime:
           type: string
-          nullable: true
-          example: 1
-          description: Governance action expiration.
-        gov_deposit:
+          format: word64type
+          description: Governance action expiration. New in 13.2-Conway.
+        gov_action_deposit:
           type: string
-          nullable: true
-          example: '1000000'
-          description: Governance action deposit.
+          format: word64type
+          description: Governance action deposit. New in 13.2-Conway.
+        drep_deposit:
+          type: string
+          format: word64type
+          description: DRep deposit amount. New in 13.2-Conway.
         drep_activity:
           type: string
-          nullable: true
-          example: '1000000'
-          description: DRep activity period.
+          format: word64type
+          description: DRep activity period. New in 13.2-Conway.
         registered_tx_id:
           type: integer
-          nullable: true
-          example: 1
+          format: int64
           description: The Tx table index for the transaction that contains this parameter proposal.
       required:
         - epoch
@@ -6213,25 +6182,26 @@ components:
         - max_collateral_inputs
         - coins_per_utxo_size
         - coins_per_utxo_word
-        - p1
-        - p2a
-        - p2b
-        - p3
-        - p4
-        - p5a
-        - p5b
-        - p5c
-        - p5d
-        - p6
-        - p7
-        - q1
-        - q2a
-        - q2b
-        - q4
-        - min_c_c_size
-        - cc_term_limit
-        - gov_expiration
-        - gov_deposit
+        - cost_model_id
+        - pvt_motion_no_confidence
+        - pvt_committee_normal
+        - pvt_committee_no_confidence
+        - pvt_hard_fork_initiation
+        - dvt_motion_no_confidence
+        - dvt_committee_normal
+        - dvt_committee_no_confidence
+        - dvt_update_to_constitution
+        - dvt_hard_fork_initiation
+        - dvt_p_p_network_group
+        - dvt_p_p_economic_group
+        - dvt_p_p_technical_group
+        - dvt_p_p_gov_group
+        - dvt_treasury_withdrawal
+        - committee_min_size
+        - committee_max_term_length
+        - gov_action_lifetime
+        - gov_action_deposit
+        - drep_deposit
         - drep_activity
         - registered_tx_id
     epoch_content_array:

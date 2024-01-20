@@ -1,8 +1,8 @@
 get:
   tags:
     - Cardano » Governance
-  summary: Proposals
-  description: Return the information about Proposals
+  summary: Votes
+  description: Return the information about votes
   parameters:
     - in: query
       name: count
@@ -35,18 +35,18 @@ get:
         Ordering in this case is based on the time of the first mint transaction.
   responses:
     "200":
-      description: Paginated array with the proposal data
+      description: Paginated array with the votes data
       content:
         application/json:
           schema:
-            $ref: ../../../../schemas/governance/proposal_content.yaml
+            $ref: ../../../schemas/governance/vote_content.yaml
     "400":
-      $ref: ../../../../responses/errors/400.yaml
+      $ref: ../../../responses/errors/400.yaml
     "403":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: ../../../responses/errors/403.yaml
     "429":
-      $ref: ../../../../responses/errors/429.yaml
+      $ref: ../../../responses/errors/429.yaml
     "418":
-      $ref: ../../../../responses/errors/418.yaml
+      $ref: ../../../responses/errors/418.yaml
     "500":
-      $ref: ../../../../responses/errors/500.yaml
+      $ref: ../../../responses/errors/500.yaml

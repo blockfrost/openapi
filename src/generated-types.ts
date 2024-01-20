@@ -597,6 +597,198 @@ export interface paths {
       };
     };
   };
+  "/governance/dreps/{drep_id}/votes": {
+    /**
+     * DRep votes
+     * @description History of Drep votes.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal drep ID.
+           * @example drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the DRep votes */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_votes"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals": {
+    /**
+     * Proposals
+     * @description Return the information about Proposals
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** @description Paginated array with the proposal data */
+        200: {
+          content: {
+            "application/json": components["schemas"]["proposal_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals/{tx_hash}/{tx_index}": {
+    /**
+     * Specific proposal
+     * @description Proposal information.
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * @description Transaction hash.
+           * @example 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+           */
+          tx_hash: string;
+          /**
+           * @description Transaction index.
+           * @example 1
+           */
+          tx_index: number;
+        };
+      };
+      responses: {
+        /** @description Return the proposal information content */
+        200: {
+          content: {
+            "application/json": components["schemas"]["proposal_details_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals/{tx_hash}/{tx_index}/votes": {
+    /**
+     * Proposal votes
+     * @description History of Proposal votes.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Transaction hash.
+           * @example 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+           */
+          tx_hash: string;
+          /**
+           * @description Transaction index.
+           * @example 1
+           */
+          tx_index: number;
+        };
+      };
+      responses: {
+        /** @description Return the Proposal votes */
+        200: {
+          content: {
+            "application/json": components["schemas"]["proposal_details_votes"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/votes": {
+    /**
+     * Votes
+     * @description Return the information about votes
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** @description Paginated array with the votes data */
+        200: {
+          content: {
+            "application/json": components["schemas"]["vote_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/epochs/latest": {
     /**
      * Latest epoch
@@ -2676,6 +2868,48 @@ export interface paths {
       };
     };
   };
+  "/pools/{pool_id}/votes": {
+    /**
+     * Stake pool votes
+     * @description History of stake pools votes.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal pool ID.
+           * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+           */
+          pool_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the pool votes. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["pool_votes"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/assets": {
     /**
      * Assets
@@ -4145,6 +4379,176 @@ export interface components {
          * @enum {string}
          */
         action: "registered" | "deregistered";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "voter_role": "spo",
+     *     "committee_voter_hash": null,
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 3,
+     *     "voter_role": "constitutional_committee",
+     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    drep_votes: ({
+        /** @description Hash of the transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the transaction. */
+        cert_index: number;
+        /**
+         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+         * @enum {string}
+         */
+        voter_role: "constitutional_committee" | "drep" | "spo";
+        committee_voter_hash: string | null;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote: "yes" | "no" | "abstain";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+     *     "cert_index": 1,
+     *     "governance_type": "TreasuryWithdrawals"
+     *   },
+     *   {
+     *     "tx_hash": "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60",
+     *     "cert_index": 4,
+     *     "governance_type": "NoConfidence"
+     *   }
+     * ]
+     */
+    proposal_content: {
+        /** @description Hash of the transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the transaction. */
+        cert_index?: number;
+        /** @description Type of proposal. */
+        governance_type: string;
+      }[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+     *     "cert_index": 1,
+     *     "governance_type": "TreasuryWithdrawals",
+     *     "deposit": 12000,
+     *     "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
+     *     "description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash \"71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60\")},Coin 20000000)])",
+     *     "ratified_epoch": null,
+     *     "enacted_epoch": 123,
+     *     "dropped_epoch": null,
+     *     "expired_epoch": null,
+     *     "expiration": 120,
+     *     "anchor_url": "https://gist.github.com/123",
+     *     "anchor_hash": "50b340624d49823720505e3f0095be0d6cd8f26501e094a6ab9068dd"
+     *   }
+     * ]
+     */
+    proposal_details_content: {
+      /** @description Hash of the transaction. */
+      tx_hash: string;
+      /** @description Index of the certificate within the transaction. */
+      cert_index: number;
+      /** @description Type of proposal. */
+      governance_type: string;
+      /** @description A Text describing the content of this GovActionProposal in a readable way. */
+      governance_description?: string;
+      /** @description The deposit amount paid for this proposal. */
+      deposit: string;
+      /** @description Bech32 stake address of the reward address to receive the deposit when it is repaid. */
+      return_address: string;
+      ratified_epoch: number | null;
+      enacted_epoch: number | null;
+      dropped_epoch: number | null;
+      expired_epoch: number | null;
+      /** @description Shows the epoch at which this governance action will expire. */
+      expiration: number;
+      /** @description The URL of the offchain anchor data. */
+      anchor_url: string | null;
+      /** @description The hash of the offchain anchor data. */
+      anchor_hash: string | null;
+    };
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "voter_role": "spo",
+     *     "committee_voter_hash": null,
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 3,
+     *     "voter_role": "constitutional_committee",
+     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    proposal_details_votes: ({
+        /** @description Hash of the transaction. */
+        tx_hash?: string;
+        /** @description Index of the certificate within the transaction. */
+        cert_index?: number;
+        /**
+         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+         * @enum {string}
+         */
+        voter_role?: "constitutional_committee" | "drep" | "spo";
+        committee_voter_hash?: string | null;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote?: "yes" | "no" | "abstain";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "voter_role": "spo",
+     *     "committee_voter_hash": null,
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 3,
+     *     "voter_role": "constitutional_committee",
+     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    vote_content: ({
+        /** @description Hash of the transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the transaction. */
+        cert_index: number;
+        /**
+         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+         * @enum {string}
+         */
+        voter_role: "constitutional_committee" | "drep" | "spo";
+        committee_voter_hash: string | null;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote: "yes" | "no" | "abstain";
       })[];
     epoch_content: {
       /**
@@ -6281,6 +6685,41 @@ export interface components {
          * @enum {string}
          */
         action: "registered" | "deregistered";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "tx_index": 2,
+     *     "voter_role": "spo",
+     *     "committee_voter_hash": null,
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "tx_index": 3,
+     *     "voter_role": "constitutional_committee",
+     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    pool_votes: ({
+        /** @description Hash of the transaction. */
+        tx_hash?: string;
+        /** @description Transaction index within the block. */
+        tx_index?: number;
+        /**
+         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+         * @enum {string}
+         */
+        voter_role?: "constitutional_committee" | "drep" | "spo";
+        committee_voter_hash?: string | null;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote?: "yes" | "no" | "abstain";
       })[];
     /**
      * @example [

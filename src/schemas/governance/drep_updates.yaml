@@ -23,4 +23,3 @@ example:
   - tx_hash: "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e"
     cert_index: 0
     action: deregistered
-

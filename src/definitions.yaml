@@ -324,9 +324,6 @@ paths:
 
   # governance
 
-  # /governance/actions:
-  #   $ref: ./paths/api/governance/actions.yaml
-
   /governance/dreps:
     $ref: ./paths/api/governance/dreps/index.yaml
 
@@ -342,17 +339,20 @@ paths:
   /governance/dreps/{drep_id}/updates:
     $ref: ./paths/api/governance/dreps/{drep_id}/updates.yaml
 
-  # /governance/proposals:
-  #   $ref: ./paths/api/governance/proposals/index.yaml
+  /governance/dreps/{drep_id}/votes:
+    $ref: ./paths/api/governance/dreps/{drep_id}/votes.yaml
 
-  # /governance/proposals/voting:
-  #   $ref: ./paths/api/governance/proposals/voting.yaml
+  /governance/proposals:
+    $ref: ./paths/api/governance/proposals/index.yaml
 
-  # /governance/treasury:
-  #   $ref: ./paths/api/governance/treasury.yaml
+  /governance/proposals/{tx_hash}/{tx_index}:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{tx_index}/index.yaml
 
-  # /governance/voting:
-  #   $ref: ./paths/api/governance/voting.yaml
+  /governance/proposals/{tx_hash}/{tx_index}/votes:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{tx_index}/votes.yaml
+
+  /governance/votes:
+    $ref: ./paths/api/governance/votes.yaml
 
   # epochs
 
@@ -540,6 +540,9 @@ paths:
 
   /pools/{pool_id}/updates:
     $ref: ./paths/api/pools/{pool_id}/updates.yaml
+
+  /pools/{pool_id}/votes:
+    $ref: ./paths/api/pools/{pool_id}/votes.yaml
 
   # assets
 

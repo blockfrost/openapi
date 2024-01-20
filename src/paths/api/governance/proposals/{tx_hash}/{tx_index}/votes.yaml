@@ -1,9 +1,23 @@
 get:
   tags:
     - Cardano » Governance
-  summary: Proposals
-  description: Return the information about Proposals
+  summary: Proposal votes
+  description: History of Proposal votes.
   parameters:
+    - in: path
+      name: tx_hash
+      required: true
+      schema:
+        type: string
+      description: Transaction hash.
+      example: "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
+    - in: path
+      name: tx_index
+      required: true
+      schema:
+        type: integer
+      description: Transaction index.
+      example: 1
     - in: query
       name: count
       required: false
@@ -32,21 +46,20 @@ get:
       description: |
         The ordering of items from the point of view of the blockchain,
         not the page listing itself. By default, we return oldest first, newest last.
-        Ordering in this case is based on the time of the first mint transaction.
   responses:
     "200":
-      description: Paginated array with the proposal data
+      description: Return the Proposal votes
       content:
         application/json:
           schema:
-            $ref: ../../../../schemas/governance/proposal_content.yaml
+            $ref: ../../../../../../schemas/governance/proposal_details_votes.yaml
     "400":
-      $ref: ../../../../responses/errors/400.yaml
+      $ref: ../../../../../../responses/errors/400.yaml
     "403":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: ../../../../../../responses/errors/403.yaml
     "429":
-      $ref: ../../../../responses/errors/429.yaml
+      $ref: ../../../../../../responses/errors/429.yaml
     "418":
-      $ref: ../../../../responses/errors/418.yaml
+      $ref: ../../../../../../responses/errors/418.yaml
     "500":
-      $ref: ../../../../responses/errors/500.yaml
+      $ref: ../../../../../../responses/errors/500.yaml

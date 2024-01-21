@@ -11714,6 +11714,7 @@ under which it is valid
           },
           "governance_description": {
             "description": "A Text describing the content of this GovActionProposal in a readable way.",
+            "nullable": true,
             "type": "string",
           },
           "governance_type": {

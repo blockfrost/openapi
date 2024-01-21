@@ -4385,15 +4385,11 @@ export interface components {
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 2,
-     *     "voter_role": "spo",
-     *     "committee_voter_hash": null,
      *     "vote": "yes"
      *   },
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 3,
-     *     "voter_role": "constitutional_committee",
-     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
      *     "vote": "abstain"
      *   }
      * ]
@@ -4403,12 +4399,6 @@ export interface components {
         tx_hash: string;
         /** @description Index of the certificate within the transaction. */
         cert_index: number;
-        /**
-         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
-         * @enum {string}
-         */
-        voter_role: "constitutional_committee" | "drep" | "spo";
-        committee_voter_hash: string | null;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
          * @enum {string}
@@ -4492,14 +4482,14 @@ export interface components {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 2,
      *     "voter_role": "drep",
-     *     "committee_voter_hash": null,
+     *     "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
      *     "vote": "yes"
      *   },
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 3,
      *     "voter_role": "constitutional_committee",
-     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
      *     "vote": "abstain"
      *   }
      * ]
@@ -4514,7 +4504,8 @@ export interface components {
          * @enum {string}
          */
         voter_role: "constitutional_committee" | "drep" | "spo";
-        committee_voter_hash: string | null;
+        /** @description The actual voter. */
+        voter: string;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
          * @enum {string}
@@ -4527,14 +4518,14 @@ export interface components {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 2,
      *     "voter_role": "spo",
-     *     "committee_voter_hash": null,
+     *     "voter": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy",
      *     "vote": "yes"
      *   },
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 3,
      *     "voter_role": "constitutional_committee",
-     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
      *     "vote": "abstain"
      *   }
      * ]
@@ -4549,7 +4540,8 @@ export interface components {
          * @enum {string}
          */
         voter_role: "constitutional_committee" | "drep" | "spo";
-        committee_voter_hash: string | null;
+        /** @description The actual voter. */
+        voter: string;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
          * @enum {string}
@@ -6671,8 +6663,6 @@ export interface components {
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 2,
-     *     "voter_role": "spo",
-     *     "committee_voter_hash": null,
      *     "vote": "yes"
      *   }
      * ]
@@ -6682,12 +6672,6 @@ export interface components {
         tx_hash: string;
         /** @description Index of the certificate within the transaction. */
         cert_index: number;
-        /**
-         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
-         * @enum {string}
-         */
-        voter_role: "constitutional_committee" | "drep" | "spo";
-        committee_voter_hash: string | null;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
          * @enum {string}

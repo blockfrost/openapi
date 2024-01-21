@@ -12,9 +12,9 @@ items:
       type: string
       enum: [constitutional_committee, drep, spo]
       description: The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
-    committee_voter_hash:
+    voter:
       type: string
-      nullable: true
+      description: The actual voter.
     vote:
       type: string
       enum: [yes, no, abstain]
@@ -24,16 +24,16 @@ items:
     - tx_hash
     - cert_index
     - voter_role
-    - committee_voter_hash
+    - voter
     - vote
 example:
   - tx_hash: "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5"
     cert_index: 2
     voter_role: "drep"
-    committee_voter_hash: null
+    voter: drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
     vote: "yes"
   - tx_hash: "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5"
     cert_index: 3
     voter_role: "constitutional_committee"
-    committee_voter_hash: "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4"
+    voter: "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4"
     vote: "abstain"

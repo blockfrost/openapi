@@ -8,13 +8,6 @@ items:
     cert_index:
       type: integer
       description: Index of the certificate within the transaction.
-    voter_role:
-      type: string
-      enum: [constitutional_committee, drep, spo]
-      description: The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
-    committee_voter_hash:
-      type: string
-      nullable: true
     vote:
       type: string
       enum: [yes, no, abstain]
@@ -29,6 +22,4 @@ items:
 example:
   - tx_hash: "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5"
     cert_index: 2
-    voter_role: "spo"
-    committee_voter_hash: null
     vote: "yes"

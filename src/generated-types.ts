@@ -4429,20 +4429,23 @@ export interface components {
      *   }
      * ]
      */
-    proposal_content: {
+    proposal_content: ({
         /** @description Hash of the transaction. */
         tx_hash: string;
         /** @description Index of the certificate within the transaction. */
         cert_index: number;
-        /** @description Type of proposal. */
-        governance_type: string;
-      }[];
+        /**
+         * @description Type of proposal.
+         * @enum {string}
+         */
+        governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
+      })[];
     /**
      * @example [
      *   {
      *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
      *     "cert_index": 1,
-     *     "governance_type": "TreasuryWithdrawals",
+     *     "governance_type": "treasury_withdrawals",
      *     "deposit": 12000,
      *     "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
      *     "description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash \"71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60\")},Coin 20000000)])",
@@ -4461,8 +4464,11 @@ export interface components {
       tx_hash: string;
       /** @description Index of the certificate within the transaction. */
       cert_index: number;
-      /** @description Type of proposal. */
-      governance_type: string;
+      /**
+       * @description Type of proposal.
+       * @enum {string}
+       */
+      governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
       /** @description A Text describing the content of this GovActionProposal in a readable way. */
       governance_description?: string;
       /** @description The deposit amount paid for this proposal. */

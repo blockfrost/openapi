@@ -11509,6 +11509,15 @@ under which it is valid
             },
             "governance_type": {
               "description": "Type of proposal.",
+              "enum": [
+                "hard_fork_initiation",
+                "new_committee",
+                "new_constitution",
+                "info_action",
+                "no_confidence",
+                "parameter_change",
+                "treasury_withdrawals",
+              ],
               "type": "string",
             },
             "tx_hash": {
@@ -11662,7 +11671,7 @@ under which it is valid
             "enacted_epoch": 123,
             "expiration": 120,
             "expired_epoch": null,
-            "governance_type": "TreasuryWithdrawals",
+            "governance_type": "treasury_withdrawals",
             "ratified_epoch": null,
             "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
             "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
@@ -11709,6 +11718,15 @@ under which it is valid
           },
           "governance_type": {
             "description": "Type of proposal.",
+            "enum": [
+              "hard_fork_initiation",
+              "new_committee",
+              "new_constitution",
+              "info_action",
+              "no_confidence",
+              "parameter_change",
+              "treasury_withdrawals",
+            ],
             "type": "string",
           },
           "ratified_epoch": {

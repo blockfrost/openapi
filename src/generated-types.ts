@@ -4448,7 +4448,7 @@ export interface components {
      *     "governance_type": "treasury_withdrawals",
      *     "deposit": 12000,
      *     "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
-     *     "description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash \"71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60\")},Coin 20000000)])",
+     *     "governance_description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash \"71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60\")},Coin 20000000)])",
      *     "ratified_epoch": null,
      *     "enacted_epoch": 123,
      *     "dropped_epoch": null,
@@ -4470,7 +4470,7 @@ export interface components {
        */
       governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
       /** @description A Text describing the content of this GovActionProposal in a readable way. */
-      governance_description?: string | null;
+      governance_description: string | null;
       /** @description The deposit amount paid for this proposal. */
       deposit: string;
       /** @description Bech32 stake address of the reward address to receive the deposit when it is repaid. */

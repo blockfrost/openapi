@@ -21,6 +21,7 @@ properties:
     description: Type of proposal.
   governance_description:
     type: string
+    nullable: true
     description: A Text describing the content of this GovActionProposal in a readable way.
   deposit:
     type: string

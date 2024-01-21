@@ -4470,7 +4470,7 @@ export interface components {
        */
       governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
       /** @description A Text describing the content of this GovActionProposal in a readable way. */
-      governance_description?: string;
+      governance_description?: string | null;
       /** @description The deposit amount paid for this proposal. */
       deposit: string;
       /** @description Bech32 stake address of the reward address to receive the deposit when it is repaid. */

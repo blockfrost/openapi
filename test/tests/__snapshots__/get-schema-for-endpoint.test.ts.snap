@@ -11304,11 +11304,11 @@ under which it is valid
         "items": {
           "properties": {
             "cert_index": {
-              "description": "Index of the certificate within the transaction.",
+              "description": "Index of the certificate within the proposal transaction.",
               "type": "integer",
             },
             "tx_hash": {
-              "description": "Hash of the transaction.",
+              "description": "Hash of the proposal transaction.",
               "type": "string",
             },
             "vote": {
@@ -11485,7 +11485,7 @@ under which it is valid
         "items": {
           "properties": {
             "cert_index": {
-              "description": "Index of the certificate within the transaction.",
+              "description": "Index of the certificate within the proposal transaction.",
               "type": "integer",
             },
             "governance_type": {
@@ -11502,7 +11502,7 @@ under which it is valid
               "type": "string",
             },
             "tx_hash": {
-              "description": "Hash of the transaction.",
+              "description": "Hash of the proposal transaction.",
               "type": "string",
             },
           },
@@ -11670,7 +11670,7 @@ under which it is valid
             "type": "string",
           },
           "cert_index": {
-            "description": "Index of the certificate within the transaction.",
+            "description": "Index of the certificate within the proposal transaction.",
             "type": "integer",
           },
           "deposit": {
@@ -11720,7 +11720,7 @@ under which it is valid
             "type": "string",
           },
           "tx_hash": {
-            "description": "Hash of the transaction.",
+            "description": "Hash of the proposal transaction.",
             "type": "string",
           },
         },
@@ -11911,11 +11911,11 @@ under which it is valid
         "items": {
           "properties": {
             "cert_index": {
-              "description": "Index of the certificate within the transaction.",
+              "description": "Index of the certificate within the voting transaction.",
               "type": "integer",
             },
             "tx_hash": {
-              "description": "Hash of the transaction.",
+              "description": "Hash of the voting transaction.",
               "type": "string",
             },
             "vote": {
@@ -11932,7 +11932,7 @@ under which it is valid
               "type": "string",
             },
             "voter_role": {
-              "description": "The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.",
+              "description": "The role of the voter. Can be one of constitutional_committee, drep, spo.",
               "enum": [
                 "constitutional_committee",
                 "drep",
@@ -12111,11 +12111,11 @@ under which it is valid
         "items": {
           "properties": {
             "cert_index": {
-              "description": "Index of the certificate within the transaction.",
+              "description": "Index of the certificate within the proposal transaction.",
               "type": "integer",
             },
             "tx_hash": {
-              "description": "Hash of the transaction.",
+              "description": "Hash of the proposal transaction.",
               "type": "string",
             },
             "vote": {
@@ -12132,7 +12132,7 @@ under which it is valid
               "type": "string",
             },
             "voter_role": {
-              "description": "The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.",
+              "description": "The role of the voter. Can be one of constitutional_committee, drep, spo.",
               "enum": [
                 "constitutional_committee",
                 "drep",
@@ -19014,11 +19014,11 @@ relative to the start of the network
         "items": {
           "properties": {
             "cert_index": {
-              "description": "Index of the certificate within the transaction.",
+              "description": "Index of the certificate within the proposal transaction.",
               "type": "integer",
             },
             "tx_hash": {
-              "description": "Hash of the transaction.",
+              "description": "Hash of the proposal transaction.",
               "type": "string",
             },
             "vote": {

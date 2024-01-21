@@ -4395,9 +4395,9 @@ export interface components {
      * ]
      */
     drep_votes: ({
-        /** @description Hash of the transaction. */
+        /** @description Hash of the proposal transaction. */
         tx_hash: string;
-        /** @description Index of the certificate within the transaction. */
+        /** @description Index of the certificate within the proposal transaction. */
         cert_index: number;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
@@ -4420,9 +4420,9 @@ export interface components {
      * ]
      */
     proposal_content: ({
-        /** @description Hash of the transaction. */
+        /** @description Hash of the proposal transaction. */
         tx_hash: string;
-        /** @description Index of the certificate within the transaction. */
+        /** @description Index of the certificate within the proposal transaction. */
         cert_index: number;
         /**
          * @description Type of proposal.
@@ -4450,9 +4450,9 @@ export interface components {
      * ]
      */
     proposal_details_content: {
-      /** @description Hash of the transaction. */
+      /** @description Hash of the proposal transaction. */
       tx_hash: string;
-      /** @description Index of the certificate within the transaction. */
+      /** @description Index of the certificate within the proposal transaction. */
       cert_index: number;
       /**
        * @description Type of proposal.
@@ -4495,12 +4495,12 @@ export interface components {
      * ]
      */
     proposal_details_votes: ({
-        /** @description Hash of the transaction. */
+        /** @description Hash of the voting transaction. */
         tx_hash: string;
-        /** @description Index of the certificate within the transaction. */
+        /** @description Index of the certificate within the voting transaction. */
         cert_index: number;
         /**
-         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+         * @description The role of the voter. Can be one of constitutional_committee, drep, spo.
          * @enum {string}
          */
         voter_role: "constitutional_committee" | "drep" | "spo";
@@ -4531,12 +4531,12 @@ export interface components {
      * ]
      */
     vote_content: ({
-        /** @description Hash of the transaction. */
+        /** @description Hash of the proposal transaction. */
         tx_hash: string;
-        /** @description Index of the certificate within the transaction. */
+        /** @description Index of the certificate within the proposal transaction. */
         cert_index: number;
         /**
-         * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+         * @description The role of the voter. Can be one of constitutional_committee, drep, spo.
          * @enum {string}
          */
         voter_role: "constitutional_committee" | "drep" | "spo";
@@ -6668,9 +6668,9 @@ export interface components {
      * ]
      */
     pool_votes: ({
-        /** @description Hash of the transaction. */
+        /** @description Hash of the proposal transaction. */
         tx_hash: string;
-        /** @description Index of the certificate within the transaction. */
+        /** @description Index of the certificate within the proposal transaction. */
         cert_index: number;
         /**
          * @description The Vote. Can be one of yes, no, abstain.

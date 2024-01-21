@@ -4,10 +4,10 @@ items:
   properties:
     tx_hash:
       type: string
-      description: Hash of the transaction.
+      description: Hash of the proposal transaction.
     cert_index:
       type: integer
-      description: Index of the certificate within the transaction.
+      description: Index of the certificate within the proposal transaction.
     vote:
       type: string
       enum: [yes, no, abstain]

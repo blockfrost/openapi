@@ -4,14 +4,14 @@ items:
   properties:
     tx_hash:
       type: string
-      description: Hash of the transaction.
+      description: Hash of the proposal transaction.
     cert_index:
       type: integer
-      description: Index of the certificate within the transaction.
+      description: Index of the certificate within the proposal transaction.
     voter_role:
       type: string
       enum: [constitutional_committee, drep, spo]
-      description: The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
+      description: The role of the voter. Can be one of constitutional_committee, drep, spo.
     voter:
       type: string
       description: The actual voter.

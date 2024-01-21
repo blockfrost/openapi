@@ -4775,74 +4775,48 @@ export interface components {
        * @example 34482
        */
       coins_per_utxo_word: string | null;
-      /**
-       * Format: int64
-       * @description The CostModel table index for the proposal.
-       */
-      cost_model_id: number;
-      /** @description Pool Voting threshold for motion of no-confidence. New in 13.2-Conway. */
-      pvt_motion_no_confidence: number;
-      /** @description Pool Voting threshold for new committee/threshold (normal state). New in 13.2-Conway. */
-      pvt_committee_normal: number;
-      /** @description Pool Voting threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway. */
-      pvt_committee_no_confidence: number;
-      /** @description Pool Voting threshold for hard-fork initiation. New in 13.2-Conway. */
-      pvt_hard_fork_initiation: number;
-      /** @description DRep Vote threshold for motion of no-confidence. New in 13.2-Conway. */
-      dvt_motion_no_confidence: number;
-      /** @description DRep Vote threshold for new committee/threshold (normal state). New in 13.2-Conway. */
-      dvt_committee_normal: number;
-      /** @description DRep Vote threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway. */
-      dvt_committee_no_confidence: number;
-      /** @description DRep Vote threshold for update to the Constitution. New in 13.2-Conway. */
-      dvt_update_to_constitution: number;
-      /** @description DRep Vote threshold for hard-fork initiation. New in 13.2-Conway. */
-      dvt_hard_fork_initiation: number;
-      /** @description DRep Vote threshold for protocol parameter changes, network group. New in 13.2-Conway. */
-      dvt_p_p_network_group: number;
-      /** @description DRep Vote threshold for protocol parameter changes, economic group. New in 13.2-Conway. */
-      dvt_p_p_economic_group: number;
-      /** @description DRep Vote threshold for protocol parameter changes, technical group. New in 13.2-Conway. */
-      dvt_p_p_technical_group: number;
-      /** @description DRep Vote threshold for protocol parameter changes, governance group. New in 13.2-Conway. */
-      dvt_p_p_gov_group: number;
-      /** @description DRep Vote threshold for treasury withdrawal. New in 13.2-Conway. */
-      dvt_treasury_withdrawal: number;
-      /**
-       * Format: word64type
-       * @description Minimal constitutional committee size. New in 13.2-Conway.
-       */
-      committee_min_size: string;
-      /**
-       * Format: word64type
-       * @description Constitutional committee term limits. New in 13.2-Conway.
-       */
-      committee_max_term_length: string;
-      /**
-       * Format: word64type
-       * @description Governance action expiration. New in 13.2-Conway.
-       */
-      gov_action_lifetime: string;
-      /**
-       * Format: word64type
-       * @description Governance action deposit. New in 13.2-Conway.
-       */
-      gov_action_deposit: string;
-      /**
-       * Format: word64type
-       * @description DRep deposit amount. New in 13.2-Conway.
-       */
-      drep_deposit: string;
-      /**
-       * Format: word64type
-       * @description DRep activity period. New in 13.2-Conway.
-       */
-      drep_activity: string;
-      /**
-       * Format: int64
-       * @description The Tx table index for the transaction that contains this parameter proposal.
-       */
-      registered_tx_id: number;
+      /** @description Pool Voting threshold for motion of no-confidence. */
+      pvt_motion_no_confidence: number | null;
+      /** @description Pool Voting threshold for new committee/threshold (normal state). */
+      pvt_committee_normal: number | null;
+      /** @description Pool Voting threshold for new committee/threshold (state of no-confidence). */
+      pvt_committee_no_confidence: number | null;
+      /** @description Pool Voting threshold for hard-fork initiation. */
+      pvt_hard_fork_initiation: number | null;
+      /** @description DRep Vote threshold for motion of no-confidence. */
+      dvt_motion_no_confidence: number | null;
+      /** @description DRep Vote threshold for new committee/threshold (normal state). */
+      dvt_committee_normal: number | null;
+      /** @description DRep Vote threshold for new committee/threshold (state of no-confidence). */
+      dvt_committee_no_confidence: number | null;
+      /** @description DRep Vote threshold for update to the Constitution. */
+      dvt_update_to_constitution: number | null;
+      /** @description DRep Vote threshold for hard-fork initiation. */
+      dvt_hard_fork_initiation: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, network group. */
+      dvt_p_p_network_group: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, economic group. */
+      dvt_p_p_economic_group: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, technical group. */
+      dvt_p_p_technical_group: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, governance group. */
+      dvt_p_p_gov_group: number | null;
+      /** @description DRep Vote threshold for treasury withdrawal. */
+      dvt_treasury_withdrawal: number | null;
+      /** @description Minimal constitutional committee size. */
+      committee_min_size: string | null;
+      /** @description Constitutional committee term limits. */
+      committee_max_term_length: string | null;
+      /** @description Governance action expiration. */
+      gov_action_lifetime: string | null;
+      /** @description Governance action deposit. */
+      gov_action_deposit: string | null;
+      /** @description DRep deposit amount. */
+      drep_deposit: string | null;
+      /** @description DRep activity period. */
+      drep_activity: string | null;
+      /** @description The Tx table index for the transaction that contains this parameter proposal. */
+      registered_tx_id: number | null;
     };
     epoch_content_array: components["schemas"]["epoch_content"][];
     epoch_stake_content: {

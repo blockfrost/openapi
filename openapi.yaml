@@ -6644,79 +6644,89 @@ components:
           example: '34482'
           deprecated: true
           description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
-        cost_model_id:
-          type: integer
-          format: int64
-          description: The CostModel table index for the proposal.
         pvt_motion_no_confidence:
           type: number
-          description: Pool Voting threshold for motion of no-confidence. New in 13.2-Conway.
+          nullable: true
+          description: Pool Voting threshold for motion of no-confidence.
         pvt_committee_normal:
+          nullable: true
           type: number
-          description: Pool Voting threshold for new committee/threshold (normal state). New in 13.2-Conway.
+          description: Pool Voting threshold for new committee/threshold (normal state).
         pvt_committee_no_confidence:
+          nullable: true
           type: number
-          description: Pool Voting threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway.
+          description: Pool Voting threshold for new committee/threshold (state of no-confidence).
         pvt_hard_fork_initiation:
+          nullable: true
           type: number
-          description: Pool Voting threshold for hard-fork initiation. New in 13.2-Conway.
+          description: Pool Voting threshold for hard-fork initiation.
         dvt_motion_no_confidence:
+          nullable: true
           type: number
-          description: DRep Vote threshold for motion of no-confidence. New in 13.2-Conway.
+          description: DRep Vote threshold for motion of no-confidence.
         dvt_committee_normal:
+          nullable: true
           type: number
-          description: DRep Vote threshold for new committee/threshold (normal state). New in 13.2-Conway.
+          description: DRep Vote threshold for new committee/threshold (normal state).
         dvt_committee_no_confidence:
+          nullable: true
           type: number
-          description: DRep Vote threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway.
+          description: DRep Vote threshold for new committee/threshold (state of no-confidence).
         dvt_update_to_constitution:
+          nullable: true
           type: number
-          description: DRep Vote threshold for update to the Constitution. New in 13.2-Conway.
+          description: DRep Vote threshold for update to the Constitution.
         dvt_hard_fork_initiation:
+          nullable: true
           type: number
-          description: DRep Vote threshold for hard-fork initiation. New in 13.2-Conway.
+          description: DRep Vote threshold for hard-fork initiation.
         dvt_p_p_network_group:
+          nullable: true
           type: number
-          description: DRep Vote threshold for protocol parameter changes, network group. New in 13.2-Conway.
+          description: DRep Vote threshold for protocol parameter changes, network group.
         dvt_p_p_economic_group:
+          nullable: true
           type: number
-          description: DRep Vote threshold for protocol parameter changes, economic group. New in 13.2-Conway.
+          description: DRep Vote threshold for protocol parameter changes, economic group.
         dvt_p_p_technical_group:
+          nullable: true
           type: number
-          description: DRep Vote threshold for protocol parameter changes, technical group. New in 13.2-Conway.
+          description: DRep Vote threshold for protocol parameter changes, technical group.
         dvt_p_p_gov_group:
+          nullable: true
           type: number
-          description: DRep Vote threshold for protocol parameter changes, governance group. New in 13.2-Conway.
+          description: DRep Vote threshold for protocol parameter changes, governance group.
         dvt_treasury_withdrawal:
+          nullable: true
           type: number
-          description: DRep Vote threshold for treasury withdrawal. New in 13.2-Conway.
+          description: DRep Vote threshold for treasury withdrawal.
         committee_min_size:
           type: string
-          format: word64type
-          description: Minimal constitutional committee size. New in 13.2-Conway.
+          nullable: true
+          description: Minimal constitutional committee size.
         committee_max_term_length:
           type: string
-          format: word64type
-          description: Constitutional committee term limits. New in 13.2-Conway.
+          nullable: true
+          description: Constitutional committee term limits.
         gov_action_lifetime:
           type: string
-          format: word64type
-          description: Governance action expiration. New in 13.2-Conway.
+          nullable: true
+          description: Governance action expiration.
         gov_action_deposit:
           type: string
-          format: word64type
-          description: Governance action deposit. New in 13.2-Conway.
+          nullable: true
+          description: Governance action deposit.
         drep_deposit:
           type: string
-          format: word64type
-          description: DRep deposit amount. New in 13.2-Conway.
+          nullable: true
+          description: DRep deposit amount.
         drep_activity:
           type: string
-          format: word64type
-          description: DRep activity period. New in 13.2-Conway.
+          nullable: true
+          description: DRep activity period.
         registered_tx_id:
           type: integer
-          format: int64
+          nullable: true
           description: The Tx table index for the transaction that contains this parameter proposal.
       required:
         - epoch
@@ -6751,7 +6761,6 @@ components:
         - max_collateral_inputs
         - coins_per_utxo_size
         - coins_per_utxo_word
-        - cost_model_id
         - pvt_motion_no_confidence
         - pvt_committee_normal
         - pvt_committee_no_confidence

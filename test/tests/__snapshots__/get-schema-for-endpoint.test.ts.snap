@@ -11324,8 +11324,6 @@ under which it is valid
           "required": [
             "tx_hash",
             "cert_index",
-            "voter_role",
-            "voter",
             "vote",
           ],
           "type": "object",

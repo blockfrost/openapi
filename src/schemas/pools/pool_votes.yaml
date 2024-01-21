@@ -16,8 +16,6 @@ items:
   required:
     - tx_hash
     - cert_index
-    - voter_role
-    - committee_voter_hash
     - vote
 example:
   - tx_hash: "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5"

@@ -8529,8 +8529,6 @@
           "required": [
             "tx_hash",
             "cert_index",
-            "voter_role",
-            "voter",
             "vote"
           ]
         },
@@ -12054,8 +12052,6 @@
           "required": [
             "tx_hash",
             "cert_index",
-            "voter_role",
-            "committee_voter_hash",
             "vote"
           ]
         },

@@ -19034,8 +19034,6 @@ relative to the start of the network
           "required": [
             "tx_hash",
             "cert_index",
-            "voter_role",
-            "committee_voter_hash",
             "vote",
           ],
           "type": "object",

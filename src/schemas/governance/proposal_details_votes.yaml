@@ -21,12 +21,15 @@ items:
       description: The Vote. Can be one of yes, no, abstain.
 
   required:
-    - drep_id
-    - hex
+    - tx_hash
+    - cert_index
+    - voter_role
+    - committee_voter_hash
+    - vote
 example:
   - tx_hash: "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5"
     cert_index: 2
-    voter_role: "spo"
+    voter_role: "drep"
     committee_voter_hash: null
     vote: "yes"
   - tx_hash: "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5"

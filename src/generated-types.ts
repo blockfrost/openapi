@@ -673,7 +673,7 @@ export interface paths {
       };
     };
   };
-  "/governance/proposals/{tx_hash}/{tx_index}": {
+  "/governance/proposals/{tx_hash}/{cert_index}": {
     /**
      * Specific proposal
      * @description Proposal information.
@@ -690,7 +690,7 @@ export interface paths {
            * @description Transaction index.
            * @example 1
            */
-          tx_index: number;
+          cert_index: number;
         };
       };
       responses: {
@@ -708,7 +708,7 @@ export interface paths {
       };
     };
   };
-  "/governance/proposals/{tx_hash}/{tx_index}/votes": {
+  "/governance/proposals/{tx_hash}/{cert_index}/votes": {
     /**
      * Proposal votes
      * @description History of Proposal votes.
@@ -736,7 +736,7 @@ export interface paths {
            * @description Transaction index.
            * @example 1
            */
-          tx_index: number;
+          cert_index: number;
         };
       };
       responses: {
@@ -4420,12 +4420,12 @@ export interface components {
      *   {
      *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
      *     "cert_index": 1,
-     *     "governance_type": "TreasuryWithdrawals"
+     *     "governance_type": "treasury_withdrawals"
      *   },
      *   {
      *     "tx_hash": "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60",
      *     "cert_index": 4,
-     *     "governance_type": "NoConfidence"
+     *     "governance_type": "no_confidence"
      *   }
      * ]
      */
@@ -4433,7 +4433,7 @@ export interface components {
         /** @description Hash of the transaction. */
         tx_hash: string;
         /** @description Index of the certificate within the transaction. */
-        cert_index?: number;
+        cert_index: number;
         /** @description Type of proposal. */
         governance_type: string;
       }[];
@@ -4485,7 +4485,7 @@ export interface components {
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
      *     "cert_index": 2,
-     *     "voter_role": "spo",
+     *     "voter_role": "drep",
      *     "committee_voter_hash": null,
      *     "vote": "yes"
      *   },
@@ -4500,20 +4500,20 @@ export interface components {
      */
     proposal_details_votes: ({
         /** @description Hash of the transaction. */
-        tx_hash?: string;
+        tx_hash: string;
         /** @description Index of the certificate within the transaction. */
-        cert_index?: number;
+        cert_index: number;
         /**
          * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
          * @enum {string}
          */
-        voter_role?: "constitutional_committee" | "drep" | "spo";
-        committee_voter_hash?: string | null;
+        voter_role: "constitutional_committee" | "drep" | "spo";
+        committee_voter_hash: string | null;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
          * @enum {string}
          */
-        vote?: "yes" | "no" | "abstain";
+        vote: "yes" | "no" | "abstain";
       })[];
     /**
      * @example [
@@ -6664,36 +6664,29 @@ export interface components {
      * @example [
      *   {
      *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
-     *     "tx_index": 2,
+     *     "cert_index": 2,
      *     "voter_role": "spo",
      *     "committee_voter_hash": null,
      *     "vote": "yes"
-     *   },
-     *   {
-     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
-     *     "tx_index": 3,
-     *     "voter_role": "constitutional_committee",
-     *     "committee_voter_hash": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
-     *     "vote": "abstain"
      *   }
      * ]
      */
     pool_votes: ({
         /** @description Hash of the transaction. */
-        tx_hash?: string;
-        /** @description Transaction index within the block. */
-        tx_index?: number;
+        tx_hash: string;
+        /** @description Index of the certificate within the transaction. */
+        cert_index: number;
         /**
          * @description The role of the voter. Can be one of ConstitutionalCommittee, DRep, SPO.
          * @enum {string}
          */
-        voter_role?: "constitutional_committee" | "drep" | "spo";
-        committee_voter_hash?: string | null;
+        voter_role: "constitutional_committee" | "drep" | "spo";
+        committee_voter_hash: string | null;
         /**
          * @description The Vote. Can be one of yes, no, abstain.
          * @enum {string}
          */
-        vote?: "yes" | "no" | "abstain";
+        vote: "yes" | "no" | "abstain";
       })[];
     /**
      * @example [

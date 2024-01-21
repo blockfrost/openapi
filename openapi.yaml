@@ -1168,7 +1168,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /governance/proposals/{tx_hash}/{tx_index}:
+  /governance/proposals/{tx_hash}/{cert_index}:
     get:
       tags:
         - Cardano » Governance
@@ -1183,7 +1183,7 @@ paths:
           description: Transaction hash.
           example: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
         - in: path
-          name: tx_index
+          name: cert_index
           required: true
           schema:
             type: integer
@@ -1206,7 +1206,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /governance/proposals/{tx_hash}/{tx_index}/votes:
+  /governance/proposals/{tx_hash}/{cert_index}/votes:
     get:
       tags:
         - Cardano » Governance
@@ -1221,7 +1221,7 @@ paths:
           description: Transaction hash.
           example: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
         - in: path
-          name: tx_index
+          name: cert_index
           required: true
           schema:
             type: integer
@@ -6269,15 +6269,15 @@ components:
             description: Type of proposal.
         required:
           - tx_hash
-          - tx_index
+          - cert_index
           - governance_type
       example:
         - tx_hash: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
           cert_index: 1
-          governance_type: TreasuryWithdrawals
+          governance_type: treasury_withdrawals
         - tx_hash: 71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60
           cert_index: 4
-          governance_type: NoConfidence
+          governance_type: no_confidence
     proposal_details_content:
       type: object
       properties:
@@ -6379,12 +6379,15 @@ components:
               - abstain
             description: The Vote. Can be one of yes, no, abstain.
         required:
-          - drep_id
-          - hex
+          - tx_hash
+          - cert_index
+          - voter_role
+          - committee_voter_hash
+          - vote
       example:
         - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
           cert_index: 2
-          voter_role: spo
+          voter_role: drep
           committee_voter_hash: null
           vote: 'yes'
         - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
@@ -8828,9 +8831,9 @@ components:
           tx_hash:
             type: string
             description: Hash of the transaction.
-          tx_index:
+          cert_index:
             type: integer
-            description: Transaction index within the block.
+            description: Index of the certificate within the transaction.
           voter_role:
             type: string
             enum:
@@ -8849,19 +8852,17 @@ components:
               - abstain
             description: The Vote. Can be one of yes, no, abstain.
         required:
-          - drep_id
-          - hex
+          - tx_hash
+          - cert_index
+          - voter_role
+          - committee_voter_hash
+          - vote
       example:
         - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
-          tx_index: 2
+          cert_index: 2
           voter_role: spo
           committee_voter_hash: null
           vote: 'yes'
-        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
-          tx_index: 3
-          voter_role: constitutional_committee
-          committee_voter_hash: 53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4
-          vote: abstain
     assets:
       type: array
       items:

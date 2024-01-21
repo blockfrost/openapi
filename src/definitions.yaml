@@ -345,11 +345,11 @@ paths:
   /governance/proposals:
     $ref: ./paths/api/governance/proposals/index.yaml
 
-  /governance/proposals/{tx_hash}/{tx_index}:
-    $ref: ./paths/api/governance/proposals/{tx_hash}/{tx_index}/index.yaml
+  /governance/proposals/{tx_hash}/{cert_index}:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/index.yaml
 
-  /governance/proposals/{tx_hash}/{tx_index}/votes:
-    $ref: ./paths/api/governance/proposals/{tx_hash}/{tx_index}/votes.yaml
+  /governance/proposals/{tx_hash}/{cert_index}/votes:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/votes.yaml
 
   /governance/votes:
     $ref: ./paths/api/governance/votes.yaml

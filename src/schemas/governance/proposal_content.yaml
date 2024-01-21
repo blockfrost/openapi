@@ -14,13 +14,13 @@ items:
 
   required:
     - tx_hash
-    - tx_index
+    - cert_index
     - governance_type
 
 example:
   - tx_hash: "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
     cert_index: 1
-    governance_type: "TreasuryWithdrawals"
+    governance_type: "treasury_withdrawals"
   - tx_hash: "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60"
     cert_index: 4
-    governance_type: "NoConfidence"
+    governance_type: "no_confidence"

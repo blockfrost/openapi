@@ -1,8 +1,8 @@
 get:
   tags:
     - Cardano » Governance
-  summary: Specific parameters proposal
-  description: Parameters proposal details.
+  summary: Specific proposal
+  description: Proposal information.
   parameters:
     - in: path
       name: tx_hash
@@ -12,7 +12,7 @@ get:
       description: Transaction hash.
       example: "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
     - in: path
-      name: tx_index
+      name: cert_index
       required: true
       schema:
         type: integer
@@ -20,11 +20,11 @@ get:
       example: 1
   responses:
     "200":
-      description: Return the proposal parameters content
+      description: Return the proposal information content
       content:
         application/json:
           schema:
-            $ref: ../../../../../../schemas/governance/proposal_details_parameters.yaml
+            $ref: ../../../../../../schemas/governance/proposal_details_content.yaml
     "400":
       $ref: ../../../../../../responses/errors/400.yaml
     "403":

@@ -12,7 +12,7 @@ get:
       description: Transaction hash.
       example: "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531"
     - in: path
-      name: tx_index
+      name: cert_index
       required: true
       schema:
         type: integer

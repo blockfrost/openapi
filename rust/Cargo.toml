@@ -1,0 +1,13 @@
+[package]
+name = "blockfrost-openapi"
+description = "Blockfrost OpenAPI generated models"
+version = "0.0.3"
+edition = "2021"
+build = "build.rs"
+license = "Apache-2.0"
+
+[dependencies]
+serde = { features = ["derive"], version = "1.0.130" }
+serde_derive = { version = "1.0.130" }
+serde_json = { version = "1.0.68" }
+serde_with = { version = "3.4.0" }

@@ -9,6 +9,28 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/txs/{hash}/required_signers` endpoint
+- rust models definitions
+
+### Changed
+
+- Updated deps - node 18 now required due to node-cbor pkg
+
+## [0.1.60] - 2023-10-05
+
+### Fixed
+
+- HTML table is SDKs
+- requestBody for `/tx/submit` and `/ipfs/add` endpoint
+- CODE language for `curl` examples
+- request body for `/utils/txs/evaluate` endpoint
+
+### Changed
+
+- downgrade to OpenAPI 3.0.0
+
 ## [0.1.59] - 2023-07-20
 
 ### Added

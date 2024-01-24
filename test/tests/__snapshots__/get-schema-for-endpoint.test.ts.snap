@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`getSchemaForEndpoint > generateSchemas 1`] = `
 {
@@ -7839,6 +7839,7 @@ under which it is valid
             "type": "integer",
           },
           "cost_models": {
+            "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
             "example": {
               "PlutusV1": {
@@ -7851,6 +7852,7 @@ under which it is valid
               },
             },
             "nullable": true,
+            "type": "object",
           },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
@@ -9013,6 +9015,7 @@ under which it is valid
             "type": "integer",
           },
           "cost_models": {
+            "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
             "example": {
               "PlutusV1": {
@@ -9025,6 +9028,7 @@ under which it is valid
               },
             },
             "nullable": true,
+            "type": "object",
           },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
@@ -12560,9 +12564,6 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                 {
                   "type": "boolean",
                 },
-                {
-                  "type": "null",
-                },
               ],
               "description": "Content of the JSON metadata",
               "nullable": true,
@@ -12762,7 +12763,7 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
             "tx_hash": "e865f2cc01ca7381cf98dcdc4de07a5e8674b8ea16e6a18e3ed60c186fde2b9c",
           },
           {
-            "cbor_metadata": "\\\\xa100a16b436f6d62696e6174696f6e8601010101010c",
+            "cbor_metadata": "\\xa100a16b436f6d62696e6174696f6e8601010101010c",
             "metadata": "a100a16b436f6d62696e6174696f6e8601010101010c",
             "tx_hash": "4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be",
           },
@@ -17040,7 +17041,9 @@ relative to the start of the network
         },
         "properties": {
           "json_value": {
+            "additionalProperties": true,
             "description": "JSON content of the datum",
+            "type": "object",
           },
         },
         "required": [
@@ -18900,7 +18903,7 @@ relative to the start of the network
       "200": {
         "example": [
           {
-            "cbor_metadata": "\\\\xa100a16b436f6d62696e6174696f6e8601010101010c",
+            "cbor_metadata": "\\xa100a16b436f6d62696e6174696f6e8601010101010c",
             "label": "1968",
             "metadata": "a100a16b436f6d62696e6174696f6e8601010101010c",
           },
@@ -19801,6 +19804,163 @@ relative to the start of the network
             "fee",
           ],
           "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/txs/{hash}/required_signers": {
+    "params": {
+      "properties": {
+        "hash": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          "d52e11f3e48436dd42dbec6d88c239732e503b8b7a32af58e5f87625",
+          "41b32682c413535dbca5178f92f3cee5dede31b995400b8c371e2469",
+          "d52e11f3e48436dd42dbec6d88c239732e503b8b7a32af58e5f87625",
+          "666414964a05b01cef36427b8a0fb0f621806c43e66e7a4d3cca3bfb",
+        ],
+        "items": {
+          "description": "Hash of the witness",
+          "type": "string",
         },
         "type": "array",
       },

@@ -1,7 +1,7 @@
 get:
   tags:
     - Nut.link
-  summary: Specific ticker
+  summary: Specific ticker for an address
   description: List of records of a specific ticker
   parameters:
     - in: path

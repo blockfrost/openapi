@@ -7,14 +7,12 @@ items:
       description: Transaction hash that contains the specific metadata
     cbor_metadata:
       deprecated: true
-      type:
-        - string
-        - "null"
+      type: string
+      nullable: true
       description: Content of the CBOR metadata
     metadata:
-      type:
-        - string
-        - "null"
+      type: string
+      nullable: true
       description: Content of the CBOR metadata in hex
   required:
     - tx_hash

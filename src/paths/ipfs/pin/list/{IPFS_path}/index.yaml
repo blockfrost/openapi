@@ -7,7 +7,9 @@ get:
   description: |
     Get information about locally pinned IPFS object
 
-    <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    <p>
+      <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+    </p>
   parameters:
     - in: path
       required: true

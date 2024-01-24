@@ -1,9 +1,8 @@
 type: object
 properties:
   cbor:
-    type:
-      - string
-      - "null"
+    type: string
+    nullable: true
     description: CBOR contents of the `plutus` script, null for `timelocks`
 required:
   - cbor

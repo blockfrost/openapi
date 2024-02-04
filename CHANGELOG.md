@@ -11,7 +11,6 @@ Unreleased changes are in the `master` branch.
 
 ### Added
 
-- `/txs/{hash}/required_signers` endpoint
 - rust models definitions
 
 ### Changed

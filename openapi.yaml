@@ -1657,7 +1657,7 @@ paths:
       tags:
         - Cardano » Transactions
       summary: Transaction required signers
-      description: Obtain the extra transaction witnesses
+      description: Obtain the extra transaction witnesses.
       parameters:
         - in: path
           name: hash

@@ -1112,7 +1112,7 @@ export interface paths {
   "/txs/{hash}/required_signers": {
     /**
      * Transaction required signers
-     * @description Obtain the extra transaction witnesses
+     * @description Obtain the extra transaction witnesses.
      */
     get: {
       parameters: {

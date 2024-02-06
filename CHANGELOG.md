@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.61] - 2024-02-06
+
 ### Added
 
 - `/txs/{hash}/required_signers` endpoint

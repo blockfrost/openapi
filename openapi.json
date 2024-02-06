@@ -2130,6 +2130,58 @@
         }
       }
     },
+    "/txs/{hash}/required_signers": {
+      "get": {
+        "tags": [
+          "Cardano » Transactions"
+        ],
+        "summary": "Transaction required signers",
+        "description": "Obtain the extra transaction witnesses.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "hash",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "64-character case-sensitive hexadecimal string."
+            },
+            "description": "Hash of the transaction",
+            "example": "6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query required signers (extra transaction witnesses)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tx_content_required_signers"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "418": {
+            "$ref": "#/components/responses/418"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/tx/submit": {
       "post": {
         "tags": [
@@ -8614,6 +8666,22 @@
             "redeemer_data_hash",
             "datum_hash",
             "fee"
+          ]
+        }
+      },
+      "tx_content_required_signers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "witness_hash": {
+              "type": "string",
+              "example": "d52e11f3e48436dd42dbec6d88c239732e503b8b7a32af58e5f87625",
+              "description": "Hash of the witness"
+            }
+          },
+          "required": [
+            "witness_hash"
           ]
         }
       },

@@ -2136,7 +2136,7 @@
           "Cardano » Transactions"
         ],
         "summary": "Transaction required signers",
-        "description": "Extra transaction witnesses",
+        "description": "Obtain the extra transaction witnesses",
         "parameters": [
           {
             "in": "path",

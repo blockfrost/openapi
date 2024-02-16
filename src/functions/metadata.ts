@@ -5,6 +5,7 @@ import {
   GetOnchainMetadataResult,
   Asset,
   validateCIP68MetadataOverload,
+  ValidCIP68Version,
 } from '../types/metadata';
 
 export const getCIPstandard = (version: number, isValid: boolean): CIPTypes => {
@@ -186,11 +187,17 @@ export const getOnchainMetadata = (
 };
 
 export const validateCIP68Metadata: validateCIP68MetadataOverload = (
-  input: any,
-  schema: any,
+  input,
+  schema,
 ) => {
   if (!input) return false;
-  if (input.version !== 1) return false;
+  // Validating only v1 and v2.
+  // Note: Version 2 added support for RFT, but due to botched CIP68 update process
+  // it was initially included in v1.
+  // As a result we are allowing both v1 and v2 for any token standard (NFT, FT, RFT).
+  if (!Number.isInteger(input.version) || input.version > 2) return false;
+
+  const versionString = `CIP68v${input.version}` as ValidCIP68Version;
 
   if (schema === 'nft') {
     const { isValid: isValidNFT } = validateSchema(
@@ -199,11 +206,11 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
     );
 
     return isValidNFT
-      ? {
-          version: 'CIP68v1',
+      ? ({
+          version: versionString,
           metadata: input.metadata,
           extra: input.extra,
-        }
+        } as Extract<validateCIP68MetadataOverload, { type: 'nft' }>)
       : false;
   } else if (schema === 'ft') {
     const { isValid: isValidFT } = validateSchema(
@@ -212,11 +219,11 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
     );
 
     return isValidFT
-      ? {
-          version: 'CIP68v1',
+      ? ({
+          version: versionString,
           metadata: input.metadata,
           extra: input.extra,
-        }
+        } as Extract<validateCIP68MetadataOverload, { type: 'ft' }>)
       : false;
   } else if (schema === 'rft') {
     const { isValid: isValidRFT } = validateSchema(
@@ -225,11 +232,11 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
     );
 
     return isValidRFT
-      ? {
-          version: 'CIP68v1',
+      ? ({
+          version: versionString,
           metadata: input.metadata,
           extra: input.extra,
-        }
+        } as Extract<validateCIP68MetadataOverload, { type: 'rft' }>)
       : false;
   } else {
     return false;

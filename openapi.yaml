@@ -260,6 +260,7 @@ tags:
   - name: Cardano » Assets
   - name: Cardano » Blocks
   - name: Cardano » Epochs
+  - name: Cardano » Governance
   - name: Cardano » Ledger
   - name: Cardano » Mempool
   - name: Cardano » Metadata
@@ -802,6 +803,522 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/genesis_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/dreps:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: Delegate Representatives (DReps)
+      description: Return the information about Delegate Representatives (DReps)
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+            Ordering in this case is based on the time of the first mint transaction.
+      responses:
+        '200':
+          description: Paginated array with the Delegate Representatives (DReps) data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/dreps/{drep_id}:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: Specific DRep
+      description: DRep information.
+      parameters:
+        - in: path
+          name: drep_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 or hexadecimal DRep ID.
+          example: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+      responses:
+        '200':
+          description: Return the DRep information content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_details_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/dreps/{drep_id}/delegators:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: DRep delegators
+      description: List of Drep delegators.
+      parameters:
+        - in: path
+          name: drep_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 or hexadecimal drep ID.
+          example: drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the DRep delegations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_delegators'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/dreps/{drep_id}/metadata:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: DRep metadata
+      description: DRep metadata information.
+      parameters:
+        - in: path
+          name: drep_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 or hexadecimal DRep ID.
+          example: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+      responses:
+        '200':
+          description: Return the DRep metadata content.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_metadata'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/dreps/{drep_id}/updates:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: DRep updates
+      description: List of certificate updates to the DRep.
+      parameters:
+        - in: path
+          name: drep_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 or hexadecimal DRep ID.
+          example: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the Drep updates history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_updates'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/dreps/{drep_id}/votes:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: DRep votes
+      description: History of Drep votes.
+      parameters:
+        - in: path
+          name: drep_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 or hexadecimal drep ID.
+          example: drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the DRep votes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drep_votes'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/proposals:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: Proposals
+      description: Return the information about Proposals
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+            Ordering in this case is based on the time of the first mint transaction.
+      responses:
+        '200':
+          description: Paginated array with the proposal data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/proposal_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/proposals/{tx_hash}/{cert_index}:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: Specific proposal
+      description: Proposal information.
+      parameters:
+        - in: path
+          name: tx_hash
+          required: true
+          schema:
+            type: string
+          description: Transaction hash.
+          example: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+        - in: path
+          name: cert_index
+          required: true
+          schema:
+            type: integer
+          description: Transaction index.
+          example: 1
+      responses:
+        '200':
+          description: Return the proposal information content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/proposal_details_content'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/proposals/{tx_hash}/{cert_index}/votes:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: Proposal votes
+      description: History of Proposal votes.
+      parameters:
+        - in: path
+          name: tx_hash
+          required: true
+          schema:
+            type: string
+          description: Transaction hash.
+          example: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+        - in: path
+          name: cert_index
+          required: true
+          schema:
+            type: integer
+          description: Transaction index.
+          example: 1
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the Proposal votes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/proposal_details_votes'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /governance/votes:
+    get:
+      tags:
+        - Cardano » Governance
+      summary: Votes
+      description: Return the information about votes
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+            Ordering in this case is based on the time of the first mint transaction.
+      responses:
+        '200':
+          description: Paginated array with the votes data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/vote_content'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -3648,6 +4165,69 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /pools/{pool_id}/votes:
+    get:
+      tags:
+        - Cardano » Pools
+      summary: Stake pool votes
+      description: History of stake pools votes.
+      parameters:
+        - in: path
+          name: pool_id
+          required: true
+          schema:
+            type: string
+          description: Bech32 or hexadecimal pool ID.
+          example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the pool votes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pool_votes'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /assets:
     get:
       tags:
@@ -5495,6 +6075,372 @@ components:
         - slot_length
         - max_kes_evolutions
         - security_param
+    drep_content:
+      type: array
+      items:
+        type: object
+        properties:
+          drep_id:
+            type: string
+            description: The Bech32 encoded DRep address
+          hex:
+            type: string
+            description: The raw bytes of the DRep
+        required:
+          - drep_id
+          - hex
+      example:
+        - drep_id: drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+          hex: db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23
+        - drep_id: drep1cxayn4fgy27yaucvhamsvqj3v6835mh3tjjx6x8hdnr4
+          hex: c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758
+    drep_details_content:
+      type: object
+      properties:
+        drep_id:
+          type: string
+          description: Bech32 encoded DRep address
+        hex:
+          type: string
+          description: The raw bytes of the DRep
+        amount:
+          type: string
+          description: The total amount of voting power this DRep is delegated.
+        active:
+          type: boolean
+          description: Registration state of the DRep
+        active_epoch:
+          type: integer
+          nullable: true
+          description: Epoch of the most recent action - registration or deregistration
+        has_script:
+          type: boolean
+          description: Flag which shows if this DRep credentials are a script hash
+      required:
+        - drep_id
+        - hex
+        - amount
+        - active
+        - active_epoch
+        - has_script
+      example:
+        - drep_id: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+          hex: a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d
+          amount: '2000000'
+          active: true
+          active_epoch: 420
+          has_script: true
+    drep_delegators:
+      type: array
+      items:
+        type: object
+        properties:
+          address:
+            type: string
+            description: Bech32 encoded stake addresses
+          amount:
+            type: string
+            description: Currently delegated amount
+        required:
+          - address
+          - amount
+      example:
+        - address: stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha
+          amount: '1137959159981411'
+        - address: stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u
+          amount: '16958865648'
+        - address: stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck
+          amount: '18605647'
+    drep_metadata:
+      type: object
+      properties:
+        drep_id:
+          type: string
+          description: Bech32 encoded addresses
+        hex:
+          type: string
+          description: The raw bytes of the DRep
+        url:
+          type: string
+          nullable: true
+          example: https://stakenuts.com/drep.json
+          description: URL to the drep metadata
+        hash:
+          type: string
+          nullable: true
+          example: 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+          description: Hash of the metadata file
+      required:
+        - drep_id
+        - hex
+        - url
+        - hash
+      example:
+        - drep_id: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+          hex: a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d
+          url: https://stakenuts.com/drep.json
+          hash: 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
+    drep_updates:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Transaction ID
+          cert_index:
+            type: integer
+            description: Certificate within the transaction
+          action:
+            type: string
+            enum:
+              - registered
+              - deregistered
+            description: Action in the certificate
+        required:
+          - tx_hash
+          - cert_index
+          - action
+      example:
+        - tx_hash: f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393
+          cert_index: 0
+          action: registered
+        - tx_hash: dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e
+          cert_index: 0
+          action: deregistered
+    drep_votes:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the proposal transaction.
+          cert_index:
+            type: integer
+            description: Index of the certificate within the proposal transaction.
+          vote:
+            type: string
+            enum:
+              - 'yes'
+              - 'no'
+              - abstain
+            description: The Vote. Can be one of yes, no, abstain.
+        required:
+          - tx_hash
+          - cert_index
+          - vote
+      example:
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 2
+          vote: 'yes'
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 3
+          vote: abstain
+    proposal_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the proposal transaction.
+          cert_index:
+            type: integer
+            description: Index of the certificate within the proposal transaction.
+          governance_type:
+            type: string
+            enum:
+              - hard_fork_initiation
+              - new_committee
+              - new_constitution
+              - info_action
+              - no_confidence
+              - parameter_change
+              - treasury_withdrawals
+            description: Type of proposal.
+        required:
+          - tx_hash
+          - cert_index
+          - governance_type
+      example:
+        - tx_hash: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+          cert_index: 1
+          governance_type: treasury_withdrawals
+        - tx_hash: 71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60
+          cert_index: 4
+          governance_type: no_confidence
+    proposal_details_content:
+      type: object
+      properties:
+        tx_hash:
+          type: string
+          description: Hash of the proposal transaction.
+        cert_index:
+          type: integer
+          description: Index of the certificate within the proposal transaction.
+        governance_type:
+          type: string
+          enum:
+            - hard_fork_initiation
+            - new_committee
+            - new_constitution
+            - info_action
+            - no_confidence
+            - parameter_change
+            - treasury_withdrawals
+          description: Type of proposal.
+        governance_description:
+          type: string
+          nullable: true
+          description: A Text describing the content of this GovActionProposal in a readable way.
+        deposit:
+          type: string
+          description: The deposit amount paid for this proposal.
+        return_address:
+          type: string
+          description: Bech32 stake address of the reward address to receive the deposit when it is repaid.
+        ratified_epoch:
+          type: integer
+          nullable: true
+        enacted_epoch:
+          type: integer
+          nullable: true
+        dropped_epoch:
+          type: integer
+          nullable: true
+        expired_epoch:
+          type: integer
+          nullable: true
+        expiration:
+          type: integer
+          description: Shows the epoch at which this governance action will expire.
+        anchor_url:
+          type: string
+          nullable: true
+          description: The URL of the offchain anchor data.
+        anchor_hash:
+          type: string
+          nullable: true
+          description: The hash of the offchain anchor data.
+      required:
+        - tx_hash
+        - cert_index
+        - governance_type
+        - deposit
+        - return_address
+        - governance_description
+        - ratified_epoch
+        - enacted_epoch
+        - dropped_epoch
+        - expired_epoch
+        - expiration
+        - anchor_url
+        - anchor_hash
+      example:
+        - tx_hash: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+          cert_index: 1
+          governance_type: treasury_withdrawals
+          deposit: 12000
+          return_address: stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz
+          governance_description: TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60")},Coin 20000000)])
+          ratified_epoch: null
+          enacted_epoch: 123
+          dropped_epoch: null
+          expired_epoch: null
+          expiration: 120
+          anchor_url: https://gist.github.com/123
+          anchor_hash: 50b340624d49823720505e3f0095be0d6cd8f26501e094a6ab9068dd
+    proposal_details_votes:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the voting transaction.
+          cert_index:
+            type: integer
+            description: Index of the certificate within the voting transaction.
+          voter_role:
+            type: string
+            enum:
+              - constitutional_committee
+              - drep
+              - spo
+            description: The role of the voter. Can be one of constitutional_committee, drep, spo.
+          voter:
+            type: string
+            description: The actual voter.
+          vote:
+            type: string
+            enum:
+              - 'yes'
+              - 'no'
+              - abstain
+            description: The Vote. Can be one of yes, no, abstain.
+        required:
+          - tx_hash
+          - cert_index
+          - voter_role
+          - voter
+          - vote
+      example:
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 2
+          voter_role: drep
+          voter: drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+          vote: 'yes'
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 3
+          voter_role: constitutional_committee
+          voter: 53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4
+          vote: abstain
+    vote_content:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the proposal transaction.
+          cert_index:
+            type: integer
+            description: Index of the certificate within the proposal transaction.
+          voter_role:
+            type: string
+            enum:
+              - constitutional_committee
+              - drep
+              - spo
+            description: The role of the voter. Can be one of constitutional_committee, drep, spo.
+          voter:
+            type: string
+            description: The actual voter.
+          vote:
+            type: string
+            enum:
+              - 'yes'
+              - 'no'
+              - abstain
+            description: The Vote. Can be one of yes, no, abstain.
+        required:
+          - tx_hash
+          - cert_index
+          - voter_role
+          - voter
+          - vote
+      example:
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 2
+          voter_role: spo
+          voter: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy
+          vote: 'yes'
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 3
+          voter_role: constitutional_committee
+          voter: 53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4
+          vote: abstain
     epoch_content:
       type: object
       properties:
@@ -5700,8 +6646,92 @@ components:
           type: string
           nullable: true
           example: '34482'
-          description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
           deprecated: true
+          description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
+        pvt_motion_no_confidence:
+          type: number
+          nullable: true
+          description: Pool Voting threshold for motion of no-confidence.
+        pvt_committee_normal:
+          nullable: true
+          type: number
+          description: Pool Voting threshold for new committee/threshold (normal state).
+        pvt_committee_no_confidence:
+          nullable: true
+          type: number
+          description: Pool Voting threshold for new committee/threshold (state of no-confidence).
+        pvt_hard_fork_initiation:
+          nullable: true
+          type: number
+          description: Pool Voting threshold for hard-fork initiation.
+        dvt_motion_no_confidence:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for motion of no-confidence.
+        dvt_committee_normal:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for new committee/threshold (normal state).
+        dvt_committee_no_confidence:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for new committee/threshold (state of no-confidence).
+        dvt_update_to_constitution:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for update to the Constitution.
+        dvt_hard_fork_initiation:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for hard-fork initiation.
+        dvt_p_p_network_group:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, network group.
+        dvt_p_p_economic_group:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, economic group.
+        dvt_p_p_technical_group:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, technical group.
+        dvt_p_p_gov_group:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for protocol parameter changes, governance group.
+        dvt_treasury_withdrawal:
+          nullable: true
+          type: number
+          description: DRep Vote threshold for treasury withdrawal.
+        committee_min_size:
+          type: string
+          nullable: true
+          description: Minimal constitutional committee size.
+        committee_max_term_length:
+          type: string
+          nullable: true
+          description: Constitutional committee term limits.
+        gov_action_lifetime:
+          type: string
+          nullable: true
+          description: Governance action expiration.
+        gov_action_deposit:
+          type: string
+          nullable: true
+          description: Governance action deposit.
+        drep_deposit:
+          type: string
+          nullable: true
+          description: DRep deposit amount.
+        drep_activity:
+          type: string
+          nullable: true
+          description: DRep activity period.
+        registered_tx_id:
+          type: integer
+          nullable: true
+          description: The Tx table index for the transaction that contains this parameter proposal.
       required:
         - epoch
         - min_fee_a
@@ -5735,6 +6765,27 @@ components:
         - max_collateral_inputs
         - coins_per_utxo_size
         - coins_per_utxo_word
+        - pvt_motion_no_confidence
+        - pvt_committee_normal
+        - pvt_committee_no_confidence
+        - pvt_hard_fork_initiation
+        - dvt_motion_no_confidence
+        - dvt_committee_normal
+        - dvt_committee_no_confidence
+        - dvt_update_to_constitution
+        - dvt_hard_fork_initiation
+        - dvt_p_p_network_group
+        - dvt_p_p_economic_group
+        - dvt_p_p_technical_group
+        - dvt_p_p_gov_group
+        - dvt_treasury_withdrawal
+        - committee_min_size
+        - committee_max_term_length
+        - gov_action_lifetime
+        - gov_action_deposit
+        - drep_deposit
+        - drep_activity
+        - registered_tx_id
     epoch_content_array:
       type: array
       items:
@@ -7774,6 +8825,32 @@ components:
         - tx_hash: e14a75b0eb2625de7055f1f580d70426311b78e0d36dd695a6bdc96c7b3d80e0
           cert_index: 1
           action: registered
+    pool_votes:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the proposal transaction.
+          cert_index:
+            type: integer
+            description: Index of the certificate within the proposal transaction.
+          vote:
+            type: string
+            enum:
+              - 'yes'
+              - 'no'
+              - abstain
+            description: The Vote. Can be one of yes, no, abstain.
+        required:
+          - tx_hash
+          - cert_index
+          - vote
+      example:
+        - tx_hash: b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5
+          cert_index: 2
+          vote: 'yes'
     assets:
       type: array
       items:

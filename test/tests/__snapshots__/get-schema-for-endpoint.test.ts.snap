@@ -7838,6 +7838,16 @@ under which it is valid
             "nullable": true,
             "type": "integer",
           },
+          "committee_max_term_length": {
+            "description": "Constitutional committee term limits.",
+            "nullable": true,
+            "type": "string",
+          },
+          "committee_min_size": {
+            "description": "Minimal constitutional committee size.",
+            "nullable": true,
+            "type": "string",
+          },
           "cost_models": {
             "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
@@ -7859,6 +7869,66 @@ under which it is valid
             "example": 0.5,
             "type": "number",
           },
+          "drep_activity": {
+            "description": "DRep activity period.",
+            "nullable": true,
+            "type": "string",
+          },
+          "drep_deposit": {
+            "description": "DRep deposit amount.",
+            "nullable": true,
+            "type": "string",
+          },
+          "dvt_committee_no_confidence": {
+            "description": "DRep Vote threshold for new committee/threshold (state of no-confidence).",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_committee_normal": {
+            "description": "DRep Vote threshold for new committee/threshold (normal state).",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_hard_fork_initiation": {
+            "description": "DRep Vote threshold for hard-fork initiation.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_motion_no_confidence": {
+            "description": "DRep Vote threshold for motion of no-confidence.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_economic_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, economic group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_gov_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, governance group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_network_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, network group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_technical_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, technical group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_treasury_withdrawal": {
+            "description": "DRep Vote threshold for treasury withdrawal.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_update_to_constitution": {
+            "description": "DRep Vote threshold for update to the Constitution.",
+            "nullable": true,
+            "type": "number",
+          },
           "e_max": {
             "description": "Epoch bound on pool retirement",
             "example": 18,
@@ -7872,6 +7942,16 @@ under which it is valid
           "extra_entropy": {
             "description": "Seed for extra entropy",
             "example": null,
+            "nullable": true,
+            "type": "string",
+          },
+          "gov_action_deposit": {
+            "description": "Governance action deposit.",
+            "nullable": true,
+            "type": "string",
+          },
+          "gov_action_lifetime": {
+            "description": "Governance action expiration.",
             "nullable": true,
             "type": "string",
           },
@@ -7988,6 +8068,31 @@ under which it is valid
             "example": 0,
             "type": "integer",
           },
+          "pvt_committee_no_confidence": {
+            "description": "Pool Voting threshold for new committee/threshold (state of no-confidence).",
+            "nullable": true,
+            "type": "number",
+          },
+          "pvt_committee_normal": {
+            "description": "Pool Voting threshold for new committee/threshold (normal state).",
+            "nullable": true,
+            "type": "number",
+          },
+          "pvt_hard_fork_initiation": {
+            "description": "Pool Voting threshold for hard-fork initiation.",
+            "nullable": true,
+            "type": "number",
+          },
+          "pvt_motion_no_confidence": {
+            "description": "Pool Voting threshold for motion of no-confidence.",
+            "nullable": true,
+            "type": "number",
+          },
+          "registered_tx_id": {
+            "description": "The Tx table index for the transaction that contains this parameter proposal.",
+            "nullable": true,
+            "type": "integer",
+          },
           "rho": {
             "description": "Monetary expansion",
             "example": 0.003,
@@ -8032,6 +8137,27 @@ under which it is valid
           "max_collateral_inputs",
           "coins_per_utxo_size",
           "coins_per_utxo_word",
+          "pvt_motion_no_confidence",
+          "pvt_committee_normal",
+          "pvt_committee_no_confidence",
+          "pvt_hard_fork_initiation",
+          "dvt_motion_no_confidence",
+          "dvt_committee_normal",
+          "dvt_committee_no_confidence",
+          "dvt_update_to_constitution",
+          "dvt_hard_fork_initiation",
+          "dvt_p_p_network_group",
+          "dvt_p_p_economic_group",
+          "dvt_p_p_technical_group",
+          "dvt_p_p_gov_group",
+          "dvt_treasury_withdrawal",
+          "committee_min_size",
+          "committee_max_term_length",
+          "gov_action_lifetime",
+          "gov_action_deposit",
+          "drep_deposit",
+          "drep_activity",
+          "registered_tx_id",
         ],
         "type": "object",
       },
@@ -9014,6 +9140,16 @@ under which it is valid
             "nullable": true,
             "type": "integer",
           },
+          "committee_max_term_length": {
+            "description": "Constitutional committee term limits.",
+            "nullable": true,
+            "type": "string",
+          },
+          "committee_min_size": {
+            "description": "Minimal constitutional committee size.",
+            "nullable": true,
+            "type": "string",
+          },
           "cost_models": {
             "additionalProperties": true,
             "description": "Cost models parameters for Plutus Core scripts",
@@ -9035,6 +9171,66 @@ under which it is valid
             "example": 0.5,
             "type": "number",
           },
+          "drep_activity": {
+            "description": "DRep activity period.",
+            "nullable": true,
+            "type": "string",
+          },
+          "drep_deposit": {
+            "description": "DRep deposit amount.",
+            "nullable": true,
+            "type": "string",
+          },
+          "dvt_committee_no_confidence": {
+            "description": "DRep Vote threshold for new committee/threshold (state of no-confidence).",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_committee_normal": {
+            "description": "DRep Vote threshold for new committee/threshold (normal state).",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_hard_fork_initiation": {
+            "description": "DRep Vote threshold for hard-fork initiation.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_motion_no_confidence": {
+            "description": "DRep Vote threshold for motion of no-confidence.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_economic_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, economic group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_gov_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, governance group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_network_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, network group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_p_p_technical_group": {
+            "description": "DRep Vote threshold for protocol parameter changes, technical group.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_treasury_withdrawal": {
+            "description": "DRep Vote threshold for treasury withdrawal.",
+            "nullable": true,
+            "type": "number",
+          },
+          "dvt_update_to_constitution": {
+            "description": "DRep Vote threshold for update to the Constitution.",
+            "nullable": true,
+            "type": "number",
+          },
           "e_max": {
             "description": "Epoch bound on pool retirement",
             "example": 18,
@@ -9048,6 +9244,16 @@ under which it is valid
           "extra_entropy": {
             "description": "Seed for extra entropy",
             "example": null,
+            "nullable": true,
+            "type": "string",
+          },
+          "gov_action_deposit": {
+            "description": "Governance action deposit.",
+            "nullable": true,
+            "type": "string",
+          },
+          "gov_action_lifetime": {
+            "description": "Governance action expiration.",
             "nullable": true,
             "type": "string",
           },
@@ -9164,6 +9370,31 @@ under which it is valid
             "example": 0,
             "type": "integer",
           },
+          "pvt_committee_no_confidence": {
+            "description": "Pool Voting threshold for new committee/threshold (state of no-confidence).",
+            "nullable": true,
+            "type": "number",
+          },
+          "pvt_committee_normal": {
+            "description": "Pool Voting threshold for new committee/threshold (normal state).",
+            "nullable": true,
+            "type": "number",
+          },
+          "pvt_hard_fork_initiation": {
+            "description": "Pool Voting threshold for hard-fork initiation.",
+            "nullable": true,
+            "type": "number",
+          },
+          "pvt_motion_no_confidence": {
+            "description": "Pool Voting threshold for motion of no-confidence.",
+            "nullable": true,
+            "type": "number",
+          },
+          "registered_tx_id": {
+            "description": "The Tx table index for the transaction that contains this parameter proposal.",
+            "nullable": true,
+            "type": "integer",
+          },
           "rho": {
             "description": "Monetary expansion",
             "example": 0.003,
@@ -9208,6 +9439,27 @@ under which it is valid
           "max_collateral_inputs",
           "coins_per_utxo_size",
           "coins_per_utxo_word",
+          "pvt_motion_no_confidence",
+          "pvt_committee_normal",
+          "pvt_committee_no_confidence",
+          "pvt_hard_fork_initiation",
+          "dvt_motion_no_confidence",
+          "dvt_committee_normal",
+          "dvt_committee_no_confidence",
+          "dvt_update_to_constitution",
+          "dvt_hard_fork_initiation",
+          "dvt_p_p_network_group",
+          "dvt_p_p_economic_group",
+          "dvt_p_p_technical_group",
+          "dvt_p_p_gov_group",
+          "dvt_treasury_withdrawal",
+          "committee_min_size",
+          "committee_max_term_length",
+          "gov_action_lifetime",
+          "gov_action_deposit",
+          "drep_deposit",
+          "drep_activity",
+          "registered_tx_id",
         ],
         "type": "object",
       },
@@ -10019,6 +10271,1886 @@ under which it is valid
           "security_param",
         ],
         "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/dreps": {
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+            "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23",
+          },
+          {
+            "drep_id": "drep1cxayn4fgy27yaucvhamsvqj3v6835mh3tjjx6x8hdnr4",
+            "hex": "c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758",
+          },
+        ],
+        "items": {
+          "properties": {
+            "drep_id": {
+              "description": "The Bech32 encoded DRep address",
+              "type": "string",
+            },
+            "hex": {
+              "description": "The raw bytes of the DRep",
+              "type": "string",
+            },
+          },
+          "required": [
+            "drep_id",
+            "hex",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/dreps/{drep_id}": {
+    "params": {
+      "properties": {
+        "drep_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "active": true,
+            "active_epoch": 420,
+            "amount": "2000000",
+            "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+            "has_script": true,
+            "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
+          },
+        ],
+        "properties": {
+          "active": {
+            "description": "Registration state of the DRep",
+            "type": "boolean",
+          },
+          "active_epoch": {
+            "description": "Epoch of the most recent action - registration or deregistration",
+            "nullable": true,
+            "type": "integer",
+          },
+          "amount": {
+            "description": "The total amount of voting power this DRep is delegated.",
+            "type": "string",
+          },
+          "drep_id": {
+            "description": "Bech32 encoded DRep address",
+            "type": "string",
+          },
+          "has_script": {
+            "description": "Flag which shows if this DRep credentials are a script hash",
+            "type": "boolean",
+          },
+          "hex": {
+            "description": "The raw bytes of the DRep",
+            "type": "string",
+          },
+        },
+        "required": [
+          "drep_id",
+          "hex",
+          "amount",
+          "active",
+          "active_epoch",
+          "has_script",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/dreps/{drep_id}/delegators": {
+    "params": {
+      "properties": {
+        "drep_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "address": "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha",
+            "amount": "1137959159981411",
+          },
+          {
+            "address": "stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u",
+            "amount": "16958865648",
+          },
+          {
+            "address": "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck",
+            "amount": "18605647",
+          },
+        ],
+        "items": {
+          "properties": {
+            "address": {
+              "description": "Bech32 encoded stake addresses",
+              "type": "string",
+            },
+            "amount": {
+              "description": "Currently delegated amount",
+              "type": "string",
+            },
+          },
+          "required": [
+            "address",
+            "amount",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/dreps/{drep_id}/metadata": {
+    "params": {
+      "properties": {
+        "drep_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+            "hash": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c",
+            "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
+            "url": "https://stakenuts.com/drep.json",
+          },
+        ],
+        "properties": {
+          "drep_id": {
+            "description": "Bech32 encoded addresses",
+            "type": "string",
+          },
+          "hash": {
+            "description": "Hash of the metadata file",
+            "example": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"",
+            "nullable": true,
+            "type": "string",
+          },
+          "hex": {
+            "description": "The raw bytes of the DRep",
+            "type": "string",
+          },
+          "url": {
+            "description": "URL to the drep metadata",
+            "example": "https://stakenuts.com/drep.json",
+            "nullable": true,
+            "type": "string",
+          },
+        },
+        "required": [
+          "drep_id",
+          "hex",
+          "url",
+          "hash",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/dreps/{drep_id}/updates": {
+    "params": {
+      "properties": {
+        "drep_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "action": "registered",
+            "cert_index": 0,
+            "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
+          },
+          {
+            "action": "deregistered",
+            "cert_index": 0,
+            "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
+          },
+        ],
+        "items": {
+          "properties": {
+            "action": {
+              "description": "Action in the certificate",
+              "enum": [
+                "registered",
+                "deregistered",
+              ],
+              "type": "string",
+            },
+            "cert_index": {
+              "description": "Certificate within the transaction",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Transaction ID",
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "action",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/dreps/{drep_id}/votes": {
+    "params": {
+      "properties": {
+        "drep_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cert_index": 2,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+          },
+          {
+            "cert_index": 3,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "abstain",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cert_index": {
+              "description": "Index of the certificate within the proposal transaction.",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "vote",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals": {
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cert_index": 1,
+            "governance_type": "treasury_withdrawals",
+            "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+          },
+          {
+            "cert_index": 4,
+            "governance_type": "no_confidence",
+            "tx_hash": "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cert_index": {
+              "description": "Index of the certificate within the proposal transaction.",
+              "type": "integer",
+            },
+            "governance_type": {
+              "description": "Type of proposal.",
+              "enum": [
+                "hard_fork_initiation",
+                "new_committee",
+                "new_constitution",
+                "info_action",
+                "no_confidence",
+                "parameter_change",
+                "treasury_withdrawals",
+              ],
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "governance_type",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{tx_hash}/{cert_index}": {
+    "params": {
+      "properties": {
+        "cert_index": {
+          "type": "integer",
+        },
+        "tx_hash": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "anchor_hash": "50b340624d49823720505e3f0095be0d6cd8f26501e094a6ab9068dd",
+            "anchor_url": "https://gist.github.com/123",
+            "cert_index": 1,
+            "deposit": 12000,
+            "dropped_epoch": null,
+            "enacted_epoch": 123,
+            "expiration": 120,
+            "expired_epoch": null,
+            "governance_description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60")},Coin 20000000)])",
+            "governance_type": "treasury_withdrawals",
+            "ratified_epoch": null,
+            "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
+            "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+          },
+        ],
+        "properties": {
+          "anchor_hash": {
+            "description": "The hash of the offchain anchor data.",
+            "nullable": true,
+            "type": "string",
+          },
+          "anchor_url": {
+            "description": "The URL of the offchain anchor data.",
+            "nullable": true,
+            "type": "string",
+          },
+          "cert_index": {
+            "description": "Index of the certificate within the proposal transaction.",
+            "type": "integer",
+          },
+          "deposit": {
+            "description": "The deposit amount paid for this proposal.",
+            "type": "string",
+          },
+          "dropped_epoch": {
+            "nullable": true,
+            "type": "integer",
+          },
+          "enacted_epoch": {
+            "nullable": true,
+            "type": "integer",
+          },
+          "expiration": {
+            "description": "Shows the epoch at which this governance action will expire.",
+            "type": "integer",
+          },
+          "expired_epoch": {
+            "nullable": true,
+            "type": "integer",
+          },
+          "governance_description": {
+            "description": "A Text describing the content of this GovActionProposal in a readable way.",
+            "nullable": true,
+            "type": "string",
+          },
+          "governance_type": {
+            "description": "Type of proposal.",
+            "enum": [
+              "hard_fork_initiation",
+              "new_committee",
+              "new_constitution",
+              "info_action",
+              "no_confidence",
+              "parameter_change",
+              "treasury_withdrawals",
+            ],
+            "type": "string",
+          },
+          "ratified_epoch": {
+            "nullable": true,
+            "type": "integer",
+          },
+          "return_address": {
+            "description": "Bech32 stake address of the reward address to receive the deposit when it is repaid.",
+            "type": "string",
+          },
+          "tx_hash": {
+            "description": "Hash of the proposal transaction.",
+            "type": "string",
+          },
+        },
+        "required": [
+          "tx_hash",
+          "cert_index",
+          "governance_type",
+          "deposit",
+          "return_address",
+          "governance_description",
+          "ratified_epoch",
+          "enacted_epoch",
+          "dropped_epoch",
+          "expired_epoch",
+          "expiration",
+          "anchor_url",
+          "anchor_hash",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{tx_hash}/{cert_index}/votes": {
+    "params": {
+      "properties": {
+        "cert_index": {
+          "type": "integer",
+        },
+        "tx_hash": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cert_index": 2,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+            "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+            "voter_role": "drep",
+          },
+          {
+            "cert_index": 3,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "abstain",
+            "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+            "voter_role": "constitutional_committee",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cert_index": {
+              "description": "Index of the certificate within the voting transaction.",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Hash of the voting transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+            "voter": {
+              "description": "The actual voter.",
+              "type": "string",
+            },
+            "voter_role": {
+              "description": "The role of the voter. Can be one of constitutional_committee, drep, spo.",
+              "enum": [
+                "constitutional_committee",
+                "drep",
+                "spo",
+              ],
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "voter_role",
+            "voter",
+            "vote",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/votes": {
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cert_index": 2,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+            "voter": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy",
+            "voter_role": "spo",
+          },
+          {
+            "cert_index": 3,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "abstain",
+            "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+            "voter_role": "constitutional_committee",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cert_index": {
+              "description": "Index of the certificate within the proposal transaction.",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+            "voter": {
+              "description": "The actual voter.",
+              "type": "string",
+            },
+            "voter_role": {
+              "description": "The role of the voter. Can be one of constitutional_committee, drep, spo.",
+              "enum": [
+                "constitutional_committee",
+                "drep",
+                "spo",
+              ],
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "voter_role",
+            "voter",
+            "vote",
+          ],
+          "type": "object",
+        },
+        "type": "array",
       },
       "400": {
         "properties": {
@@ -16697,6 +18829,212 @@ relative to the start of the network
             "tx_hash",
             "cert_index",
             "action",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/pools/{pool_id}/votes": {
+    "params": {
+      "properties": {
+        "pool_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cert_index": 2,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cert_index": {
+              "description": "Index of the certificate within the proposal transaction.",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "vote",
           ],
           "type": "object",
         },

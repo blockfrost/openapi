@@ -1,7 +1,5 @@
 import { expect, describe, test } from 'vitest';
 import { getSchema } from '../../src/index';
-import { transformSchemaElement } from '../../src/functions/schema';
-import * as fixtures from '../fixtures/schema';
 
 describe('getSchema', () => {
   test('health schema - no refs', () => {
@@ -162,5 +160,4 @@ describe('getSchema', () => {
       },
     });
   });
-
 });

@@ -7042,7 +7042,6 @@ components:
             type: string
             description: Transaction hash that contains the specific metadata
           json_metadata:
-            additionalProperties: true
             anyOf:
               - type: string
               - type: object
@@ -7052,7 +7051,7 @@ components:
               - type: integer
               - type: number
               - type: boolean
-            nullable: true
+              - type: 'null'
             description: Content of the JSON metadata
         required:
           - tx_hash

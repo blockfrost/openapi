@@ -5274,11 +5274,9 @@ export interface components {
         /** @description Transaction hash that contains the specific metadata */
         tx_hash: string;
         /** @description Content of the JSON metadata */
-        json_metadata: ({
+        json_metadata: string | {
           [key: string]: unknown;
-        } & (string | {
-          [key: string]: unknown;
-        } | unknown[] | number | boolean)) | null;
+        } | unknown[] | number | boolean | null;
       })[];
     /**
      * @example [

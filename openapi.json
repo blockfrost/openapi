@@ -9551,7 +9551,6 @@
               "description": "Transaction hash that contains the specific metadata"
             },
             "json_metadata": {
-              "additionalProperties": true,
               "anyOf": [
                 {
                   "type": "string"
@@ -9572,9 +9571,11 @@
                 },
                 {
                   "type": "boolean"
+                },
+                {
+                  "type": "null"
                 }
               ],
-              "nullable": true,
               "description": "Content of the JSON metadata"
             }
           },

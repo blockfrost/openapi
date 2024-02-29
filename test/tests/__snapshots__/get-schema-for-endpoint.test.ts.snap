@@ -4428,6 +4428,7 @@ under which it is valid
               "CIP25v1",
               "CIP25v2",
               "CIP68v1",
+              "CIP68v2",
             ],
             "nullable": true,
             "type": "string",

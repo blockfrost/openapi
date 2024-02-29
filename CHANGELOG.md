@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- Parsing version 2 of `CIP68` metadata
+
 ## [0.1.61] - 2024-02-06
 
 ### Added

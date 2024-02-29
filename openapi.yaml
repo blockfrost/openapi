@@ -8064,7 +8064,6 @@ components:
       type: object
       properties:
         json:
-          additionalProperties: true
           anyOf:
             - type: string
             - type: object
@@ -8074,7 +8073,7 @@ components:
             - type: integer
             - type: number
             - type: boolean
-          nullable: true
+            - type: 'null'
           description: JSON contents of the `timelock` script, null for `plutus` scripts
       required:
         - json

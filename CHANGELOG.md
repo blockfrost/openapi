@@ -15,7 +15,7 @@ Unreleased changes are in the `master` branch.
 
 ### Fixed
 
-- `tx_metadata_label_json` compatibility with fast-json-stringify for non-object/primitive types (eg. string)
+- `tx_metadata_label_json` and `script_json` compatibility with fast-json-stringify for non-object/primitive types (eg. string)
 
 ## [0.1.61] - 2024-02-06
 

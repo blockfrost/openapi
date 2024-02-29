@@ -6205,11 +6205,9 @@ export interface components {
      */
     script_json: {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
-      json: ({
+      json: string | {
         [key: string]: unknown;
-      } & (string | {
-        [key: string]: unknown;
-      } | unknown[] | number | boolean)) | null;
+      } | unknown[] | number | boolean | null;
     };
     /**
      * @example {

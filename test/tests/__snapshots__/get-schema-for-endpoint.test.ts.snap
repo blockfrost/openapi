@@ -7948,7 +7948,8 @@ under which it is valid
             "type": "string",
           },
           "min_utxo": {
-            "description": "Minimum UTXO value",
+            "deprecated": true,
+            "description": "Minimum UTXO value. Use \`coins_per_utxo_size\` for Alonzo and later eras",
             "example": "1000000",
             "type": "string",
           },
@@ -9124,7 +9125,8 @@ under which it is valid
             "type": "string",
           },
           "min_utxo": {
-            "description": "Minimum UTXO value",
+            "deprecated": true,
+            "description": "Minimum UTXO value. Use \`coins_per_utxo_size\` for Alonzo and later eras",
             "example": "1000000",
             "type": "string",
           },

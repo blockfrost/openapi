@@ -3991,7 +3991,8 @@ export interface components {
        */
       protocol_minor_ver: number;
       /**
-       * @description Minimum UTXO value
+       * @deprecated
+       * @description Minimum UTXO value. Use `coins_per_utxo_size` for Alonzo and later eras
        * @example 1000000
        */
       min_utxo: string;

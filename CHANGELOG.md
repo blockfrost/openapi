@@ -9,6 +9,11 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Changed
+
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `min_utxo` field deprecated, prefer `coins_per_utxo_size` for Alonzo and later eras
+
 ## [0.1.62] - 2024-03-05
 
 ### Added

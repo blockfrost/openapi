@@ -72,7 +72,8 @@ properties:
   min_utxo:
     type: "string"
     example: "1000000"
-    description: Minimum UTXO value
+    description: Minimum UTXO value. Use `coins_per_utxo_size` for Alonzo and later eras
+    deprecated: true
   min_pool_cost:
     type: string
     example: "340000000"

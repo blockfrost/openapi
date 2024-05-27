@@ -1,10 +1,10 @@
 {
   "name": "@blockfrost/openapi",
   "version": "0.1.63",
+  "license": "MIT",
   "description": "OpenAPI specifications for blockfrost.io",
   "repository": "git@github.com:blockfrost/openapi.git",
   "author": "admin@blockfrost.io",
-  "license": "MIT",
   "main": "lib/index.js",
   "files": [
     "lib/**/*",
@@ -13,17 +13,19 @@
   ],
   "scripts": {
     "prepublish": "yarn build",
-    "bundle": "yarn redocly bundle -o ./openapi.yaml src/definitions.yaml && yarn redocly bundle -o ./openapi.json src/definitions.yaml",
-    "lint": "yarn redocly lint src/definitions.yaml",
-    "generate-docs": "yarn redocly build-docs -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
+    "build": "yarn bundle && yarn generate-types && yarn generate-json-schema",
+    "bundle": "yarn redocly bundle -o ./openapi.yaml src/definitions.yaml && yarn copy",
+    "copy": "cp ./openapi.yaml ./docs/spec.yaml",
+    "lint": "scalar validate ./openapi.yaml",
+    "preview": "scalar serve ./openapi.yaml --watch",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
-    "build": "rimraf lib && yarn bundle && yarn generate-types && yarn tsc && yarn generate-json-schema",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@redocly/cli": "1.5.0",
+    "@scalar/cli": "^0.2.91",
     "@vitest/coverage-v8": "^1.0.4",
     "openapi-typescript": "6.7.3",
     "rimraf": "^5.0.5",

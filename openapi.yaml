@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.61
+  version: 0.1.63
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -6571,7 +6571,8 @@ components:
         min_utxo:
           type: string
           example: '1000000'
-          description: Minimum UTXO value
+          description: Minimum UTXO value. Use `coins_per_utxo_size` for Alonzo and later eras
+          deprecated: true
         min_pool_cost:
           type: string
           example: '340000000'
@@ -8093,7 +8094,6 @@ components:
             type: string
             description: Transaction hash that contains the specific metadata
           json_metadata:
-            additionalProperties: true
             anyOf:
               - type: string
               - type: object
@@ -8103,7 +8103,7 @@ components:
               - type: integer
               - type: number
               - type: boolean
-            nullable: true
+              - type: 'null'
             description: Content of the JSON metadata
         required:
           - tx_hash
@@ -8920,6 +8920,7 @@ components:
             - CIP25v1
             - CIP25v2
             - CIP68v1
+            - CIP68v2
           description: |
             If on-chain metadata passes validation, we display the standard
             under which it is valid
@@ -9141,7 +9142,6 @@ components:
       type: object
       properties:
         json:
-          additionalProperties: true
           anyOf:
             - type: string
             - type: object
@@ -9151,7 +9151,7 @@ components:
             - type: integer
             - type: number
             - type: boolean
-          nullable: true
+            - type: 'null'
           description: JSON contents of the `timelock` script, null for `plutus` scripts
       required:
         - json

@@ -4687,7 +4687,8 @@ export interface components {
        */
       protocol_minor_ver: number;
       /**
-       * @description Minimum UTXO value
+       * @deprecated
+       * @description Minimum UTXO value. Use `coins_per_utxo_size` for Alonzo and later eras
        * @example 1000000
        */
       min_utxo: string;
@@ -6012,11 +6013,9 @@ export interface components {
         /** @description Transaction hash that contains the specific metadata */
         tx_hash: string;
         /** @description Content of the JSON metadata */
-        json_metadata: ({
+        json_metadata: string | {
           [key: string]: unknown;
-        } & (string | {
-          [key: string]: unknown;
-        } | unknown[] | number | boolean)) | null;
+        } | unknown[] | number | boolean | null;
       })[];
     /**
      * @example [
@@ -6751,7 +6750,7 @@ export interface components {
        *
        * @enum {string|null}
        */
-      onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | null;
+      onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | "CIP68v2" | null;
       /** @description Arbitrary plutus data (CIP68). */
       onchain_metadata_extra?: string | null;
       /**
@@ -6965,11 +6964,9 @@ export interface components {
      */
     script_json: {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
-      json: ({
+      json: string | {
         [key: string]: unknown;
-      } & (string | {
-        [key: string]: unknown;
-      } | unknown[] | number | boolean)) | null;
+      } | unknown[] | number | boolean | null;
     };
     /**
      * @example {

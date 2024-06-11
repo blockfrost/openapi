@@ -4428,6 +4428,7 @@ under which it is valid
               "CIP25v1",
               "CIP25v2",
               "CIP68v1",
+              "CIP68v2",
             ],
             "nullable": true,
             "type": "string",
@@ -8027,7 +8028,8 @@ under which it is valid
             "type": "string",
           },
           "min_utxo": {
-            "description": "Minimum UTXO value",
+            "deprecated": true,
+            "description": "Minimum UTXO value. Use \`coins_per_utxo_size\` for Alonzo and later eras",
             "example": "1000000",
             "type": "string",
           },
@@ -9329,7 +9331,8 @@ under which it is valid
             "type": "string",
           },
           "min_utxo": {
-            "description": "Minimum UTXO value",
+            "deprecated": true,
+            "description": "Minimum UTXO value. Use \`coins_per_utxo_size\` for Alonzo and later eras",
             "example": "1000000",
             "type": "string",
           },
@@ -14674,7 +14677,6 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
         "items": {
           "properties": {
             "json_metadata": {
-              "additionalProperties": true,
               "anyOf": [
                 {
                   "type": "string",
@@ -14696,9 +14698,11 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                 {
                   "type": "boolean",
                 },
+                {
+                  "type": "null",
+                },
               ],
               "description": "Content of the JSON metadata",
-              "nullable": true,
             },
             "tx_hash": {
               "description": "Transaction hash that contains the specific metadata",

@@ -9,6 +9,23 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.63] - 2024-03-14
+
+### Changed
+
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `min_utxo` field deprecated, prefer `coins_per_utxo_size` for Alonzo and later eras
+
+## [0.1.62] - 2024-03-05
+
+### Added
+
+- Parsing version 2 of `CIP68` metadata
+
+### Fixed
+
+- `tx_metadata_label_json` and `script_json` compatibility with fast-json-stringify for non-object/primitive types (eg. string)
+
 ## [0.1.61] - 2024-02-06
 
 ### Added

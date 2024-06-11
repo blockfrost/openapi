@@ -1140,6 +1140,37 @@ export interface paths {
       };
     };
   };
+  "/txs/{hash}/cbor": {
+    /**
+     * Transaction CBOR
+     * @description Obtain the CBOR serialized transaction
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * @description Hash of the transaction
+           * @example 6e5f825c82c1c6d6b77f2a14092f3b78c8f1b66db6f4cf8caec1555b6f967b3b
+           */
+          hash: string;
+        };
+      };
+      responses: {
+        /** @description Query transaction CBOR */
+        200: {
+          content: {
+            "application/json": components["schemas"]["tx_content_cbor"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/tx/submit": {
     /**
      * Submit a transaction
@@ -4673,6 +4704,15 @@ export interface components {
          */
         witness_hash: string;
       }[];
+    /**
+     * @example {
+     *   "cbor": "84a40081825820203e5b61e0949ffc8fe594727cf7ed73c7396cc2bd212af9a680c9423b5880eb00018282583900f0c60254ecb0addd4c7e40c28fd05b65014ab4c8ecece06c7dcee5a0724bf93336a8225e7ef152b41aea955173be91af19250edea1ddafab1a000f42408258390014beadb876d0a2a593fe2f1b539389e00731290910170e9a1be78e847d2ccdc7af469706878018739bcfde9ae23f009c4ae38aee0a4b4f3a1b0000000253fa0f93021a0002922d031a0303c827a100818258207d3ae39f9a1c916ac7c13f10c7d67c70b870c286a1af71485455c5022a3f391d5840e2f481acd1601a3f39fa976317bba685ddd774621a92611edaaa3df9f48a3b13d8b25ecb2f28b031c1602512418efed3033e463a0dcd22a856c808033cc9e00ff5f6"
+     * }
+     */
+    tx_content_cbor: {
+      /** @description CBOR serialized transaction */
+      cbor: string;
+    };
     account_content: {
       /**
        * @description Bech32 stake address

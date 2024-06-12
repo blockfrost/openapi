@@ -420,6 +420,375 @@ export interface paths {
       };
     };
   };
+  "/governance/dreps": {
+    /**
+     * Delegate Representatives (DReps)
+     * @description Return the information about Delegate Representatives (DReps)
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** @description Paginated array with the Delegate Representatives (DReps) data */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{drep_id}": {
+    /**
+     * Specific DRep
+     * @description DRep information.
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * @description Bech32 or hexadecimal DRep ID.
+           * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the DRep information content */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_details_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{drep_id}/delegators": {
+    /**
+     * DRep delegators
+     * @description List of Drep delegators.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal drep ID.
+           * @example drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the DRep delegations */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_delegators"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{drep_id}/metadata": {
+    /**
+     * DRep metadata
+     * @description DRep metadata information.
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * @description Bech32 or hexadecimal DRep ID.
+           * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the DRep metadata content. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_metadata"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{drep_id}/updates": {
+    /**
+     * DRep updates
+     * @description List of certificate updates to the DRep.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal DRep ID.
+           * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the Drep updates history */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_updates"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/dreps/{drep_id}/votes": {
+    /**
+     * DRep votes
+     * @description History of Drep votes.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal drep ID.
+           * @example drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
+           */
+          drep_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the DRep votes */
+        200: {
+          content: {
+            "application/json": components["schemas"]["drep_votes"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals": {
+    /**
+     * Proposals
+     * @description Return the information about Proposals
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** @description Paginated array with the proposal data */
+        200: {
+          content: {
+            "application/json": components["schemas"]["proposal_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals/{tx_hash}/{cert_index}": {
+    /**
+     * Specific proposal
+     * @description Proposal information.
+     */
+    get: {
+      parameters: {
+        path: {
+          /**
+           * @description Transaction hash.
+           * @example 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+           */
+          tx_hash: string;
+          /**
+           * @description Transaction index.
+           * @example 1
+           */
+          cert_index: number;
+        };
+      };
+      responses: {
+        /** @description Return the proposal information content */
+        200: {
+          content: {
+            "application/json": components["schemas"]["proposal_details_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/proposals/{tx_hash}/{cert_index}/votes": {
+    /**
+     * Proposal votes
+     * @description History of Proposal votes.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Transaction hash.
+           * @example 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
+           */
+          tx_hash: string;
+          /**
+           * @description Transaction index.
+           * @example 1
+           */
+          cert_index: number;
+        };
+      };
+      responses: {
+        /** @description Return the Proposal votes */
+        200: {
+          content: {
+            "application/json": components["schemas"]["proposal_details_votes"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/governance/votes": {
+    /**
+     * Votes
+     * @description Return the information about votes
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           * Ordering in this case is based on the time of the first mint transaction.
+           */
+          order?: "asc" | "desc";
+        };
+      };
+      responses: {
+        /** @description Paginated array with the votes data */
+        200: {
+          content: {
+            "application/json": components["schemas"]["vote_content"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/epochs/latest": {
     /**
      * Latest epoch
@@ -2499,6 +2868,48 @@ export interface paths {
       };
     };
   };
+  "/pools/{pool_id}/votes": {
+    /**
+     * Stake pool votes
+     * @description History of stake pools votes.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description The number of results displayed on one page. */
+          count?: number;
+          /** @description The page number for listing the results. */
+          page?: number;
+          /**
+           * @description The ordering of items from the point of view of the blockchain,
+           * not the page listing itself. By default, we return oldest first, newest last.
+           */
+          order?: "asc" | "desc";
+        };
+        path: {
+          /**
+           * @description Bech32 or hexadecimal pool ID.
+           * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+           */
+          pool_id: string;
+        };
+      };
+      responses: {
+        /** @description Return the pool votes. */
+        200: {
+          content: {
+            "application/json": components["schemas"]["pool_votes"];
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
   "/assets": {
     /**
      * Assets
@@ -3852,6 +4263,293 @@ export interface components {
        */
       security_param: number;
     };
+    /**
+     * @example [
+     *   {
+     *     "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+     *     "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23"
+     *   },
+     *   {
+     *     "drep_id": "drep1cxayn4fgy27yaucvhamsvqj3v6835mh3tjjx6x8hdnr4",
+     *     "hex": "c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758"
+     *   }
+     * ]
+     */
+    drep_content: {
+        /** @description The Bech32 encoded DRep address */
+        drep_id: string;
+        /** @description The raw bytes of the DRep */
+        hex: string;
+      }[];
+    /**
+     * @example [
+     *   {
+     *     "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+     *     "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
+     *     "amount": "2000000",
+     *     "active": true,
+     *     "active_epoch": 420,
+     *     "has_script": true
+     *   }
+     * ]
+     */
+    drep_details_content: {
+      /** @description Bech32 encoded DRep address */
+      drep_id: string;
+      /** @description The raw bytes of the DRep */
+      hex: string;
+      /** @description The total amount of voting power this DRep is delegated. */
+      amount: string;
+      /** @description Registration state of the DRep */
+      active: boolean;
+      /** @description Epoch of the most recent action - registration or deregistration */
+      active_epoch: number | null;
+      /** @description Flag which shows if this DRep credentials are a script hash */
+      has_script: boolean;
+    };
+    /**
+     * @example [
+     *   {
+     *     "address": "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha",
+     *     "amount": "1137959159981411"
+     *   },
+     *   {
+     *     "address": "stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u",
+     *     "amount": "16958865648"
+     *   },
+     *   {
+     *     "address": "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck",
+     *     "amount": "18605647"
+     *   }
+     * ]
+     */
+    drep_delegators: {
+        /** @description Bech32 encoded stake addresses */
+        address: string;
+        /** @description Currently delegated amount */
+        amount: string;
+      }[];
+    /**
+     * @example [
+     *   {
+     *     "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+     *     "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
+     *     "url": "https://stakenuts.com/drep.json",
+     *     "hash": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+     *   }
+     * ]
+     */
+    drep_metadata: {
+      /** @description Bech32 encoded addresses */
+      drep_id: string;
+      /** @description The raw bytes of the DRep */
+      hex: string;
+      /**
+       * @description URL to the drep metadata
+       * @example https://stakenuts.com/drep.json
+       */
+      url: string | null;
+      /**
+       * @description Hash of the metadata file
+       * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
+       */
+      hash: string | null;
+    };
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
+     *     "cert_index": 0,
+     *     "action": "registered"
+     *   },
+     *   {
+     *     "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
+     *     "cert_index": 0,
+     *     "action": "deregistered"
+     *   }
+     * ]
+     */
+    drep_updates: ({
+        /** @description Transaction ID */
+        tx_hash: string;
+        /** @description Certificate within the transaction */
+        cert_index: number;
+        /**
+         * @description Action in the certificate
+         * @enum {string}
+         */
+        action: "registered" | "deregistered";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 3,
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    drep_votes: ({
+        /** @description Hash of the proposal transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the proposal transaction. */
+        cert_index: number;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote: "yes" | "no" | "abstain";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+     *     "cert_index": 1,
+     *     "governance_type": "treasury_withdrawals"
+     *   },
+     *   {
+     *     "tx_hash": "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60",
+     *     "cert_index": 4,
+     *     "governance_type": "no_confidence"
+     *   }
+     * ]
+     */
+    proposal_content: ({
+        /** @description Hash of the proposal transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the proposal transaction. */
+        cert_index: number;
+        /**
+         * @description Type of proposal.
+         * @enum {string}
+         */
+        governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+     *     "cert_index": 1,
+     *     "governance_type": "treasury_withdrawals",
+     *     "deposit": 12000,
+     *     "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
+     *     "governance_description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash \"71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60\")},Coin 20000000)])",
+     *     "ratified_epoch": null,
+     *     "enacted_epoch": 123,
+     *     "dropped_epoch": null,
+     *     "expired_epoch": null,
+     *     "expiration": 120,
+     *     "anchor_url": "https://gist.github.com/123",
+     *     "anchor_hash": "50b340624d49823720505e3f0095be0d6cd8f26501e094a6ab9068dd"
+     *   }
+     * ]
+     */
+    proposal_details_content: {
+      /** @description Hash of the proposal transaction. */
+      tx_hash: string;
+      /** @description Index of the certificate within the proposal transaction. */
+      cert_index: number;
+      /**
+       * @description Type of proposal.
+       * @enum {string}
+       */
+      governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
+      /** @description An object describing the content of this GovActionProposal in a readable way. */
+      governance_description: {
+        [key: string]: unknown;
+      } | null;
+      /** @description The deposit amount paid for this proposal. */
+      deposit: string;
+      /** @description Bech32 stake address of the reward address to receive the deposit when it is repaid. */
+      return_address: string;
+      ratified_epoch: number | null;
+      enacted_epoch: number | null;
+      dropped_epoch: number | null;
+      expired_epoch: number | null;
+      /** @description Shows the epoch at which this governance action will expire. */
+      expiration: number;
+      /** @description The URL of the offchain anchor data. */
+      anchor_url: string | null;
+      /** @description The hash of the offchain anchor data. */
+      anchor_hash: string | null;
+    };
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "voter_role": "drep",
+     *     "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 3,
+     *     "voter_role": "constitutional_committee",
+     *     "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    proposal_details_votes: ({
+        /** @description Hash of the voting transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the voting transaction. */
+        cert_index: number;
+        /**
+         * @description The role of the voter. Can be one of constitutional_committee, drep, spo.
+         * @enum {string}
+         */
+        voter_role: "constitutional_committee" | "drep" | "spo";
+        /** @description The actual voter. */
+        voter: string;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote: "yes" | "no" | "abstain";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "voter_role": "spo",
+     *     "voter": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2qnikdy",
+     *     "vote": "yes"
+     *   },
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 3,
+     *     "voter_role": "constitutional_committee",
+     *     "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+     *     "vote": "abstain"
+     *   }
+     * ]
+     */
+    vote_content: ({
+        /** @description Hash of the proposal transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the proposal transaction. */
+        cert_index: number;
+        /**
+         * @description The role of the voter. Can be one of constitutional_committee, drep, spo.
+         * @enum {string}
+         */
+        voter_role: "constitutional_committee" | "drep" | "spo";
+        /** @description The actual voter. */
+        voter: string;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote: "yes" | "no" | "abstain";
+      })[];
     epoch_content: {
       /**
        * @description Epoch number
@@ -4078,6 +4776,48 @@ export interface components {
        * @example 34482
        */
       coins_per_utxo_word: string | null;
+      /** @description Pool Voting threshold for motion of no-confidence. */
+      pvt_motion_no_confidence: number | null;
+      /** @description Pool Voting threshold for new committee/threshold (normal state). */
+      pvt_committee_normal: number | null;
+      /** @description Pool Voting threshold for new committee/threshold (state of no-confidence). */
+      pvt_committee_no_confidence: number | null;
+      /** @description Pool Voting threshold for hard-fork initiation. */
+      pvt_hard_fork_initiation: number | null;
+      /** @description DRep Vote threshold for motion of no-confidence. */
+      dvt_motion_no_confidence: number | null;
+      /** @description DRep Vote threshold for new committee/threshold (normal state). */
+      dvt_committee_normal: number | null;
+      /** @description DRep Vote threshold for new committee/threshold (state of no-confidence). */
+      dvt_committee_no_confidence: number | null;
+      /** @description DRep Vote threshold for update to the Constitution. */
+      dvt_update_to_constitution: number | null;
+      /** @description DRep Vote threshold for hard-fork initiation. */
+      dvt_hard_fork_initiation: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, network group. */
+      dvt_p_p_network_group: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, economic group. */
+      dvt_p_p_economic_group: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, technical group. */
+      dvt_p_p_technical_group: number | null;
+      /** @description DRep Vote threshold for protocol parameter changes, governance group. */
+      dvt_p_p_gov_group: number | null;
+      /** @description DRep Vote threshold for treasury withdrawal. */
+      dvt_treasury_withdrawal: number | null;
+      /** @description Minimal constitutional committee size. */
+      committee_min_size: string | null;
+      /** @description Constitutional committee term limits. */
+      committee_max_term_length: string | null;
+      /** @description Governance action expiration. */
+      gov_action_lifetime: string | null;
+      /** @description Governance action deposit. */
+      gov_action_deposit: string | null;
+      /** @description DRep deposit amount. */
+      drep_deposit: string | null;
+      /** @description DRep activity period. */
+      drep_activity: string | null;
+      /** @description The Tx table index for the transaction that contains this parameter proposal. */
+      registered_tx_id: number | null;
     };
     epoch_content_array: components["schemas"]["epoch_content"][];
     epoch_stake_content: {
@@ -5916,6 +6656,26 @@ export interface components {
          * @enum {string}
          */
         action: "registered" | "deregistered";
+      })[];
+    /**
+     * @example [
+     *   {
+     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+     *     "cert_index": 2,
+     *     "vote": "yes"
+     *   }
+     * ]
+     */
+    pool_votes: ({
+        /** @description Hash of the proposal transaction. */
+        tx_hash: string;
+        /** @description Index of the certificate within the proposal transaction. */
+        cert_index: number;
+        /**
+         * @description The Vote. Can be one of yes, no, abstain.
+         * @enum {string}
+         */
+        vote: "yes" | "no" | "abstain";
       })[];
     /**
      * @example [

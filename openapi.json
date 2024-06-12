@@ -8616,9 +8616,10 @@
             "description": "Type of proposal."
           },
           "governance_description": {
-            "type": "string",
+            "additionalProperties": true,
+            "type": "object",
             "nullable": true,
-            "description": "A Text describing the content of this GovActionProposal in a readable way."
+            "description": "An object describing the content of this GovActionProposal in a readable way."
           },
           "deposit": {
             "type": "string",

@@ -5317,7 +5317,7 @@ export interface components {
         /** @description Content of the JSON metadata */
         json_metadata: string | {
           [key: string]: unknown;
-        } | unknown[] | number | boolean | null;
+        } | unknown[] | number | boolean;
       })[];
     /**
      * @example [
@@ -6248,7 +6248,7 @@ export interface components {
       /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
       json: string | {
         [key: string]: unknown;
-      } | unknown[] | number | boolean | null;
+      } | unknown[] | number | boolean;
     };
     /**
      * @example {

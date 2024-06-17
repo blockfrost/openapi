@@ -38,12 +38,6 @@ Edit the source yaml files and build the package:
 yarn build
 ```
 
-To build the documentation, run:
-
-```typescript
-yarn generate-docs
-```
-
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
 
 ## Usage

@@ -381,6 +381,9 @@ paths:
   /txs/{hash}/required_signers:
     $ref: ./paths/api/txs/{hash}/required_signers.yaml
 
+  /txs/{hash}/cbor:
+    $ref: ./paths/api/txs/{hash}/cbor.yaml
+
   /tx/submit:
     $ref: ./paths/api/tx/submit.yaml
 

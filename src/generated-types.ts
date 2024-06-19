@@ -5460,10 +5460,15 @@ export interface components {
        */
       withdrawable_amount: string;
       /**
-       * @description Bech32 pool ID that owns the account
+       * @description Bech32 pool ID to which this account is delegated
        * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
        */
       pool_id: string | null;
+      /**
+       * @description Bech32 drep ID to which this account is delegated
+       * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+       */
+      drep_id: string | null;
     };
     /**
      * @example [

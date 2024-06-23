@@ -161,8 +161,14 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
             "example": "619154618165",
             "type": "string",
           },
+          "drep_id": {
+            "description": "Bech32 drep ID to which this account is delegated",
+            "example": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+            "nullable": true,
+            "type": "string",
+          },
           "pool_id": {
-            "description": "Bech32 pool ID that owns the account",
+            "description": "Bech32 pool ID to which this account is delegated",
             "example": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
             "nullable": true,
             "type": "string",
@@ -209,6 +215,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
           "treasury_sum",
           "withdrawable_amount",
           "pool_id",
+          "drep_id",
         ],
         "type": "object",
       },
@@ -11697,9 +11704,10 @@ under which it is valid
             "type": "integer",
           },
           "governance_description": {
-            "description": "A Text describing the content of this GovActionProposal in a readable way.",
+            "additionalProperties": true,
+            "description": "An object describing the content of this GovActionProposal in a readable way.",
             "nullable": true,
-            "type": "string",
+            "type": "object",
           },
           "governance_type": {
             "description": "Type of proposal.",

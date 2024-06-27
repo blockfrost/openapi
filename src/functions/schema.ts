@@ -31,13 +31,24 @@ export const getSchemaForEndpoint = (endpointName: string) => {
   const method = 'post' in spec.paths[endpointName] ? 'post' : 'get';
   const endpoint = spec.paths[endpointName][method];
 
-  for (const response of Object.keys(endpoint.responses)) {
+  // if (!endpoint.responses) {
+  //   console.log(`Skipping schema for ${endpoint}. Missing responses.`);
+  //   return null;
+  // }
+
+  for (const resStatusCode of Object.keys(endpoint.responses)) {
     // success 200
-    if (response === '200') {
-      const contentType =
-        'application/octet-stream' in endpoint.responses['200'].content
-          ? 'application/octet-stream'
-          : 'application/json';
+    if (resStatusCode === '200') {
+      const responseContent = endpoint.responses[resStatusCode].content as
+        | any
+        | undefined;
+
+      // For most mihtril endpoints content type is application/json,
+      // However, /mithril/artifact/snapshot/{digest}/download returns application/gzip
+      // IPFS gateway returns application/octet-stream
+      const contentType = Object.keys(responseContent)[0];
+      responses.response[resStatusCode] = responseContent[contentType].schema;
+
       const referenceOrValue =
         endpoint.responses['200'].content[contentType].schema;
 
@@ -152,8 +163,28 @@ export const getSchemaForEndpoint = (endpointName: string) => {
 
     // errors and others
     else {
-      responses.response[response] =
-        spec.components.responses[response].content['application/json'].schema;
+      if (endpointName.startsWith('/mithril/')) {
+        // Mithril spec doesn't define errors in Components section.
+        // Errors are always embedded within list of responses.
+        // Note: This is true also for blockfrost spec, not sure why are we manually overriding embedded
+        // errors with ones from Components
+        const responseContent = endpoint.responses[resStatusCode].content as
+          | any
+          | undefined;
+
+        if (responseContent) {
+          // For most mihtril endpoints content type is application/json,
+          // However, /mithril/artifact/snapshot/{digest}/download returns application/gzip
+          const contentType = Object.keys(responseContent)[0];
+          responses.response[resStatusCode] =
+            responseContent[contentType].schema;
+        }
+      } else {
+        responses.response[resStatusCode] =
+          spec.components.responses[resStatusCode].content[
+            'application/json'
+          ].schema;
+      }
     }
   }
 

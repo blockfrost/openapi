@@ -70,7 +70,7 @@ properties:
     example: 0
     description: Accepted protocol minor version
   min_utxo:
-    type: "string"
+    type: string
     example: "1000000"
     description: Minimum UTXO value. Use `coins_per_utxo_size` for Alonzo and later eras
     deprecated: true
@@ -143,15 +143,100 @@ properties:
     type: string
     nullable: true
     example: "34482"
-    description: Cost per UTxO word for Alonzo.
-      Cost per UTxO byte for Babbage and later.
+    description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
   coins_per_utxo_word:
     type: string
     nullable: true
     example: "34482"
-    description: Cost per UTxO word for Alonzo.
-      Cost per UTxO byte for Babbage and later.
     deprecated: true
+    description: Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
+  pvt_motion_no_confidence:
+    type: number
+    nullable: true
+    description: Pool Voting threshold for motion of no-confidence.
+  pvt_committee_normal:
+    nullable: true
+    type: number
+    description: Pool Voting threshold for new committee/threshold (normal state).
+  pvt_committee_no_confidence:
+    nullable: true
+    type: number
+    description: Pool Voting threshold for new committee/threshold (state of no-confidence).
+  pvt_hard_fork_initiation:
+    nullable: true
+    type: number
+    description: Pool Voting threshold for hard-fork initiation.
+  dvt_motion_no_confidence:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for motion of no-confidence.
+  dvt_committee_normal:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for new committee/threshold (normal state).
+  dvt_committee_no_confidence:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for new committee/threshold (state of no-confidence).
+  dvt_update_to_constitution:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for update to the Constitution.
+  dvt_hard_fork_initiation:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for hard-fork initiation.
+  dvt_p_p_network_group:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for protocol parameter changes, network group.
+  dvt_p_p_economic_group:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for protocol parameter changes, economic group.
+  dvt_p_p_technical_group:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for protocol parameter changes, technical group.
+  dvt_p_p_gov_group:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for protocol parameter changes, governance group.
+  dvt_treasury_withdrawal:
+    nullable: true
+    type: number
+    description: DRep Vote threshold for treasury withdrawal.
+  committee_min_size:
+    type: string
+    nullable: true
+    description: Minimal constitutional committee size.
+  committee_max_term_length:
+    type: string
+    nullable: true
+    description: Constitutional committee term limits.
+  gov_action_lifetime:
+    type: string
+    nullable: true
+    description: Governance action expiration.
+  gov_action_deposit:
+    type: string
+    nullable: true
+    description: Governance action deposit.
+  drep_deposit:
+    type: string
+    nullable: true
+    description: DRep deposit amount.
+  drep_activity:
+    type: string
+    nullable: true
+    description: DRep activity period.
+  pvtpp_security_group:
+    type: number
+    nullable: true
+  min_fee_ref_script_cost_per_byte:
+    type: number
+    nullable: true
+
 required:
   - epoch
   - min_fee_a
@@ -185,3 +270,25 @@ required:
   - max_collateral_inputs
   - coins_per_utxo_size
   - coins_per_utxo_word
+  - pvt_motion_no_confidence
+  - pvt_committee_normal
+  - pvt_committee_no_confidence
+  - pvt_hard_fork_initiation
+  - dvt_motion_no_confidence
+  - dvt_committee_normal
+  - dvt_committee_no_confidence
+  - dvt_update_to_constitution
+  - dvt_hard_fork_initiation
+  - dvt_p_p_network_group
+  - dvt_p_p_economic_group
+  - dvt_p_p_technical_group
+  - dvt_p_p_gov_group
+  - dvt_treasury_withdrawal
+  - committee_min_size
+  - committee_max_term_length
+  - gov_action_lifetime
+  - gov_action_deposit
+  - drep_deposit
+  - drep_activity
+  - pvtpp_security_group
+  - min_fee_ref_script_cost_per_byte

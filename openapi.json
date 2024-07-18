@@ -7273,14 +7273,14 @@
           "Cardano » Mithril"
         ],
         "summary": "Get public specifications about the aggregator",
-        "description": "Returns the specifications related to the aggregator:\n  * Open API version\n  * URL of Mithril documentation\n  * Capabilities of the aggregator\n",
+        "description": "Returns the specifications related to the aggregator:\n  * Open API version\n  * URL of Mithril documentation\n  * Capabilities of the aggregator\n  * Cardano transactions prover capabilities\n",
         "responses": {
           "200": {
             "description": "root found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RootMessage"
+                  "$ref": "#/components/schemas/AggregatorFeaturesMessage"
                 }
               }
             }
@@ -7775,10 +7775,10 @@
             "schema": {
               "type": "array",
               "items": {
-                "type": "string"
-              },
-              "format": "bytes",
-              "example": "6dbb104ed68481ef829a26a20142916d17985e01774d72d72c2f"
+                "type": "string",
+                "format": "bytes",
+                "example": "6dbb104ed68481ef829a26a20142916d17985e01774d72d72c2f"
+              }
             },
             "explode": false
           }
@@ -12627,8 +12627,8 @@
           "image"
         ]
       },
-      "RootMessage": {
-        "description": "Aggregator public information",
+      "AggregatorFeaturesMessage": {
+        "description": "Represents general information about Aggregator public information and signing capabilities",
         "type": "object",
         "additionalProperties": false,
         "required": [
@@ -12669,6 +12669,21 @@
                     "CardanoTransactions"
                   ]
                 }
+              },
+              "cardano_transactions_prover": {
+                "description": "Cardano transactions prover capabilities",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "max_hashes_allowed_by_request"
+                ],
+                "properties": {
+                  "max_hashes_allowed_by_request": {
+                    "description": "Maximum number of hashes allowed for a single request",
+                    "type": "integer",
+                    "format": "int64"
+                  }
+                }
               }
             }
           }
@@ -12681,7 +12696,10 @@
               "MithrilStakeDistribution",
               "CardanoImmutableFilesFull",
               "CardanoTransactions"
-            ]
+            ],
+            "cardano_transactions_prover": {
+              "max_hashes_allowed_by_request": 100
+            }
           }
         }
       },
@@ -12799,7 +12817,6 @@
         "additionalProperties": false,
         "required": [
           "epoch",
-          "beacon",
           "entity_type",
           "protocol",
           "next_protocol",
@@ -13185,11 +13202,16 @@
             "description": "Aggregate verification key (AVK) that will be used to create the next multi signature",
             "type": "string",
             "format": "bytes"
+          },
+          "latest_block_number": {
+            "description": "The latest signed block number",
+            "type": "string"
           }
         },
         "example": {
           "snapshot_digest": "6367ee65d0d1272e6e70736a1ea2cae34015874517f6328364f6b73930966732",
-          "next_aggregate_verification_key": "b132362c3232352c36392c31373133352c31323235392c3235332c3233342c34226d745f636f6d6d69746d656e74223a7b22726f6f74223a5b33382c3382c3138322c3231322c2c363"
+          "next_aggregate_verification_key": "b132362c3232352c36392c31373133352c31323235392c3235332c3233342c34226d745f636f6d6d69746d656e74223a7b22726f6f74223a5b33382c3382c3138322c3231322c2c363",
+          "latest_block_number": "123456"
         }
       },
       "ProtocolMessage": {
@@ -13315,7 +13337,6 @@
           "hash",
           "previous_hash",
           "epoch",
-          "beacon",
           "signed_entity_type",
           "metadata",
           "protocol_message",
@@ -13471,7 +13492,6 @@
           "hash",
           "previous_hash",
           "epoch",
-          "beacon",
           "signed_entity_type",
           "metadata",
           "protocol_message",
@@ -13890,7 +13910,8 @@
             "hash",
             "certificate_hash",
             "merkle_root",
-            "beacon",
+            "epoch",
+            "block_number",
             "created_at"
           ],
           "properties": {
@@ -13909,8 +13930,13 @@
               "type": "string",
               "format": "bytes"
             },
-            "beacon": {
-              "$ref": "#/components/schemas/CardanoDbBeacon"
+            "epoch": {
+              "$ref": "#/components/schemas/Epoch"
+            },
+            "block_number": {
+              "description": "Cardano block number",
+              "type": "integer",
+              "format": "int64"
             },
             "created_at": {
               "description": "Date and time at which the Cardano transactions set was created",
@@ -13922,11 +13948,8 @@
             "hash": "6367ee65d0d1272e6e70736a1ea2cae34015874517f6328364f6b73930966732",
             "certificate_hash": "7905e83ab5d7bc082c1bbc3033bfd19c539078830d19080d1f241c70aa532572",
             "merkle_root": "33bfd17bc082ab5dd1fc0788241c70aa5325241c70aa532530d190809c5391bbc307905e8372",
-            "beacon": {
-              "network": "mainnet",
-              "epoch": 329,
-              "immutable_file_number": 7060000
-            },
+            "epoch": 123,
+            "block_number": 1234,
             "created_at": "2022-06-14T10:52:31Z"
           }
         }
@@ -13939,7 +13962,8 @@
           "hash",
           "certificate_hash",
           "merkle_root",
-          "beacon",
+          "epoch",
+          "block_number",
           "created_at"
         ],
         "properties": {
@@ -13958,8 +13982,13 @@
             "type": "string",
             "format": "bytes"
           },
-          "beacon": {
-            "$ref": "#/components/schemas/CardanoDbBeacon"
+          "epoch": {
+            "$ref": "#/components/schemas/Epoch"
+          },
+          "block_number": {
+            "description": "Cardano block number",
+            "type": "integer",
+            "format": "int64"
           },
           "created_at": {
             "description": "Date and time at which the Cardano transactions set was created",
@@ -13971,11 +14000,8 @@
           "hash": "6367ee65d0d1272e6e70736a1ea2cae34015874517f6328364f6b73930966732",
           "certificate_hash": "7905e83ab5d7bc082c1bbc3033bfd19c539078830d19080d1f241c70aa532572",
           "merkle_root": "33bfd17bc082ab5dd1fc0788241c70aa5325241c70aa532530d190809c5391bbc307905e8372",
-          "beacon": {
-            "network": "mainnet",
-            "epoch": 329,
-            "immutable_file_number": 7060000
-          },
+          "epoch": 123,
+          "block_number": 1234,
           "created_at": "2022-06-14T10:52:31Z"
         }
       },
@@ -13987,7 +14013,7 @@
           "certificate_hash",
           "certified_transactions",
           "non_certified_transactions",
-          "latest_immutable_file_number"
+          "latest_block_number"
         ],
         "properties": {
           "certificate_hash": {
@@ -14029,8 +14055,8 @@
               "format": "bytes"
             }
           },
-          "latest_immutable_file_number": {
-            "description": "Last immutable file number",
+          "latest_block_number": {
+            "description": "Last block number",
             "type": "integer",
             "format": "int64"
           }
@@ -14049,7 +14075,7 @@
           "non_certified_transactions": [
             "732d0d1272e6e70736367ee6f6328364f6b739309666a1ea2cae34015874517"
           ],
-          "latest_immutable_file_number": 7060000
+          "latest_block_number": 7060000
         }
       },
       "Error": {

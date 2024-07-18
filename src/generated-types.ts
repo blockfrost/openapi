@@ -3703,13 +3703,14 @@ export interface paths {
      *   * Open API version
      *   * URL of Mithril documentation
      *   * Capabilities of the aggregator
+     *   * Cardano transactions prover capabilities
      */
     get: {
       responses: {
         /** @description root found */
         200: {
           content: {
-            "application/json": components["schemas"]["RootMessage"];
+            "application/json": components["schemas"]["AggregatorFeaturesMessage"];
           };
         };
         /** @description API version mismatch */
@@ -7296,7 +7297,7 @@ export interface components {
       [key: string]: unknown;
     };
     /**
-     * @description Aggregator public information
+     * @description Represents general information about Aggregator public information and signing capabilities
      * @example {
      *   "open_api_version": "0.1.17",
      *   "documentation_url": "https://mithril.network",
@@ -7305,11 +7306,14 @@ export interface components {
      *       "MithrilStakeDistribution",
      *       "CardanoImmutableFilesFull",
      *       "CardanoTransactions"
-     *     ]
+     *     ],
+     *     "cardano_transactions_prover": {
+     *       "max_hashes_allowed_by_request": 100
+     *     }
      *   }
      * }
      */
-    RootMessage: {
+    AggregatorFeaturesMessage: {
       /**
        * Format: byte
        * @description Open API version
@@ -7324,6 +7328,14 @@ export interface components {
       capabilities: {
         /** @description Signed entity types that are signed by the aggregator */
         signed_entity_types: ("MithrilStakeDistribution" | "CardanoStakeDistribution" | "CardanoImmutableFilesFull" | "CardanoTransactions")[];
+        /** @description Cardano transactions prover capabilities */
+        cardano_transactions_prover?: {
+          /**
+           * Format: int64
+           * @description Maximum number of hashes allowed for a single request
+           */
+          max_hashes_allowed_by_request: number;
+        };
       };
     };
     /**
@@ -7465,7 +7477,7 @@ export interface components {
     CertificatePendingMessage: {
       epoch: components["schemas"]["Epoch"];
       /** @deprecated */
-      beacon: components["schemas"]["CardanoDbBeacon"];
+      beacon?: components["schemas"]["CardanoDbBeacon"];
       entity_type: components["schemas"]["SignedEntityType"];
       protocol: components["schemas"]["ProtocolParameters"];
       next_protocol: components["schemas"]["ProtocolParameters"];
@@ -7668,7 +7680,8 @@ export interface components {
      * @description ProtocolMessage represents a message that is signed (or verified) by the Mithril protocol
      * @example {
      *   "snapshot_digest": "6367ee65d0d1272e6e70736a1ea2cae34015874517f6328364f6b73930966732",
-     *   "next_aggregate_verification_key": "b132362c3232352c36392c31373133352c31323235392c3235332c3233342c34226d745f636f6d6d69746d656e74223a7b22726f6f74223a5b33382c3382c3138322c3231322c2c363"
+     *   "next_aggregate_verification_key": "b132362c3232352c36392c31373133352c31323235392c3235332c3233342c34226d745f636f6d6d69746d656e74223a7b22726f6f74223a5b33382c3382c3138322c3231322c2c363",
+     *   "latest_block_number": "123456"
      * }
      */
     ProtocolMessageParts: {
@@ -7682,6 +7695,8 @@ export interface components {
        * @description Aggregate verification key (AVK) that will be used to create the next multi signature
        */
       next_aggregate_verification_key: string;
+      /** @description The latest signed block number */
+      latest_block_number?: string;
       [key: string]: unknown;
     };
     /**
@@ -7824,7 +7839,7 @@ export interface components {
       previous_hash: string;
       epoch: components["schemas"]["Epoch"];
       /** @deprecated */
-      beacon: components["schemas"]["CardanoDbBeacon"];
+      beacon?: components["schemas"]["CardanoDbBeacon"];
       signed_entity_type: components["schemas"]["SignedEntityType"];
       metadata: components["schemas"]["CertificateListItemMessageMetadata"];
       protocol_message: components["schemas"]["ProtocolMessage"];
@@ -7953,7 +7968,7 @@ export interface components {
       previous_hash: string;
       epoch: components["schemas"]["Epoch"];
       /** @deprecated */
-      beacon: components["schemas"]["CardanoDbBeacon"];
+      beacon?: components["schemas"]["CardanoDbBeacon"];
       signed_entity_type: components["schemas"]["SignedEntityType"];
       metadata: components["schemas"]["CertificateMetadata"];
       protocol_message: components["schemas"]["ProtocolMessage"];
@@ -8203,7 +8218,12 @@ export interface components {
          * @description Merkle root of the Cardano transactions set
          */
         merkle_root: string;
-        beacon: components["schemas"]["CardanoDbBeacon"];
+        epoch: components["schemas"]["Epoch"];
+        /**
+         * Format: int64
+         * @description Cardano block number
+         */
+        block_number: number;
         /**
          * Format: date-time,
          * @description Date and time at which the Cardano transactions set was created
@@ -8216,11 +8236,8 @@ export interface components {
      *   "hash": "6367ee65d0d1272e6e70736a1ea2cae34015874517f6328364f6b73930966732",
      *   "certificate_hash": "7905e83ab5d7bc082c1bbc3033bfd19c539078830d19080d1f241c70aa532572",
      *   "merkle_root": "33bfd17bc082ab5dd1fc0788241c70aa5325241c70aa532530d190809c5391bbc307905e8372",
-     *   "beacon": {
-     *     "network": "mainnet",
-     *     "epoch": 329,
-     *     "immutable_file_number": 7060000
-     *   },
+     *   "epoch": 123,
+     *   "block_number": 1234,
      *   "created_at": "2022-06-14T10:52:31Z"
      * }
      */
@@ -8240,7 +8257,12 @@ export interface components {
        * @description Merkle root of the Cardano transactions set
        */
       merkle_root: string;
-      beacon: components["schemas"]["CardanoDbBeacon"];
+      epoch: components["schemas"]["Epoch"];
+      /**
+       * Format: int64
+       * @description Cardano block number
+       */
+      block_number: number;
       /**
        * Format: date-time,
        * @description Date and time at which the Cardano transactions set was created
@@ -8263,7 +8285,7 @@ export interface components {
      *   "non_certified_transactions": [
      *     "732d0d1272e6e70736367ee6f6328364f6b739309666a1ea2cae34015874517"
      *   ],
-     *   "latest_immutable_file_number": 7060000
+     *   "latest_block_number": 7060000
      * }
      */
     CardanoTransactionProofMessage: {
@@ -8284,9 +8306,9 @@ export interface components {
       non_certified_transactions: string[];
       /**
        * Format: int64
-       * @description Last immutable file number
+       * @description Last block number
        */
-      latest_immutable_file_number: number;
+      latest_block_number: number;
     };
     /**
      * @description Internal error representation

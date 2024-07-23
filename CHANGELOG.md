@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.6%] - XXXX-XX-XX
+
+### Added
+
+- CIP-1964 support
+
 ## [0.1.64] - 2024-06-27
 
 ### Added

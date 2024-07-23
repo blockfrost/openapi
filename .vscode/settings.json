@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "autobanned",
     "Bdatum",
     "Bech",
     "blockfrost",
@@ -18,12 +19,16 @@
     "nutlink",
     "Ogmios",
     "openapi",
+    "overusage",
     "redoc",
     "redocly",
     "tbody",
     "timelock",
     "UTXO",
     "utxos",
-    "xpub"
+    "xpub",
+    "drep",
+    "dreps",
+    "ipfs"
   ]
 }

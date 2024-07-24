@@ -15,6 +15,7 @@ Unreleased changes are in the `master` branch.
 
 - CIP-1964 support
 - Mithrill support
+- raw tx CBOR
 
 ## [0.1.64] - 2024-06-27
 

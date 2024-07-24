@@ -9,11 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
-## [0.1.6%] - XXXX-XX-XX
+## [0.1.65] - 2024-07-24
 
 ### Added
 
 - CIP-1964 support
+- Mithrill support
 
 ## [0.1.64] - 2024-06-27
 

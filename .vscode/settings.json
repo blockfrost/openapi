@@ -10,12 +10,15 @@
     "decentralisation",
     "delegators",
     "drep",
+    "dreps",
+    "ipfs",
     "IPFS",
     "libc",
     "Lovelaces",
     "Milkomeda",
     "mirs",
     "Mithril",
+    "Mithrill",
     "nutlink",
     "Ogmios",
     "openapi",
@@ -26,9 +29,6 @@
     "timelock",
     "UTXO",
     "utxos",
-    "xpub",
-    "drep",
-    "dreps",
-    "ipfs"
+    "xpub"
   ]
 }

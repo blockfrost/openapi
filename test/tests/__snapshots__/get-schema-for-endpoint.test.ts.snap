@@ -14053,9 +14053,21 @@ under which it is valid
       },
       "type": "object",
     },
+    "querystring": {
+      "properties": {
+        "filecoin": {
+          "type": "boolean",
+        },
+      },
+      "type": "object",
+    },
     "response": {
       "200": {
         "properties": {
+          "filecoin": {
+            "description": "Whether filecoin was used to pin the resource.",
+            "type": "boolean",
+          },
           "ipfs_hash": {
             "description": "IPFS hash of the pinned object",
             "example": "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8",
@@ -14077,6 +14089,7 @@ under which it is valid
         "required": [
           "ipfs_hash",
           "state",
+          "filecoin",
         ],
         "type": "object",
       },
@@ -14266,6 +14279,10 @@ under which it is valid
       "200": {
         "items": {
           "properties": {
+            "filecoin": {
+              "description": "Whether filecoin was used to pin the resource.",
+              "type": "boolean",
+            },
             "ipfs_hash": {
               "description": "IPFS hash of the pinned object",
               "example": "QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx",
@@ -14309,6 +14326,7 @@ been moved to \`unpinned\` state by removing the object pin.
             "ipfs_hash",
             "size",
             "state",
+            "filecoin",
           ],
           "type": "object",
         },
@@ -14461,6 +14479,10 @@ been moved to \`unpinned\` state by removing the object pin.
     "response": {
       "200": {
         "properties": {
+          "filecoin": {
+            "description": "Whether filecoin was used to pin the resource.",
+            "type": "boolean",
+          },
           "ipfs_hash": {
             "description": "IPFS hash of the pinned object",
             "example": "QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx",
@@ -14505,6 +14527,284 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
           "ipfs_hash",
           "size",
           "state",
+          "filecoin",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/ipfs/pin/podsi/{IPFS_path}": {
+    "params": {
+      "properties": {
+        "IPFS_path": {
+          "description": "The path to the IPFS object",
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "properties": {
+          "dealInfo": {
+            "items": {
+              "properties": {
+                "dealId": {
+                  "description": "The ID of the storage deal",
+                  "type": "integer",
+                },
+                "proof": {
+                  "properties": {
+                    "inclusionProof": {
+                      "properties": {
+                        "proofIndex": {
+                          "properties": {
+                            "index": {
+                              "description": "The proof index",
+                              "type": "string",
+                            },
+                            "path": {
+                              "description": "The Merkle proof path",
+                              "items": {
+                                "type": "string",
+                              },
+                              "type": "array",
+                            },
+                          },
+                          "required": [
+                            "index",
+                            "path",
+                          ],
+                          "type": "object",
+                        },
+                        "proofSubtree": {
+                          "properties": {
+                            "index": {
+                              "description": "The subtree proof index",
+                              "type": "string",
+                            },
+                            "path": {
+                              "description": "The Merkle proof path for the subtree",
+                              "items": {
+                                "type": "string",
+                              },
+                              "type": "array",
+                            },
+                          },
+                          "required": [
+                            "index",
+                            "path",
+                          ],
+                          "type": "object",
+                        },
+                      },
+                      "required": [
+                        "proofIndex",
+                        "proofSubtree",
+                      ],
+                      "type": "object",
+                    },
+                    "indexRecord": {
+                      "properties": {
+                        "checksum": {
+                          "description": "The checksum of the index record",
+                          "type": "string",
+                        },
+                        "proofIndex": {
+                          "description": "The proof index",
+                          "type": "string",
+                        },
+                        "proofSubtree": {
+                          "description": "The size of the proof subtree",
+                          "type": "integer",
+                        },
+                        "size": {
+                          "description": "The size of the record",
+                          "type": "integer",
+                        },
+                      },
+                      "required": [
+                        "checksum",
+                        "proofIndex",
+                        "proofSubtree",
+                        "size",
+                      ],
+                      "type": "object",
+                    },
+                    "verifierData": {
+                      "properties": {
+                        "commPc": {
+                          "description": "The piece commitment (commPc)",
+                          "type": "string",
+                        },
+                        "sizePc": {
+                          "description": "The size of the piece commitment",
+                          "type": "string",
+                        },
+                      },
+                      "required": [
+                        "commPc",
+                        "sizePc",
+                      ],
+                      "type": "object",
+                    },
+                  },
+                  "required": [
+                    "verifierData",
+                    "inclusionProof",
+                    "indexRecord",
+                  ],
+                  "type": "object",
+                },
+                "storageProvider": {
+                  "description": "The storage provider's ID",
+                  "type": "string",
+                },
+              },
+              "required": [
+                "dealId",
+                "storageProvider",
+                "proof",
+              ],
+              "type": "object",
+            },
+            "type": "array",
+          },
+        },
+        "required": [
+          "dealInfo",
         ],
         "type": "object",
       },

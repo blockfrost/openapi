@@ -5463,6 +5463,13 @@ paths:
           schema:
             type: string
             description: Path to the IPFS object
+        - in: query
+          name: filecoin
+          schema:
+            type: boolean
+          required: false
+          description: |
+            If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS.
       x-codeSamples:
         - lang: Shell
           label: cURL
@@ -5491,9 +5498,13 @@ paths:
                       - gc
                     example: queued
                     description: State of the pin action
+                  filecoin:
+                    type: boolean
+                    description: Whether filecoin was used to pin the resource.
                 required:
                   - ipfs_hash
                   - state
+                  - filecoin
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5598,12 +5609,16 @@ paths:
                         pinned item has been garbage collected due to account being over storage quota or after it has
                         been moved to `unpinned` state by removing the object pin.
                       example: pinned
+                    filecoin:
+                      type: boolean
+                      description: Whether filecoin was used to pin the resource.
                   required:
                     - time_created
                     - time_pinned
                     - ipfs_hash
                     - size
                     - state
+                    - filecoin
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5681,12 +5696,16 @@ paths:
                       When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
                       State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                     example: pinned
+                  filecoin:
+                    type: boolean
+                    description: Whether filecoin was used to pin the resource.
                 required:
                   - time_created
                   - time_pinned
                   - ipfs_hash
                   - size
                   - state
+                  - filecoin
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5751,6 +5770,136 @@ paths:
                 required:
                   - ipfs_hash
                   - state
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /ipfs/pin/podsi/{IPFS_path}:
+    servers:
+      - url: https://ipfs.blockfrost.io/api/v0
+    get:
+      tags:
+        - IPFS » Pins
+      summary: Get Proof of Data Segment Inclusion (PoDSI)
+      description: |
+        Retrieve the Proof of Data Segment Inclusion (PoDSI) for a specific IPFS object.
+
+        <p>
+          <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+        </p>
+      parameters:
+        - in: path
+          required: true
+          name: IPFS_path
+          schema:
+            type: string
+            description: The path to the IPFS object
+      responses:
+        '200':
+          description: Returns the Proof of Data Segment Inclusion (PoDSI)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dealInfo:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dealId:
+                          type: integer
+                          description: The ID of the storage deal
+                        storageProvider:
+                          type: string
+                          description: The storage provider's ID
+                        proof:
+                          type: object
+                          properties:
+                            verifierData:
+                              type: object
+                              properties:
+                                commPc:
+                                  type: string
+                                  description: The piece commitment (commPc)
+                                sizePc:
+                                  type: string
+                                  description: The size of the piece commitment
+                              required:
+                                - commPc
+                                - sizePc
+                            inclusionProof:
+                              type: object
+                              properties:
+                                proofIndex:
+                                  type: object
+                                  properties:
+                                    index:
+                                      type: string
+                                      description: The proof index
+                                    path:
+                                      type: array
+                                      items:
+                                        type: string
+                                      description: The Merkle proof path
+                                  required:
+                                    - index
+                                    - path
+                                proofSubtree:
+                                  type: object
+                                  properties:
+                                    index:
+                                      type: string
+                                      description: The subtree proof index
+                                    path:
+                                      type: array
+                                      items:
+                                        type: string
+                                      description: The Merkle proof path for the subtree
+                                  required:
+                                    - index
+                                    - path
+                              required:
+                                - proofIndex
+                                - proofSubtree
+                            indexRecord:
+                              type: object
+                              properties:
+                                checksum:
+                                  type: string
+                                  description: The checksum of the index record
+                                proofIndex:
+                                  type: string
+                                  description: The proof index
+                                proofSubtree:
+                                  type: integer
+                                  description: The size of the proof subtree
+                                size:
+                                  type: integer
+                                  description: The size of the record
+                              required:
+                                - checksum
+                                - proofIndex
+                                - proofSubtree
+                                - size
+                          required:
+                            - verifierData
+                            - inclusionProof
+                            - indexRecord
+                      required:
+                        - dealId
+                        - storageProvider
+                        - proof
+                required:
+                  - dealInfo
         '400':
           $ref: '#/components/responses/400'
         '403':

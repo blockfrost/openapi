@@ -12,6 +12,13 @@ post:
       schema:
         type: string
         description: Path to the IPFS object
+    - in: query
+      name: filecoin
+      schema:
+        type: boolean
+      required: false
+      description: >
+        If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS.
   x-codeSamples:
     - lang: "Shell"
       label: "cURL"
@@ -40,9 +47,13 @@ post:
                   - gc
                 example: "queued"
                 description: State of the pin action
+              filecoin:
+                type: boolean
+                description: Whether filecoin was used to pin the resource.
             required:
               - ipfs_hash
               - state
+              - filecoin
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

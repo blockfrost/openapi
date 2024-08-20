@@ -3738,6 +3738,10 @@ export interface paths {
      */
     post: {
       parameters: {
+        query?: {
+          /** @description If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. */
+          filecoin?: boolean;
+        };
         path: {
           IPFS_path: string;
         };
@@ -3758,6 +3762,8 @@ export interface paths {
                * @enum {string}
                */
               state: "queued|pinned|unpinned|failed|gc";
+              /** @description Whether filecoin was used to pin the resource. */
+              filecoin: boolean;
             };
           };
         };
@@ -3829,6 +3835,8 @@ export interface paths {
                  * @enum {string}
                  */
                 state: "queued|pinned|unpinned|failed|gc";
+                /** @description Whether filecoin was used to pin the resource. */
+                filecoin: boolean;
               })[];
           };
         };
@@ -3892,6 +3900,8 @@ export interface paths {
                * @enum {string}
                */
               state: "queued|pinned|unpinned|failed|gc";
+              /** @description Whether filecoin was used to pin the resource. */
+              filecoin: boolean;
             };
           };
         };
@@ -3935,6 +3945,76 @@ export interface paths {
                * @enum {string}
                */
               state: "queued|pinned|unpinned|failed|gc";
+            };
+          };
+        };
+        400: components["responses"]["400"];
+        403: components["responses"]["403"];
+        404: components["responses"]["404"];
+        418: components["responses"]["418"];
+        429: components["responses"]["429"];
+        500: components["responses"]["500"];
+      };
+    };
+  };
+  "/ipfs/pin/podsi/{IPFS_path}": {
+    /**
+     * Get Proof of Data Segment Inclusion (PoDSI)
+     * @description Retrieve the Proof of Data Segment Inclusion (PoDSI) for a specific IPFS object.
+     *
+     * <p>
+     *   <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
+     * </p>
+     */
+    get: {
+      parameters: {
+        path: {
+          IPFS_path: string;
+        };
+      };
+      responses: {
+        /** @description Returns the Proof of Data Segment Inclusion (PoDSI) */
+        200: {
+          content: {
+            "application/json": {
+              dealInfo: {
+                  /** @description The ID of the storage deal */
+                  dealId: number;
+                  /** @description The storage provider's ID */
+                  storageProvider: string;
+                  proof: {
+                    verifierData: {
+                      /** @description The piece commitment (commPc) */
+                      commPc: string;
+                      /** @description The size of the piece commitment */
+                      sizePc: string;
+                    };
+                    inclusionProof: {
+                      proofIndex: {
+                        /** @description The proof index */
+                        index: string;
+                        /** @description The Merkle proof path */
+                        path: string[];
+                      };
+                      proofSubtree: {
+                        /** @description The subtree proof index */
+                        index: string;
+                        /** @description The Merkle proof path for the subtree */
+                        path: string[];
+                      };
+                    };
+                    indexRecord: {
+                      /** @description The checksum of the index record */
+                      checksum: string;
+                      /** @description The proof index */
+                      proofIndex: string;
+                      /** @description The size of the proof subtree */
+                      proofSubtree: number;
+                      /** @description The size of the record */
+                      size: number;
+                    };
+                  };
+                }[];
             };
           };
         };

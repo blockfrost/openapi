@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.66] - 2024-09-02
+
+### Changed
+
+- reverted Mithril support
+
 ## [0.1.65] - 2024-07-24
 
 ### Added

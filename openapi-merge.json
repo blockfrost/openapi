@@ -9,7 +9,7 @@
         "prepend": "/mithril"
       },
       "operationSelection": {
-        "includeTags": ["Cardano » Mithril"]
+        "includeTags": ["SKIPCardano » Mithril"]
       },
       "description": {
         "append": false

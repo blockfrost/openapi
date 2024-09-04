@@ -9,11 +9,19 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
-## [0.1.6%] - XXXX-XX-XX
+## [0.1.66] - 2024-09-02
+
+### Changed
+
+- reverted Mithril support
+
+## [0.1.65] - 2024-07-24
 
 ### Added
 
 - CIP-1964 support
+- Mithrill support
+- raw tx CBOR
 
 ## [0.1.64] - 2024-06-27
 

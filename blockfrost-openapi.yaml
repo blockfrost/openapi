@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.65
+  version: 0.1.66
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -265,20 +265,6 @@ tags:
   - name: Cardano » Ledger
   - name: Cardano » Mempool
   - name: Cardano » Metadata
-  - name: Cardano » Mithril
-    description: |
-      Mithril integration allows you to leverage the capabilities of the Mithril Aggregator API without needing to interact with multiple APIs, simplifying the development process and enhancing usability.
-
-      > **Please note that the integration of Mithril is experimental. Blockfrost acts as a proxy for the subset of Mithril API endpoints. The format of the Mithril API may change independently of the core Blockfrost API.**
-
-      All Mithril endpoints are accessible under the <code>/mithril</code> path.
-
-      > For example, to retrieve a snapshot artifact of the cardano mainnet, you would use:
-      `https://cardano-mainnet.blockfrost.io/api/v0/mithril/artifact/snapshot/{digest}`
-
-      In addition to error responses listed in Mithril endpoints (such as `404`, `412` and `500`), the API may also return error responses related to Blockfrost (e.g. `400` for invalid path or `403` for unauthenticated request). For the full list of Blockfrost error status codes, please see [Blockfrost Errors](#section/Errors).
-
-      For more information about how to use Mithril API, please see the <a href="https://mithril.network/doc/">Mithril docs</a>.
   - name: Cardano » Network
   - name: Cardano » Pools
   - name: Cardano » Scripts

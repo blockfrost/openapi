@@ -16,7 +16,7 @@
     "copy": "cp ./openapi.yaml ./docs/spec.yaml",
     "lint": "yarn build && scalar validate ./openapi.yaml",
     "preview": "scalar serve ./openapi.yaml --watch",
-    "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn redocly bundle -o ./openapi.json ./openapi.yaml && yarn copy",
+    "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn copy",
     "generate-docs": "yarn redocly build-docs -t ./src/template.hbs -o docs/index.html ./openapi.yaml",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
@@ -24,7 +24,6 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@redocly/cli": "1.5.0",
     "@scalar/cli": "^0.2.91",
     "@vitest/coverage-v8": "2.0.4",
     "openapi-merge-cli": "^1.3.1",

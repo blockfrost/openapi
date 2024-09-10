@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
-    <script id="api-reference" data-url="./spec.yaml"></script>
+    <script id="api-reference" data-url="./blockfrost-openapi.yaml"></script>
     <script>
       var configuration = {
         theme: 'kepler',
-        hideModels: true
+        hideModels: true,
+
       };
       document.getElementById('api-reference').dataset.configuration =
         JSON.stringify(configuration);

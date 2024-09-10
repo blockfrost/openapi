@@ -13,7 +13,7 @@
   "scripts": {
     "prepublish": "yarn build",
     "build": "rimraf lib && yarn tsc && yarn bundle && yarn generate-types && yarn generate-json-schema",
-    "copy": "cp ./openapi.yaml ./docs/spec.yaml",
+    "copy": "cp ./openapi.yaml ./docs/blockfrost-openapi.yaml",
     "lint": "yarn build && scalar validate ./openapi.yaml",
     "preview": "scalar serve ./openapi.yaml --watch",
     "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn copy",

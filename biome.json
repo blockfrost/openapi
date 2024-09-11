@@ -1,0 +1,20 @@
+{
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+  "files": {
+    "ignore": [
+      "lib",
+      "generated-types.ts",
+      "src/functions",
+      "coverage",
+      "docs"
+    ]
+  }
+}

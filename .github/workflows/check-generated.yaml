@@ -12,8 +12,7 @@ jobs:
         with:
           cmd: run build
       - name: Check diff
-        run: git diff
-        # run: git diff --quiet || { echo "You forgot to run 'yarn run build'"; exit 1; }
+        run: git diff --quiet || { echo "You forgot to run 'yarn run build'"; exit 1; }
 
 name: Generated content is up to date
 on:

@@ -1,9 +1,9 @@
 export default {
-  type: 'object',
-  properties: {
-    json: {
-      nullable: true,
-    },
-  },
-  required: ['json'],
+	type: "object",
+	properties: {
+		json: {
+			nullable: true,
+		},
+	},
+	required: ["json"],
 };

@@ -1,25 +1,25 @@
 import {
-	getCIPstandard,
-	getOnchainMetadata,
-	getOnchainMetadataVersion,
-	validateCIP68Metadata,
-} from "./functions/metadata";
+  getSchemaForEndpoint,
+  getSchema,
+  validateSchema,
+  generateSchemas,
+} from './functions/schema';
 import {
-	generateSchemas,
-	getSchema,
-	getSchemaForEndpoint,
-	validateSchema,
-} from "./functions/schema";
+  getOnchainMetadata,
+  getOnchainMetadataVersion,
+  getCIPstandard,
+  validateCIP68Metadata,
+} from './functions/metadata';
 
 export {
-	getSchemaForEndpoint,
-	getSchema,
-	generateSchemas,
-	validateSchema,
-	getOnchainMetadata,
-	getCIPstandard,
-	getOnchainMetadataVersion,
-	validateCIP68Metadata,
+  getSchemaForEndpoint,
+  getSchema,
+  generateSchemas,
+  validateSchema,
+  getOnchainMetadata,
+  getCIPstandard,
+  getOnchainMetadataVersion,
+  validateCIP68Metadata,
 };
 
-export type { paths, components } from "./generated-types";
+export type { paths, components } from './generated-types';

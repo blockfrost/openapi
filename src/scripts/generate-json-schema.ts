@@ -1,4 +1,4 @@
-import { generateSchemas } from "../index";
+import { generateSchemas } from '../index';
 
 const jsonSchema = generateSchemas();
 

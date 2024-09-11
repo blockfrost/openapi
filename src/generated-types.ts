@@ -5206,6 +5206,22 @@ export interface components {
         [key: string]: unknown;
       } | null;
       /**
+       * @description Cost models parameters for Plutus Core scripts in raw list form
+       * @example {
+       *   "PlutusV1": [
+       *     197209,
+       *     0
+       *   ],
+       *   "PlutusV2": [
+       *     197209,
+       *     0
+       *   ]
+       * }
+       */
+      cost_models_raw?: {
+        [key: string]: unknown;
+      } | null;
+      /**
        * @description The per word cost of script memory usage
        * @example 0.0577
        */

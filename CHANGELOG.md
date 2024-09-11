@@ -9,6 +9,11 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `cost_models_raw` field, list variant of `cost_models` without name mapping
+
 ## [0.1.66] - 2024-09-02
 
 ### Changed

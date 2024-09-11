@@ -9720,6 +9720,22 @@
             },
             "description": "Cost models parameters for Plutus Core scripts"
           },
+          "cost_models_raw": {
+            "additionalProperties": true,
+            "type": "object",
+            "nullable": true,
+            "example": {
+              "PlutusV1": [
+                197209,
+                0
+              ],
+              "PlutusV2": [
+                197209,
+                0
+              ]
+            },
+            "description": "Cost models parameters for Plutus Core scripts in raw list form"
+          },
           "price_mem": {
             "type": "number",
             "nullable": true,

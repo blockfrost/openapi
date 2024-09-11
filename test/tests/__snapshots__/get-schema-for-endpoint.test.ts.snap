@@ -7872,6 +7872,22 @@ under which it is valid
             "nullable": true,
             "type": "object",
           },
+          "cost_models_raw": {
+            "additionalProperties": true,
+            "description": "Cost models parameters for Plutus Core scripts in raw list form",
+            "example": {
+              "PlutusV1": [
+                197209,
+                0,
+              ],
+              "PlutusV2": [
+                197209,
+                0,
+              ],
+            },
+            "nullable": true,
+            "type": "object",
+          },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
             "example": 0.5,
@@ -9175,6 +9191,22 @@ under which it is valid
                 "addInteger-cpu-arguments-intercept": 197209,
                 "addInteger-cpu-arguments-slope": 0,
               },
+            },
+            "nullable": true,
+            "type": "object",
+          },
+          "cost_models_raw": {
+            "additionalProperties": true,
+            "description": "Cost models parameters for Plutus Core scripts in raw list form",
+            "example": {
+              "PlutusV1": [
+                197209,
+                0,
+              ],
+              "PlutusV2": [
+                197209,
+                0,
+              ],
             },
             "nullable": true,
             "type": "object",

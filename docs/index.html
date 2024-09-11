@@ -18,6 +18,7 @@
 
       const redirectionMap = {
         "#section/Tokens": "#description/tokens",
+        "#section/Limits": "#description/limits",
         "#section/Available-networks": "#description/available-networks",
         "#section/Milkomeda": "#description/milkomeda",
         "#section/Concepts": "#description/concepts",
@@ -39,185 +40,183 @@
         "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1registrations/get":
           "#tag/cardano--accounts/GET/accounts/{stake_address}/registrations",
         "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1withdrawals/get":
-          "https://blockfrost.dev/api/account-withdrawal-history",
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/withdrawals",
         "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1mirs/get":
-          "https://blockfrost.dev/api/account-mir-history",
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/mirs",
         "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses/get":
-          "https://blockfrost.dev/api/account-associated-addresses",
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/addresses",
         "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses~1assets/get":
-          "https://blockfrost.dev/api/assets-associated-with-the-account-addresses",
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/addresses/assets",
         "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses~1total/get":
-          "https://blockfrost.dev/api/detailed-information-about-account-associated-addresses",
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/addresses/total",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D/get":
-          "https://blockfrost.dev/api/specific-address",
+          "#tag/cardano--addresses/GET/addresses/{address}",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1extended/get":
-          "https://blockfrost.dev/api/extended-information-of-a-specific-address",
+          "#tag/cardano--addresses/GET/addresses/{address}/extended",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1total/get":
-          "https://blockfrost.dev/api/address-details",
+          "#tag/cardano--addresses/GET/addresses/{address}/total",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1utxos/get":
-          "https://blockfrost.dev/api/address-utx-os",
+          "#tag/cardano--addresses/GET/addresses/{address}/utxos",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1utxos~1%7Basset%7D/get":
-          "https://blockfrost.dev/api/address-utx-os-of-a-given-asset",
+          "#tag/cardano--addresses/GET/addresses/{address}/utxos/{asset}",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1txs/get":
-          "https://blockfrost.dev/api/address-txs",
+          "#tag/cardano--addresses/GET/addresses/{address}/txs",
         "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1transactions/get":
-          "https://blockfrost.dev/api/address-transactions",
+          "#tag/cardano--addresses/GET/addresses/{address}/transactions",
         "#tag/Cardano-Assets/paths/~1assets/get":
-          "https://blockfrost.dev/api/assets",
+          "#tag/cardano--assets/GET/assets",
         "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D/get":
-          "https://blockfrost.dev/api/specific-asset",
+          "#tag/cardano--assets/GET/assets/{asset}",
         "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1history/get":
-          "https://blockfrost.dev/api/asset-history",
+          "#tag/cardano--assets/GET/assets/{asset}/history",
         "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1txs/get":
-          "https://blockfrost.dev/api/asset-txs",
+          "#tag/cardano--assets/GET/assets/{asset}/txs",
         "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1transactions/get":
-          "https://blockfrost.dev/api/asset-transactions",
+          "#tag/cardano--assets/GET/assets/{asset}/transactions",
         "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1addresses/get":
-          "https://blockfrost.dev/api/asset-addresses",
+          "#tag/cardano--assets/GET/assets/{asset}/addresses",
         "#tag/Cardano-Assets/paths/~1assets~1policy~1%7Bpolicy_id%7D/get":
-          "https://blockfrost.dev/api/assets-of-a-specific-policy",
+          "#tag/cardano--assets/GET/assets/policy/{policy_id}",
         "#tag/Cardano-Blocks/paths/~1blocks~1latest/get":
-          "https://blockfrost.dev/api/latest-block",
+          "#tag/cardano--blocks/GET/blocks/latest",
         "#tag/Cardano-Blocks/paths/~1blocks~1latest~1txs/get":
-          "https://blockfrost.dev/api/latest-block-transactions",
+          "#tag/cardano--blocks/GET/blocks/latest/txs",
         "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D/get":
-          "https://blockfrost.dev/api/specific-block",
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}",
         "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1next/get":
-          "https://blockfrost.dev/api/listing-of-next-blocks",
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/next",
         "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1previous/get":
-          "https://blockfrost.dev/api/listing-of-previous-blocks",
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/previous",
         "#tag/Cardano-Blocks/paths/~1blocks~1slot~1%7Bslot_number%7D/get":
-          "https://blockfrost.dev/api/specific-block-in-a-slot",
+          "#tag/cardano--blocks/GET/blocks/slot/{slot_number}",
         "#tag/Cardano-Blocks/paths/~1blocks~1epoch~1%7Bepoch_number%7D~1slot~1%7Bslot_number%7D/get":
-          "https://blockfrost.dev/api/specific-block-in-a-slot-in-an-epoch",
+          "#tag/cardano--blocks/GET/blocks/epoch/{epoch_number}/slot/{slot_number}",
         "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1txs/get":
-          "https://blockfrost.dev/api/block-transactions",
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/txs",
         "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1addresses/get":
-          "https://blockfrost.dev/api/addresses-affected-in-a-specific-block",
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/addresses",
         "#tag/Cardano-Epochs/paths/~1epochs~1latest/get":
-          "https://blockfrost.dev/api/latest-epoch",
+          "#tag/cardano--epochs/GET/epochs/latest",
         "#tag/Cardano-Epochs/paths/~1epochs~1latest~1parameters/get":
-          "https://blockfrost.dev/api/latest-epoch-protocol-parameters",
+          "#tag/cardano--epochs/GET/epochs/latest/parameters",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D/get":
-          "https://blockfrost.dev/api/specific-epoch",
+          "#tag/cardano--epochs/GET/epochs/{number}",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1next/get":
-          "https://blockfrost.dev/api/listing-of-next-epochs",
+          "#tag/cardano--epochs/GET/epochs/{number}/next",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1previous/get":
-          "https://blockfrost.dev/api/listing-of-previous-epochs",
+          "#tag/cardano--epochs/GET/epochs/{number}/previous",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1stakes/get":
-          "https://blockfrost.dev/api/stake-distribution",
+          "#tag/cardano--epochs/GET/epochs/{number}/stakes",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1stakes~1%7Bpool_id%7D/get":
-          "https://blockfrost.dev/api/stake-distribution-by-pool",
+          "#tag/cardano--epochs/GET/epochs/{number}/stakes/{pool_id}",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1blocks/get":
-          "https://blockfrost.dev/api/block-distribution",
+          "#tag/cardano--epochs/GET/epochs/{number}/blocks",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1blocks~1%7Bpool_id%7D/get":
-          "https://blockfrost.dev/api/block-distribution-by-pool",
+          "#tag/cardano--epochs/GET/epochs/{number}/blocks/{pool_id}",
         "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1parameters/get":
-          "https://blockfrost.dev/api/protocol-parameters",
+          "#tag/cardano--epochs/GET/epochs/{number}/parameters",
         "#tag/Cardano-Ledger/paths/~1genesis/get":
-          "https://blockfrost.dev/api/blockchain-genesis",
+          "#tag/cardano--ledger/GET/genesis",
         "#tag/Cardano-Mempool/paths/~1mempool/get":
-          "https://blockfrost.dev/api/mempool",
+          "#tag/cardano--mempool/GET/mempool",
         "#tag/Cardano-Mempool/paths/~1mempool~1%7Bhash%7D/get":
-          "https://blockfrost.dev/api/specific-transaction-in-the-mempool",
+          "#tag/cardano--mempool/GET/mempool/{hash}",
         "#tag/Cardano-Mempool/paths/~1mempool~1addresses~1%7Baddress%7D/get":
-          "https://blockfrost.dev/api/mempool-by-address",
+          "#tag/cardano--mempool/GET/mempool/addresses/{address}",
         "#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels/get":
-          "https://blockfrost.dev/api/transaction-metadata-labels",
+          "#tag/cardano--metadata/GET/metadata/txs/labels",
         "#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels~1%7Blabel%7D/get":
-          "https://blockfrost.dev/api/transaction-metadata-content-in-json",
+          "#tag/cardano--metadata/GET/metadata/txs/labels/{label}",
         "#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels~1%7Blabel%7D~1cbor/get":
-          "https://blockfrost.dev/api/transaction-metadata-content-in-cbor",
+          "#tag/cardano--metadata/GET/metadata/txs/labels/{label}/cbor",
         "#tag/Cardano-Network/paths/~1network/get":
-          "https://blockfrost.dev/api/network-information",
+          "#tag/cardano--network/GET/network",
         "#tag/Cardano-Network/paths/~1network~1eras/get":
-          "https://blockfrost.dev/api/query-summary-of-blockchain-eras",
-        "#tag/Cardano-Pools/paths/~1pools/get":
-          "https://blockfrost.dev/api/list-of-stake-pools",
+          "#tag/cardano--network/GET/network/eras",
+        "#tag/Cardano-Pools/paths/~1pools/get": "#tag/cardano--pools/GET/pools",
         "#tag/Cardano-Pools/paths/~1pools~1extended/get":
-          "https://blockfrost.dev/api/list-of-stake-pools-with-additional-information",
+          "#tag/cardano--pools/GET/pools/extended",
         "#tag/Cardano-Pools/paths/~1pools~1retired/get":
-          "https://blockfrost.dev/api/list-of-retired-stake-pools",
+          "#tag/cardano--pools/GET/pools/retired",
         "#tag/Cardano-Pools/paths/~1pools~1retiring/get":
-          "https://blockfrost.dev/api/list-of-retiring-stake-pools",
+          "#tag/cardano--pools/GET/pools/retiring",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D/get":
-          "https://blockfrost.dev/api/specific-stake-pool",
+          "#tag/cardano--pools/GET/pools/{pool_id}",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1history/get":
-          "https://blockfrost.dev/api/stake-pool-history",
+          "#tag/cardano--pools/GET/pools/{pool_id}/history",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1metadata/get":
-          "https://blockfrost.dev/api/stake-pool-metadata",
+          "#tag/cardano--pools/GET/pools/{pool_id}/metadata",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1relays/get":
-          "https://blockfrost.dev/api/stake-pool-relays",
+          "#tag/cardano--pools/GET/pools/{pool_id}/relays",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1delegators/get":
-          "https://blockfrost.dev/api/stake-pool-delegators",
+          "#tag/cardano--pools/GET/pools/{pool_id}/delegators",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1blocks/get":
-          "https://blockfrost.dev/api/stake-pool-blocks",
+          "#tag/cardano--pools/GET/pools/{pool_id}/blocks",
         "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1updates/get":
-          "https://blockfrost.dev/api/stake-pool-updates",
+          "#tag/cardano--pools/GET/pools/{pool_id}/updates",
         "#tag/Cardano-Scripts/paths/~1scripts/get":
-          "https://blockfrost.dev/api/scripts",
+          "#tag/cardano--scripts/GET/scripts",
         "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D/get":
-          "https://blockfrost.dev/api/specific-script",
+          "#tag/cardano--scripts/GET/scripts/{script_hash}",
         "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1json/get":
-          "https://blockfrost.dev/api/script-json",
+          "#tag/cardano--scripts/GET/scripts/{script_hash}/json",
         "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1cbor/get":
-          "https://blockfrost.dev/api/script-cbor",
+          "#tag/cardano--scripts/GET/scripts/{script_hash}/cbor",
         "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1redeemers/get":
-          "https://blockfrost.dev/api/redeemers-of-a-specific-script",
+          "#tag/cardano--scripts/GET/scripts/{script_hash}/redeemers",
         "#tag/Cardano-Scripts/paths/~1scripts~1datum~1%7Bdatum_hash%7D/get":
-          "https://blockfrost.dev/api/datum-value",
+          "#tag/cardano--scripts/GET/scripts/datum/{datum_hash}",
         "#tag/Cardano-Scripts/paths/~1scripts~1datum~1%7Bdatum_hash%7D~1cbor/get":
-          "https://blockfrost.dev/api/datum-cbor-value",
+          "#tag/cardano--scripts/GET/scripts/datum/{datum_hash}/cbor",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D/get":
-          "https://blockfrost.dev/api/specific-transaction",
+          "#tag/cardano--transactions/GET/txs/{hash}",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1utxos/get":
-          "https://blockfrost.dev/api/transaction-utx-os",
+          "#tag/cardano--transactions/GET/txs/{hash}/utxos",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1stakes/get":
-          "https://blockfrost.dev/api/transaction-stake-addresses-certificates",
+          "#tag/cardano--transactions/GET/txs/{hash}/stakes",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1delegations/get":
-          "https://blockfrost.dev/api/transaction-delegation-certificates",
+          "#tag/cardano--transactions/GET/txs/{hash}/delegations",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1withdrawals/get":
-          "https://blockfrost.dev/api/transaction-withdrawal",
+          "#tag/cardano--transactions/GET/txs/{hash}/withdrawals",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1mirs/get":
-          "https://blockfrost.dev/api/transaction-mi-rs",
+          "#tag/cardano--transactions/GET/txs/{hash}/mirs",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1pool_updates/get":
-          "https://blockfrost.dev/api/transaction-stake-pool-registration-and-update-certificates",
+          "#tag/cardano--transactions/GET/txs/{hash}/pool_updates",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1pool_retires/get":
-          "https://blockfrost.dev/api/transaction-stake-pool-retirement-certificates",
+          "#tag/cardano--transactions/GET/txs/{hash}/pool_retires",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1metadata/get":
-          "https://blockfrost.dev/api/transaction-metadata",
+          "#tag/cardano--transactions/GET/txs/{hash}/metadata",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1metadata~1cbor/get":
-          "https://blockfrost.dev/api/transaction-metadata-in-cbor",
+          "#tag/cardano--transactions/GET/txs/{hash}/metadata/cbor",
         "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1redeemers/get":
-          "https://blockfrost.dev/api/transaction-redeemers",
+          "#tag/cardano--transactions/GET/txs/{hash}/redeemers",
         "#tag/Cardano-Transactions/paths/~1tx~1submit/post":
-          "https://blockfrost.dev/api/submit-a-transaction",
+          "#tag/cardano--transactions/POST/tx/submit",
         "#tag/Cardano-Utilities/paths/~1utils~1addresses~1xpub~1%7Bxpub%7D~1%7Brole%7D~1%7Bindex%7D/get":
-          "https://blockfrost.dev/api/derive-an-address",
+          "#tag/cardano--utilities/GET/utils/addresses/xpub/{xpub}/{role}/{index}",
         "#tag/Cardano-Utilities/paths/~1utils~1txs~1evaluate/post":
-          "https://blockfrost.dev/api/submit-a-transaction-for-execution-units-evaluation",
+          "#tag/cardano--utilities/POST/utils/txs/evaluate",
         "#tag/Cardano-Utilities/paths/~1utils~1txs~1evaluate~1utxos/post":
-          "https://blockfrost.dev/api/submit-a-transaction-for-execution-units-evaluation-additional-utxo-set",
-        "#tag/IPFS-Add/paths/~1ipfs~1add/post":
-          "https://blockfrost.dev/api/ipfs-add",
+          "#tag/cardano--utilities/POST/utils/txs/evaluate/utxos",
+        "#tag/IPFS-Add/paths/~1ipfs~1add/post": "#tag/ipfs--add/POST/ipfs/add",
         "#tag/IPFS-Gateway/paths/~1ipfs~1gateway~1%7BIPFS_path%7D/get":
-          "https://blockfrost.dev/api/relay-to-an-ipfs-gateway",
+          "#tag/ipfs--gateway/GET/ipfs/gateway/{IPFS_path}",
         "#tag/IPFS-Pins/paths/~1ipfs~1pin~1add~1%7BIPFS_path%7D/post":
-          "https://blockfrost.dev/api/pin-an-object",
+          "#tag/ipfs--pins/POST/ipfs/pin/add/{IPFS_path}",
         "#tag/IPFS-Pins/paths/~1ipfs~1pin~1list/get":
-          "https://blockfrost.dev/api/list-pinned-objects",
+          "#tag/ipfs--pins/GET/ipfs/pin/list",
         "#tag/IPFS-Pins/paths/~1ipfs~1pin~1list~1%7BIPFS_path%7D/get":
-          "https://blockfrost.dev/api/get-details-about-pinned-object",
+          "#tag/ipfs--pins/GET/ipfs/pin/list/{IPFS_path}",
         "#tag/IPFS-Pins/paths/~1ipfs~1pin~1remove~1%7BIPFS_path%7D/post":
-          "https://blockfrost.dev/api/remove-a-ipfs-pin",
+          "#tag/ipfs--pins/POST/ipfs/pin/remove/{IPFS_path}",
         "#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D/get":
-          "https://blockfrost.dev/api/specific-nut-link-address",
+          "#tag/nut--link/GET/nutlink/{address}",
         "#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D~1tickers/get":
-          "https://blockfrost.dev/api/list-of-tickers-of-an-oracle",
+          "#tag/nut--link/GET/nutlink/{address}/tickers",
         "#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D~1tickers~1%7Bticker%7D/get":
-          "https://blockfrost.dev/api/specific-ticker-for-an-address",
+          "#tag/nut--link/GET/nutlink/{address}/tickers/{ticker}",
         "#tag/Nut.link/paths/~1nutlink~1tickers~1%7Bticker%7D/get":
-          "https://blockfrost.dev/api/specific-ticker",
+          "#tag/nut--link/GET/nutlink/tickers/{ticker}",
       };
 
       document.addEventListener("DOMContentLoaded", function () {

@@ -11024,7 +11024,7 @@ under which it is valid
                 },
               ],
             },
-            "hahsAlgorithm": "blake2b-256",
+            "hashAlgorithm": "blake2b-256",
           },
           "url": "https://aaa.xyz/drep.json",
         },

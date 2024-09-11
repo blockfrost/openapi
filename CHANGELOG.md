@@ -11,6 +11,8 @@ Unreleased changes are in the `master` branch.
 
 ### Added
 
+- `/txs/{hash}/utxos`
+  - `consumed_by_tx` field
 - `/epochs/{number}/parameters` and `/epochs/latest/parameters`
   - `cost_models_raw` field, list variant of `cost_models` without name mapping
 

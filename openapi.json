@@ -10374,6 +10374,12 @@
                   "nullable": true,
                   "description": "The hash of the reference script of the output",
                   "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
+                },
+                "consumed_by_tx": {
+                  "type": "string",
+                  "nullable": true,
+                  "description": "Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.",
+                  "example": "66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41"
                 }
               },
               "required": [

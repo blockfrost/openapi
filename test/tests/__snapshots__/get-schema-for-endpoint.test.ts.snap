@@ -23817,6 +23817,12 @@ relative to the start of the network
                   "example": false,
                   "type": "boolean",
                 },
+                "consumed_by_tx": {
+                  "description": "Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.",
+                  "example": "66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41",
+                  "nullable": true,
+                  "type": "string",
+                },
                 "data_hash": {
                   "description": "The hash of the transaction output datum",
                   "example": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710",

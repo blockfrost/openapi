@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.67] - 2024-09-11
+
 ### Added
 
 - `/txs/{hash}/utxos`

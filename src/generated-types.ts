@@ -4468,7 +4468,7 @@ export interface components {
      *         }
      *       }
      *     },
-     *     "hahsAlgorithm": "blake2b-256",
+     *     "hashAlgorithm": "blake2b-256",
      *     "body": {
      *       "paymentAddress": "addr1q86dnpkva4mm859c8ur7tjxn57zgsu6vg8pdetkdve3fsacnq7twy06u2ev5759vutpjgzfryx0ud8hzedhzerava35qwh3x34",
      *       "givenName": "Ryan Williams",
@@ -4741,16 +4741,16 @@ export interface components {
          */
         nonce: string;
         /**
-         * @description Cost models parameters for Plutus Core scripts
+         * @description Cost models parameters for Plutus Core scripts in raw list form
          * @example {
-         *   "PlutusV1": {
-         *     "addInteger-cpu-arguments-intercept": 197209,
-         *     "addInteger-cpu-arguments-slope": 0
-         *   },
-         *   "PlutusV2": {
-         *     "addInteger-cpu-arguments-intercept": 197209,
-         *     "addInteger-cpu-arguments-slope": 0
-         *   }
+         *   "PlutusV1": [
+         *     197209,
+         *     0
+         *   ],
+         *   "PlutusV2": [
+         *     197209,
+         *     0
+         *   ]
          * }
          */
         cost_models: {
@@ -4870,7 +4870,13 @@ export interface components {
          * @description DRep activity period. New in 13.2-Conway.
          */
         drep_activity: string | null;
+        /**
+         * @deprecated
+         * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+         */
         pvtpp_security_group: number | null;
+        /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
+        pvt_p_p_security_group: number | null;
         min_fee_ref_script_cost_per_byte: number | null;
       };
     };
@@ -5206,6 +5212,22 @@ export interface components {
         [key: string]: unknown;
       } | null;
       /**
+       * @description Cost models parameters for Plutus Core scripts in raw list form
+       * @example {
+       *   "PlutusV1": [
+       *     197209,
+       *     0
+       *   ],
+       *   "PlutusV2": [
+       *     197209,
+       *     0
+       *   ]
+       * }
+       */
+      cost_models_raw?: {
+        [key: string]: unknown;
+      } | null;
+      /**
        * @description The per word cost of script memory usage
        * @example 0.0577
        */
@@ -5301,7 +5323,13 @@ export interface components {
       drep_deposit: string | null;
       /** @description DRep activity period. */
       drep_activity: string | null;
+      /**
+       * @deprecated
+       * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+       */
       pvtpp_security_group: number | null;
+      /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
+      pvt_p_p_security_group: number | null;
       min_fee_ref_script_cost_per_byte: number | null;
     };
     epoch_content_array: components["schemas"]["epoch_content"][];
@@ -5591,6 +5619,11 @@ export interface components {
            * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
            */
           reference_script_hash: string | null;
+          /**
+           * @description Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.
+           * @example 66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41
+           */
+          consumed_by_tx?: string | null;
         })[];
     };
     tx_content_stake_addr: {

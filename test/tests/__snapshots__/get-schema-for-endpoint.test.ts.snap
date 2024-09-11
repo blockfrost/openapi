@@ -7872,6 +7872,22 @@ under which it is valid
             "nullable": true,
             "type": "object",
           },
+          "cost_models_raw": {
+            "additionalProperties": true,
+            "description": "Cost models parameters for Plutus Core scripts in raw list form",
+            "example": {
+              "PlutusV1": [
+                197209,
+                0,
+              ],
+              "PlutusV2": [
+                197209,
+                0,
+              ],
+            },
+            "nullable": true,
+            "type": "object",
+          },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
             "example": 0.5,
@@ -8101,7 +8117,14 @@ under which it is valid
             "nullable": true,
             "type": "number",
           },
+          "pvt_p_p_security_group": {
+            "description": "Pool Voting threshold for security-relevant protocol parameters changes.",
+            "nullable": true,
+            "type": "number",
+          },
           "pvtpp_security_group": {
+            "deprecated": true,
+            "description": "Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.",
             "nullable": true,
             "type": "number",
           },
@@ -8170,6 +8193,7 @@ under which it is valid
           "drep_deposit",
           "drep_activity",
           "pvtpp_security_group",
+          "pvt_p_p_security_group",
           "min_fee_ref_script_cost_per_byte",
         ],
         "type": "object",
@@ -9179,6 +9203,22 @@ under which it is valid
             "nullable": true,
             "type": "object",
           },
+          "cost_models_raw": {
+            "additionalProperties": true,
+            "description": "Cost models parameters for Plutus Core scripts in raw list form",
+            "example": {
+              "PlutusV1": [
+                197209,
+                0,
+              ],
+              "PlutusV2": [
+                197209,
+                0,
+              ],
+            },
+            "nullable": true,
+            "type": "object",
+          },
           "decentralisation_param": {
             "description": "Percentage of blocks produced by federated nodes",
             "example": 0.5,
@@ -9408,7 +9448,14 @@ under which it is valid
             "nullable": true,
             "type": "number",
           },
+          "pvt_p_p_security_group": {
+            "description": "Pool Voting threshold for security-relevant protocol parameters changes.",
+            "nullable": true,
+            "type": "number",
+          },
           "pvtpp_security_group": {
+            "deprecated": true,
+            "description": "Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.",
             "nullable": true,
             "type": "number",
           },
@@ -9477,6 +9524,7 @@ under which it is valid
           "drep_deposit",
           "drep_activity",
           "pvtpp_security_group",
+          "pvt_p_p_security_group",
           "min_fee_ref_script_cost_per_byte",
         ],
         "type": "object",
@@ -10992,7 +11040,7 @@ under which it is valid
                 },
               ],
             },
-            "hahsAlgorithm": "blake2b-256",
+            "hashAlgorithm": "blake2b-256",
           },
           "url": "https://aaa.xyz/drep.json",
         },
@@ -12270,16 +12318,16 @@ under which it is valid
               },
               "cost_models": {
                 "additionalProperties": true,
-                "description": "Cost models parameters for Plutus Core scripts",
+                "description": "Cost models parameters for Plutus Core scripts in raw list form",
                 "example": {
-                  "PlutusV1": {
-                    "addInteger-cpu-arguments-intercept": 197209,
-                    "addInteger-cpu-arguments-slope": 0,
-                  },
-                  "PlutusV2": {
-                    "addInteger-cpu-arguments-intercept": 197209,
-                    "addInteger-cpu-arguments-slope": 0,
-                  },
+                  "PlutusV1": [
+                    197209,
+                    0,
+                  ],
+                  "PlutusV2": [
+                    197209,
+                    0,
+                  ],
                 },
                 "nullable": true,
                 "type": "object",
@@ -12516,7 +12564,14 @@ under which it is valid
                 "nullable": true,
                 "type": "number",
               },
+              "pvt_p_p_security_group": {
+                "description": "Pool Voting threshold for security-relevant protocol parameters changes.",
+                "nullable": true,
+                "type": "number",
+              },
               "pvtpp_security_group": {
+                "deprecated": true,
+                "description": "Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.",
                 "nullable": true,
                 "type": "number",
               },
@@ -12584,6 +12639,7 @@ under which it is valid
               "drep_deposit",
               "drep_activity",
               "pvtpp_security_group",
+              "pvt_p_p_security_group",
               "min_fee_ref_script_cost_per_byte",
             ],
             "type": "object",
@@ -23784,6 +23840,12 @@ relative to the start of the network
                   "description": "Whether the output is a collateral output",
                   "example": false,
                   "type": "boolean",
+                },
+                "consumed_by_tx": {
+                  "description": "Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.",
+                  "example": "66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41",
+                  "nullable": true,
+                  "type": "string",
                 },
                 "data_hash": {
                   "description": "The hash of the transaction output datum",

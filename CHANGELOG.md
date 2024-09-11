@@ -9,6 +9,20 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/txs/{hash}/utxos`
+  - `consumed_by_tx` field
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `cost_models_raw` field, list variant of `cost_models` without name mapping
+
+### Fixed
+
+- Naming of `pvtpp_security_group` -> `pvt_p_p_security_group`, the old field is
+  preserved but marked as deprecated.
+- `/governance/proposals/{tx_hash}/{cert_index}/parameters`
+  - Example and description of `cost_models` (these match `cost_models_raw` of epoch parameters)
+
 ## [0.1.66] - 2024-09-02
 
 ### Changed

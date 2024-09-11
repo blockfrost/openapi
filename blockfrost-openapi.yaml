@@ -6747,6 +6747,12 @@ components:
             pvtpp_security_group:
               type: number
               nullable: true
+              deprecated: true
+              description: Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+            pvt_p_p_security_group:
+              type: number
+              nullable: true
+              description: Pool Voting threshold for security-relevant protocol parameters changes.
             min_fee_ref_script_cost_per_byte:
               type: number
               nullable: true
@@ -6803,6 +6809,7 @@ components:
             - drep_deposit
             - drep_activity
             - pvtpp_security_group
+            - pvt_p_p_security_group
             - min_fee_ref_script_cost_per_byte
       required:
         - tx_hash
@@ -7274,6 +7281,12 @@ components:
         pvtpp_security_group:
           type: number
           nullable: true
+          deprecated: true
+          description: Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+        pvt_p_p_security_group:
+          type: number
+          nullable: true
+          description: Pool Voting threshold for security-relevant protocol parameters changes.
         min_fee_ref_script_cost_per_byte:
           type: number
           nullable: true
@@ -7331,6 +7344,7 @@ components:
         - drep_deposit
         - drep_activity
         - pvtpp_security_group
+        - pvt_p_p_security_group
         - min_fee_ref_script_cost_per_byte
     epoch_content_array:
       type: array

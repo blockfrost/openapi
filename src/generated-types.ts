@@ -4870,7 +4870,13 @@ export interface components {
          * @description DRep activity period. New in 13.2-Conway.
          */
         drep_activity: string | null;
+        /**
+         * @deprecated
+         * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+         */
         pvtpp_security_group: number | null;
+        /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
+        pvt_p_p_security_group: number | null;
         min_fee_ref_script_cost_per_byte: number | null;
       };
     };
@@ -5317,7 +5323,13 @@ export interface components {
       drep_deposit: string | null;
       /** @description DRep activity period. */
       drep_activity: string | null;
+      /**
+       * @deprecated
+       * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+       */
       pvtpp_security_group: number | null;
+      /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
+      pvt_p_p_security_group: number | null;
       min_fee_ref_script_cost_per_byte: number | null;
     };
     epoch_content_array: components["schemas"]["epoch_content"][];

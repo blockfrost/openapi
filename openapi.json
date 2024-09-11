@@ -9226,7 +9226,14 @@
               },
               "pvtpp_security_group": {
                 "type": "number",
-                "nullable": true
+                "nullable": true,
+                "deprecated": true,
+                "description": "Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group."
+              },
+              "pvt_p_p_security_group": {
+                "type": "number",
+                "nullable": true,
+                "description": "Pool Voting threshold for security-relevant protocol parameters changes."
               },
               "min_fee_ref_script_cost_per_byte": {
                 "type": "number",
@@ -9286,6 +9293,7 @@
               "drep_deposit",
               "drep_activity",
               "pvtpp_security_group",
+              "pvt_p_p_security_group",
               "min_fee_ref_script_cost_per_byte"
             ]
           }
@@ -9905,7 +9913,14 @@
           },
           "pvtpp_security_group": {
             "type": "number",
-            "nullable": true
+            "nullable": true,
+            "deprecated": true,
+            "description": "Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group."
+          },
+          "pvt_p_p_security_group": {
+            "type": "number",
+            "nullable": true,
+            "description": "Pool Voting threshold for security-relevant protocol parameters changes."
           },
           "min_fee_ref_script_cost_per_byte": {
             "type": "number",
@@ -9966,6 +9981,7 @@
           "drep_deposit",
           "drep_activity",
           "pvtpp_security_group",
+          "pvt_p_p_security_group",
           "min_fee_ref_script_cost_per_byte"
         ]
       },

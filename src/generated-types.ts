@@ -4741,16 +4741,16 @@ export interface components {
          */
         nonce: string;
         /**
-         * @description Cost models parameters for Plutus Core scripts
+         * @description Cost models parameters for Plutus Core scripts in raw list form
          * @example {
-         *   "PlutusV1": {
-         *     "addInteger-cpu-arguments-intercept": 197209,
-         *     "addInteger-cpu-arguments-slope": 0
-         *   },
-         *   "PlutusV2": {
-         *     "addInteger-cpu-arguments-intercept": 197209,
-         *     "addInteger-cpu-arguments-slope": 0
-         *   }
+         *   "PlutusV1": [
+         *     197209,
+         *     0
+         *   ],
+         *   "PlutusV2": [
+         *     197209,
+         *     0
+         *   ]
          * }
          */
         cost_models: {

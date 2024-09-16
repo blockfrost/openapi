@@ -6728,7 +6728,7 @@ export interface components {
          *             }
          *           }
          *         },
-         *         "hahsAlgorithm": "blake2b-256",
+         *         "hashAlgorithm": "blake2b-256",
          *         "body": {
          *           "paymentAddress": "addr1q86dnpkva4mm859c8ur7tjxn57zgsu6vg8pdetkdve3fsacnq7twy06u2ev5759vutpjgzfryx0ud8hzedhzerava35qwh3x34",
          *           "givenName": "Ryan Williams",
@@ -6992,16 +6992,16 @@ export interface components {
                  */
                 nonce: string;
                 /**
-                 * @description Cost models parameters for Plutus Core scripts
+                 * @description Cost models parameters for Plutus Core scripts in raw list form
                  * @example {
-                 *       "PlutusV1": {
-                 *         "addInteger-cpu-arguments-intercept": 197209,
-                 *         "addInteger-cpu-arguments-slope": 0
-                 *       },
-                 *       "PlutusV2": {
-                 *         "addInteger-cpu-arguments-intercept": 197209,
-                 *         "addInteger-cpu-arguments-slope": 0
-                 *       }
+                 *       "PlutusV1": [
+                 *         197209,
+                 *         0
+                 *       ],
+                 *       "PlutusV2": [
+                 *         197209,
+                 *         0
+                 *       ]
                  *     }
                  */
                 cost_models: {
@@ -7121,7 +7121,13 @@ export interface components {
                  * @description DRep activity period. New in 13.2-Conway.
                  */
                 drep_activity: string | null;
+                /**
+                 * @deprecated
+                 * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+                 */
                 pvtpp_security_group: number | null;
+                /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
+                pvt_p_p_security_group: number | null;
                 min_fee_ref_script_cost_per_byte: number | null;
             };
         };
@@ -7451,6 +7457,22 @@ export interface components {
                 [key: string]: unknown;
             } | null;
             /**
+             * @description Cost models parameters for Plutus Core scripts in raw list form
+             * @example {
+             *       "PlutusV1": [
+             *         197209,
+             *         0
+             *       ],
+             *       "PlutusV2": [
+             *         197209,
+             *         0
+             *       ]
+             *     }
+             */
+            cost_models_raw?: {
+                [key: string]: unknown;
+            } | null;
+            /**
              * @description The per word cost of script memory usage
              * @example 0.0577
              */
@@ -7546,7 +7568,13 @@ export interface components {
             drep_deposit: string | null;
             /** @description DRep activity period. */
             drep_activity: string | null;
+            /**
+             * @deprecated
+             * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+             */
             pvtpp_security_group: number | null;
+            /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
+            pvt_p_p_security_group: number | null;
             min_fee_ref_script_cost_per_byte: number | null;
         };
         epoch_content_array: components["schemas"]["epoch_content"][];
@@ -7828,6 +7856,11 @@ export interface components {
                  * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
                  */
                 reference_script_hash: string | null;
+                /**
+                 * @description Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.
+                 * @example 66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41
+                 */
+                consumed_by_tx?: string | null;
             }[];
         };
         tx_content_stake_addr: {
@@ -8653,1115 +8686,6 @@ export interface components {
         mempool_addresses_content: {
             /** @description Hash of the transaction */
             tx_hash: string;
-          }[];
-      }[];
-    genesis_content: {
-      /**
-       * @description The proportion of slots in which blocks should be issued
-       * @example 0.05
-       */
-      active_slots_coefficient: number;
-      /**
-       * @description Determines the quorum needed for votes on the protocol parameter updates
-       * @example 5
-       */
-      update_quorum: number;
-      /**
-       * @description The total number of lovelace in the system
-       * @example 45000000000000000
-       */
-      max_lovelace_supply: string;
-      /**
-       * @description Network identifier
-       * @example 764824073
-       */
-      network_magic: number;
-      /**
-       * @description Number of slots in an epoch
-       * @example 432000
-       */
-      epoch_length: number;
-      /**
-       * @description Time of slot 0 in UNIX time
-       * @example 1506203091
-       */
-      system_start: number;
-      /**
-       * @description Number of slots in an KES period
-       * @example 129600
-       */
-      slots_per_kes_period: number;
-      /**
-       * @description Duration of one slot in seconds
-       * @example 1
-       */
-      slot_length: number;
-      /**
-       * @description The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate
-       * @example 62
-       */
-      max_kes_evolutions: number;
-      /**
-       * @description Security parameter k
-       * @example 2160
-       */
-      security_param: number;
-    };
-    /**
-     * @example [
-     *   {
-     *     "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
-     *     "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23"
-     *   },
-     *   {
-     *     "drep_id": "drep1cxayn4fgy27yaucvhamsvqj3v6835mh3tjjx6x8hdnr4",
-     *     "hex": "c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758"
-     *   }
-     * ]
-     */
-    dreps: {
-        /** @description The Bech32 encoded DRep address */
-        drep_id: string;
-        /** @description The raw bytes of the DRep */
-        hex: string;
-      }[];
-    /**
-     * @example {
-     *   "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
-     *   "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
-     *   "amount": "2000000",
-     *   "active": true,
-     *   "active_epoch": 420,
-     *   "has_script": true
-     * }
-     */
-    drep: {
-      /** @description Bech32 encoded DRep address */
-      drep_id: string;
-      /** @description The raw bytes of the DRep */
-      hex: string;
-      /** @description The total amount of voting power this DRep is delegated. */
-      amount: string;
-      /** @description Registration state of the DRep */
-      active: boolean;
-      /** @description Epoch of the most recent action - registration or deregistration */
-      active_epoch: number | null;
-      /** @description Flag which shows if this DRep credentials are a script hash */
-      has_script: boolean;
-    };
-    /**
-     * @example [
-     *   {
-     *     "address": "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha",
-     *     "amount": "1137959159981411"
-     *   },
-     *   {
-     *     "address": "stake1uylayej7esmarzd4mk4aru37zh9yz0luj3g9fsvgpfaxulq564r5u",
-     *     "amount": "16958865648"
-     *   },
-     *   {
-     *     "address": "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck",
-     *     "amount": "18605647"
-     *   }
-     * ]
-     */
-    drep_delegators: {
-        /** @description Bech32 encoded stake addresses */
-        address: string;
-        /** @description Currently delegated amount */
-        amount: string;
-      }[];
-    /**
-     * @example {
-     *   "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
-     *   "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
-     *   "url": "https://aaa.xyz/drep.json",
-     *   "hash": "a14a5ad4f36bddc00f92ddb39fd9ac633c0fd43f8bfa57758f9163d10ef916de",
-     *   "json_metadata": {
-     *     "@context": {
-     *       "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
-     *       "CIP119": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0119/README.md#",
-     *       "hashAlgorithm": "CIP100:hashAlgorithm",
-     *       "body": {
-     *         "@id": "CIP119:body",
-     *         "@context": {
-     *           "references": {
-     *             "@id": "CIP119:references",
-     *             "@container": "@set",
-     *             "@context": {
-     *               "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
-     *               "Other": "CIP100:OtherReference",
-     *               "label": "CIP100:reference-label",
-     *               "uri": "CIP100:reference-uri"
-     *             }
-     *           },
-     *           "paymentAddress": "CIP119:paymentAddress",
-     *           "givenName": "CIP119:givenName",
-     *           "image": {
-     *             "@id": "CIP119:image",
-     *             "@context": {
-     *               "ImageObject": "https://schema.org/ImageObject"
-     *             }
-     *           },
-     *           "objectives": "CIP119:objectives",
-     *           "motivations": "CIP119:motivations",
-     *           "qualifications": "CIP119:qualifications"
-     *         }
-     *       }
-     *     },
-     *     "hashAlgorithm": "blake2b-256",
-     *     "body": {
-     *       "paymentAddress": "addr1q86dnpkva4mm859c8ur7tjxn57zgsu6vg8pdetkdve3fsacnq7twy06u2ev5759vutpjgzfryx0ud8hzedhzerava35qwh3x34",
-     *       "givenName": "Ryan Williams",
-     *       "image": {
-     *         "@type": "ImageObject",
-     *         "contentUrl": "https://avatars.githubusercontent.com/u/44342099?v=4",
-     *         "sha256": "2a21e4f7b20c8c72f573707b068fb8fc6d8c64d5035c4e18ecae287947fe2b2e"
-     *       },
-     *       "objectives": "Buy myself an island.",
-     *       "motivations": "I really would like to own an island.",
-     *       "qualifications": "I have my 100m swimming badge, so I would be qualified to be able to swim around island.",
-     *       "references": [
-     *         {
-     *           "@type": "Other",
-     *           "label": "A cool island for Ryan",
-     *           "uri": "https://www.google.com/maps/place/World's+only+5th+order+recursive+island/@62.6511465,-97.7946829,15.75z/data=!4m14!1m7!3m6!1s0x5216a167810cee39:0x11431abdfe4c7421!2sWorld's+only+5th+order+recursive+island!8m2!3d62.651114!4d-97.7872244!16s%2Fg%2F11spwk2b6n!3m5!1s0x5216a167810cee39:0x11431abdfe4c7421!8m2!3d62.651114!4d-97.7872244!16s%2Fg%2F11spwk2b6n?authuser=0&entry=ttu"
-     *         },
-     *         {
-     *           "@type": "Link",
-     *           "label": "Ryan's Twitter",
-     *           "uri": "https://twitter.com/Ryun1_"
-     *         }
-     *       ]
-     *     }
-     *   },
-     *   "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6"
-     * }
-     */
-    drep_metadata: {
-      /** @description Bech32 encoded addresses */
-      drep_id: string;
-      /** @description The raw bytes of the DRep */
-      hex: string;
-      /**
-       * @description URL to the drep metadata
-       * @example https://stakenuts.com/drep.json
-       */
-      url: string;
-      /**
-       * @description Hash of the metadata file
-       * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
-       */
-      hash: string;
-      /** @description Content of the JSON metadata (validated CIP-119) */
-      json_metadata: string | {
-        [key: string]: unknown;
-      } | unknown[] | number | boolean | null;
-      /** @description Content of the metadata (raw) */
-      bytes: string;
-    };
-    /**
-     * @example [
-     *   {
-     *     "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
-     *     "cert_index": 0,
-     *     "action": "registered"
-     *   },
-     *   {
-     *     "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
-     *     "cert_index": 0,
-     *     "action": "deregistered"
-     *   }
-     * ]
-     */
-    drep_updates: ({
-        /** @description Transaction ID */
-        tx_hash: string;
-        /** @description Certificate within the transaction */
-        cert_index: number;
-        /**
-         * @description Action in the certificate
-         * @enum {string}
-         */
-        action: "registered" | "deregistered";
-      })[];
-    /**
-     * @example [
-     *   {
-     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
-     *     "cert_index": 2,
-     *     "vote": "yes"
-     *   },
-     *   {
-     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
-     *     "cert_index": 3,
-     *     "vote": "abstain"
-     *   }
-     * ]
-     */
-    drep_votes: ({
-        /** @description Hash of the proposal transaction. */
-        tx_hash: string;
-        /** @description Index of the certificate within the proposal transaction. */
-        cert_index: number;
-        /**
-         * @description The Vote. Can be one of yes, no, abstain.
-         * @enum {string}
-         */
-        vote: "yes" | "no" | "abstain";
-      })[];
-    /**
-     * @example [
-     *   {
-     *     "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
-     *     "cert_index": 1,
-     *     "governance_type": "treasury_withdrawals"
-     *   },
-     *   {
-     *     "tx_hash": "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60",
-     *     "cert_index": 4,
-     *     "governance_type": "no_confidence"
-     *   }
-     * ]
-     */
-    proposals: ({
-        /** @description Hash of the proposal transaction. */
-        tx_hash: string;
-        /** @description Index of the certificate within the proposal transaction. */
-        cert_index: number;
-        /**
-         * @description Type of proposal.
-         * @enum {string}
-         */
-        governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
-      })[];
-    /**
-     * @example {
-     *   "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
-     *   "cert_index": 1,
-     *   "governance_type": "treasury_withdrawals",
-     *   "deposit": 12000,
-     *   "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
-     *   "governance_description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash \"71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60\")},Coin 20000000)])",
-     *   "ratified_epoch": null,
-     *   "enacted_epoch": 123,
-     *   "dropped_epoch": null,
-     *   "expired_epoch": null,
-     *   "expiration": 120
-     * }
-     */
-    proposal: {
-      /** @description Hash of the proposal transaction. */
-      tx_hash: string;
-      /** @description Index of the certificate within the proposal transaction. */
-      cert_index: number;
-      /**
-       * @description Type of proposal.
-       * @enum {string}
-       */
-      governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
-      /** @description An object describing the content of this GovActionProposal in a readable way. */
-      governance_description: {
-        [key: string]: unknown;
-      } | null;
-      /** @description The deposit amount paid for this proposal. */
-      deposit: string;
-      /** @description Bech32 stake address of the reward address to receive the deposit when it is repaid. */
-      return_address: string;
-      ratified_epoch: number | null;
-      enacted_epoch: number | null;
-      dropped_epoch: number | null;
-      expired_epoch: number | null;
-      /** @description Shows the epoch at which this governance action will expire. */
-      expiration: number;
-    };
-    proposal_parameters: {
-      /** @description Off-chain metadata of a proposal with a specific transaction hash */
-      tx_hash: string;
-      /** @description Off-chain metadata of a proposal with a specific transaction cert_index */
-      cert_index: number;
-      parameters: {
-        /**
-         * @description Epoch number
-         * @example 225
-         */
-        epoch?: number;
-        /**
-         * @description The linear factor for the minimum fee calculation for given epoch
-         * @example 44
-         */
-        min_fee_a: number;
-        /**
-         * @description The constant factor for the minimum fee calculation
-         * @example 155381
-         */
-        min_fee_b: number;
-        /**
-         * @description Maximum block body size in Bytes
-         * @example 65536
-         */
-        max_block_size: number;
-        /**
-         * @description Maximum transaction size
-         * @example 16384
-         */
-        max_tx_size: number;
-        /**
-         * @description Maximum block header size
-         * @example 1100
-         */
-        max_block_header_size: number;
-        /**
-         * @description The amount of a key registration deposit in Lovelaces
-         * @example 2000000
-         */
-        key_deposit: string;
-        /**
-         * @description The amount of a pool registration deposit in Lovelaces
-         * @example 500000000
-         */
-        pool_deposit: string;
-        /**
-         * @description Epoch bound on pool retirement
-         * @example 18
-         */
-        e_max: number;
-        /**
-         * @description Desired number of pools
-         * @example 150
-         */
-        n_opt: number;
-        /**
-         * @description Pool pledge influence
-         * @example 0.3
-         */
-        a0: number;
-        /**
-         * @description Monetary expansion
-         * @example 0.003
-         */
-        rho: number;
-        /**
-         * @description Treasury expansion
-         * @example 0.2
-         */
-        tau: number;
-        /**
-         * @description Percentage of blocks produced by federated nodes
-         * @example 0.5
-         */
-        decentralisation_param: number;
-        /**
-         * @description Seed for extra entropy
-         * @example null
-         */
-        extra_entropy: string | null;
-        /**
-         * @description Accepted protocol major version
-         * @example 2
-         */
-        protocol_major_ver: number;
-        /**
-         * @description Accepted protocol minor version
-         * @example 0
-         */
-        protocol_minor_ver: number;
-        /**
-         * @description Minimum UTXO value
-         * @example 1000000
-         */
-        min_utxo: string;
-        /**
-         * @description Minimum stake cost forced on the pool
-         * @example 340000000
-         */
-        min_pool_cost: string;
-        /**
-         * @description Epoch number only used once
-         * @example 1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81
-         */
-        nonce: string;
-        /**
-         * @description Cost models parameters for Plutus Core scripts in raw list form
-         * @example {
-         *   "PlutusV1": [
-         *     197209,
-         *     0
-         *   ],
-         *   "PlutusV2": [
-         *     197209,
-         *     0
-         *   ]
-         * }
-         */
-        cost_models: {
-          [key: string]: unknown;
-        } | null;
-        /**
-         * @description The per word cost of script memory usage
-         * @example 0.0577
-         */
-        price_mem: number | null;
-        /**
-         * @description The cost of script execution step usage
-         * @example 0.0000721
-         */
-        price_step: number | null;
-        /**
-         * @description The maximum number of execution memory allowed to be used in a single transaction
-         * @example 10000000
-         */
-        max_tx_ex_mem: string | null;
-        /**
-         * @description The maximum number of execution steps allowed to be used in a single transaction
-         * @example 10000000000
-         */
-        max_tx_ex_steps: string | null;
-        /**
-         * @description The maximum number of execution memory allowed to be used in a single block
-         * @example 50000000
-         */
-        max_block_ex_mem: string | null;
-        /**
-         * @description The maximum number of execution steps allowed to be used in a single block
-         * @example 40000000000
-         */
-        max_block_ex_steps: string | null;
-        /**
-         * @description The maximum Val size
-         * @example 5000
-         */
-        max_val_size: string | null;
-        /**
-         * @description The percentage of the transactions fee which must be provided as collateral when including non-native scripts
-         * @example 150
-         */
-        collateral_percent: number | null;
-        /**
-         * @description The maximum number of collateral inputs allowed in a transaction
-         * @example 3
-         */
-        max_collateral_inputs: number | null;
-        /**
-         * @description Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
-         * @example 34482
-         */
-        coins_per_utxo_size: string | null;
-        /**
-         * @deprecated
-         * @description Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
-         * @example 34482
-         */
-        coins_per_utxo_word: string | null;
-        /** @description Pool Voting threshold for motion of no-confidence. New in 13.2-Conway. */
-        pvt_motion_no_confidence: number | null;
-        /** @description Pool Voting threshold for new committee/threshold (normal state). New in 13.2-Conway. */
-        pvt_committee_normal: number | null;
-        /** @description Pool Voting threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway. */
-        pvt_committee_no_confidence: number | null;
-        /** @description Pool Voting threshold for hard-fork initiation. New in 13.2-Conway. */
-        pvt_hard_fork_initiation: number | null;
-        /** @description DRep Vote threshold for motion of no-confidence. New in 13.2-Conway. */
-        dvt_motion_no_confidence: number | null;
-        /** @description DRep Vote threshold for new committee/threshold (normal state). New in 13.2-Conway. */
-        dvt_committee_normal: number | null;
-        /** @description DRep Vote threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway. */
-        dvt_committee_no_confidence: number | null;
-        /** @description DRep Vote threshold for update to the Constitution. New in 13.2-Conway. */
-        dvt_update_to_constitution: number | null;
-        /** @description DRep Vote threshold for hard-fork initiation. New in 13.2-Conway. */
-        dvt_hard_fork_initiation: number | null;
-        /** @description DRep Vote threshold for protocol parameter changes, network group. New in 13.2-Conway. */
-        dvt_p_p_network_group: number | null;
-        /** @description DRep Vote threshold for protocol parameter changes, economic group. New in 13.2-Conway. */
-        dvt_p_p_economic_group: number | null;
-        /** @description DRep Vote threshold for protocol parameter changes, technical group. New in 13.2-Conway. */
-        dvt_p_p_technical_group: number | null;
-        /** @description DRep Vote threshold for protocol parameter changes, governance group. New in 13.2-Conway. */
-        dvt_p_p_gov_group: number | null;
-        /** @description DRep Vote threshold for treasury withdrawal. New in 13.2-Conway. */
-        dvt_treasury_withdrawal: number | null;
-        /**
-         * Format: word64type
-         * @description Minimal constitutional committee size. New in 13.2-Conway.
-         */
-        committee_min_size: string | null;
-        /**
-         * Format: word64type
-         * @description Constitutional committee term limits. New in 13.2-Conway.
-         */
-        committee_max_term_length: string | null;
-        /**
-         * Format: word64type
-         * @description Governance action expiration. New in 13.2-Conway.
-         */
-        gov_action_lifetime: string | null;
-        /**
-         * Format: word64type
-         * @description Governance action deposit. New in 13.2-Conway.
-         */
-        gov_action_deposit: string | null;
-        /**
-         * Format: word64type
-         * @description DRep deposit amount. New in 13.2-Conway.
-         */
-        drep_deposit: string | null;
-        /**
-         * Format: word64type
-         * @description DRep activity period. New in 13.2-Conway.
-         */
-        drep_activity: string | null;
-        /**
-         * @deprecated
-         * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
-         */
-        pvtpp_security_group: number | null;
-        /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
-        pvt_p_p_security_group: number | null;
-        min_fee_ref_script_cost_per_byte: number | null;
-      };
-    };
-    /**
-     * @example [
-     *   {
-     *     "stake_address": "stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7",
-     *     "amount": "454541212442"
-     *   },
-     *   {
-     *     "stake_address": "stake1xx2g2c9dx2nhhehyrezyxpkstoppcqmu9hk63qgfkccw5rqttygt2",
-     *     "amount": "97846969"
-     *   }
-     * ]
-     */
-    proposal_withdrawals: {
-        /**
-         * @description Bech32 stake address
-         * @example stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
-         */
-        stake_address: string;
-        /** @description Withdrawal amount in Lovelaces */
-        amount: string;
-      }[];
-    /**
-     * @example [
-     *   {
-     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
-     *     "cert_index": 2,
-     *     "voter_role": "drep",
-     *     "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
-     *     "vote": "yes"
-     *   },
-     *   {
-     *     "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
-     *     "cert_index": 3,
-     *     "voter_role": "constitutional_committee",
-     *     "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
-     *     "vote": "abstain"
-     *   }
-     * ]
-     */
-    proposal_votes: ({
-        /** @description Hash of the voting transaction. */
-        tx_hash: string;
-        /** @description Index of the certificate within the voting transaction. */
-        cert_index: number;
-        /**
-         * @description The role of the voter. Can be one of constitutional_committee, drep, spo.
-         * @enum {string}
-         */
-        voter_role: "constitutional_committee" | "drep" | "spo";
-        /** @description The actual voter. */
-        voter: string;
-        /**
-         * @description The Vote. Can be one of yes, no, abstain.
-         * @enum {string}
-         */
-        vote: "yes" | "no" | "abstain";
-      })[];
-    /**
-     * @example {
-     *   "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
-     *   "cert_index": 2,
-     *   "url": "https://raw.githubusercontent.com/carloslodelar/proposals/main/pv10.json",
-     *   "hash": "ffa226f3863aca006172d559cf46bb8b883a47233962ae2fc94c158d7de6fa81",
-     *   "json_metadata": {
-     *     "body": {
-     *       "title": "Hardfork to Protocol version 10",
-     *       "abstract": "Let's have sanchoNet in full governance as soon as possible",
-     *       "rationale": "Let's keep testing stuff",
-     *       "motivation": "PV9 is not as fun as PV10",
-     *       "references": [
-     *         {
-     *           "uri": "",
-     *           "@type": "Other",
-     *           "label": "Hardfork to PV10"
-     *         }
-     *       ]
-     *     },
-     *     "authors": [
-     *       {
-     *         "name": "Carlos",
-     *         "witness": {
-     *           "publicKey": "7ea09a34aebb13c9841c71397b1cabfec5ddf950405293dee496cac2f437480a",
-     *           "signature": "a476985b4cc0d457f247797611799a6f6a80fc8cb7ec9dcb5a8223888d0618e30de165f3d869c4a0d9107d8a5b612ad7c5e42441907f5b91796f0d7187d64a01",
-     *           "witnessAlgorithm": "ed25519"
-     *         }
-     *       }
-     *     ],
-     *     "@context": {
-     *       "body": {
-     *         "@id": "CIP108:body",
-     *         "@context": {
-     *           "title": "CIP108:title",
-     *           "abstract": "CIP108:abstract",
-     *           "rationale": "CIP108:rationale",
-     *           "motivation": "CIP108:motivation",
-     *           "references": {
-     *             "@id": "CIP108:references",
-     *             "@context": {
-     *               "uri": "CIP100:reference-uri",
-     *               "Other": "CIP100:OtherReference",
-     *               "label": "CIP100:reference-label",
-     *               "referenceHash": {
-     *                 "@id": "CIP108:referenceHash",
-     *                 "@context": {
-     *                   "hashDigest": "CIP108:hashDigest",
-     *                   "hashAlgorithm": "CIP100:hashAlgorithm"
-     *                 }
-     *               },
-     *               "GovernanceMetadata": "CIP100:GovernanceMetadataReference"
-     *             },
-     *             "@container": "@set"
-     *           }
-     *         }
-     *       },
-     *       "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
-     *       "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
-     *       "authors": {
-     *         "@id": "CIP100:authors",
-     *         "@context": {
-     *           "name": "http://xmlns.com/foaf/0.1/name",
-     *           "witness": {
-     *             "@id": "CIP100:witness",
-     *             "@context": {
-     *               "publicKey": "CIP100:publicKey",
-     *               "signature": "CIP100:signature",
-     *               "witnessAlgorithm": "CIP100:witnessAlgorithm"
-     *             }
-     *           }
-     *         },
-     *         "@container": "@set"
-     *       },
-     *       "@language": "en-us",
-     *       "hashAlgorithm": "CIP100:hashAlgorithm"
-     *     },
-     *     "hashAlgorithm": "blake2b-256"
-     *   },
-     *   "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6d6423222c0a2020202022434950313038223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130382f524541444d452e6d6423222c0a202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d222c0a2020202022626f6479223a207b0a20202020202022406964223a20224349503130383a626f6479222c0a2020202020202240636f6e74657874223a207b0a2020202020202020227265666572656e636573223a207b0a2020202020202020202022406964223a20224349503130383a7265666572656e636573222c0a202020202020202020202240636f6e7461696e6572223a202240736574222c0a202020202020202020202240636f6e74657874223a207b0a20202020202020202020202022476f7665726e616e63654d65746164617461223a20224349503130303a476f7665726e616e63654d657461646174615265666572656e6365222c0a202020202020202020202020224f74686572223a20224349503130303a4f746865725265666572656e6365222c0a202020202020202020202020226c6162656c223a20224349503130303a7265666572656e63652d6c6162656c222c0a20202020202020202020202022757269223a20224349503130303a7265666572656e63652d757269222c0a202020202020202020202020227265666572656e636548617368223a207b0a202020202020202020202020202022406964223a20224349503130383a7265666572656e636548617368222c0a20202020202020202020202020202240636f6e74657874223a207b0a202020202020202020202020202020202268617368446967657374223a20224349503130383a68617368446967657374222c0a202020202020202020202020202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d220a20202020202020202020202020207d0a2020202020202020202020207d0a202020202020202020207d0a20202020202020207d2c0a2020202020202020227469746c65223a20224349503130383a7469746c65222c0a2020202020202020226162737472616374223a20224349503130383a6162737472616374222c0a2020202020202020226d6f7469766174696f6e223a20224349503130383a6d6f7469766174696f6e222c0a202020202020202022726174696f6e616c65223a20224349503130383a726174696f6e616c65220a2020202020207d0a202020207d2c0a2020202022617574686f7273223a207b0a20202020202022406964223a20224349503130303a617574686f7273222c0a2020202020202240636f6e7461696e6572223a202240736574222c0a2020202020202240636f6e74657874223a207b0a2020202020202020226e616d65223a2022687474703a2f2f786d6c6e732e636f6d2f666f61662f302e312f6e616d65222c0a2020202020202020227769746e657373223a207b0a2020202020202020202022406964223a20224349503130303a7769746e657373222c0a202020202020202020202240636f6e74657874223a207b0a202020202020202020202020227769746e657373416c676f726974686d223a20224349503130303a7769746e657373416c676f726974686d222c0a202020202020202020202020227075626c69634b6579223a20224349503130303a7075626c69634b6579222c0a202020202020202020202020227369676e6174757265223a20224349503130303a7369676e6174757265220a202020202020202020207d0a20202020202020207d0a2020202020207d0a202020207d0a20207d2c0a20202268617368416c676f726974686d223a2022626c616b6532622d323536222c0a202022626f6479223a207b0a20202020227469746c65223a202248617264666f726b20746f2050726f746f636f6c2076657273696f6e203130222c0a20202020226162737472616374223a20224c6574277320686176652073616e63686f4e657420696e2066756c6c20676f7665726e616e636520617320736f6f6e20617320706f737369626c65222c0a20202020226d6f7469766174696f6e223a2022505639206973206e6f742061732066756e2061732050563130222c0a2020202022726174696f6e616c65223a20224c65742773206b6565702074657374696e67207374756666222c0a20202020227265666572656e636573223a205b0a2020202020207b0a2020202020202020224074797065223a20224f74686572222c0a2020202020202020226c6162656c223a202248617264666f726b20746f2050563130222c0a202020202020202022757269223a2022220a2020202020207d0a202020205d0a20207d2c0a202022617574686f7273223a205b0a202020207b0a202020202020226e616d65223a20224361726c6f73222c0a202020202020227769746e657373223a207b0a2020202020202020227769746e657373416c676f726974686d223a202265643235353139222c0a2020202020202020227075626c69634b6579223a202237656130396133346165626231336339383431633731333937623163616266656335646466393530343035323933646565343936636163326634333734383061222c0a2020202020202020227369676e6174757265223a20226134373639383562346363306434353766323437373937363131373939613666366138306663386362376563396463623561383232333838386430363138653330646531363566336438363963346130643931303764386135623631326164376335653432343431393037663562393137393666306437313837643634613031220a2020202020207d0a202020207d0a20205d0a7d"
-     * }
-     */
-    proposal_metadata: {
-      /** @description Off-chain metadata of a proposal with a specific transaction hash */
-      tx_hash: string;
-      /** @description Off-chain metadata of a proposal with a specific transaction cert_index */
-      cert_index: number;
-      /**
-       * @description URL to the proposal metadata
-       * @example https://abc.xyz/gov.json
-       */
-      url: string;
-      /**
-       * @description Hash of the metadata file
-       * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
-       */
-      hash: string;
-      /** @description Content of the JSON metadata (validated CIP-108) */
-      json_metadata: string | {
-        [key: string]: unknown;
-      } | unknown[] | number | boolean | null;
-      /** @description Content of the metadata (raw) */
-      bytes: string;
-    };
-    epoch_content: {
-      /**
-       * @description Epoch number
-       * @example 225
-       */
-      epoch: number;
-      /**
-       * @description Unix time of the start of the epoch
-       * @example 1603403091
-       */
-      start_time: number;
-      /**
-       * @description Unix time of the end of the epoch
-       * @example 1603835086
-       */
-      end_time: number;
-      /**
-       * @description Unix time of the first block of the epoch
-       * @example 1603403092
-       */
-      first_block_time: number;
-      /**
-       * @description Unix time of the last block of the epoch
-       * @example 1603835084
-       */
-      last_block_time: number;
-      /**
-       * @description Number of blocks within the epoch
-       * @example 21298
-       */
-      block_count: number;
-      /**
-       * @description Number of transactions within the epoch
-       * @example 17856
-       */
-      tx_count: number;
-      /**
-       * @description Sum of all the transactions within the epoch in Lovelaces
-       * @example 7849943934049314
-       */
-      output: string;
-      /**
-       * @description Sum of all the fees within the epoch in Lovelaces
-       * @example 4203312194
-       */
-      fees: string;
-      /**
-       * @description Sum of all the active stakes within the epoch in Lovelaces
-       * @example 784953934049314
-       */
-      active_stake: string | null;
-    };
-    epoch_param_content: {
-      /**
-       * @description Epoch number
-       * @example 225
-       */
-      epoch: number;
-      /**
-       * @description The linear factor for the minimum fee calculation for given epoch
-       * @example 44
-       */
-      min_fee_a: number;
-      /**
-       * @description The constant factor for the minimum fee calculation
-       * @example 155381
-       */
-      min_fee_b: number;
-      /**
-       * @description Maximum block body size in Bytes
-       * @example 65536
-       */
-      max_block_size: number;
-      /**
-       * @description Maximum transaction size
-       * @example 16384
-       */
-      max_tx_size: number;
-      /**
-       * @description Maximum block header size
-       * @example 1100
-       */
-      max_block_header_size: number;
-      /**
-       * @description The amount of a key registration deposit in Lovelaces
-       * @example 2000000
-       */
-      key_deposit: string;
-      /**
-       * @description The amount of a pool registration deposit in Lovelaces
-       * @example 500000000
-       */
-      pool_deposit: string;
-      /**
-       * @description Epoch bound on pool retirement
-       * @example 18
-       */
-      e_max: number;
-      /**
-       * @description Desired number of pools
-       * @example 150
-       */
-      n_opt: number;
-      /**
-       * @description Pool pledge influence
-       * @example 0.3
-       */
-      a0: number;
-      /**
-       * @description Monetary expansion
-       * @example 0.003
-       */
-      rho: number;
-      /**
-       * @description Treasury expansion
-       * @example 0.2
-       */
-      tau: number;
-      /**
-       * @description Percentage of blocks produced by federated nodes
-       * @example 0.5
-       */
-      decentralisation_param: number;
-      /**
-       * @description Seed for extra entropy
-       * @example null
-       */
-      extra_entropy: string | null;
-      /**
-       * @description Accepted protocol major version
-       * @example 2
-       */
-      protocol_major_ver: number;
-      /**
-       * @description Accepted protocol minor version
-       * @example 0
-       */
-      protocol_minor_ver: number;
-      /**
-       * @deprecated
-       * @description Minimum UTXO value. Use `coins_per_utxo_size` for Alonzo and later eras
-       * @example 1000000
-       */
-      min_utxo: string;
-      /**
-       * @description Minimum stake cost forced on the pool
-       * @example 340000000
-       */
-      min_pool_cost: string;
-      /**
-       * @description Epoch number only used once
-       * @example 1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81
-       */
-      nonce: string;
-      /**
-       * @description Cost models parameters for Plutus Core scripts
-       * @example {
-       *   "PlutusV1": {
-       *     "addInteger-cpu-arguments-intercept": 197209,
-       *     "addInteger-cpu-arguments-slope": 0
-       *   },
-       *   "PlutusV2": {
-       *     "addInteger-cpu-arguments-intercept": 197209,
-       *     "addInteger-cpu-arguments-slope": 0
-       *   }
-       * }
-       */
-      cost_models: {
-        [key: string]: unknown;
-      } | null;
-      /**
-       * @description Cost models parameters for Plutus Core scripts in raw list form
-       * @example {
-       *   "PlutusV1": [
-       *     197209,
-       *     0
-       *   ],
-       *   "PlutusV2": [
-       *     197209,
-       *     0
-       *   ]
-       * }
-       */
-      cost_models_raw?: {
-        [key: string]: unknown;
-      } | null;
-      /**
-       * @description The per word cost of script memory usage
-       * @example 0.0577
-       */
-      price_mem: number | null;
-      /**
-       * @description The cost of script execution step usage
-       * @example 0.0000721
-       */
-      price_step: number | null;
-      /**
-       * @description The maximum number of execution memory allowed to be used in a single transaction
-       * @example 10000000
-       */
-      max_tx_ex_mem: string | null;
-      /**
-       * @description The maximum number of execution steps allowed to be used in a single transaction
-       * @example 10000000000
-       */
-      max_tx_ex_steps: string | null;
-      /**
-       * @description The maximum number of execution memory allowed to be used in a single block
-       * @example 50000000
-       */
-      max_block_ex_mem: string | null;
-      /**
-       * @description The maximum number of execution steps allowed to be used in a single block
-       * @example 40000000000
-       */
-      max_block_ex_steps: string | null;
-      /**
-       * @description The maximum Val size
-       * @example 5000
-       */
-      max_val_size: string | null;
-      /**
-       * @description The percentage of the transactions fee which must be provided as collateral when including non-native scripts
-       * @example 150
-       */
-      collateral_percent: number | null;
-      /**
-       * @description The maximum number of collateral inputs allowed in a transaction
-       * @example 3
-       */
-      max_collateral_inputs: number | null;
-      /**
-       * @description Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
-       * @example 34482
-       */
-      coins_per_utxo_size: string | null;
-      /**
-       * @deprecated
-       * @description Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.
-       * @example 34482
-       */
-      coins_per_utxo_word: string | null;
-      /** @description Pool Voting threshold for motion of no-confidence. */
-      pvt_motion_no_confidence: number | null;
-      /** @description Pool Voting threshold for new committee/threshold (normal state). */
-      pvt_committee_normal: number | null;
-      /** @description Pool Voting threshold for new committee/threshold (state of no-confidence). */
-      pvt_committee_no_confidence: number | null;
-      /** @description Pool Voting threshold for hard-fork initiation. */
-      pvt_hard_fork_initiation: number | null;
-      /** @description DRep Vote threshold for motion of no-confidence. */
-      dvt_motion_no_confidence: number | null;
-      /** @description DRep Vote threshold for new committee/threshold (normal state). */
-      dvt_committee_normal: number | null;
-      /** @description DRep Vote threshold for new committee/threshold (state of no-confidence). */
-      dvt_committee_no_confidence: number | null;
-      /** @description DRep Vote threshold for update to the Constitution. */
-      dvt_update_to_constitution: number | null;
-      /** @description DRep Vote threshold for hard-fork initiation. */
-      dvt_hard_fork_initiation: number | null;
-      /** @description DRep Vote threshold for protocol parameter changes, network group. */
-      dvt_p_p_network_group: number | null;
-      /** @description DRep Vote threshold for protocol parameter changes, economic group. */
-      dvt_p_p_economic_group: number | null;
-      /** @description DRep Vote threshold for protocol parameter changes, technical group. */
-      dvt_p_p_technical_group: number | null;
-      /** @description DRep Vote threshold for protocol parameter changes, governance group. */
-      dvt_p_p_gov_group: number | null;
-      /** @description DRep Vote threshold for treasury withdrawal. */
-      dvt_treasury_withdrawal: number | null;
-      /** @description Minimal constitutional committee size. */
-      committee_min_size: string | null;
-      /** @description Constitutional committee term limits. */
-      committee_max_term_length: string | null;
-      /** @description Governance action expiration. */
-      gov_action_lifetime: string | null;
-      /** @description Governance action deposit. */
-      gov_action_deposit: string | null;
-      /** @description DRep deposit amount. */
-      drep_deposit: string | null;
-      /** @description DRep activity period. */
-      drep_activity: string | null;
-      /**
-       * @deprecated
-       * @description Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
-       */
-      pvtpp_security_group: number | null;
-      /** @description Pool Voting threshold for security-relevant protocol parameters changes. */
-      pvt_p_p_security_group: number | null;
-      min_fee_ref_script_cost_per_byte: number | null;
-    };
-    epoch_content_array: components["schemas"]["epoch_content"][];
-    epoch_stake_content: {
-        /**
-         * @description Stake address
-         * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
-         */
-        stake_address: string;
-        /**
-         * @description Bech32 prefix of the pool delegated to
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-         */
-        pool_id: string;
-        /**
-         * @description Amount of active delegated stake in Lovelaces
-         * @example 4440295078
-         */
-        amount: string;
-      }[];
-    epoch_stake_pool_content: {
-        /**
-         * @description Stake address
-         * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
-         */
-        stake_address: string;
-        /**
-         * @description Amount of active delegated stake in Lovelaces
-         * @example 4440295078
-         */
-        amount: string;
-      }[];
-    /**
-     * @example [
-     *   "d0fa315687e99ccdc96b14cc2ea74a767405d64427b648c470731a9b69e4606e",
-     *   "38bc6efb92a830a0ed22a64f979d120d26483fd3c811f6622a8c62175f530878",
-     *   "f3258fcd8b975c061b4fcdcfcbb438807134d6961ec278c200151274893b6b7d"
-     * ]
-     */
-    epoch_block_content: string[];
-    tx_content: {
-      /**
-       * @description Transaction hash
-       * @example 1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477
-       */
-      hash: string;
-      /**
-       * @description Block hash
-       * @example 356b7d7dbb696ccd12775c016941057a9dc70898d87a63fc752271bb46856940
-       */
-      block: string;
-      /**
-       * @description Block number
-       * @example 123456
-       */
-      block_height: number;
-      /**
-       * @description Block creation time in UNIX time
-       * @example 1635505891
-       */
-      block_time: number;
-      /**
-       * @description Slot number
-       * @example 42000000
-       */
-      slot: number;
-      /**
-       * @description Transaction index within the block
-       * @example 1
-       */
-      index: number;
-      /**
-       * @example [
-       *   {
-       *     "unit": "lovelace",
-       *     "quantity": "42000000"
-       *   },
-       *   {
-       *     "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
-       *     "quantity": "12"
-       *   }
-       * ]
-       */
-      output_amount: {
-          /**
-           * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
-           * @description The unit of the value
-           */
-          unit: string;
-          /** @description The quantity of the unit */
-          quantity: string;
         }[];
         /** @example [
          *       {
@@ -9927,193 +8851,428 @@ export interface components {
                 /** @description True if the latest minting transaction includes metadata (best-effort) */
                 has_nft_onchain_metadata: boolean;
             }[];
-          /**
-           * @description UTXO index in the transaction
-           * @example 0
-           */
-          output_index: number;
-          /**
-           * @description The hash of the transaction output datum
-           * @example 9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710
-           */
-          data_hash: string | null;
-          /**
-           * @description CBOR encoded inline datum
-           * @example 19a6aa
-           */
-          inline_datum: string | null;
-          /**
-           * @description Whether the output is a collateral output
-           * @example false
-           */
-          collateral: boolean;
-          /**
-           * @description The hash of the reference script of the output
-           * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
-           */
-          reference_script_hash: string | null;
-          /**
-           * @description Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.
-           * @example 66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41
-           */
-          consumed_by_tx?: string | null;
-        })[];
-    };
-    tx_content_stake_addr: {
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Delegation stake address
-         * @example stake1u9t3a0tcwune5xrnfjg4q7cpvjlgx9lcv0cuqf5mhfjwrvcwrulda
-         */
-        address: string;
-        /**
-         * @description Registration boolean, false if deregistration
-         * @example true
-         */
-        registration: boolean;
-      }[];
-    tx_content_delegations: {
-        /**
-         * @deprecated
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        index: number;
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Bech32 delegation stake address
-         * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
-         */
-        address: string;
-        /**
-         * @description Bech32 ID of delegated stake pool
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-         */
-        pool_id: string;
-        /**
-         * @description Epoch in which the delegation becomes active
-         * @example 210
-         */
-        active_epoch: number;
-      }[];
-    tx_content_withdrawals: {
-        /**
-         * @description Bech32 withdrawal address
-         * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
-         */
-        address: string;
-        /**
-         * @description Withdrawal amount in Lovelaces
-         * @example 431833601
-         */
-        amount: string;
-      }[];
-    tx_content_mirs: ({
-        /**
-         * @description Source of MIR funds
-         * @example reserve
-         * @enum {string}
-         */
-        pot: "reserve" | "treasury";
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Bech32 stake address
-         * @example stake1u9r76ypf5fskppa0cmttas05cgcswrttn6jrq4yd7jpdnvc7gt0yc
-         */
-        address: string;
-        /**
-         * @description MIR amount in Lovelaces
-         * @example 431833601
-         */
-        amount: string;
-      })[];
-    tx_content_pool_certs: ({
-        /**
-         * @description Index of the certificate within the transaction
-         * @example 0
-         */
-        cert_index: number;
-        /**
-         * @description Bech32 encoded pool ID
-         * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-         */
-        pool_id: string;
-        /**
-         * @description VRF key hash
-         * @example 0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233
-         */
-        vrf_key: string;
-        /**
-         * @description Stake pool certificate pledge in Lovelaces
-         * @example 5000000000
-         */
-        pledge: string;
-        /**
-         * @description Margin tax cost of the stake pool
-         * @example 0.05
-         */
-        margin_cost: number;
-        /**
-         * @description Fixed tax cost of the stake pool in Lovelaces
-         * @example 340000000
-         */
-        fixed_cost: string;
-        /**
-         * @description Bech32 reward account of the stake pool
-         * @example stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f
-         */
-        reward_account: string;
-        /**
-         * @example [
-         *   "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
-         * ]
-         */
-        owners: string[];
-        metadata: ({
-          /**
-           * @description URL to the stake pool metadata
-           * @example https://stakenuts.com/mainnet.json
-           */
-          url: string | null;
-          /**
-           * @description Hash of the metadata file
-           * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
-           */
-          hash: string | null;
-          /**
-           * @description Ticker of the stake pool
-           * @example NUTS
-           */
-          ticker: string | null;
-          /**
-           * @description Name of the stake pool
-           * @example Stake Nuts
-           */
-          name: string | null;
-          /**
-           * @description Description of the stake pool
-           * @example The best pool ever
-           */
-          description: string | null;
-          /**
-           * @description Home page of the stake pool
-           * @example https://stakentus.com/
-           */
-          homepage: string | null;
-        }) | null;
-        relays: ({
+            /**
+             * @description Stake address that controls the key
+             * @example stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7
+             */
+            stake_address: string | null;
+            /**
+             * @description Address era
+             * @example shelley
+             * @enum {string}
+             */
+            type: "byron" | "shelley";
+            /**
+             * @description True if this is a script address
+             * @example false
+             */
+            script: boolean;
+        };
+        address_content_total: {
+            /**
+             * @description Bech32 encoded address
+             * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+             */
+            address: string;
+            /** @example [
+             *       {
+             *         "unit": "lovelace",
+             *         "quantity": "42000000"
+             *       },
+             *       {
+             *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+             *         "quantity": "12"
+             *       }
+             *     ] */
+            received_sum: {
+                /**
+                 * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                 * @description The unit of the value
+                 */
+                unit: string;
+                /** @description The quantity of the unit */
+                quantity: string;
+            }[];
+            /** @example [
+             *       {
+             *         "unit": "lovelace",
+             *         "quantity": "42000000"
+             *       },
+             *       {
+             *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+             *         "quantity": "12"
+             *       }
+             *     ] */
+            sent_sum: {
+                /**
+                 * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                 * @description The unit of the value
+                 */
+                unit: string;
+                /** @description The quantity of the unit */
+                quantity: string;
+            }[];
+            /**
+             * @description Count of all transactions on the address
+             * @example 12
+             */
+            tx_count: number;
+        };
+        /** @example [
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
+         *         "output_index": 0,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "42000000"
+         *           }
+         *         ],
+         *         "block": "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6",
+         *         "data_hash": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710",
+         *         "inline_datum": null,
+         *         "reference_script_hash": null
+         *       },
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49",
+         *         "output_index": 0,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "729235000"
+         *           }
+         *         ],
+         *         "block": "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7",
+         *         "data_hash": null,
+         *         "inline_datum": null,
+         *         "reference_script_hash": null
+         *       },
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2",
+         *         "output_index": 1,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "42000000"
+         *           },
+         *           {
+         *             "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *             "quantity": "12"
+         *           }
+         *         ],
+         *         "block": "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7",
+         *         "data_hash": null,
+         *         "inline_datum": null,
+         *         "reference_script_hash": null
+         *       }
+         *     ] */
+        address_utxo_content: {
+            /**
+             * @description Bech32 encoded addresses - useful when querying by payment_cred
+             * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+             */
+            address: string;
+            /** @description Transaction hash of the UTXO */
+            tx_hash: string;
+            /**
+             * @deprecated
+             * @description UTXO index in the transaction
+             */
+            tx_index: number;
+            /** @description UTXO index in the transaction */
+            output_index: number;
+            amount: {
+                /**
+                 * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                 * @description The unit of the value
+                 */
+                unit: string;
+                /** @description The quantity of the unit */
+                quantity: string;
+            }[];
+            /** @description Block hash of the UTXO */
+            block: string;
+            /** @description The hash of the transaction output datum */
+            data_hash: string | null;
+            /**
+             * @description CBOR encoded inline datum
+             * @example 19a6aa
+             */
+            inline_datum: string | null;
+            /**
+             * @description The hash of the reference script of the output
+             * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+             */
+            reference_script_hash: string | null;
+        }[];
+        /** @example [
+         *       "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+         *       "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
+         *     ] */
+        address_txs_content: string[];
+        /** @example [
+         *       {
+         *         "tx_hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
+         *         "tx_index": 6,
+         *         "block_height": 69,
+         *         "block_time": 1635505891
+         *       },
+         *       {
+         *         "tx_hash": "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f",
+         *         "tx_index": 9,
+         *         "block_height": 4547,
+         *         "block_time": 1635505987
+         *       },
+         *       {
+         *         "tx_hash": "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b",
+         *         "tx_index": 0,
+         *         "block_height": 564654,
+         *         "block_time": 1834505492
+         *       }
+         *     ] */
+        address_transactions_content: {
+            /** @description Hash of the transaction */
+            tx_hash: string;
+            /** @description Transaction index within the block */
+            tx_index: number;
+            /** @description Block height */
+            block_height: number;
+            /** @description Block creation time in UNIX time */
+            block_time: number;
+        }[];
+        /** @example [
+         *       "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
+         *       "pool1hn7hlwrschqykupwwrtdfkvt2u4uaxvsgxyh6z63703p2knj288",
+         *       "pool1ztjyjfsh432eqetadf82uwuxklh28xc85zcphpwq6mmezavzad2"
+         *     ] */
+        pool_list: string[];
+        /** @example [
+         *       {
+         *         "pool_id": "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q",
+         *         "hex": "2f355f79ee007502d116ecb07e36f985b34cebf2d84118f5c6b455a1",
+         *         "active_stake": "1541200000",
+         *         "live_stake": "1541400000"
+         *       },
+         *       {
+         *         "pool_id": "pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx",
+         *         "hex": "6b3fda88053dc2cee18a7c2736f032182fcc78a2fe912e869aa4edcd",
+         *         "active_stake": "22200000",
+         *         "live_stake": "48955550"
+         *       },
+         *       {
+         *         "pool_id": "pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w",
+         *         "hex": "73318ec975cf1125a6367cbb1c9a406cbcb3e510e49d7c3aab14aa31",
+         *         "active_stake": "9989541215",
+         *         "live_stake": "168445464878"
+         *       }
+         *     ] */
+        pool_list_extended: {
+            /**
+             * @description Bech32 encoded pool ID
+             * @example pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt
+             */
+            pool_id: string;
+            /**
+             * @description Hexadecimal pool ID.
+             * @example 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
+             */
+            hex: string;
+            /**
+             * @description Active delegated amount
+             * @example 4200000000
+             */
+            active_stake: string;
+            /**
+             * @description Currently delegated amount
+             * @example 6900000000
+             */
+            live_stake: string;
+        }[];
+        /** @example [
+         *       {
+         *         "pool_id": "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q",
+         *         "epoch": 225
+         *       },
+         *       {
+         *         "pool_id": "pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx",
+         *         "epoch": 215
+         *       },
+         *       {
+         *         "pool_id": "pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w",
+         *         "epoch": 231
+         *       }
+         *     ] */
+        pool_list_retire: {
+            /**
+             * @description Bech32 encoded pool ID
+             * @example pool1z5uqdk7dzdxaae5633fqfcu2eqzy3a3rgtuvy087fdld7yws0xt
+             */
+            pool_id: string;
+            /**
+             * @description Retirement epoch number
+             * @example 242
+             */
+            epoch: number;
+        }[];
+        pool: {
+            /**
+             * @description Bech32 pool ID
+             * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+             */
+            pool_id: string;
+            /**
+             * @description Hexadecimal pool ID.
+             * @example 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
+             */
+            hex: string;
+            /**
+             * @description VRF key hash
+             * @example 0b5245f9934ec2151116fb8ec00f35fd00e0aa3b075c4ed12cce440f999d8233
+             */
+            vrf_key: string;
+            /**
+             * @description Total minted blocks
+             * @example 69
+             */
+            blocks_minted: number;
+            /**
+             * @description Number of blocks minted in the current epoch
+             * @example 4
+             */
+            blocks_epoch: number;
+            /** @example 6900000000 */
+            live_stake: string;
+            /** @example 0.42 */
+            live_size: number;
+            /** @example 0.93 */
+            live_saturation: number;
+            /** @example 127 */
+            live_delegators: number;
+            /** @example 4200000000 */
+            active_stake: string;
+            /** @example 0.43 */
+            active_size: number;
+            /**
+             * @description Stake pool certificate pledge
+             * @example 5000000000
+             */
+            declared_pledge: string;
+            /**
+             * @description Stake pool current pledge
+             * @example 5000000001
+             */
+            live_pledge: string;
+            /**
+             * @description Margin tax cost of the stake pool
+             * @example 0.05
+             */
+            margin_cost: number;
+            /**
+             * @description Fixed tax cost of the stake pool
+             * @example 340000000
+             */
+            fixed_cost: string;
+            /**
+             * @description Bech32 reward account of the stake pool
+             * @example stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f
+             */
+            reward_account: string;
+            /** @example [
+             *       "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
+             *     ] */
+            owners: string[];
+            /** @example [
+             *       "9f83e5484f543e05b52e99988272a31da373f3aab4c064c76db96643a355d9dc",
+             *       "7ce3b8c433bf401a190d58c8c483d8e3564dfd29ae8633c8b1b3e6c814403e95",
+             *       "3e6e1200ce92977c3fe5996bd4d7d7e192bcb7e231bc762f9f240c76766535b9"
+             *     ] */
+            registration: string[];
+            retirement: string[];
+        };
+        pool_history: {
+            /**
+             * @description Epoch number
+             * @example 233
+             */
+            epoch: number;
+            /**
+             * @description Number of blocks created by pool
+             * @example 22
+             */
+            blocks: number;
+            /**
+             * @description Active (Snapshot of live stake 2 epochs ago) stake in Lovelaces
+             * @example 20485965693569
+             */
+            active_stake: string;
+            /**
+             * @description Pool size (percentage) of overall active stake at that epoch
+             * @example 1.2345
+             */
+            active_size: number;
+            /**
+             * @description Number of delegators for epoch
+             * @example 115
+             */
+            delegators_count: number;
+            /**
+             * @description Total rewards received before distribution to delegators
+             * @example 206936253674159
+             */
+            rewards: string;
+            /**
+             * @description Pool operator rewards
+             * @example 1290968354
+             */
+            fees: string;
+        }[];
+        pool_metadata: {
+            /**
+             * @description Bech32 pool ID
+             * @example pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
+             */
+            pool_id: string;
+            /**
+             * @description Hexadecimal pool ID
+             * @example 0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735
+             */
+            hex: string;
+            /**
+             * @description URL to the stake pool metadata
+             * @example https://stakenuts.com/mainnet.json
+             */
+            url: string | null;
+            /**
+             * @description Hash of the metadata file
+             * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
+             */
+            hash: string | null;
+            /**
+             * @description Ticker of the stake pool
+             * @example NUTS
+             */
+            ticker: string | null;
+            /**
+             * @description Name of the stake pool
+             * @example Stake Nuts
+             */
+            name: string | null;
+            /**
+             * @description Description of the stake pool
+             * @example The best pool ever
+             */
+            description: string | null;
+            /**
+             * @description Home page of the stake pool
+             * @example https://stakentus.com/
+             */
+            homepage: string | null;
+        };
+        empty_object: Record<string, never>;
+        pool_relays: {
             /**
              * @description IPv4 address of the relay
              * @example 4.4.4.4

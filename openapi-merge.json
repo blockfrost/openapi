@@ -4,6 +4,18 @@
       "inputFile": "./blockfrost-openapi.yaml"
     },
     {
+      "inputFile": "./blockbook.yaml",
+      "pathModification": {
+        "prepend": "/api/v2"
+      },
+      "operationSelection": {
+        "includeTags": ["Bitcoin"]
+      },
+      "description": {
+        "append": false
+      }
+    },
+    {
       "inputFile": "./mithril.yaml",
       "pathModification": {
         "prepend": "/mithril"

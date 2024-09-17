@@ -64,6 +64,12 @@ info:
             </td>
         </tr>
         <tr>
+            <td>Bitcoin mainnet</td>
+            <td>
+                <code>https://bitcoin-mainnet.blockfrost.io/api/v2</code>
+            </td>
+        </tr>
+        <tr>
             <td>InterPlanetary File System</td>
             <td>
                 <code>https://ipfs.blockfrost.io/api/v0</code>
@@ -331,6 +337,28 @@ security:
 tags:
   - name: Health
   - name: Metrics
+  - name: Bitcoin
+    description: >
+      Blockbook Bitcoin integration allows you to access Bitcoin blockchain
+      using Blockbook API.
+
+
+      > **Please note that Blockfrost acts as a proxy for the subset of
+      Blockbook API endpoints. The API version in the URL corresponds to the
+      deployed Blockbook API version, which is currently V2..**
+
+
+      > For example, to retrieve a block data for the first block, you would
+      use:
+
+      `https://bitcoin-mainnet.blockfrost.io/api/v2/block/1`
+
+
+      In addition to error responses listed in Blockbook endpoints (such as
+      `404`, `412` and `500`), the API may also return error responses related
+      to Blockfrost (e.g. `400` for invalid path or `403` for unauthenticated
+      request). For the full list of Blockfrost error status codes, please see
+      [Blockfrost Errors](#section/Errors).
   - name: Cardano » Accounts
   - name: Cardano » Addresses
   - name: Cardano » Assets
@@ -6244,6 +6272,851 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /api/v2:
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    get:
+      tags:
+        - Bitcoin
+      summary: Blockchain Info Summary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  blockbook:
+                    type: object
+                    properties:
+                      coin:
+                        type: string
+                      host:
+                        type: string
+                      version:
+                        type: string
+                      gitCommit:
+                        type: string
+                      buildTime:
+                        type: string
+                      syncMode:
+                        type: boolean
+                      initialSync:
+                        type: boolean
+                      inSync:
+                        type: boolean
+                      bestHeight:
+                        type: integer
+                      lastBlockTime:
+                        type: string
+                      inSyncMempool:
+                        type: boolean
+                      lastMempoolTime:
+                        type: string
+                      mempoolSize:
+                        type: integer
+                      decimals:
+                        type: integer
+                      dbSize:
+                        type: integer
+                      hasFiatRates:
+                        type: boolean
+                      currentFiatRatesTime:
+                        type: string
+                      historicalFiatRatesTime:
+                        type: string
+                      about:
+                        type: string
+                  backend:
+                    type: object
+                    properties:
+                      chain:
+                        type: string
+                      blocks:
+                        type: integer
+                      headers:
+                        type: integer
+                      bestBlockHash:
+                        type: string
+                      difficulty:
+                        type: string
+                      sizeOnDisk:
+                        type: integer
+                      version:
+                        type: string
+                      subversion:
+                        type: string
+                      protocolVersion:
+                        type: string
+                x-examples:
+                  Example 1:
+                    blockbook:
+                      coin: Bitcoin
+                      host: s4
+                      version: 0.4.0
+                      gitCommit: 83fe6672
+                      buildTime: '2023-02-27T02:40:48+00:00'
+                      syncMode: true
+                      initialSync: false
+                      inSync: true
+                      bestHeight: 784299
+                      lastBlockTime: '2023-04-07T02:55:40.032567054Z'
+                      inSyncMempool: true
+                      lastMempoolTime: '2023-04-07T03:04:36.260327616Z'
+                      mempoolSize: 30785
+                      decimals: 8
+                      dbSize: 399834379691
+                      hasFiatRates: true
+                      currentFiatRatesTime: '2023-04-07T03:00:04.080770962Z'
+                      historicalFiatRatesTime: '2023-04-07T00:00:00Z'
+                      about: >-
+                        Blockbook blockchain indexer for https://chain49.com/ -
+                        based on trezor/blockbook
+                    backend:
+                      chain: main
+                      blocks: 784299
+                      headers: 784299
+                      bestBlockHash: >-
+                        00000000000000000000df1072b381603f20d3e6877cf4689c743e90d2dde719
+                      difficulty: '47887764338536.25'
+                      sizeOnDisk: 534828732178
+                      version: '240001'
+                      subversion: '/Satoshi:24.0.1/'
+                      protocolVersion: '70016'
+              examples:
+                Example 1:
+                  value:
+                    blockbook:
+                      coin: Bitcoin
+                      host: s4
+                      version: 0.4.0
+                      gitCommit: 83fe6672
+                      buildTime: '2023-02-27T02:40:48+00:00'
+                      syncMode: true
+                      initialSync: false
+                      inSync: true
+                      bestHeight: 784299
+                      lastBlockTime: '2023-04-07T02:55:40.032567054Z'
+                      inSyncMempool: true
+                      lastMempoolTime: '2023-04-07T03:04:36.260327616Z'
+                      mempoolSize: 30785
+                      decimals: 8
+                      dbSize: 399834379691
+                      hasFiatRates: true
+                      currentFiatRatesTime: '2023-04-07T03:00:04.080770962Z'
+                      historicalFiatRatesTime: '2023-04-07T00:00:00Z'
+                      about: >-
+                        Blockbook blockchain indexer for https://chain49.com/ -
+                        based on trezor/blockbook
+                    backend:
+                      chain: main
+                      blocks: 784299
+                      headers: 784299
+                      bestBlockHash: >-
+                        00000000000000000000df1072b381603f20d3e6877cf4689c743e90d2dde719
+                      difficulty: '47887764338536.25'
+                      sizeOnDisk: 534828732178
+                      version: '240001'
+                      subversion: '/Satoshi:24.0.1/'
+                      protocolVersion: '70016'
+      operationId: getBlockchain
+      description: Get basic summary of info relating to the currently selected blockchain
+  '/api/v2/block/{blockHashOrHeight}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/blockHashOrHeight'
+    get:
+      summary: Get Block V2
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  itemsOnPage:
+                    type: integer
+                  hash:
+                    type: string
+                  previousBlockHash:
+                    type: string
+                  nextBlockHash:
+                    type: string
+                  height:
+                    type: integer
+                  confirmations:
+                    type: integer
+                  size:
+                    type: integer
+                  time:
+                    type: integer
+                  version:
+                    type: integer
+                  merkleRoot:
+                    type: string
+                  nonce:
+                    type: string
+                  bits:
+                    type: string
+                  difficulty:
+                    type: string
+                  txCount:
+                    type: integer
+                  txs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        txid:
+                          type: string
+                        vin:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              'n':
+                                type: integer
+                              isAddress:
+                                type: boolean
+                              value:
+                                type: string
+                        vout:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                              'n':
+                                type: integer
+                              addresses:
+                                type: array
+                                items:
+                                  type: string
+                              isAddress:
+                                type: boolean
+                        blockHash:
+                          type: string
+                        blockHeight:
+                          type: integer
+                        confirmations:
+                          type: integer
+                        blockTime:
+                          type: integer
+                        value:
+                          type: string
+                        valueIn:
+                          type: string
+                        fees:
+                          type: string
+                x-examples:
+                  Example 1:
+                    page: 1
+                    totalPages: 1
+                    itemsOnPage: 1000
+                    hash: >-
+                      00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048
+                    previousBlockHash: >-
+                      000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+                    nextBlockHash: >-
+                      000000006a625f06636b8bb6ac7b960a8d03705d1ace08b1a19da3fdcc99ddbd
+                    height: 1
+                    confirmations: 784303
+                    size: 215
+                    time: 1231469665
+                    version: 1
+                    merkleRoot: >-
+                      0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098
+                    nonce: '2573394689'
+                    bits: 1d00ffff
+                    difficulty: '1'
+                    txCount: 1
+                    txs:
+                      - txid: >-
+                          0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098
+                        vin:
+                          - 'n': 0
+                            isAddress: false
+                            value: '0'
+                        vout:
+                          - value: '5000000000'
+                            'n': 0
+                            addresses:
+                              - 12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX
+                            isAddress: true
+                        blockHash: >-
+                          00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048
+                        blockHeight: 1
+                        confirmations: 784303
+                        blockTime: 1231469665
+                        value: '5000000000'
+                        valueIn: '0'
+                        fees: '0'
+              examples:
+                Example 1:
+                  value:
+                    page: 1
+                    totalPages: 1
+                    itemsOnPage: 1000
+                    hash: >-
+                      00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048
+                    previousBlockHash: >-
+                      000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+                    nextBlockHash: >-
+                      000000006a625f06636b8bb6ac7b960a8d03705d1ace08b1a19da3fdcc99ddbd
+                    height: 1
+                    confirmations: 784303
+                    size: 215
+                    time: 1231469665
+                    version: 1
+                    merkleRoot: >-
+                      0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098
+                    nonce: '2573394689'
+                    bits: 1d00ffff
+                    difficulty: '1'
+                    txCount: 1
+                    txs:
+                      - txid: >-
+                          0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098
+                        vin:
+                          - 'n': 0
+                            isAddress: false
+                            value: '0'
+                        vout:
+                          - value: '5000000000'
+                            'n': 0
+                            addresses:
+                              - 12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX
+                            isAddress: true
+                        blockHash: >-
+                          00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048
+                        blockHeight: 1
+                        confirmations: 784303
+                        blockTime: 1231469665
+                        value: '5000000000'
+                        valueIn: '0'
+                        fees: '0'
+          description: OK
+      operationId: getBlockV2
+      description: >-
+        Returns information about block with transactions, subject to paging.
+
+
+        Note: Blockbook always follows the main chain of the backend it is
+        attached to. If there is a rollback-reorg in the backend, Blockbook will
+        also do rollback. When you ask for block by height, you will always get
+        the main chain block. If you ask for block by hash, you may get the
+        block from another fork but it is not guaranteed (backend may not keep
+        it)
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+      tags:
+        - Bitcoin
+  '/api/v2/block-index/{blockHeight}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/blockHeight'
+    get:
+      summary: Get block hash V2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  blockHash:
+                    type: string
+                x-examples:
+                  Example 1:
+                    blockHash: >-
+                      ed8f3af8c10ca70a136901c6dd3adf037f0aea8a93fbe9e80939214034300f1e
+              examples:
+                Example 1:
+                  value:
+                    blockHash: >-
+                      ed8f3af8c10ca70a136901c6dd3adf037f0aea8a93fbe9e80939214034300f1e
+      operationId: getBlockHashV2
+      description: >-
+        Get block hash by its height
+
+
+        Note: Blockbook always follows the main chain of the backend it is
+        attached to.
+      tags:
+        - Bitcoin
+  '/api/v2/tx-specific/{txId}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/txId'
+    get:
+      summary: Get transaction (as is from Backend) V2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              examples:
+                zCash:
+                  value:
+                    hex: 040000808...8e6e73cb009
+                    txid: >-
+                      7a0a0ff6f67bac2a856c7296382b69151949878de6fb0d01a8efa197182b2913
+                    overwintered: true
+                    version: 4
+                    versiongroupid: 892f2085
+                    locktime: 0
+                    expiryheight: 495680
+                    vin: []
+                    vout: []
+                    vjoinsplit: []
+                    valueBalance: 0
+                    vShieldedSpend:
+                      - cv: >-
+                          50258bfa65caa9f42f4448b9194840c7da73afc8159faf7358140bfd0f237962
+                        anchor: >-
+                          6beb3b64ecb30033a9032e1a65a68899917625d1fdd2540e70f19f3078f5dd9b
+                        nullifier: >-
+                          08e5717f6606af7c2b01206ff833eaa6383bb49c7451534b2e16d588956fd10a
+                        rk: >-
+                          36841a9be87a7022445b77f433cdd0355bbed498656ab399aede1e5285e9e4a2
+                        proof: aecf824dbae8eea863ec6...73878c37391f01df520aa
+                        spendAuthSig: 65b9477cb1ec5da...1178fe402e5702c646945197108339609
+                      - cv: >-
+                          a5aab3721e33d6d6360eabd21cbd07524495f202149abdc3eb30f245d503678c
+                        anchor: >-
+                          6beb3b64ecb30033a9032e1a65a68899917625d1fdd2540e70f19f3078f5dd9b
+                        nullifier: >-
+                          60e790d6d0e12e777fb2b18bc97cf42a92b1e47460e1bd0b0ffd294c23232cc9
+                        rk: >-
+                          2d741695e76351597712b4a04d2a4e108a116f376283d2d104219b86e2930117
+                        proof: >-
+                          a0c2a6fdcbba966b9894...3a9c3118b76c8e2352d524cbb44c02decaeda7
+                        spendAuthSig: feea902e01eac9ebd...b43b4af6b607ce5b0b38f708
+                    vShieldedOutput:
+                      - cv: >-
+                          23db384cde862f20238a1004e57ba18f114acabc7fd2ac029757f82af5bd4cab
+                        cmu: >-
+                          3ff5a5ff521fabefb5287fef4feb2642d69ead5fe18e6ac717cfd76a8d4088bc
+                        ephemeralKey: >-
+                          057ff6e059967784fa6ac34ad9ecfd9c0c0aba743b7cd444a65ecc32192d5870
+                        encCiphertext: a533d3b99b...a0204
+                        outCiphertext: 4baabc15199504b1...c1ad6a
+                        proof: >-
+                          aa1fb2706cba5...1ec7e81f5deea90d4f57713f3b4fc8d636908235fa378ebf1
+                    bindingSig: bc018af8808387...5130bb382ad8e6e73cb009
+                    blockhash: >-
+                      0000000001c4aa394e796dd1b82e358f114535204f6f5b6cf4ad58dc439c47af
+                    confirmations: 5222
+                    time: 1552301566
+                    blocktime: 1552301566
+      operationId: getTxSpecificV2
+      description: >-
+        Returns transaction data in the exact format as returned by backend,
+        including all coin specific fields
+      tags:
+        - Bitcoin
+  '/api/v2/address/{address}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/address'
+    get:
+      summary: Get address V2
+      tags:
+        - Bitcoin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+              examples:
+                'Bitcoin-like, details set to "txids"':
+                  value:
+                    page: 1
+                    totalPages: 1
+                    itemsOnPage: 1000
+                    address: D5Z7XrtJNg7hAtznSDMXvfiFmMYphwuWz7
+                    balance: '2432468097999991'
+                    totalReceived: '3992283916999979'
+                    totalSent: '1559815818999988'
+                    unconfirmedBalance: '0'
+                    unconfirmedTxs: 0
+                    txs: 3
+                    txids:
+                      - >-
+                        461dd46d5d6f56d765f82e60e6bf0727a3a1d1cb8c4144373d805b152a21d308
+                      - >-
+                        bdb5b47603c5d174eae3384c368068c8e9d2183b398ed0e31d125defa4447a10
+                      - >-
+                        5c1d2686d70d82bd8e84b5d3dc4bd0e8485e28cdc865336db6a5e40b2098277d
+      operationId: getAddressV2
+      description: >
+        Returns balances and transactions of an address. The returned
+        transactions are sorted by block height, newest blocks first.
+
+
+        The **details** query parameter can specify the level of details
+        returned by the request (default: "txids").
+
+        Possible values are:
+
+
+        **basic**: return only xpub balances, without any derived addresses and
+        transactions
+
+
+        **tokens**: basic + tokens (addresses) derived from the xpub, subject to
+        tokens parameter
+
+
+        **tokenBalances**: basic + tokens (addresses) derived from the xpub with
+        balances, subject to tokens parameter
+
+
+        **txids**: tokenBalances + list of txids, subject to from, to filter and
+        paging
+
+
+        **txs**: tokenBalances + list of transaction with details, subject to
+        from, to filter and paging
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/fromBlock'
+        - $ref: '#/components/parameters/toBlock'
+        - $ref: '#/components/parameters/details'
+  '/api/v2/xpub/{xpub}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/xpub'
+    get:
+      summary: Get xpub V2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: integer
+                  totalPages:
+                    type: integer
+                  itemsOnPage:
+                    type: integer
+                  address:
+                    type: string
+                  balance:
+                    type: string
+                  totalReceived:
+                    type: string
+                  totalSent:
+                    type: string
+                  unconfirmedBalance:
+                    type: string
+                  unconfirmedTxs:
+                    type: integer
+                  txs:
+                    type: integer
+                  txids:
+                    type: array
+                    items:
+                      type: string
+                  usedTokens:
+                    type: integer
+                  tokens:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        name:
+                          type: string
+                        path:
+                          type: string
+                        transfers:
+                          type: integer
+                        decimals:
+                          type: integer
+                        balance:
+                          type: string
+                        totalReceived:
+                          type: string
+                        totalSent:
+                          type: string
+                  secondaryValue:
+                    type: number
+                x-examples:
+                  Example 1:
+                    page: 1
+                    totalPages: 1
+                    itemsOnPage: 1000
+                    address: >-
+                      dgub8sbe5Mi8LA4dXB9zPfLZW8arm...9Vjp2HHx91xdDEmWYpmD49fpoUYF
+                    balance: '90000000'
+                    totalReceived: '3093381250'
+                    totalSent: '3083381250'
+                    unconfirmedBalance: '0'
+                    unconfirmedTxs: 0
+                    txs: 5
+                    txids:
+                      - >-
+                        383ccb5da16fccad294e24a2ef77bdee5810573bb1b252d8b2af4f0ac8c4e04c
+                      - >-
+                        75fb93d47969ac92112628e39148ad22323e96f0004c18f8c75938cffb6c1798
+                      - >-
+                        e8cd84f204b4a42b98e535e72f461dd9832aa081458720b0a38db5856a884876
+                      - >-
+                        57833d50969208091bd6c950599a1b5cf9d66d992ae8a8d3560fb943b98ebb23
+                      - >-
+                        9cfd6295f20e74ddca6dd816c8eb71a91e4da70fe396aca6f8ce09dc2947839f
+                    usedTokens: 2
+                    tokens:
+                      - type: XPUBAddress
+                        name: DUCd1B3YBiXL5By15yXgSLZtEkvwsgEdqS
+                        path: m/44'/3'/0'/0/0
+                        transfers: 3
+                        decimals: 8
+                        balance: '90000000'
+                        totalReceived: '2903986975'
+                        totalSent: '2803986975'
+                      - type: XPUBAddress
+                        name: DKu2a8Wo6zC2dmBBYXwUG3fxWDHbKnNiPj
+                        path: m/44'/3'/0'/1/0
+                        transfers: 2
+                        decimals: 8
+                        balance: '0'
+                        totalReceived: '279394275'
+                        totalSent: '279394275'
+                    secondaryValue: 21195.47633568
+              examples:
+                Example 1:
+                  value:
+                    page: 1
+                    totalPages: 1
+                    itemsOnPage: 1000
+                    address: >-
+                      dgub8sbe5Mi8LA4dXB9zPfLZW8arm...9Vjp2HHx91xdDEmWYpmD49fpoUYF
+                    balance: '90000000'
+                    totalReceived: '3093381250'
+                    totalSent: '3083381250'
+                    unconfirmedBalance: '0'
+                    unconfirmedTxs: 0
+                    txs: 5
+                    txids:
+                      - >-
+                        383ccb5da16fccad294e24a2ef77bdee5810573bb1b252d8b2af4f0ac8c4e04c
+                      - >-
+                        75fb93d47969ac92112628e39148ad22323e96f0004c18f8c75938cffb6c1798
+                      - >-
+                        e8cd84f204b4a42b98e535e72f461dd9832aa081458720b0a38db5856a884876
+                      - >-
+                        57833d50969208091bd6c950599a1b5cf9d66d992ae8a8d3560fb943b98ebb23
+                      - >-
+                        9cfd6295f20e74ddca6dd816c8eb71a91e4da70fe396aca6f8ce09dc2947839f
+                    usedTokens: 2
+                    tokens:
+                      - type: XPUBAddress
+                        name: DUCd1B3YBiXL5By15yXgSLZtEkvwsgEdqS
+                        path: m/44'/3'/0'/0/0
+                        transfers: 3
+                        decimals: 8
+                        balance: '90000000'
+                        totalReceived: '2903986975'
+                        totalSent: '2803986975'
+                      - type: XPUBAddress
+                        name: DKu2a8Wo6zC2dmBBYXwUG3fxWDHbKnNiPj
+                        path: m/44'/3'/0'/1/0
+                        transfers: 2
+                        decimals: 8
+                        balance: '0'
+                        totalReceived: '279394275'
+                        totalSent: '279394275'
+                    secondaryValue: 21195.47633568
+      operationId: getXpubV2
+      description: >-
+        Returns balances and transactions of an xpub or output descriptor,
+        applicable only for Bitcoin-type coins.
+
+
+        Blockbook supports BIP44, BIP49, BIP84 and BIP86 (Taproot) derivation
+        schemes, using either xpubs or output descriptors (see
+        https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md)
+
+
+        Note: usedTokens always returns total number of used addresses of xpub.
+
+
+        Detailed documentation found here:
+        https://github.com/trezor/blockbook/blob/master/docs/api.md#get-xpub
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/pageSize'
+        - $ref: '#/components/parameters/fromBlock'
+        - $ref: '#/components/parameters/toBlock'
+        - $ref: '#/components/parameters/details'
+        - $ref: '#/components/parameters/tokens'
+        - $ref: '#/components/parameters/secondary'
+      tags:
+        - Bitcoin
+  '/api/v2/utxo/{addressOrXpub}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/addressOrXpub'
+    get:
+      summary: Get UTXO V2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+              examples:
+                Example 1:
+                  value:
+                    - txid: >-
+                        13d26cd939bf5d155b1c60054e02d9c9b832a85e6ec4f2411be44b6b5a2842e9
+                      vout: 0
+                      value: '1422303206539'
+                      confirmations: 0
+                      lockTime: 2648100
+                    - txid: >-
+                        a79e396a32e10856c97b95f43da7e9d2b9a11d446f7638dbd75e5e7603128cac
+                      vout: 1
+                      value: '39748685'
+                      height: 2648043
+                      confirmations: 47
+                      coinbase: true
+                    - txid: >-
+                        de4f379fdc3ea9be063e60340461a014f372a018d70c3db35701654e7066b3ef
+                      vout: 0
+                      value: '122492339065'
+                      height: 2646043
+                      confirmations: 2047
+                    - txid: >-
+                        9e8eb9b3d2e8e4b5d6af4c43a9196dfc55a05945c8675904d8c61f404ea7b1e9
+                      vout: 0
+                      value: '142771322208'
+                      height: 2644885
+                      confirmations: 3205
+      operationId: getUTXOV2
+      description: >-
+        Returns array of unspent transaction outputs of address or xpub,
+        applicable only for Bitcoin-type coins. By default, the list contains
+        both confirmed and unconfirmed transactions. The query parameter
+        confirmed=true disables return of unconfirmed transactions. The returned
+        utxos are sorted by block height, newest blocks first. For xpubs or
+        output descriptors, the response also contains address and derivation
+        path of the utxo.
+
+
+
+
+        Unconfirmed utxos do not have field height, the field confirmations has
+        value 0 and may contain field lockTime, if not zero.
+
+
+        Coinbase utxos have field coinbase set to true, however due to
+        performance reasons only up to minimum coinbase confirmations limit
+        (100). After this limit, utxos are not detected as coinbase.
+      parameters:
+        - $ref: '#/components/parameters/confirmed'
+      tags:
+        - Bitcoin
+  '/api/v2/sendtx/{hex}':
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    parameters:
+      - $ref: '#/components/parameters/hex'
+    get:
+      summary: Send transaction (in URL) V2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                x-examples:
+                  Example 1:
+                    result: >-
+                      7c3be24063f268aaa1ed81b64776798f56088757641a34fb156c4f51ed2e9d25
+              examples:
+                Example 1:
+                  value:
+                    result: >-
+                      7c3be24063f268aaa1ed81b64776798f56088757641a34fb156c4f51ed2e9d25
+      operationId: getSendTxV2
+      description: >-
+        Sends new transaction to backend
+
+
+        It is recommended to use POST for sending transactions as there is a
+        limit on how much data can be sent in the URL itself.
+      tags:
+        - Bitcoin
+  /api/v2/sendtx:
+    servers:
+      - url: 'https://bitcoin-mainnet.blockfrost.io'
+    post:
+      summary: Send transaction (POST) V2
+      operationId: postSendTxV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                x-examples:
+                  Example 1:
+                    result: >-
+                      7c3be24063f268aaa1ed81b64776798f56088757641a34fb156c4f51ed2e9d25
+              examples:
+                Example 1:
+                  value:
+                    result: >-
+                      7c3be24063f268aaa1ed81b64776798f56088757641a34fb156c4f51ed2e9d25
+      description: |
+        Sends new transaction to backend for broadcasting
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: object
+              properties: {}
+        description: Transaction hex as plain text
+      tags:
+        - Bitcoin
 components:
   schemas:
     onchain_metadata_cip25:
@@ -12275,3 +13148,149 @@ components:
         There are multiple token types available based on network you choose
         when creating a Blockfrost a project, for a list of token types
         see available networks.
+  parameters:
+    blockHashOrHeight:
+      name: blockHashOrHeight
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 00000000000000000035835503f43c878ebb643f3b40bdfd0dfda760da74e73c
+      description: Block hash or height
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 1
+      description: >-
+        specifies page of returned transactions, starting from 1. If out of
+        range, Blockbook returns the closest possible page.
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 1000
+      description: number of transactions returned by call (default and maximum 1000)
+    blockHeight:
+      name: blockHeight
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 15
+      description: Block height/index
+    txId:
+      name: txId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: cd8ec77174e426070d0a50779232bba7312b712e2c6843d82d963d7076c61366
+      description: Transaction ID
+    address:
+      name: address
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 321x69Cb9HZLWwAWGiUBT1U81r1zPLnEjL
+      description: Wallet address
+    details:
+      name: details
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - basic
+          - tokens
+          - tokenBalances
+          - txids
+          - txslight
+          - txs
+        default: txids
+        example: basic
+      description: specifies level of details returned by request
+    fromBlock:
+      name: fromBlock
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 10
+      description: >-
+        filter of the returned transactions from block height to block height
+        (default no filter)
+    toBlock:
+      name: toBlock
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 100
+      description: >-
+        filter of the returned transactions from block height to block height
+        (default no filter)
+    secondary:
+      name: secondary
+      in: query
+      required: false
+      schema:
+        type: string
+        example: usd
+      description: >-
+        specifies secondary (fiat) currency in which the token and total
+        balances are returned in addition to crypto values
+    xpub:
+      name: xpub
+      in: path
+      required: true
+      schema:
+        type: string
+        example: >-
+          tpubDC88gkaZi5HvJGxGDNLADkvtdpni3mLmx6vr2KnXmWMG8zfkBRggsxHVBkUpgcwPe2KKpkyvTJCdXHb1UHEWE64vczyyPQfHr1skBcsRedN
+      description: 'xpub or output descriptor, applicable only for Bitcoin-type coins'
+    tokens:
+      name: tokens
+      in: query
+      required: false
+      schema:
+        type: string
+        default: nonzero
+        enum:
+          - nonzero
+          - used
+          - derived
+        example: used
+      description: >-
+        specifies what tokens (xpub addresses) are returned by the request
+        (default nonzero)
+    confirmed:
+      name: confirmed
+      in: query
+      required: false
+      schema:
+        type: boolean
+        example: true
+      description: confirmed=true disables return of unconfirmed transactions
+    hex:
+      name: hex
+      in: path
+      required: true
+      schema:
+        type: string
+        example: >-
+          01000000017f9a22c9cbf54bd902400df746f138f37bcf5b4d93eb755820e974ba43ed5f42040000006a4730440220037f4ed5427cde81d55b9b6a2fd08c8a25090c2c2fff3a75c1a57625ca8a7118022076c702fe55969fa08137f71afd4851c48e31082dd3c40c919c92cdbc826758d30121029f6da5623c9f9b68a9baf9c1bc7511df88fa34c6c2f71f7c62f2f03ff48dca80feffffff019c9700000000000017a9146144d57c8aff48492c9dfb914e120b20bad72d6f8773d00700
+      description: Transaction hex data
+    addressOrXpub:
+      name: addressOrXpub
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 321x69Cb9HZLWwAWGiUBT1U81r1zPLnEjL
+      description: Address or XPUB

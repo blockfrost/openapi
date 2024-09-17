@@ -54,6 +54,12 @@ info:
             </td>
         </tr>
         <tr>
+            <td>Bitcoin mainnet</td>
+            <td>
+                <code>https://bitcoin-mainnet.blockfrost.io/api/v2</code>
+            </td>
+        </tr>
+        <tr>
             <td>InterPlanetary File System</td>
             <td>
                 <code>https://ipfs.blockfrost.io/api/v0</code>
@@ -259,6 +265,16 @@ security:
 tags:
   - name: Health
   - name: Metrics
+  - name: Bitcoin
+    description: |
+      Blockbook Bitcoin integration allows you to access Bitcoin blockchain using Blockbook API.
+
+      > **Please note that Blockfrost acts as a proxy for the subset of Blockbook API endpoints. The API version in the URL corresponds to the deployed Blockbook API version, which is currently V2..**
+
+      > For example, to retrieve a block data for the first block, you would use:
+      `https://bitcoin-mainnet.blockfrost.io/api/v2/block/1`
+
+      In addition to error responses listed in Blockbook endpoints (such as `404`, `412` and `500`), the API may also return error responses related to Blockfrost (e.g. `400` for invalid path or `403` for unauthenticated request). For the full list of Blockfrost error status codes, please see [Blockfrost Errors](#section/Errors).
   - name: Cardano » Accounts
   - name: Cardano » Addresses
   - name: Cardano » Assets

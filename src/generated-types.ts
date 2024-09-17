@@ -6452,6 +6452,240 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v2": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Blockchain Info Summary
+         * @description Get basic summary of info relating to the currently selected blockchain
+         */
+        get: operations["getBlockchain"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/block/{blockHashOrHeight}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Block hash or height */
+                blockHashOrHeight: components["parameters"]["blockHashOrHeight"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Get Block V2
+         * @description Returns information about block with transactions, subject to paging.
+         *
+         *     Note: Blockbook always follows the main chain of the backend it is attached to. If there is a rollback-reorg in the backend, Blockbook will also do rollback. When you ask for block by height, you will always get the main chain block. If you ask for block by hash, you may get the block from another fork but it is not guaranteed (backend may not keep it)
+         */
+        get: operations["getBlockV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/block-index/{blockHeight}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Block height/index */
+                blockHeight: components["parameters"]["blockHeight"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Get block hash V2
+         * @description Get block hash by its height
+         *
+         *     Note: Blockbook always follows the main chain of the backend it is attached to.
+         */
+        get: operations["getBlockHashV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/tx-specific/{txId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Transaction ID */
+                txId: components["parameters"]["txId"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Get transaction (as is from Backend) V2
+         * @description Returns transaction data in the exact format as returned by backend, including all coin specific fields
+         */
+        get: operations["getTxSpecificV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/address/{address}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Wallet address */
+                address: components["parameters"]["address"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Get address V2
+         * @description Returns balances and transactions of an address. The returned transactions are sorted by block height, newest blocks first.
+         *
+         *     The **details** query parameter can specify the level of details returned by the request (default: "txids").
+         *     Possible values are:
+         *
+         *     **basic**: return only xpub balances, without any derived addresses and transactions
+         *
+         *     **tokens**: basic + tokens (addresses) derived from the xpub, subject to tokens parameter
+         *
+         *     **tokenBalances**: basic + tokens (addresses) derived from the xpub with balances, subject to tokens parameter
+         *
+         *     **txids**: tokenBalances + list of txids, subject to from, to filter and paging
+         *
+         *     **txs**: tokenBalances + list of transaction with details, subject to from, to filter and paging
+         *
+         */
+        get: operations["getAddressV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/xpub/{xpub}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description xpub or output descriptor, applicable only for Bitcoin-type coins */
+                xpub: components["parameters"]["xpub"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Get xpub V2
+         * @description Returns balances and transactions of an xpub or output descriptor, applicable only for Bitcoin-type coins.
+         *
+         *     Blockbook supports BIP44, BIP49, BIP84 and BIP86 (Taproot) derivation schemes, using either xpubs or output descriptors (see https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md)
+         *
+         *     Note: usedTokens always returns total number of used addresses of xpub.
+         *
+         *     Detailed documentation found here: https://github.com/trezor/blockbook/blob/master/docs/api.md#get-xpub
+         */
+        get: operations["getXpubV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/utxo/{addressOrXpub}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Address or XPUB */
+                addressOrXpub: components["parameters"]["addressOrXpub"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Get UTXO V2
+         * @description Returns array of unspent transaction outputs of address or xpub, applicable only for Bitcoin-type coins. By default, the list contains both confirmed and unconfirmed transactions. The query parameter confirmed=true disables return of unconfirmed transactions. The returned utxos are sorted by block height, newest blocks first. For xpubs or output descriptors, the response also contains address and derivation path of the utxo.
+         *
+         *
+         *
+         *     Unconfirmed utxos do not have field height, the field confirmations has value 0 and may contain field lockTime, if not zero.
+         *
+         *     Coinbase utxos have field coinbase set to true, however due to performance reasons only up to minimum coinbase confirmations limit (100). After this limit, utxos are not detected as coinbase.
+         */
+        get: operations["getUTXOV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/sendtx/{hex}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Transaction hex data */
+                hex: components["parameters"]["hex"];
+            };
+            cookie?: never;
+        };
+        /**
+         * Send transaction (in URL) V2
+         * @description Sends new transaction to backend
+         *
+         *     It is recommended to use POST for sending transactions as there is a limit on how much data can be sent in the URL itself.
+         */
+        get: operations["getSendTxV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/sendtx": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Send transaction (POST) V2
+         * @description Sends new transaction to backend for broadcasting
+         *
+         */
+        post: operations["postSendTxV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -11353,7 +11587,38 @@ export interface components {
             };
         };
     };
-    parameters: never;
+    parameters: {
+        /** @description Block hash or height */
+        blockHashOrHeight: string;
+        /** @description specifies page of returned transactions, starting from 1. If out of range, Blockbook returns the closest possible page. */
+        page: number;
+        /** @description number of transactions returned by call (default and maximum 1000) */
+        pageSize: number;
+        /** @description Block height/index */
+        blockHeight: number;
+        /** @description Transaction ID */
+        txId: string;
+        /** @description Wallet address */
+        address: string;
+        /** @description specifies level of details returned by request */
+        details: "basic" | "tokens" | "tokenBalances" | "txids" | "txslight" | "txs";
+        /** @description filter of the returned transactions from block height to block height (default no filter) */
+        fromBlock: number;
+        /** @description filter of the returned transactions from block height to block height (default no filter) */
+        toBlock: number;
+        /** @description specifies secondary (fiat) currency in which the token and total balances are returned in addition to crypto values */
+        secondary: string;
+        /** @description xpub or output descriptor, applicable only for Bitcoin-type coins */
+        xpub: string;
+        /** @description specifies what tokens (xpub addresses) are returned by the request (default nonzero) */
+        tokens: "nonzero" | "used" | "derived";
+        /** @description confirmed=true disables return of unconfirmed transactions */
+        confirmed: boolean;
+        /** @description Transaction hex data */
+        hex: string;
+        /** @description Address or XPUB */
+        addressOrXpub: string;
+    };
     requestBodies: never;
     headers: never;
     pathItems: never;
@@ -11407,6 +11672,351 @@ export interface operations {
             418: components["responses"]["418"];
             429: components["responses"]["429"];
             500: components["responses"]["500"];
+        };
+    };
+    getBlockchain: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        blockbook?: {
+                            coin?: string;
+                            host?: string;
+                            version?: string;
+                            gitCommit?: string;
+                            buildTime?: string;
+                            syncMode?: boolean;
+                            initialSync?: boolean;
+                            inSync?: boolean;
+                            bestHeight?: number;
+                            lastBlockTime?: string;
+                            inSyncMempool?: boolean;
+                            lastMempoolTime?: string;
+                            mempoolSize?: number;
+                            decimals?: number;
+                            dbSize?: number;
+                            hasFiatRates?: boolean;
+                            currentFiatRatesTime?: string;
+                            historicalFiatRatesTime?: string;
+                            about?: string;
+                        };
+                        backend?: {
+                            chain?: string;
+                            blocks?: number;
+                            headers?: number;
+                            bestBlockHash?: string;
+                            difficulty?: string;
+                            sizeOnDisk?: number;
+                            version?: string;
+                            subversion?: string;
+                            protocolVersion?: string;
+                        };
+                    };
+                };
+            };
+        };
+    };
+    getBlockV2: {
+        parameters: {
+            query?: {
+                /** @description specifies page of returned transactions, starting from 1. If out of range, Blockbook returns the closest possible page. */
+                page?: components["parameters"]["page"];
+                /** @description number of transactions returned by call (default and maximum 1000) */
+                pageSize?: components["parameters"]["pageSize"];
+            };
+            header?: never;
+            path: {
+                /** @description Block hash or height */
+                blockHashOrHeight: components["parameters"]["blockHashOrHeight"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        page?: number;
+                        totalPages?: number;
+                        itemsOnPage?: number;
+                        hash?: string;
+                        previousBlockHash?: string;
+                        nextBlockHash?: string;
+                        height?: number;
+                        confirmations?: number;
+                        size?: number;
+                        time?: number;
+                        version?: number;
+                        merkleRoot?: string;
+                        nonce?: string;
+                        bits?: string;
+                        difficulty?: string;
+                        txCount?: number;
+                        txs?: {
+                            txid?: string;
+                            vin?: {
+                                n?: number;
+                                isAddress?: boolean;
+                                value?: string;
+                            }[];
+                            vout?: {
+                                value?: string;
+                                n?: number;
+                                addresses?: string[];
+                                isAddress?: boolean;
+                            }[];
+                            blockHash?: string;
+                            blockHeight?: number;
+                            confirmations?: number;
+                            blockTime?: number;
+                            value?: string;
+                            valueIn?: string;
+                            fees?: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    getBlockHashV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Block height/index */
+                blockHeight: components["parameters"]["blockHeight"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        blockHash?: string;
+                    };
+                };
+            };
+        };
+    };
+    getTxSpecificV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Transaction ID */
+                txId: components["parameters"]["txId"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    getAddressV2: {
+        parameters: {
+            query?: {
+                /** @description specifies page of returned transactions, starting from 1. If out of range, Blockbook returns the closest possible page. */
+                page?: components["parameters"]["page"];
+                /** @description number of transactions returned by call (default and maximum 1000) */
+                pageSize?: components["parameters"]["pageSize"];
+                /** @description filter of the returned transactions from block height to block height (default no filter) */
+                fromBlock?: components["parameters"]["fromBlock"];
+                /** @description filter of the returned transactions from block height to block height (default no filter) */
+                toBlock?: components["parameters"]["toBlock"];
+                /** @description specifies level of details returned by request */
+                details?: components["parameters"]["details"];
+            };
+            header?: never;
+            path: {
+                /** @description Wallet address */
+                address: components["parameters"]["address"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    getXpubV2: {
+        parameters: {
+            query?: {
+                /** @description specifies page of returned transactions, starting from 1. If out of range, Blockbook returns the closest possible page. */
+                page?: components["parameters"]["page"];
+                /** @description number of transactions returned by call (default and maximum 1000) */
+                pageSize?: components["parameters"]["pageSize"];
+                /** @description filter of the returned transactions from block height to block height (default no filter) */
+                fromBlock?: components["parameters"]["fromBlock"];
+                /** @description filter of the returned transactions from block height to block height (default no filter) */
+                toBlock?: components["parameters"]["toBlock"];
+                /** @description specifies level of details returned by request */
+                details?: components["parameters"]["details"];
+                /** @description specifies what tokens (xpub addresses) are returned by the request (default nonzero) */
+                tokens?: components["parameters"]["tokens"];
+                /** @description specifies secondary (fiat) currency in which the token and total balances are returned in addition to crypto values */
+                secondary?: components["parameters"]["secondary"];
+            };
+            header?: never;
+            path: {
+                /** @description xpub or output descriptor, applicable only for Bitcoin-type coins */
+                xpub: components["parameters"]["xpub"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        page?: number;
+                        totalPages?: number;
+                        itemsOnPage?: number;
+                        address?: string;
+                        balance?: string;
+                        totalReceived?: string;
+                        totalSent?: string;
+                        unconfirmedBalance?: string;
+                        unconfirmedTxs?: number;
+                        txs?: number;
+                        txids?: string[];
+                        usedTokens?: number;
+                        tokens?: {
+                            type?: string;
+                            name?: string;
+                            path?: string;
+                            transfers?: number;
+                            decimals?: number;
+                            balance?: string;
+                            totalReceived?: string;
+                            totalSent?: string;
+                        }[];
+                        secondaryValue?: number;
+                    };
+                };
+            };
+        };
+    };
+    getUTXOV2: {
+        parameters: {
+            query?: {
+                /** @description confirmed=true disables return of unconfirmed transactions */
+                confirmed?: components["parameters"]["confirmed"];
+            };
+            header?: never;
+            path: {
+                /** @description Address or XPUB */
+                addressOrXpub: components["parameters"]["addressOrXpub"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown[];
+                };
+            };
+        };
+    };
+    getSendTxV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Transaction hex data */
+                hex: components["parameters"]["hex"];
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        result?: string;
+                    };
+                };
+            };
+        };
+    };
+    postSendTxV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Transaction hex as plain text */
+        requestBody?: {
+            content: {
+                "text/plain": Record<string, never>;
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        result?: string;
+                    };
+                };
+            };
         };
     };
 }

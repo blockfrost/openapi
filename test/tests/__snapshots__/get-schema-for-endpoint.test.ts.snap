@@ -3923,6 +3923,526 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
       },
     },
   },
+  "/api/v2/": {
+    "response": {
+      "200": {
+        "properties": {
+          "backend": {
+            "properties": {
+              "bestBlockHash": {
+                "type": "string",
+              },
+              "blocks": {
+                "type": "integer",
+              },
+              "chain": {
+                "type": "string",
+              },
+              "difficulty": {
+                "type": "string",
+              },
+              "headers": {
+                "type": "integer",
+              },
+              "protocolVersion": {
+                "type": "string",
+              },
+              "sizeOnDisk": {
+                "type": "integer",
+              },
+              "subversion": {
+                "type": "string",
+              },
+              "version": {
+                "type": "string",
+              },
+            },
+            "type": "object",
+          },
+          "blockbook": {
+            "properties": {
+              "about": {
+                "type": "string",
+              },
+              "bestHeight": {
+                "type": "integer",
+              },
+              "buildTime": {
+                "type": "string",
+              },
+              "coin": {
+                "type": "string",
+              },
+              "currentFiatRatesTime": {
+                "type": "string",
+              },
+              "dbSize": {
+                "type": "integer",
+              },
+              "decimals": {
+                "type": "integer",
+              },
+              "gitCommit": {
+                "type": "string",
+              },
+              "hasFiatRates": {
+                "type": "boolean",
+              },
+              "historicalFiatRatesTime": {
+                "type": "string",
+              },
+              "host": {
+                "type": "string",
+              },
+              "inSync": {
+                "type": "boolean",
+              },
+              "inSyncMempool": {
+                "type": "boolean",
+              },
+              "initialSync": {
+                "type": "boolean",
+              },
+              "lastBlockTime": {
+                "type": "string",
+              },
+              "lastMempoolTime": {
+                "type": "string",
+              },
+              "mempoolSize": {
+                "type": "integer",
+              },
+              "syncMode": {
+                "type": "boolean",
+              },
+              "version": {
+                "type": "string",
+              },
+            },
+            "type": "object",
+          },
+        },
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "backend": {
+              "bestBlockHash": "00000000000000000000df1072b381603f20d3e6877cf4689c743e90d2dde719",
+              "blocks": 784299,
+              "chain": "main",
+              "difficulty": "47887764338536.25",
+              "headers": 784299,
+              "protocolVersion": "70016",
+              "sizeOnDisk": 534828732178,
+              "subversion": "/Satoshi:24.0.1/",
+              "version": "240001",
+            },
+            "blockbook": {
+              "about": "Blockbook blockchain indexer for https://chain49.com/ - based on trezor/blockbook",
+              "bestHeight": 784299,
+              "buildTime": "2023-02-27T02:40:48+00:00",
+              "coin": "Bitcoin",
+              "currentFiatRatesTime": "2023-04-07T03:00:04.080770962Z",
+              "dbSize": 399834379691,
+              "decimals": 8,
+              "gitCommit": "83fe6672",
+              "hasFiatRates": true,
+              "historicalFiatRatesTime": "2023-04-07T00:00:00Z",
+              "host": "s4",
+              "inSync": true,
+              "inSyncMempool": true,
+              "initialSync": false,
+              "lastBlockTime": "2023-04-07T02:55:40.032567054Z",
+              "lastMempoolTime": "2023-04-07T03:04:36.260327616Z",
+              "mempoolSize": 30785,
+              "syncMode": true,
+              "version": "0.4.0",
+            },
+          },
+        },
+      },
+    },
+  },
+  "/api/v2/address/{address}": {
+    "response": {
+      "200": {
+        "additionalProperties": true,
+        "type": "object",
+      },
+    },
+  },
+  "/api/v2/block-index/{blockHeight}": {
+    "response": {
+      "200": {
+        "properties": {
+          "blockHash": {
+            "type": "string",
+          },
+        },
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "blockHash": "ed8f3af8c10ca70a136901c6dd3adf037f0aea8a93fbe9e80939214034300f1e",
+          },
+        },
+      },
+    },
+  },
+  "/api/v2/block/{blockHashOrHeight}": {
+    "response": {
+      "200": {
+        "properties": {
+          "bits": {
+            "type": "string",
+          },
+          "confirmations": {
+            "type": "integer",
+          },
+          "difficulty": {
+            "type": "string",
+          },
+          "hash": {
+            "type": "string",
+          },
+          "height": {
+            "type": "integer",
+          },
+          "itemsOnPage": {
+            "type": "integer",
+          },
+          "merkleRoot": {
+            "type": "string",
+          },
+          "nextBlockHash": {
+            "type": "string",
+          },
+          "nonce": {
+            "type": "string",
+          },
+          "page": {
+            "type": "integer",
+          },
+          "previousBlockHash": {
+            "type": "string",
+          },
+          "size": {
+            "type": "integer",
+          },
+          "time": {
+            "type": "integer",
+          },
+          "totalPages": {
+            "type": "integer",
+          },
+          "txCount": {
+            "type": "integer",
+          },
+          "txs": {
+            "items": {
+              "properties": {
+                "blockHash": {
+                  "type": "string",
+                },
+                "blockHeight": {
+                  "type": "integer",
+                },
+                "blockTime": {
+                  "type": "integer",
+                },
+                "confirmations": {
+                  "type": "integer",
+                },
+                "fees": {
+                  "type": "string",
+                },
+                "txid": {
+                  "type": "string",
+                },
+                "value": {
+                  "type": "string",
+                },
+                "valueIn": {
+                  "type": "string",
+                },
+                "vin": {
+                  "items": {
+                    "properties": {
+                      "isAddress": {
+                        "type": "boolean",
+                      },
+                      "n": {
+                        "type": "integer",
+                      },
+                      "value": {
+                        "type": "string",
+                      },
+                    },
+                    "type": "object",
+                  },
+                  "type": "array",
+                },
+                "vout": {
+                  "items": {
+                    "properties": {
+                      "addresses": {
+                        "items": {
+                          "type": "string",
+                        },
+                        "type": "array",
+                      },
+                      "isAddress": {
+                        "type": "boolean",
+                      },
+                      "n": {
+                        "type": "integer",
+                      },
+                      "value": {
+                        "type": "string",
+                      },
+                    },
+                    "type": "object",
+                  },
+                  "type": "array",
+                },
+              },
+              "type": "object",
+            },
+            "type": "array",
+          },
+          "version": {
+            "type": "integer",
+          },
+        },
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "bits": "1d00ffff",
+            "confirmations": 784303,
+            "difficulty": "1",
+            "hash": "00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048",
+            "height": 1,
+            "itemsOnPage": 1000,
+            "merkleRoot": "0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098",
+            "nextBlockHash": "000000006a625f06636b8bb6ac7b960a8d03705d1ace08b1a19da3fdcc99ddbd",
+            "nonce": "2573394689",
+            "page": 1,
+            "previousBlockHash": "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+            "size": 215,
+            "time": 1231469665,
+            "totalPages": 1,
+            "txCount": 1,
+            "txs": [
+              {
+                "blockHash": "00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048",
+                "blockHeight": 1,
+                "blockTime": 1231469665,
+                "confirmations": 784303,
+                "fees": "0",
+                "txid": "0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098",
+                "value": "5000000000",
+                "valueIn": "0",
+                "vin": [
+                  {
+                    "isAddress": false,
+                    "n": 0,
+                    "value": "0",
+                  },
+                ],
+                "vout": [
+                  {
+                    "addresses": [
+                      "12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX",
+                    ],
+                    "isAddress": true,
+                    "n": 0,
+                    "value": "5000000000",
+                  },
+                ],
+              },
+            ],
+            "version": 1,
+          },
+        },
+      },
+    },
+  },
+  "/api/v2/sendtx": {
+    "response": {
+      "200": {
+        "properties": {
+          "result": {
+            "type": "string",
+          },
+        },
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "result": "7c3be24063f268aaa1ed81b64776798f56088757641a34fb156c4f51ed2e9d25",
+          },
+        },
+      },
+    },
+  },
+  "/api/v2/sendtx/{hex}": {
+    "response": {
+      "200": {
+        "properties": {
+          "result": {
+            "type": "string",
+          },
+        },
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "result": "7c3be24063f268aaa1ed81b64776798f56088757641a34fb156c4f51ed2e9d25",
+          },
+        },
+      },
+    },
+  },
+  "/api/v2/tx-specific/{txId}": {
+    "response": {
+      "200": {
+        "additionalProperties": true,
+        "type": "object",
+      },
+    },
+  },
+  "/api/v2/utxo/{addressOrXpub}": {
+    "response": {
+      "200": {
+        "items": {},
+        "type": "array",
+      },
+    },
+  },
+  "/api/v2/xpub/{xpub}": {
+    "response": {
+      "200": {
+        "properties": {
+          "address": {
+            "type": "string",
+          },
+          "balance": {
+            "type": "string",
+          },
+          "itemsOnPage": {
+            "type": "integer",
+          },
+          "page": {
+            "type": "integer",
+          },
+          "secondaryValue": {
+            "type": "number",
+          },
+          "tokens": {
+            "items": {
+              "properties": {
+                "balance": {
+                  "type": "string",
+                },
+                "decimals": {
+                  "type": "integer",
+                },
+                "name": {
+                  "type": "string",
+                },
+                "path": {
+                  "type": "string",
+                },
+                "totalReceived": {
+                  "type": "string",
+                },
+                "totalSent": {
+                  "type": "string",
+                },
+                "transfers": {
+                  "type": "integer",
+                },
+                "type": {
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
+            "type": "array",
+          },
+          "totalPages": {
+            "type": "integer",
+          },
+          "totalReceived": {
+            "type": "string",
+          },
+          "totalSent": {
+            "type": "string",
+          },
+          "txids": {
+            "items": {
+              "type": "string",
+            },
+            "type": "array",
+          },
+          "txs": {
+            "type": "integer",
+          },
+          "unconfirmedBalance": {
+            "type": "string",
+          },
+          "unconfirmedTxs": {
+            "type": "integer",
+          },
+          "usedTokens": {
+            "type": "integer",
+          },
+        },
+        "type": "object",
+        "x-examples": {
+          "Example 1": {
+            "address": "dgub8sbe5Mi8LA4dXB9zPfLZW8arm...9Vjp2HHx91xdDEmWYpmD49fpoUYF",
+            "balance": "90000000",
+            "itemsOnPage": 1000,
+            "page": 1,
+            "secondaryValue": 21195.47633568,
+            "tokens": [
+              {
+                "balance": "90000000",
+                "decimals": 8,
+                "name": "DUCd1B3YBiXL5By15yXgSLZtEkvwsgEdqS",
+                "path": "m/44'/3'/0'/0/0",
+                "totalReceived": "2903986975",
+                "totalSent": "2803986975",
+                "transfers": 3,
+                "type": "XPUBAddress",
+              },
+              {
+                "balance": "0",
+                "decimals": 8,
+                "name": "DKu2a8Wo6zC2dmBBYXwUG3fxWDHbKnNiPj",
+                "path": "m/44'/3'/0'/1/0",
+                "totalReceived": "279394275",
+                "totalSent": "279394275",
+                "transfers": 2,
+                "type": "XPUBAddress",
+              },
+            ],
+            "totalPages": 1,
+            "totalReceived": "3093381250",
+            "totalSent": "3083381250",
+            "txids": [
+              "383ccb5da16fccad294e24a2ef77bdee5810573bb1b252d8b2af4f0ac8c4e04c",
+              "75fb93d47969ac92112628e39148ad22323e96f0004c18f8c75938cffb6c1798",
+              "e8cd84f204b4a42b98e535e72f461dd9832aa081458720b0a38db5856a884876",
+              "57833d50969208091bd6c950599a1b5cf9d66d992ae8a8d3560fb943b98ebb23",
+              "9cfd6295f20e74ddca6dd816c8eb71a91e4da70fe396aca6f8ce09dc2947839f",
+            ],
+            "txs": 5,
+            "unconfirmedBalance": "0",
+            "unconfirmedTxs": 0,
+            "usedTokens": 2,
+          },
+        },
+      },
+    },
+  },
   "/assets": {
     "querystring": {
       "properties": {

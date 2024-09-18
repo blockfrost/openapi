@@ -17,6 +17,10 @@ Unreleased changes are in the `master` branch.
 
 - updated dependencies
 
+### Fixed
+
+- Ogmios API Reference URL
+
 ## [0.1.67] - 2024-09-11
 
 ### Added

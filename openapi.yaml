@@ -5345,7 +5345,7 @@ paths:
             <p>
               <div class="custom-paragraph">
                 Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-                and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+                and<a href="https://ogmios.dev/http-api/"> API reference (EvaluateTxResponse)</a> for related errors.
               </div>
             </p>
           content:

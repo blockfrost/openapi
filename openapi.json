@@ -11810,9 +11810,6 @@
                 },
                 {
                   "type": "boolean"
-                },
-                {
-                  "type": "null"
                 }
               ],
               "description": "Content of the JSON metadata"
@@ -13265,9 +13262,6 @@
               },
               {
                 "type": "boolean"
-              },
-              {
-                "type": "null"
               }
             ],
             "description": "JSON contents of the `timelock` script, null for `plutus` scripts"

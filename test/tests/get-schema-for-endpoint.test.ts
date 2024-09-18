@@ -1479,9 +1479,6 @@ describe('getSchemaForEndpoint', () => {
                       {
                         "type": "boolean",
                       },
-                      {
-                        "type": "null",
-                      },
                     ],
                     "description": "Content of the JSON metadata",
                   },

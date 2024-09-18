@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blockfrost Open API</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <script id="api-reference" data-url="./blockfrost-openapi.yaml"></script>
+    <script>
+      var configuration = {
+        theme: "kepler",
+        hideModels: true,
+      };
+
+      document.getElementById("api-reference").dataset.configuration =
+        JSON.stringify(configuration);
+
+      const redirectionMap = {
+        "#section/Tokens": "#description/tokens",
+        "#section/Limits": "#description/limits",
+        "#section/Available-networks": "#description/available-networks",
+        "#section/Milkomeda": "#description/milkomeda",
+        "#section/Concepts": "#description/concepts",
+        "#section/Errors": "#description/errors",
+        "#section/SDKs": "#description/sdks",
+        "#tag/Health/paths/~1/get": "#tag/health/GET/health",
+        "#tag/Health/paths/~1health/get": "#tag/health/GET/health",
+        "#tag/Metrics/paths/~1metrics/get": "#tag/metrics/GET/metrics",
+        "#tag/Metrics/paths/~1metrics~1endpoints/get":
+          "#tag/metrics/GET/metrics/endpoints",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1rewards/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/rewards",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1history/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/history",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1delegations/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/delegations",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1registrations/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/registrations",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1withdrawals/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/withdrawals",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1mirs/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/mirs",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/addresses",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses~1assets/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/addresses/assets",
+        "#tag/Cardano-Accounts/paths/~1accounts~1%7Bstake_address%7D~1addresses~1total/get":
+          "#tag/cardano--accounts/GET/accounts/{stake_address}/addresses/total",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D/get":
+          "#tag/cardano--addresses/GET/addresses/{address}",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1extended/get":
+          "#tag/cardano--addresses/GET/addresses/{address}/extended",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1total/get":
+          "#tag/cardano--addresses/GET/addresses/{address}/total",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1utxos/get":
+          "#tag/cardano--addresses/GET/addresses/{address}/utxos",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1utxos~1%7Basset%7D/get":
+          "#tag/cardano--addresses/GET/addresses/{address}/utxos/{asset}",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1txs/get":
+          "#tag/cardano--addresses/GET/addresses/{address}/txs",
+        "#tag/Cardano-Addresses/paths/~1addresses~1%7Baddress%7D~1transactions/get":
+          "#tag/cardano--addresses/GET/addresses/{address}/transactions",
+        "#tag/Cardano-Assets/paths/~1assets/get":
+          "#tag/cardano--assets/GET/assets",
+        "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D/get":
+          "#tag/cardano--assets/GET/assets/{asset}",
+        "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1history/get":
+          "#tag/cardano--assets/GET/assets/{asset}/history",
+        "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1txs/get":
+          "#tag/cardano--assets/GET/assets/{asset}/txs",
+        "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1transactions/get":
+          "#tag/cardano--assets/GET/assets/{asset}/transactions",
+        "#tag/Cardano-Assets/paths/~1assets~1%7Basset%7D~1addresses/get":
+          "#tag/cardano--assets/GET/assets/{asset}/addresses",
+        "#tag/Cardano-Assets/paths/~1assets~1policy~1%7Bpolicy_id%7D/get":
+          "#tag/cardano--assets/GET/assets/policy/{policy_id}",
+        "#tag/Cardano-Blocks/paths/~1blocks~1latest/get":
+          "#tag/cardano--blocks/GET/blocks/latest",
+        "#tag/Cardano-Blocks/paths/~1blocks~1latest~1txs/get":
+          "#tag/cardano--blocks/GET/blocks/latest/txs",
+        "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D/get":
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}",
+        "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1next/get":
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/next",
+        "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1previous/get":
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/previous",
+        "#tag/Cardano-Blocks/paths/~1blocks~1slot~1%7Bslot_number%7D/get":
+          "#tag/cardano--blocks/GET/blocks/slot/{slot_number}",
+        "#tag/Cardano-Blocks/paths/~1blocks~1epoch~1%7Bepoch_number%7D~1slot~1%7Bslot_number%7D/get":
+          "#tag/cardano--blocks/GET/blocks/epoch/{epoch_number}/slot/{slot_number}",
+        "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1txs/get":
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/txs",
+        "#tag/Cardano-Blocks/paths/~1blocks~1%7Bhash_or_number%7D~1addresses/get":
+          "#tag/cardano--blocks/GET/blocks/{hash_or_number}/addresses",
+        "#tag/Cardano-Epochs/paths/~1epochs~1latest/get":
+          "#tag/cardano--epochs/GET/epochs/latest",
+        "#tag/Cardano-Epochs/paths/~1epochs~1latest~1parameters/get":
+          "#tag/cardano--epochs/GET/epochs/latest/parameters",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D/get":
+          "#tag/cardano--epochs/GET/epochs/{number}",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1next/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/next",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1previous/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/previous",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1stakes/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/stakes",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1stakes~1%7Bpool_id%7D/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/stakes/{pool_id}",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1blocks/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/blocks",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1blocks~1%7Bpool_id%7D/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/blocks/{pool_id}",
+        "#tag/Cardano-Epochs/paths/~1epochs~1%7Bnumber%7D~1parameters/get":
+          "#tag/cardano--epochs/GET/epochs/{number}/parameters",
+        "#tag/Cardano-Ledger/paths/~1genesis/get":
+          "#tag/cardano--ledger/GET/genesis",
+        "#tag/Cardano-Mempool/paths/~1mempool/get":
+          "#tag/cardano--mempool/GET/mempool",
+        "#tag/Cardano-Mempool/paths/~1mempool~1%7Bhash%7D/get":
+          "#tag/cardano--mempool/GET/mempool/{hash}",
+        "#tag/Cardano-Mempool/paths/~1mempool~1addresses~1%7Baddress%7D/get":
+          "#tag/cardano--mempool/GET/mempool/addresses/{address}",
+        "#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels/get":
+          "#tag/cardano--metadata/GET/metadata/txs/labels",
+        "#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels~1%7Blabel%7D/get":
+          "#tag/cardano--metadata/GET/metadata/txs/labels/{label}",
+        "#tag/Cardano-Metadata/paths/~1metadata~1txs~1labels~1%7Blabel%7D~1cbor/get":
+          "#tag/cardano--metadata/GET/metadata/txs/labels/{label}/cbor",
+        "#tag/Cardano-Network/paths/~1network/get":
+          "#tag/cardano--network/GET/network",
+        "#tag/Cardano-Network/paths/~1network~1eras/get":
+          "#tag/cardano--network/GET/network/eras",
+        "#tag/Cardano-Pools/paths/~1pools/get": "#tag/cardano--pools/GET/pools",
+        "#tag/Cardano-Pools/paths/~1pools~1extended/get":
+          "#tag/cardano--pools/GET/pools/extended",
+        "#tag/Cardano-Pools/paths/~1pools~1retired/get":
+          "#tag/cardano--pools/GET/pools/retired",
+        "#tag/Cardano-Pools/paths/~1pools~1retiring/get":
+          "#tag/cardano--pools/GET/pools/retiring",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1history/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}/history",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1metadata/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}/metadata",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1relays/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}/relays",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1delegators/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}/delegators",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1blocks/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}/blocks",
+        "#tag/Cardano-Pools/paths/~1pools~1%7Bpool_id%7D~1updates/get":
+          "#tag/cardano--pools/GET/pools/{pool_id}/updates",
+        "#tag/Cardano-Scripts/paths/~1scripts/get":
+          "#tag/cardano--scripts/GET/scripts",
+        "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D/get":
+          "#tag/cardano--scripts/GET/scripts/{script_hash}",
+        "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1json/get":
+          "#tag/cardano--scripts/GET/scripts/{script_hash}/json",
+        "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1cbor/get":
+          "#tag/cardano--scripts/GET/scripts/{script_hash}/cbor",
+        "#tag/Cardano-Scripts/paths/~1scripts~1%7Bscript_hash%7D~1redeemers/get":
+          "#tag/cardano--scripts/GET/scripts/{script_hash}/redeemers",
+        "#tag/Cardano-Scripts/paths/~1scripts~1datum~1%7Bdatum_hash%7D/get":
+          "#tag/cardano--scripts/GET/scripts/datum/{datum_hash}",
+        "#tag/Cardano-Scripts/paths/~1scripts~1datum~1%7Bdatum_hash%7D~1cbor/get":
+          "#tag/cardano--scripts/GET/scripts/datum/{datum_hash}/cbor",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D/get":
+          "#tag/cardano--transactions/GET/txs/{hash}",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1utxos/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/utxos",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1stakes/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/stakes",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1delegations/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/delegations",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1withdrawals/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/withdrawals",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1mirs/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/mirs",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1pool_updates/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/pool_updates",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1pool_retires/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/pool_retires",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1metadata/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/metadata",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1metadata~1cbor/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/metadata/cbor",
+        "#tag/Cardano-Transactions/paths/~1txs~1%7Bhash%7D~1redeemers/get":
+          "#tag/cardano--transactions/GET/txs/{hash}/redeemers",
+        "#tag/Cardano-Transactions/paths/~1tx~1submit/post":
+          "#tag/cardano--transactions/POST/tx/submit",
+        "#tag/Cardano-Utilities/paths/~1utils~1addresses~1xpub~1%7Bxpub%7D~1%7Brole%7D~1%7Bindex%7D/get":
+          "#tag/cardano--utilities/GET/utils/addresses/xpub/{xpub}/{role}/{index}",
+        "#tag/Cardano-Utilities/paths/~1utils~1txs~1evaluate/post":
+          "#tag/cardano--utilities/POST/utils/txs/evaluate",
+        "#tag/Cardano-Utilities/paths/~1utils~1txs~1evaluate~1utxos/post":
+          "#tag/cardano--utilities/POST/utils/txs/evaluate/utxos",
+        "#tag/IPFS-Add/paths/~1ipfs~1add/post": "#tag/ipfs--add/POST/ipfs/add",
+        "#tag/IPFS-Gateway/paths/~1ipfs~1gateway~1%7BIPFS_path%7D/get":
+          "#tag/ipfs--gateway/GET/ipfs/gateway/{IPFS_path}",
+        "#tag/IPFS-Pins/paths/~1ipfs~1pin~1add~1%7BIPFS_path%7D/post":
+          "#tag/ipfs--pins/POST/ipfs/pin/add/{IPFS_path}",
+        "#tag/IPFS-Pins/paths/~1ipfs~1pin~1list/get":
+          "#tag/ipfs--pins/GET/ipfs/pin/list",
+        "#tag/IPFS-Pins/paths/~1ipfs~1pin~1list~1%7BIPFS_path%7D/get":
+          "#tag/ipfs--pins/GET/ipfs/pin/list/{IPFS_path}",
+        "#tag/IPFS-Pins/paths/~1ipfs~1pin~1remove~1%7BIPFS_path%7D/post":
+          "#tag/ipfs--pins/POST/ipfs/pin/remove/{IPFS_path}",
+        "#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D/get":
+          "#tag/nut--link/GET/nutlink/{address}",
+        "#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D~1tickers/get":
+          "#tag/nut--link/GET/nutlink/{address}/tickers",
+        "#tag/Nut.link/paths/~1nutlink~1%7Baddress%7D~1tickers~1%7Bticker%7D/get":
+          "#tag/nut--link/GET/nutlink/{address}/tickers/{ticker}",
+        "#tag/Nut.link/paths/~1nutlink~1tickers~1%7Bticker%7D/get":
+          "#tag/nut--link/GET/nutlink/tickers/{ticker}",
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const hash = window.location.hash;
+
+        if (hash && redirectionMap[hash]) {
+          window.location.href = redirectionMap[hash];
+        }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+  </body>
+</html>

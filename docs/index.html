@@ -313,6 +313,7 @@
 
         if (hash && redirectionMap[hash]) {
           window.location.href = redirectionMap[hash];
+          window.location.reload(true);
         }
       });
     </script>

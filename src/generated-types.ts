@@ -8746,7 +8746,7 @@ export interface components {
             /** @description Content of the JSON metadata */
             json_metadata: string | {
                 [key: string]: unknown;
-            } | unknown[] | number | boolean;
+            } | unknown[] | number | boolean | null;
         }[];
         /** @example [
          *       {
@@ -9646,7 +9646,7 @@ export interface components {
             /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
             json: string | {
                 [key: string]: unknown;
-            } | unknown[] | number | boolean;
+            } | unknown[] | number | boolean | null;
         };
         /** @example {
          *       "cbor": "4e4d01000033222220051200120011"

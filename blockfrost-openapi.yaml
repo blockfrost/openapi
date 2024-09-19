@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.65
+  version: 0.1.67
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -265,20 +265,6 @@ tags:
   - name: Cardano » Ledger
   - name: Cardano » Mempool
   - name: Cardano » Metadata
-  - name: Cardano » Mithril
-    description: |
-      Mithril integration allows you to leverage the capabilities of the Mithril Aggregator API without needing to interact with multiple APIs, simplifying the development process and enhancing usability.
-
-      > **Please note that the integration of Mithril is experimental. Blockfrost acts as a proxy for the subset of Mithril API endpoints. The format of the Mithril API may change independently of the core Blockfrost API.**
-
-      All Mithril endpoints are accessible under the <code>/mithril</code> path.
-
-      > For example, to retrieve a snapshot artifact of the cardano mainnet, you would use:
-      `https://cardano-mainnet.blockfrost.io/api/v0/mithril/artifact/snapshot/{digest}`
-
-      In addition to error responses listed in Mithril endpoints (such as `404`, `412` and `500`), the API may also return error responses related to Blockfrost (e.g. `400` for invalid path or `403` for unauthenticated request). For the full list of Blockfrost error status codes, please see [Blockfrost Errors](#section/Errors).
-
-      For more information about how to use Mithril API, please see the <a href="https://mithril.network/doc/">Mithril docs</a>.
   - name: Cardano » Network
   - name: Cardano » Pools
   - name: Cardano » Scripts
@@ -5127,7 +5113,7 @@ paths:
             <p>
               <div class="custom-paragraph">
                 Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-                and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+                and<a href="https://ogmios.dev/http-api/"> API reference (EvaluateTxResponse)</a> for related errors.
               </div>
             </p>
           content:
@@ -6481,7 +6467,7 @@ components:
                 objectives: CIP119:objectives
                 motivations: CIP119:motivations
                 qualifications: CIP119:qualifications
-          hahsAlgorithm: blake2b-256
+          hashAlgorithm: blake2b-256
           body:
             paymentAddress: addr1q86dnpkva4mm859c8ur7tjxn57zgsu6vg8pdetkdve3fsacnq7twy06u2ev5759vutpjgzfryx0ud8hzedhzerava35qwh3x34
             givenName: Ryan Williams
@@ -6759,12 +6745,12 @@ components:
               nullable: true
               example:
                 PlutusV1:
-                  addInteger-cpu-arguments-intercept: 197209
-                  addInteger-cpu-arguments-slope: 0
+                  - 197209
+                  - 0
                 PlutusV2:
-                  addInteger-cpu-arguments-intercept: 197209
-                  addInteger-cpu-arguments-slope: 0
-              description: Cost models parameters for Plutus Core scripts
+                  - 197209
+                  - 0
+              description: Cost models parameters for Plutus Core scripts in raw list form
             price_mem:
               type: number
               nullable: true
@@ -6910,6 +6896,12 @@ components:
             pvtpp_security_group:
               type: number
               nullable: true
+              deprecated: true
+              description: Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+            pvt_p_p_security_group:
+              type: number
+              nullable: true
+              description: Pool Voting threshold for security-relevant protocol parameters changes.
             min_fee_ref_script_cost_per_byte:
               type: number
               nullable: true
@@ -6966,6 +6958,7 @@ components:
             - drep_deposit
             - drep_activity
             - pvtpp_security_group
+            - pvt_p_p_security_group
             - min_fee_ref_script_cost_per_byte
       required:
         - tx_hash
@@ -7286,6 +7279,18 @@ components:
               addInteger-cpu-arguments-intercept: 197209
               addInteger-cpu-arguments-slope: 0
           description: Cost models parameters for Plutus Core scripts
+        cost_models_raw:
+          additionalProperties: true
+          type: object
+          nullable: true
+          example:
+            PlutusV1:
+              - 197209
+              - 0
+            PlutusV2:
+              - 197209
+              - 0
+          description: Cost models parameters for Plutus Core scripts in raw list form
         price_mem:
           type: number
           nullable: true
@@ -7425,6 +7430,12 @@ components:
         pvtpp_security_group:
           type: number
           nullable: true
+          deprecated: true
+          description: Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+        pvt_p_p_security_group:
+          type: number
+          nullable: true
+          description: Pool Voting threshold for security-relevant protocol parameters changes.
         min_fee_ref_script_cost_per_byte:
           type: number
           nullable: true
@@ -7482,6 +7493,7 @@ components:
         - drep_deposit
         - drep_activity
         - pvtpp_security_group
+        - pvt_p_p_security_group
         - min_fee_ref_script_cost_per_byte
     epoch_content_array:
       type: array
@@ -7795,6 +7807,11 @@ components:
                 nullable: true
                 description: The hash of the reference script of the output
                 example: 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+              consumed_by_tx:
+                type: string
+                nullable: true
+                description: Transaction hash that consumed the UTXO or null for unconsumed UTXOs. Always null for collateral outputs.
+                example: 66c29b56952f6085afac3b0632d781af78d020b080063bcfd6c54b8e2b8fed41
             required:
               - address
               - amount

@@ -96,12 +96,10 @@ properties:
         nullable: true
         example:
           PlutusV1:
-            addInteger-cpu-arguments-intercept: 197209
-            addInteger-cpu-arguments-slope: 0
+            [197209, 0]
           PlutusV2:
-            addInteger-cpu-arguments-intercept: 197209
-            addInteger-cpu-arguments-slope: 0
-        description: Cost models parameters for Plutus Core scripts
+            [197209, 0]
+        description: Cost models parameters for Plutus Core scripts in raw list form
       price_mem:
         type: number
         nullable: true
@@ -247,6 +245,12 @@ properties:
       pvtpp_security_group:
         type: number
         nullable: true
+        deprecated: true
+        description: Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.
+      pvt_p_p_security_group:
+        type: number
+        nullable: true
+        description: Pool Voting threshold for security-relevant protocol parameters changes.
       min_fee_ref_script_cost_per_byte:
         type: number
         nullable: true
@@ -303,6 +307,7 @@ properties:
       - drep_deposit
       - drep_activity
       - pvtpp_security_group
+      - pvt_p_p_security_group
       - min_fee_ref_script_cost_per_byte
 required:
   - tx_hash

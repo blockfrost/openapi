@@ -1,4 +1,5 @@
 get:
+  operationId: "accounts-stake-address-index"
   tags:
     - Cardano » Accounts
   summary: Specific account address

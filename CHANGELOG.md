@@ -16,6 +16,7 @@ Unreleased changes are in the `master` branch.
 ### Changed
 
 - updated dependencies
+- allow CIP25v1 metadata encoding where asset name not utf8 encoded (hex asset name = lookup key in json map)
 
 ### Fixed
 

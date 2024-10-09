@@ -854,6 +854,59 @@ export const getOnchainMetadata = [
       validCIPversion: null,
     },
   },
+  {
+    name: 'CIP25v1 but asset name is not valid utf8 (hex asset name = lookup key in json map)',
+    data: {
+      asset: '62a866f7cd0b77220f4f32538a5123a9dc10c130f1681a191d324c409a56',
+      policy_id: '62a866f7cd0b77220f4f32538a5123a9dc10c130f1681a191d324c40',
+      asset_name: '9a56',
+      fingerprint: 'asset1zsct93xne2r67p3tlsqmavu3fmtkuk9x00s9al',
+      quantity: '1',
+      initial_mint_tx_hash:
+        'fe92c1667ff99ddcc0ff85a7d4bf9b48efd064886b50a859a8c68f80bdd03b39',
+      mint_or_burn_count: 1,
+      onchain_metadata: {
+        '62a866f7cd0b77220f4f32538a5123a9dc10c130f1681a191d324c40': {
+          '330d': {
+            name: 'MNTX airdrop claim',
+            image: 'ipfs://QmTCmbEj82q9WxH4zjniMnVuX2pzzkpvZFMV2imkeo8dTX',
+            amount: '2033.077257',
+            mediaType: 'image/jpeg',
+          },
+          '9a56': {
+            name: 'MNTX airdrop claim',
+            image: 'ipfs://QmTCmbEj82q9WxH4zjniMnVuX2pzzkpvZFMV2imkeo8dTX',
+            amount: '466.017709',
+            mediaType: 'image/jpeg',
+          },
+          c3af: {
+            name: 'MNTX airdrop claim',
+            image: 'ipfs://QmTCmbEj82q9WxH4zjniMnVuX2pzzkpvZFMV2imkeo8dTX',
+            amount: '199.007562',
+            mediaType: 'image/jpeg',
+          },
+          dc69: {
+            name: 'MNTX airdrop claim',
+            image: 'ipfs://QmTCmbEj82q9WxH4zjniMnVuX2pzzkpvZFMV2imkeo8dTX',
+            amount: '537.020407',
+            mediaType: 'image/jpeg',
+          },
+        },
+      },
+      onchain_metadata_cbor:
+        'a11902d1a178386161316230336336613439393531323832653961363862313731333361383134663463363033663835626534363965323238363965636234a166726561646d65a465696d6167657835697066733a2f2f516d54526179616535567a71344d5a384545523975586e675a6e4a316b7973576473563565374448534d73627a37697075626c69736865727268747470733a2f2f6d696e746572722e696f667469636b657266726561646d65646e616d6566726561646d65',
+      metadata: null,
+    },
+    response: {
+      onchainMetadata: {
+        name: 'MNTX airdrop claim',
+        image: 'ipfs://QmTCmbEj82q9WxH4zjniMnVuX2pzzkpvZFMV2imkeo8dTX',
+        amount: '466.017709',
+        mediaType: 'image/jpeg',
+      },
+      validCIPversion: 'CIP25v1',
+    },
+  },
 ];
 
 export const validateCIP68Metadata = [

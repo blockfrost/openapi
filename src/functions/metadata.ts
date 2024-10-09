@@ -129,9 +129,19 @@ export const getOnchainMetadata = (
 
   if (version === 1) {
     try {
-      onchainMetadataResult =
-        internalOnchainMetadata[policyId][assetNameVersion1] || null;
-      isFound = true;
+      if (
+        policyId in internalOnchainMetadata &&
+        assetNameVersion1 in internalOnchainMetadata[policyId]
+      ) {
+        onchainMetadataResult =
+          internalOnchainMetadata[policyId][assetNameVersion1];
+        isFound = true;
+      } else if (internalOnchainMetadata[policyId]?.[assetNameBase]) {
+        // alternative for incorrect metadata where asset name in JSON map is not utf8 encoded (test case "CIP25v1 but asset name is not valid utf8 (hex asset name = lookup key in json map)")
+        onchainMetadataResult =
+          internalOnchainMetadata[policyId][assetNameBase];
+        isFound = true;
+      }
     } catch (error) {
       onchainMetadataResult = null;
     }

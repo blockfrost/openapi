@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.68] - 2024-10-10
+
 ### Added
 
 - new UI for the API Reference

@@ -9,10 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.68] - 2024-10-14
+
 ### Added
 
 - new UI for the API Reference
-- Parsing version 3 of `CIP68` metadata
+- parsing version 3 of `CIP68` metadata
 
 ### Changed
 

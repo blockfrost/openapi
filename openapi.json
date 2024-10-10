@@ -12933,7 +12933,8 @@
               "CIP25v1",
               "CIP25v2",
               "CIP68v1",
-              "CIP68v2"
+              "CIP68v2",
+              "CIP68v3"
             ],
             "description": "If on-chain metadata passes validation, we display the standard\nunder which it is valid\n"
           },

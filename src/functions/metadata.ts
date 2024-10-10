@@ -201,11 +201,15 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
   schema,
 ) => {
   if (!input) return false;
-  // Validating only v1 and v2.
+  // Validating only v1, v2, v3.
   // Note: Version 2 added support for RFT, but due to botched CIP68 update process
   // it was initially included in v1.
   // As a result we are allowing both v1 and v2 for any token standard (NFT, FT, RFT).
-  if (!Number.isInteger(input.version) || input.version > 2) return false;
+  //
+  // Version 3 allows image and files.src to include array of bytes for >64B payloads.
+  // Conversion into a string is handled via blockfrost-utils,
+  // this validation function always receives these values as a string.
+  if (!Number.isInteger(input.version) || input.version > 3) return false;
 
   const versionString = `CIP68v${input.version}` as ValidCIP68Version;
 

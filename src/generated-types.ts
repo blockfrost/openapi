@@ -9444,7 +9444,7 @@ export interface components {
              *
              * @enum {string|null}
              */
-            onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | "CIP68v2" | null;
+            onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | "CIP68v2" | "CIP68v3" | null;
             /** @description Arbitrary plutus data (CIP68).
              *      */
             onchain_metadata_extra?: string | null;

@@ -9,7 +9,7 @@ export type GetOnchainMetadataResult = {
 };
 
 export type CIPTypes = 'CIP25v1' | 'CIP25v2' | null;
-export type ValidCIP68Version = 'CIP68v1' | 'CIP68v2';
+export type ValidCIP68Version = 'CIP68v1' | 'CIP68v2' | 'CIP68v3';
 export type CIP68Version = ValidCIP68Version | null;
 
 export type validateCIP68MetadataInput = {

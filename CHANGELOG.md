@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/account/:stake_addr/utxos` for retrieving utxos associated with a stake account
+
 ## [0.1.68] - 2024-10-14
 
 ### Added

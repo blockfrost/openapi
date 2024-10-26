@@ -3231,6 +3231,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/accounts/{stake_address}/utxos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Account UTXOs
+         * @description UTXOs associated with the account.
+         *
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path: {
+                    /**
+                     * @description Bech32 stake address.
+                     * @example stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc
+                     */
+                    stake_address: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the account UTXOs content */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["account_utxo_content"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/mempool": {
         parameters: {
             query?: never;
@@ -8465,6 +8526,96 @@ export interface components {
              */
             tx_count: number;
         };
+        /** @example [
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
+         *         "output_index": 0,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "42000000"
+         *           }
+         *         ],
+         *         "block": "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6",
+         *         "data_hash": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710",
+         *         "inline_datum": null,
+         *         "reference_script_hash": null
+         *       },
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49",
+         *         "output_index": 0,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "729235000"
+         *           }
+         *         ],
+         *         "block": "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7",
+         *         "data_hash": null,
+         *         "inline_datum": null,
+         *         "reference_script_hash": null
+         *       },
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2",
+         *         "output_index": 1,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "42000000"
+         *           },
+         *           {
+         *             "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+         *             "quantity": "12"
+         *           }
+         *         ],
+         *         "block": "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7",
+         *         "data_hash": null,
+         *         "inline_datum": null,
+         *         "reference_script_hash": null
+         *       }
+         *     ] */
+        account_utxo_content: {
+            /**
+             * @description Bech32 encoded addresses
+             * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+             */
+            address: string;
+            /** @description Transaction hash of the UTXO */
+            tx_hash: string;
+            /**
+             * @deprecated
+             * @description UTXO index in the transaction
+             */
+            tx_index: number;
+            /** @description UTXO index in the transaction */
+            output_index: number;
+            amount: {
+                /**
+                 * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                 * @description The unit of the value
+                 */
+                unit: string;
+                /** @description The quantity of the unit */
+                quantity: string;
+            }[];
+            /** @description Block hash of the UTXO */
+            block: string;
+            /** @description The hash of the transaction output datum */
+            data_hash: string | null;
+            /**
+             * @description CBOR encoded inline datum
+             * @example 19a6aa
+             */
+            inline_datum: string | null;
+            /**
+             * @description The hash of the reference script of the output
+             * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+             */
+            reference_script_hash: string | null;
+        }[];
         /** @example [
          *       {
          *         "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"

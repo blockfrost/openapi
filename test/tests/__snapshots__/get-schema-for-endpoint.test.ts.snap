@@ -2046,6 +2046,306 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
       },
     },
   },
+  "/accounts/{stake_address}/utxos": {
+    "params": {
+      "properties": {
+        "stake_address": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+            "amount": [
+              {
+                "quantity": "42000000",
+                "unit": "lovelace",
+              },
+            ],
+            "block": "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6",
+            "data_hash": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710",
+            "inline_datum": null,
+            "output_index": 0,
+            "reference_script_hash": null,
+            "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
+          },
+          {
+            "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+            "amount": [
+              {
+                "quantity": "729235000",
+                "unit": "lovelace",
+              },
+            ],
+            "block": "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7",
+            "data_hash": null,
+            "inline_datum": null,
+            "output_index": 0,
+            "reference_script_hash": null,
+            "tx_hash": "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49",
+          },
+          {
+            "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+            "amount": [
+              {
+                "quantity": "42000000",
+                "unit": "lovelace",
+              },
+              {
+                "quantity": "12",
+                "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+              },
+            ],
+            "block": "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7",
+            "data_hash": null,
+            "inline_datum": null,
+            "output_index": 1,
+            "reference_script_hash": null,
+            "tx_hash": "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2",
+          },
+        ],
+        "items": {
+          "properties": {
+            "address": {
+              "description": "Bech32 encoded addresses",
+              "example": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+              "type": "string",
+            },
+            "amount": {
+              "items": {
+                "description": "The sum of all the UTXO per asset",
+                "properties": {
+                  "quantity": {
+                    "description": "The quantity of the unit",
+                    "type": "string",
+                  },
+                  "unit": {
+                    "description": "The unit of the value",
+                    "format": "Lovelace or concatenation of asset policy_id and hex-encoded asset_name",
+                    "type": "string",
+                  },
+                },
+                "required": [
+                  "unit",
+                  "quantity",
+                ],
+                "type": "object",
+              },
+              "type": "array",
+            },
+            "block": {
+              "description": "Block hash of the UTXO",
+              "type": "string",
+            },
+            "data_hash": {
+              "description": "The hash of the transaction output datum",
+              "nullable": true,
+              "type": "string",
+            },
+            "inline_datum": {
+              "description": "CBOR encoded inline datum",
+              "example": "19a6aa",
+              "nullable": true,
+              "type": "string",
+            },
+            "output_index": {
+              "description": "UTXO index in the transaction",
+              "type": "integer",
+            },
+            "reference_script_hash": {
+              "description": "The hash of the reference script of the output",
+              "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1",
+              "nullable": true,
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Transaction hash of the UTXO",
+              "type": "string",
+            },
+            "tx_index": {
+              "deprecated": true,
+              "description": "UTXO index in the transaction",
+              "type": "integer",
+            },
+          },
+          "required": [
+            "address",
+            "tx_hash",
+            "tx_index",
+            "output_index",
+            "amount",
+            "block",
+            "data_hash",
+            "inline_datum",
+            "reference_script_hash",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
   "/accounts/{stake_address}/withdrawals": {
     "params": {
       "properties": {

@@ -1287,7 +1287,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Transaction index.
+          description: Index of the certificate within the proposal transaction.
           example: 1
       responses:
         '200':
@@ -1325,7 +1325,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Transaction index.
+          description: Index of the certificate within the proposal transaction.
           example: 1
       responses:
         '200':
@@ -1365,7 +1365,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Transaction index.
+          description: Index of the certificate within the proposal transaction.
           example: 1
       responses:
         '200':
@@ -1405,7 +1405,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Transaction index.
+          description: Index of the certificate within the proposal transaction.
           example: 1
         - in: query
           name: count
@@ -1475,7 +1475,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Transaction index of the proposal.
+          description: Index of the certificate within the proposal transaction.
           example: 0
       responses:
         '200':
@@ -6725,7 +6725,7 @@ components:
             description: Transaction ID
           cert_index:
             type: integer
-            description: Certificate within the transaction
+            description: Index of the certificate within the update transaction.
           action:
             type: string
             enum:

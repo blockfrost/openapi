@@ -16,7 +16,7 @@ get:
       required: true
       schema:
         type: integer
-      description: Transaction index.
+      description: Index of the certificate within the proposal transaction.
       example: 1
   responses:
     "200":

@@ -14064,7 +14064,11 @@ under which it is valid
           "state": {
             "description": "State of the pin action",
             "enum": [
-              "queued|pinned|unpinned|failed|gc",
+              "queued",
+              "pinned",
+              "unpinned",
+              "failed",
+              "gc",
             ],
             "example": "queued",
             "type": "string",
@@ -14279,7 +14283,11 @@ pinned item has been garbage collected due to account being over storage quota o
 been moved to \`unpinned\` state by removing the object pin.
 ",
               "enum": [
-                "queued|pinned|unpinned|failed|gc",
+                "queued",
+                "pinned",
+                "unpinned",
+                "failed",
+                "gc",
               ],
               "example": "pinned",
               "type": "string",
@@ -14471,7 +14479,11 @@ When object is unpinned (i.e. after \`/ipfs/pin/remove/{IPFS_path}\`) it is mark
 State \`gc\` means that a previously \`unpinned\` item has been garbage collected due to account being over storage quota.
 ",
             "enum": [
-              "queued|pinned|unpinned|failed|gc",
+              "queued",
+              "pinned",
+              "unpinned",
+              "failed",
+              "gc",
             ],
             "example": "pinned",
             "type": "string",
@@ -14651,7 +14663,11 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
           "state": {
             "description": "State of the pin action",
             "enum": [
-              "queued|pinned|unpinned|failed|gc",
+              "queued",
+              "pinned",
+              "unpinned",
+              "failed",
+              "gc",
             ],
             "example": "unpinned",
             "type": "string",

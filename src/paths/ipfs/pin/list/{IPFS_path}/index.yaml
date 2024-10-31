@@ -43,7 +43,12 @@ get:
                 example: "1615551024"
               state:
                 type: string
-                enum: [queued|pinned|unpinned|failed|gc]
+                enum:
+                  - queued
+                  - pinned
+                  - unpinned
+                  - failed
+                  - gc
                 description: |
                   State of the pinned object. We define 5 states: `queued`, `pinned`, `unpinned`, `failed`, `gc`.
                   When the object is pending retrieval (i.e. after `/ipfs/pin/add/{IPFS_path}`), the state is `queued`.

@@ -5710,7 +5710,11 @@ paths:
                   state:
                     type: string
                     enum:
-                      - queued|pinned|unpinned|failed|gc
+                      - queued
+                      - pinned
+                      - unpinned
+                      - failed
+                      - gc
                     example: queued
                     description: State of the pin action
                 required:
@@ -5805,7 +5809,11 @@ paths:
                     state:
                       type: string
                       enum:
-                        - queued|pinned|unpinned|failed|gc
+                        - queued
+                        - pinned
+                        - unpinned
+                        - failed
+                        - gc
                       description: >
                         State of the pinned object, which is `queued` when we
                         are retriving object. If this
@@ -5884,7 +5892,11 @@ paths:
                   state:
                     type: string
                     enum:
-                      - queued|pinned|unpinned|failed|gc
+                      - queued
+                      - pinned
+                      - unpinned
+                      - failed
+                      - gc
                     description: >
                       State of the pinned object. We define 5 states: `queued`,
                       `pinned`, `unpinned`, `failed`, `gc`.
@@ -5956,7 +5968,11 @@ paths:
                   state:
                     type: string
                     enum:
-                      - queued|pinned|unpinned|failed|gc
+                      - queued
+                      - pinned
+                      - unpinned
+                      - failed
+                      - gc
                     example: unpinned
                     description: State of the pin action
                 required:

@@ -26,7 +26,12 @@ post:
                 description: IPFS hash of the pinned object
               state:
                 type: string
-                enum: [queued|pinned|unpinned|failed|gc]
+                enum:
+                  - queued
+                  - pinned
+                  - unpinned
+                  - failed
+                  - gc
                 example: "queued"
                 description: State of the pin action
             required:

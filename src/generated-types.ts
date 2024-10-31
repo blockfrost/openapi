@@ -5856,7 +5856,7 @@ export interface paths {
                              * @example queued
                              * @enum {string}
                              */
-                            state: "queued|pinned|unpinned|failed|gc";
+                            state: "queued" | "pinned" | "unpinned" | "failed" | "gc";
                         };
                     };
                 };
@@ -5945,7 +5945,7 @@ export interface paths {
                              * @example pinned
                              * @enum {string}
                              */
-                            state: "queued|pinned|unpinned|failed|gc";
+                            state: "queued" | "pinned" | "unpinned" | "failed" | "gc";
                         }[];
                     };
                 };
@@ -6029,7 +6029,7 @@ export interface paths {
                              * @example pinned
                              * @enum {string}
                              */
-                            state: "queued|pinned|unpinned|failed|gc";
+                            state: "queued" | "pinned" | "unpinned" | "failed" | "gc";
                         };
                     };
                 };
@@ -6095,7 +6095,7 @@ export interface paths {
                              * @example unpinned
                              * @enum {string}
                              */
-                            state: "queued|pinned|unpinned|failed|gc";
+                            state: "queued" | "pinned" | "unpinned" | "failed" | "gc";
                         };
                     };
                 };

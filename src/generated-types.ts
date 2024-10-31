@@ -1099,7 +1099,7 @@ export interface paths {
                      */
                     tx_hash: string;
                     /**
-                     * @description Transaction index.
+                     * @description Index of the certificate within the proposal transaction.
                      * @example 1
                      */
                     cert_index: number;
@@ -1154,7 +1154,7 @@ export interface paths {
                      */
                     tx_hash: string;
                     /**
-                     * @description Transaction index.
+                     * @description Index of the certificate within the proposal transaction.
                      * @example 1
                      */
                     cert_index: number;
@@ -1210,7 +1210,7 @@ export interface paths {
                      */
                     tx_hash: string;
                     /**
-                     * @description Transaction index.
+                     * @description Index of the certificate within the proposal transaction.
                      * @example 1
                      */
                     cert_index: number;
@@ -1275,7 +1275,7 @@ export interface paths {
                      */
                     tx_hash: string;
                     /**
-                     * @description Transaction index.
+                     * @description Index of the certificate within the proposal transaction.
                      * @example 1
                      */
                     cert_index: number;
@@ -1330,7 +1330,7 @@ export interface paths {
                      */
                     tx_hash: string;
                     /**
-                     * @description Transaction index of the proposal.
+                     * @description Index of the certificate within the proposal transaction.
                      * @example 0
                      */
                     cert_index: number;
@@ -6854,7 +6854,7 @@ export interface components {
         drep_updates: {
             /** @description Transaction ID */
             tx_hash: string;
-            /** @description Certificate within the transaction */
+            /** @description Index of the certificate within the update transaction. */
             cert_index: number;
             /**
              * @description Action in the certificate

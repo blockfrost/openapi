@@ -7,7 +7,7 @@ items:
       description: Transaction ID
     cert_index:
       type: integer
-      description: Certificate within the transaction
+      description: Index of the certificate within the update transaction.
     action:
       type: string
       enum: [registered, deregistered]

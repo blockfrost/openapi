@@ -11578,7 +11578,7 @@ under which it is valid
               "type": "string",
             },
             "cert_index": {
-              "description": "Certificate within the transaction",
+              "description": "Index of the certificate within the update transaction.",
               "type": "integer",
             },
             "tx_hash": {

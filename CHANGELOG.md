@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- IPFS state enum
+
 ## [0.1.69] - 2024-10-31
 
 ### Added

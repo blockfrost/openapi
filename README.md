@@ -46,6 +46,10 @@ yarn build
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
 
+### UI
+
+When you push a new commit, the documentation for your branch is automatically generated on Vercel and added to your PR as a deployment.
+
 ## Usage
 
 You can download [`openapi.yaml`](openapi.yaml) directly from the repository or use this project as a dependency in your JavaScript/TypeScript project.

@@ -5595,7 +5595,7 @@ export interface paths {
         post: {
             parameters: {
                 query?: {
-                    /** @description Optional parameter to specify whether to use version 6 of the API. If `true`, the response will be in v6 format.
+                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
                      *      */
                     version?: number;
                 };
@@ -5668,7 +5668,7 @@ export interface paths {
         post: {
             parameters: {
                 query?: {
-                    /** @description Optional parameter to specify whether to use version 6 of the API. If `true`, the response will be in v6 format.
+                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
                      *      */
                     version?: number;
                 };

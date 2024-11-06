@@ -5594,7 +5594,11 @@ export interface paths {
          */
         post: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description Optional parameter to specify whether to use version 6 of the API. If `true`, the response will be in v6 format.
+                     *      */
+                    version?: number;
+                };
                 header: {
                     "Content-Type": "application/cbor";
                 };
@@ -5663,7 +5667,11 @@ export interface paths {
          */
         post: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description Optional parameter to specify whether to use version 6 of the API. If `true`, the response will be in v6 format.
+                     *      */
+                    version?: number;
+                };
                 header: {
                     "Content-Type": "application/json";
                 };

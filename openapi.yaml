@@ -5378,6 +5378,15 @@ paths:
             type: string
             enum:
               - application/cbor
+        - in: query
+          name: version
+          required: false
+          schema:
+            type: number
+            default: 5
+          description: >
+            Optional parameter to specify whether to use version 6 of the API.
+            If `true`, the response will be in v6 format.
       x-codeSamples:
         - lang: Shell
           label: cURL
@@ -5456,6 +5465,15 @@ paths:
             type: string
             enum:
               - application/json
+        - in: query
+          name: version
+          required: false
+          schema:
+            type: number
+            default: 5
+          description: >
+            Optional parameter to specify whether to use version 6 of the API.
+            If `true`, the response will be in v6 format.
       requestBody:
         description: JSON payload
         required: true

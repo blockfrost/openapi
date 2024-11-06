@@ -15,6 +15,14 @@ post:
       schema:
         type: string
         enum: ["application/json"]
+    - in: query
+      name: version
+      required: false
+      schema:
+        type: number
+        default: 5
+      description: |
+        Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
   requestBody:
     description: "JSON payload"
     required: true

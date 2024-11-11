@@ -11,7 +11,7 @@ Unreleased changes are in the `master` branch.
 
 ### Added
 
-- `v6` query param in `/utils/txs/evaluate` and `/utils/txs/evaluate/utxos` endpoint
+- `version` query param in `/utils/txs/evaluate` and `/utils/txs/evaluate/utxos` endpoint
 
 ### Fixed
 

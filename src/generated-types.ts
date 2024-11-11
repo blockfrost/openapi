@@ -5594,7 +5594,11 @@ export interface paths {
          */
         post: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
+                     *      */
+                    version?: number;
+                };
                 header: {
                     "Content-Type": "application/cbor";
                 };
@@ -5663,7 +5667,11 @@ export interface paths {
          */
         post: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
+                     *      */
+                    version?: number;
+                };
                 header: {
                     "Content-Type": "application/json";
                 };

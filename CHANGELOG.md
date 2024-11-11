@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `version` query param in `/utils/txs/evaluate` and `/utils/txs/evaluate/utxos` endpoint
+
 ### Fixed
 
 - IPFS state enum

@@ -841,6 +841,15 @@ describe('getSchemaForEndpoint', () => {
 
   test('/utils/txs/evaluate/utxos', () => {
     expect(getSchemaForEndpoint('/utils/txs/evaluate/utxos')).toStrictEqual({
+      "querystring": {
+        "properties": {
+          "version": {
+            "default": 5,
+            "type": "number",
+          },
+        },
+        "type": "object",
+      },
       response: {
         '200': { type: 'object', additionalProperties: true },
         '400': {

@@ -24695,6 +24695,15 @@ relative to the start of the network
     },
   },
   "/utils/txs/evaluate": {
+    "querystring": {
+      "properties": {
+        "version": {
+          "default": 5,
+          "type": "number",
+        },
+      },
+      "type": "object",
+    },
     "response": {
       "200": {
         "additionalProperties": true,
@@ -24857,6 +24866,15 @@ relative to the start of the network
     },
   },
   "/utils/txs/evaluate/utxos": {
+    "querystring": {
+      "properties": {
+        "version": {
+          "default": 5,
+          "type": "number",
+        },
+      },
+      "type": "object",
+    },
     "response": {
       "200": {
         "additionalProperties": true,

@@ -5349,14 +5349,6 @@ paths:
         <p>
           <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
         </p>
-      x-codeSamples:
-        - lang: Shell
-          label: cURL
-          source: |
-            curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
-              -X POST \
-              -H "project_id: $PROJECT_ID" \
-              -F "file=@./README.md"
       requestBody:
         content:
           multipart/form-data:
@@ -5366,6 +5358,14 @@ paths:
                 file:
                   type: string
                   format: binary
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
+              -X POST \
+              -H "project_id: $PROJECT_ID" \
+              -F "file=@./README.md"
       responses:
         '200':
           description: Returns information about added IPFS object
@@ -5415,6 +5415,12 @@ paths:
         <p>
           <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
         </p>
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/gateway/{IPFS_path}" \
+              -H "project_id: $PROJECT_ID" \
       parameters:
         - in: path
           required: true
@@ -5457,6 +5463,12 @@ paths:
           schema:
             type: string
             description: Path to the IPFS object
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/add/{IPFS_path}" \
+              -H "project_id: $PROJECT_ID" \
       responses:
         '200':
           description: Returns pinned object
@@ -5540,6 +5552,12 @@ paths:
           description: |
             The ordering of items from the point of view of the blockchain,
             not the page listing itself. By default, we return oldest first, newest last.
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/" \
+              -H "project_id: $PROJECT_ID" \
       responses:
         '200':
           description: Returns pinned objects
@@ -5618,6 +5636,12 @@ paths:
           schema:
             type: string
             description: The path to the IPFS object
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/{IPFS_PATH}" \
+              -H "project_id: $PROJECT_ID" \
       responses:
         '200':
           description: Returns the pins pinned
@@ -5695,6 +5719,13 @@ paths:
           schema:
             type: string
             description: The path to the IPFS object
+      x-codeSamples:
+        - lang: Shell
+          label: cURL
+          source: |
+            curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/remove/{IPFS_PATH}" \
+              -X POST \
+              -H "project_id: $PROJECT_ID" \
       responses:
         '200':
           description: Returns the pins removed

@@ -15,7 +15,7 @@
     "build": "rimraf lib && yarn tsc && yarn bundle && yarn generate-types && yarn generate-json-schema",
     "copy-spec": "cp ./openapi.yaml ./docs/blockfrost-openapi.yaml",
     "lint": "scalar validate ./src/definitions.yaml",
-    "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn copy-spec",
+    "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn redocly bundle -o ./openapi.json ./openapi.yaml && yarn copy-spec",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
     "test": "vitest",

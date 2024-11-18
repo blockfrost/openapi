@@ -650,9 +650,6 @@ paths:
   /ipfs/pin/remove/{IPFS_path}:
     $ref: ./paths/ipfs/pin/remove/{IPFS_path}/index.yaml
 
-  /ipfs/pin/podsi/{IPFS_path}:
-    $ref: ./paths/ipfs/pin/podsi/{IPFS_path}/index.yaml
-
   # metrics
 
   /metrics:

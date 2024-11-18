@@ -39,6 +39,12 @@ get:
       description: |
         The ordering of items from the point of view of the blockchain,
         not the page listing itself. By default, we return oldest first, newest last.
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/" \
+          -H "project_id: $PROJECT_ID" \
   responses:
     "200":
       description: Returns pinned objects

@@ -17,6 +17,12 @@ get:
       schema:
         type: string
         description: The path to the IPFS object
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/{IPFS_PATH}" \
+          -H "project_id: $PROJECT_ID" \
   responses:
     "200":
       description: Returns the pins pinned

@@ -17,6 +17,13 @@ post:
       schema:
         type: string
         description: The path to the IPFS object
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/remove/{IPFS_PATH}" \
+          -X POST \
+          -H "project_id: $PROJECT_ID" \
   responses:
     "200":
       description: Returns the pins removed

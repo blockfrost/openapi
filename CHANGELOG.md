@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.70] - 2024-11-26
+
 ### Added
 
 - `version` query param in `/utils/txs/evaluate` and `/utils/txs/evaluate/utxos` endpoint

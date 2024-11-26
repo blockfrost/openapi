@@ -12,14 +12,6 @@ post:
     <p>
       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
     </p>
-  x-codeSamples:
-    - lang: "Shell"
-      label: "cURL"
-      source: |
-        curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
-          -X POST \
-          -H "project_id: $PROJECT_ID" \
-          -F "file=@./README.md"
   requestBody:
     content:
       multipart/form-data:
@@ -29,6 +21,14 @@ post:
             file:
               type: string
               format: binary
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/add" \
+          -X POST \
+          -H "project_id: $PROJECT_ID" \
+          -F "file=@./README.md"
   responses:
     "200":
       description: Returns information about added IPFS object

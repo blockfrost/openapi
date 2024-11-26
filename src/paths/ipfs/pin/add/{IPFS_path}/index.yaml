@@ -12,6 +12,12 @@ post:
       schema:
         type: string
         description: Path to the IPFS object
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/pin/add/{IPFS_path}" \
+          -H "project_id: $PROJECT_ID" \
   responses:
     "200":
       description: Returns pinned object

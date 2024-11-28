@@ -10585,7 +10585,7 @@ under which it is valid
             "type": "integer",
           },
           "max_kes_evolutions": {
-            "description": "The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate",
+            "description": "The maximum number of times a KES key can be evolved before a pool operator must create a new operational certificate",
             "example": 62,
             "type": "integer",
           },
@@ -10606,8 +10606,8 @@ under which it is valid
           },
           "slot_length": {
             "description": "Duration of one slot in seconds",
-            "example": 1,
-            "type": "integer",
+            "example": 0.2,
+            "type": "number",
           },
           "slots_per_kes_period": {
             "description": "Number of slots in an KES period",

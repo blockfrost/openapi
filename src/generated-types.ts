@@ -6688,11 +6688,11 @@ export interface components {
             slots_per_kes_period: number;
             /**
              * @description Duration of one slot in seconds
-             * @example 1
+             * @example 0.2
              */
             slot_length: number;
             /**
-             * @description The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate
+             * @description The maximum number of times a KES key can be evolved before a pool operator must create a new operational certificate
              * @example 62
              */
             max_kes_evolutions: number;

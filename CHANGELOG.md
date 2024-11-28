@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Changed
+
+Updated the schema to allow `slot_length` to accept floating-point values
+
 ## [0.1.70] - 2024-11-26
 
 ### Added

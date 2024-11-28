@@ -6278,13 +6278,13 @@ components:
           example: 129600
           description: Number of slots in an KES period
         slot_length:
-          type: integer
-          example: 1
+          type: number
+          example: 0.2
           description: Duration of one slot in seconds
         max_kes_evolutions:
           type: integer
           example: 62
-          description: The maximum number of time a KES key can be evolved before a pool operator must create a new operational certificate
+          description: The maximum number of times a KES key can be evolved before a pool operator must create a new operational certificate
         security_param:
           type: integer
           example: 2160

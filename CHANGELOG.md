@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.71] - 2024-12-11
+
+### Added
+
+- Filecoin support in IPFS endpoints
+
 ## [0.1.70] - 2024-11-26
 
 ### Added

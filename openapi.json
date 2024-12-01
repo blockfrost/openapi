@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.69",
+    "version": "0.1.70",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -7323,13 +7323,6 @@
         "summary": "Add a file to IPFS",
         "operationId": "ipfs_add",
         "description": "You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage\nis being counted in your user account quota.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
-        "x-codeSamples": [
-          {
-            "lang": "Shell",
-            "label": "cURL",
-            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/add\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n  -F \"file=@./README.md\"\n"
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -7345,6 +7338,13 @@
             }
           }
         },
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/add\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n  -F \"file=@./README.md\"\n"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns information about added IPFS object",
@@ -7411,6 +7411,13 @@
         ],
         "summary": "Relay to an IPFS gateway",
         "description": "Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/gateway/{IPFS_path}\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -7466,7 +7473,7 @@
           "IPFS » Pins"
         ],
         "summary": "Pin an object",
-        "description": "Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.",
+        "description": "Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.\n\n**Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.\n",
         "parameters": [
           {
             "in": "path",
@@ -7484,7 +7491,14 @@
               "type": "boolean"
             },
             "required": false,
-            "description": "If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS.\n"
+            "description": "If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. Objects pinned to Filecoin cannot be unpinned due to its long-term storage guarantees.\n"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/add/{IPFS_path}\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
           }
         ],
         "responses": {
@@ -7602,6 +7616,13 @@
             "description": "The ordering of items from the point of view of the blockchain,\nnot the page listing itself. By default, we return oldest first, newest last.\n"
           }
         ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns pinned objects",
@@ -7706,6 +7727,13 @@
             }
           }
         ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/{IPFS_PATH}\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the pins pinned",
@@ -7795,7 +7823,7 @@
           "IPFS » Pins"
         ],
         "summary": "Remove a IPFS pin",
-        "description": "Remove pinned objects from local storage\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
+        "description": "Remove pinned objects from local storage\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n\n**Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.\n",
         "parameters": [
           {
             "in": "path",
@@ -7805,6 +7833,13 @@
               "type": "string",
               "description": "The path to the IPFS object"
             }
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/remove/{IPFS_PATH}\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
           }
         ],
         "responses": {

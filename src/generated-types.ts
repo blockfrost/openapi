@@ -5835,11 +5835,14 @@ export interface paths {
         /**
          * Pin an object
          * @description Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
+         *
+         *     **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
+         *
          */
         post: {
             parameters: {
                 query?: {
-                    /** @description If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS.
+                    /** @description If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. Objects pinned to Filecoin cannot be unpinned due to its long-term storage guarantees.
                      *      */
                     filecoin?: boolean;
                 };
@@ -6083,6 +6086,8 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
+         *
+         *     **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
          *
          */
         post: {

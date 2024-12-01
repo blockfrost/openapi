@@ -10,6 +10,8 @@ post:
     <p>
       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
     </p>
+
+    **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
   parameters:
     - in: path
       required: true

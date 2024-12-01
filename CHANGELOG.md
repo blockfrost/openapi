@@ -9,7 +9,7 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
-## [0.1.71] - 2024-12-11
+## [0.1.71] - 2024-12-01
 
 ### Added
 

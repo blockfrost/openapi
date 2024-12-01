@@ -14053,9 +14053,21 @@ under which it is valid
       },
       "type": "object",
     },
+    "querystring": {
+      "properties": {
+        "filecoin": {
+          "type": "boolean",
+        },
+      },
+      "type": "object",
+    },
     "response": {
       "200": {
         "properties": {
+          "filecoin": {
+            "description": "Whether filecoin was used to pin the resource.",
+            "type": "boolean",
+          },
           "ipfs_hash": {
             "description": "IPFS hash of the pinned object",
             "example": "QmPojRfAXYAXV92Dof7gtSgaVuxEk64xx9CKvprqu9VwA8",
@@ -14077,6 +14089,7 @@ under which it is valid
         "required": [
           "ipfs_hash",
           "state",
+          "filecoin",
         ],
         "type": "object",
       },
@@ -14266,6 +14279,10 @@ under which it is valid
       "200": {
         "items": {
           "properties": {
+            "filecoin": {
+              "description": "Whether filecoin was used to pin the resource.",
+              "type": "boolean",
+            },
             "ipfs_hash": {
               "description": "IPFS hash of the pinned object",
               "example": "QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx",
@@ -14309,6 +14326,7 @@ been moved to \`unpinned\` state by removing the object pin.
             "ipfs_hash",
             "size",
             "state",
+            "filecoin",
           ],
           "type": "object",
         },
@@ -14461,6 +14479,10 @@ been moved to \`unpinned\` state by removing the object pin.
     "response": {
       "200": {
         "properties": {
+          "filecoin": {
+            "description": "Whether filecoin was used to pin the resource.",
+            "type": "boolean",
+          },
           "ipfs_hash": {
             "description": "IPFS hash of the pinned object",
             "example": "QmdVMnULrY95mth2XkwjxDtMHvzuzmvUPTotKE1tgqKbCx",
@@ -14505,6 +14527,7 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
           "ipfs_hash",
           "size",
           "state",
+          "filecoin",
         ],
         "type": "object",
       },

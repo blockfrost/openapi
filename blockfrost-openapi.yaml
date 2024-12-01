@@ -5455,7 +5455,10 @@ paths:
       tags:
         - IPFS » Pins
       summary: Pin an object
-      description: Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
+      description: |
+        Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
+
+        **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
       parameters:
         - in: path
           required: true
@@ -5463,6 +5466,13 @@ paths:
           schema:
             type: string
             description: Path to the IPFS object
+        - in: query
+          name: filecoin
+          schema:
+            type: boolean
+          required: false
+          description: |
+            If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. Objects pinned to Filecoin cannot be unpinned due to its long-term storage guarantees.
       x-codeSamples:
         - lang: Shell
           label: cURL
@@ -5491,9 +5501,13 @@ paths:
                       - gc
                     example: queued
                     description: State of the pin action
+                  filecoin:
+                    type: boolean
+                    description: Whether filecoin was used to pin the resource.
                 required:
                   - ipfs_hash
                   - state
+                  - filecoin
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5598,12 +5612,16 @@ paths:
                         pinned item has been garbage collected due to account being over storage quota or after it has
                         been moved to `unpinned` state by removing the object pin.
                       example: pinned
+                    filecoin:
+                      type: boolean
+                      description: Whether filecoin was used to pin the resource.
                   required:
                     - time_created
                     - time_pinned
                     - ipfs_hash
                     - size
                     - state
+                    - filecoin
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5681,12 +5699,16 @@ paths:
                       When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
                       State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                     example: pinned
+                  filecoin:
+                    type: boolean
+                    description: Whether filecoin was used to pin the resource.
                 required:
                   - time_created
                   - time_pinned
                   - ipfs_hash
                   - size
                   - state
+                  - filecoin
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -5712,6 +5734,8 @@ paths:
         <p>
           <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
         </p>
+
+        **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
       parameters:
         - in: path
           required: true

@@ -85,12 +85,16 @@ get:
                     pinned item has been garbage collected due to account being over storage quota or after it has
                     been moved to `unpinned` state by removing the object pin.
                   example: "pinned"
+                filecoin:
+                  type: boolean
+                  description: Whether filecoin was used to pin the resource.
               required:
                 - time_created
                 - time_pinned
                 - ipfs_hash
                 - size
                 - state
+                - filecoin
     "400":
       $ref: ../../../../responses/errors/400.yaml
     "403":

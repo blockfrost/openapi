@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.67",
+    "version": "0.1.70",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -1414,7 +1414,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Transaction index.",
+            "description": "Index of the certificate within the proposal transaction.",
             "example": 1
           }
         ],
@@ -1472,7 +1472,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Transaction index.",
+            "description": "Index of the certificate within the proposal transaction.",
             "example": 1
           }
         ],
@@ -1533,7 +1533,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Transaction index.",
+            "description": "Index of the certificate within the proposal transaction.",
             "example": 1
           }
         ],
@@ -1594,7 +1594,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Transaction index.",
+            "description": "Index of the certificate within the proposal transaction.",
             "example": 1
           },
           {
@@ -1690,7 +1690,7 @@
             "schema": {
               "type": "integer"
             },
-            "description": "Transaction index of the proposal.",
+            "description": "Index of the certificate within the proposal transaction.",
             "example": 0
           }
         ],
@@ -3937,6 +3937,95 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/account_addresses_total"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "418": {
+            "$ref": "#/components/responses/418"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/accounts/{stake_address}/utxos": {
+      "get": {
+        "tags": [
+          "Cardano » Accounts"
+        ],
+        "summary": "Account UTXOs",
+        "description": "UTXOs associated with the account.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "stake_address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bech32 stake address.",
+            "example": "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
+          },
+          {
+            "in": "query",
+            "name": "count",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 100
+            },
+            "description": "The number of results displayed on one page."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 21474836,
+              "default": 1
+            },
+            "description": "The page number for listing the results."
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "asc"
+            },
+            "description": "The ordering of items from the point of view of the blockchain,\nnot the page listing itself. By default, we return oldest first, newest last.\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the account UTXOs content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/account_utxo_content"
                 }
               }
             }
@@ -6989,6 +7078,16 @@
                 "application/cbor"
               ]
             }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 5
+            },
+            "description": "Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.\n"
           }
         ],
         "x-codeSamples": [
@@ -7013,7 +7112,7 @@
         },
         "responses": {
           "200": {
-            "description": "<p>\n  <div class=\"custom-paragraph\">\n    Returns result of EvaluateTx function from Ogmios see <a class=\"custom-link\" href=\"https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx\">EvaluateTx</a>\n    and<a href=\"https://ogmios.dev/api/\"> API reference (EvaluateTxResponse)</a> for related errors.\n  </div>\n</p>\n",
+            "description": "<p>\n  <div class=\"custom-paragraph\">\n    Returns result of EvaluateTx function from Ogmios see <a class=\"custom-link\" href=\"https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx\">EvaluateTx</a>\n    and<a href=\"https://ogmios.dev/http-api/\"> API reference (EvaluateTxResponse)</a> for related errors.\n  </div>\n</p>\n",
             "content": {
               "application/json": {
                 "schema": {
@@ -7065,6 +7164,16 @@
                 "application/json"
               ]
             }
+          },
+          {
+            "in": "query",
+            "name": "version",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 5
+            },
+            "description": "Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.\n"
           }
         ],
         "requestBody": {
@@ -7214,13 +7323,6 @@
         "summary": "Add a file to IPFS",
         "operationId": "ipfs_add",
         "description": "You need to `/ipfs/pin/add` an object to avoid it being garbage collected. This usage\nis being counted in your user account quota.\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
-        "x-codeSamples": [
-          {
-            "lang": "Shell",
-            "label": "cURL",
-            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/add\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n  -F \"file=@./README.md\"\n"
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -7236,6 +7338,13 @@
             }
           }
         },
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/add\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n  -F \"file=@./README.md\"\n"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns information about added IPFS object",
@@ -7302,6 +7411,13 @@
         ],
         "summary": "Relay to an IPFS gateway",
         "description": "Retrieve an object from the IPFS gateway (useful if you do not want to rely on a public gateway, such as `ipfs.blockfrost.dev`).\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/gateway/{IPFS_path}\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -7357,7 +7473,7 @@
           "IPFS » Pins"
         ],
         "summary": "Pin an object",
-        "description": "Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.",
+        "description": "Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.\n\n**Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.\n",
         "parameters": [
           {
             "in": "path",
@@ -7367,6 +7483,22 @@
               "type": "string",
               "description": "Path to the IPFS object"
             }
+          },
+          {
+            "in": "query",
+            "name": "filecoin",
+            "schema": {
+              "type": "boolean"
+            },
+            "required": false,
+            "description": "If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. Objects pinned to Filecoin cannot be unpinned due to its long-term storage guarantees.\n"
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/add/{IPFS_path}\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
           }
         ],
         "responses": {
@@ -7385,15 +7517,24 @@
                     "state": {
                       "type": "string",
                       "enum": [
-                        "queued|pinned|unpinned|failed|gc"
+                        "queued",
+                        "pinned",
+                        "unpinned",
+                        "failed",
+                        "gc"
                       ],
                       "example": "queued",
                       "description": "State of the pin action"
+                    },
+                    "filecoin": {
+                      "type": "boolean",
+                      "description": "Whether filecoin was used to pin the resource."
                     }
                   },
                   "required": [
                     "ipfs_hash",
-                    "state"
+                    "state",
+                    "filecoin"
                   ]
                 }
               }
@@ -7475,6 +7616,13 @@
             "description": "The ordering of items from the point of view of the blockchain,\nnot the page listing itself. By default, we return oldest first, newest last.\n"
           }
         ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns pinned objects",
@@ -7508,10 +7656,18 @@
                       "state": {
                         "type": "string",
                         "enum": [
-                          "queued|pinned|unpinned|failed|gc"
+                          "queued",
+                          "pinned",
+                          "unpinned",
+                          "failed",
+                          "gc"
                         ],
                         "description": "State of the pinned object, which is `queued` when we are retriving object. If this\nis successful the state is changed to `pinned` or `failed` if not. The state `gc` means the\npinned item has been garbage collected due to account being over storage quota or after it has\nbeen moved to `unpinned` state by removing the object pin.\n",
                         "example": "pinned"
+                      },
+                      "filecoin": {
+                        "type": "boolean",
+                        "description": "Whether filecoin was used to pin the resource."
                       }
                     },
                     "required": [
@@ -7519,7 +7675,8 @@
                       "time_pinned",
                       "ipfs_hash",
                       "size",
-                      "state"
+                      "state",
+                      "filecoin"
                     ]
                   }
                 }
@@ -7570,6 +7727,13 @@
             }
           }
         ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/list/{IPFS_PATH}\" \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Returns the pins pinned",
@@ -7601,10 +7765,18 @@
                     "state": {
                       "type": "string",
                       "enum": [
-                        "queued|pinned|unpinned|failed|gc"
+                        "queued",
+                        "pinned",
+                        "unpinned",
+                        "failed",
+                        "gc"
                       ],
                       "description": "State of the pinned object. We define 5 states: `queued`, `pinned`, `unpinned`, `failed`, `gc`.\nWhen the object is pending retrieval (i.e. after `/ipfs/pin/add/{IPFS_path}`), the state is `queued`.\nIf the object is already successfully retrieved, state is changed to `pinned` or `failed` otherwise.\nWhen object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.\nState `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.\n",
                       "example": "pinned"
+                    },
+                    "filecoin": {
+                      "type": "boolean",
+                      "description": "Whether filecoin was used to pin the resource."
                     }
                   },
                   "required": [
@@ -7612,7 +7784,8 @@
                     "time_pinned",
                     "ipfs_hash",
                     "size",
-                    "state"
+                    "state",
+                    "filecoin"
                   ]
                 }
               }
@@ -7650,7 +7823,7 @@
           "IPFS » Pins"
         ],
         "summary": "Remove a IPFS pin",
-        "description": "Remove pinned objects from local storage\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n",
+        "description": "Remove pinned objects from local storage\n\n<p>\n  <span class=\"hosted\">Hosted</span> Endpoint only available for hosted variant.\n</p>\n\n**Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.\n",
         "parameters": [
           {
             "in": "path",
@@ -7660,6 +7833,13 @@
               "type": "string",
               "description": "The path to the IPFS object"
             }
+          }
+        ],
+        "x-codeSamples": [
+          {
+            "lang": "Shell",
+            "label": "cURL",
+            "source": "curl \"https://ipfs.blockfrost.io/api/v0/ipfs/pin/remove/{IPFS_PATH}\" \\\n  -X POST \\\n  -H \"project_id: $PROJECT_ID\" \\\n"
           }
         ],
         "responses": {
@@ -7678,7 +7858,11 @@
                     "state": {
                       "type": "string",
                       "enum": [
-                        "queued|pinned|unpinned|failed|gc"
+                        "queued",
+                        "pinned",
+                        "unpinned",
+                        "failed",
+                        "gc"
                       ],
                       "example": "unpinned",
                       "description": "State of the pin action"
@@ -8716,7 +8900,7 @@
             },
             "cert_index": {
               "type": "integer",
-              "description": "Certificate within the transaction"
+              "description": "Index of the certificate within the update transaction."
             },
             "action": {
               "type": "string",
@@ -11389,6 +11573,137 @@
           "tx_count"
         ]
       },
+      "account_utxo_content": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "string",
+              "description": "Bech32 encoded addresses",
+              "example": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+            },
+            "tx_hash": {
+              "type": "string",
+              "description": "Transaction hash of the UTXO"
+            },
+            "tx_index": {
+              "type": "integer",
+              "deprecated": true,
+              "description": "UTXO index in the transaction"
+            },
+            "output_index": {
+              "type": "integer",
+              "description": "UTXO index in the transaction"
+            },
+            "amount": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "The sum of all the UTXO per asset",
+                "properties": {
+                  "unit": {
+                    "type": "string",
+                    "format": "Lovelace or concatenation of asset policy_id and hex-encoded asset_name",
+                    "description": "The unit of the value"
+                  },
+                  "quantity": {
+                    "type": "string",
+                    "description": "The quantity of the unit"
+                  }
+                },
+                "required": [
+                  "unit",
+                  "quantity"
+                ]
+              }
+            },
+            "block": {
+              "type": "string",
+              "description": "Block hash of the UTXO"
+            },
+            "data_hash": {
+              "type": "string",
+              "nullable": true,
+              "description": "The hash of the transaction output datum"
+            },
+            "inline_datum": {
+              "type": "string",
+              "nullable": true,
+              "description": "CBOR encoded inline datum",
+              "example": "19a6aa"
+            },
+            "reference_script_hash": {
+              "type": "string",
+              "nullable": true,
+              "description": "The hash of the reference script of the output",
+              "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
+            }
+          },
+          "required": [
+            "address",
+            "tx_hash",
+            "tx_index",
+            "output_index",
+            "amount",
+            "block",
+            "data_hash",
+            "inline_datum",
+            "reference_script_hash"
+          ]
+        },
+        "example": [
+          {
+            "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+            "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
+            "output_index": 0,
+            "amount": [
+              {
+                "unit": "lovelace",
+                "quantity": "42000000"
+              }
+            ],
+            "block": "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6",
+            "data_hash": "9e478573ab81ea7a8e31891ce0648b81229f408d596a3483e6f4f9b92d3cf710",
+            "inline_datum": null,
+            "reference_script_hash": null
+          },
+          {
+            "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+            "tx_hash": "4c4e67bafa15e742c13c592b65c8f74c769cd7d9af04c848099672d1ba391b49",
+            "output_index": 0,
+            "amount": [
+              {
+                "unit": "lovelace",
+                "quantity": "729235000"
+              }
+            ],
+            "block": "953f1b80eb7c11a7ffcd67cbd4fde66e824a451aca5a4065725e5174b81685b7",
+            "data_hash": null,
+            "inline_datum": null,
+            "reference_script_hash": null
+          },
+          {
+            "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+            "tx_hash": "768c63e27a1c816a83dc7b07e78af673b2400de8849ea7e7b734ae1333d100d2",
+            "output_index": 1,
+            "amount": [
+              {
+                "unit": "lovelace",
+                "quantity": "42000000"
+              },
+              {
+                "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
+                "quantity": "12"
+              }
+            ],
+            "block": "5c571f83fe6c784d3fbc223792627ccf0eea96773100f9aedecf8b1eda4544d7",
+            "data_hash": null,
+            "inline_datum": null,
+            "reference_script_hash": null
+          }
+        ]
+      },
       "mempool_content": {
         "type": "array",
         "items": {
@@ -11810,6 +12125,9 @@
                 },
                 {
                   "type": "boolean"
+                },
+                {
+                  "type": "null"
                 }
               ],
               "description": "Content of the JSON metadata"
@@ -13263,6 +13581,9 @@
               },
               {
                 "type": "boolean"
+              },
+              {
+                "type": "null"
               }
             ],
             "description": "JSON contents of the `timelock` script, null for `plutus` scripts"

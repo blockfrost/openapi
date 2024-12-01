@@ -62,12 +62,16 @@ get:
                   When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
                   State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
                 example: "pinned"
+              filecoin:
+                type: boolean
+                description: Whether filecoin was used to pin the resource.
             required:
               - time_created
               - time_pinned
               - ipfs_hash
               - size
               - state
+              - filecoin
     "400":
       $ref: ../../../../../responses/errors/400.yaml
     "403":

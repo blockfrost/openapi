@@ -9911,11 +9911,11 @@ export interface components {
         };
         /** @example [
          *       {
-         *         "time": "1612543884",
+         *         "time": 1612543884,
          *         "calls": 42
          *       },
          *       {
-         *         "time": "1614523884",
+         *         "time": 1614523884,
          *         "calls": 6942
          *       }
          *     ] */

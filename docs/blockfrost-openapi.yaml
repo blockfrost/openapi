@@ -6672,9 +6672,11 @@ components:
         has_script:
           type: boolean
           description: Flag which shows if this DRep credentials are a script hash
-        registered:
+        retired:
           type: boolean
-          description: Registration state of the DRep
+          description: >-
+            Indicates the registration state of the DRep. Set to `true` if the
+            DRep has been deregistered; otherwise, `false`.
         expired:
           type: boolean
           description: >-
@@ -6693,7 +6695,7 @@ components:
         - active
         - active_epoch
         - has_script
-        - registered
+        - retired
         - expired
         - last_active_epoch
       example:
@@ -6704,7 +6706,7 @@ components:
         active_epoch: 420
         has_script: true
         last_active_epoch: 509
-        registered: true
+        retired: false
         expired: false
     drep_delegators:
       type: array

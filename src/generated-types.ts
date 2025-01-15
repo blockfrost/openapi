@@ -6741,7 +6741,7 @@ export interface components {
          *       "active_epoch": 420,
          *       "has_script": true,
          *       "last_active_epoch": 509,
-         *       "registered": true,
+         *       "retired": false,
          *       "expired": false
          *     } */
         drep: {
@@ -6763,8 +6763,8 @@ export interface components {
             active_epoch: number | null;
             /** @description Flag which shows if this DRep credentials are a script hash */
             has_script: boolean;
-            /** @description Registration state of the DRep */
-            registered: boolean;
+            /** @description Indicates the registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`. */
+            retired: boolean;
             /** @description Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */

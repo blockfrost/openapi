@@ -6739,7 +6739,10 @@ export interface components {
          *       "amount": "2000000",
          *       "active": true,
          *       "active_epoch": 420,
-         *       "has_script": true
+         *       "has_script": true,
+         *       "last_active_epoch": 509,
+         *       "registered": true,
+         *       "expired": false
          *     } */
         drep: {
             /** @description Bech32 encoded DRep address */
@@ -6748,12 +6751,24 @@ export interface components {
             hex: string;
             /** @description The total amount of voting power this DRep is delegated. */
             amount: string;
-            /** @description Registration state of the DRep */
+            /**
+             * @deprecated
+             * @description Registration state of the DRep
+             */
             active: boolean;
-            /** @description Epoch of the most recent action - registration or deregistration */
+            /**
+             * @deprecated
+             * @description Epoch of the most recent registration
+             */
             active_epoch: number | null;
             /** @description Flag which shows if this DRep credentials are a script hash */
             has_script: boolean;
+            /** @description Registration state of the DRep */
+            registered: boolean;
+            /** @description Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
+            expired: boolean;
+            /** @description Epoch of the most recent action - registration, update, deregistration or voting */
+            last_active_epoch: number | null;
         };
         /** @example [
          *       {

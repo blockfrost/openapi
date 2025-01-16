@@ -8698,16 +8698,31 @@
           },
           "active": {
             "type": "boolean",
-            "description": "Registration state of the DRep"
+            "description": "Registration state of the DRep",
+            "deprecated": true
           },
           "active_epoch": {
             "type": "integer",
             "nullable": true,
-            "description": "Epoch of the most recent action - registration or deregistration"
+            "description": "Epoch of the most recent registration",
+            "deprecated": true
           },
           "has_script": {
             "type": "boolean",
             "description": "Flag which shows if this DRep credentials are a script hash"
+          },
+          "retired": {
+            "type": "boolean",
+            "description": "Indicates the registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`."
+          },
+          "expired": {
+            "type": "boolean",
+            "description": "Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)"
+          },
+          "last_active_epoch": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Epoch of the most recent action - registration, update, deregistration or voting"
           }
         },
         "required": [
@@ -8716,7 +8731,10 @@
           "amount",
           "active",
           "active_epoch",
-          "has_script"
+          "has_script",
+          "retired",
+          "expired",
+          "last_active_epoch"
         ],
         "example": {
           "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
@@ -8724,7 +8742,10 @@
           "amount": "2000000",
           "active": true,
           "active_epoch": 420,
-          "has_script": true
+          "has_script": true,
+          "last_active_epoch": 509,
+          "retired": false,
+          "expired": false
         }
       },
       "drep_delegators": {

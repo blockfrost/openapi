@@ -10936,16 +10936,21 @@ under which it is valid
           "active_epoch": 420,
           "amount": "2000000",
           "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
+          "expired": false,
           "has_script": true,
           "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
+          "last_active_epoch": 509,
+          "retired": false,
         },
         "properties": {
           "active": {
+            "deprecated": true,
             "description": "Registration state of the DRep",
             "type": "boolean",
           },
           "active_epoch": {
-            "description": "Epoch of the most recent action - registration or deregistration",
+            "deprecated": true,
+            "description": "Epoch of the most recent registration",
             "nullable": true,
             "type": "integer",
           },
@@ -10957,6 +10962,10 @@ under which it is valid
             "description": "Bech32 encoded DRep address",
             "type": "string",
           },
+          "expired": {
+            "description": "Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter \`drep_activity\`)",
+            "type": "boolean",
+          },
           "has_script": {
             "description": "Flag which shows if this DRep credentials are a script hash",
             "type": "boolean",
@@ -10964,6 +10973,15 @@ under which it is valid
           "hex": {
             "description": "The raw bytes of the DRep",
             "type": "string",
+          },
+          "last_active_epoch": {
+            "description": "Epoch of the most recent action - registration, update, deregistration or voting",
+            "nullable": true,
+            "type": "integer",
+          },
+          "retired": {
+            "description": "Indicates the registration state of the DRep. Set to \`true\` if the DRep has been deregistered; otherwise, \`false\`.",
+            "type": "boolean",
           },
         },
         "required": [
@@ -10973,6 +10991,9 @@ under which it is valid
           "active",
           "active_epoch",
           "has_script",
+          "retired",
+          "expired",
+          "last_active_epoch",
         ],
         "type": "object",
       },

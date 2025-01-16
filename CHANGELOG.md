@@ -9,6 +9,21 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.72] - 2025-01-16
+
+### Added
+
+- New fields in `/governance/dreps/:drep`
+  - `retired`: Indicates the registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`.
+  - `expired`: , Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)
+  - `last_active_epoch`: Epoch of the most recent action - registration, update, deregistration or voting
+
+### Changed
+
+- Deprecated fields in `/governance/dreps/:drep`
+  - `active`: Superseded by the new `retired` and `expired`
+  - `active_epoch`: Replaced by `last_active_epoch`
+
 ## [0.1.71] - 2024-12-01
 
 ### Added

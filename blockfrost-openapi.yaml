@@ -6682,58 +6682,72 @@ components:
               type: integer
               example: 225
               description: Epoch number
+              nullable: true
             min_fee_a:
               type: integer
               example: 44
               description: The linear factor for the minimum fee calculation for given epoch
+              nullable: true
             min_fee_b:
               type: integer
               example: 155381
               description: The constant factor for the minimum fee calculation
+              nullable: true
             max_block_size:
               type: integer
               example: 65536
               description: Maximum block body size in Bytes
+              nullable: true
             max_tx_size:
               type: integer
               example: 16384
               description: Maximum transaction size
+              nullable: true
             max_block_header_size:
               type: integer
               example: 1100
               description: Maximum block header size
+              nullable: true
             key_deposit:
               type: string
               example: '2000000'
               description: The amount of a key registration deposit in Lovelaces
+              nullable: true
             pool_deposit:
               type: string
               example: '500000000'
               description: The amount of a pool registration deposit in Lovelaces
+              nullable: true
             e_max:
               type: integer
               example: 18
               description: Epoch bound on pool retirement
+              nullable: true
             n_opt:
               type: integer
               example: 150
               description: Desired number of pools
+              nullable: true
             a0:
               type: number
               example: 0.3
               description: Pool pledge influence
+              nullable: true
             rho:
               type: number
               example: 0.003
               description: Monetary expansion
+              nullable: true
             tau:
               type: number
               example: 0.2
               description: Treasury expansion
+              nullable: true
             decentralisation_param:
               type: number
               example: 0.5
               description: Percentage of blocks produced by federated nodes
+              nullable: true
             extra_entropy:
               type: string
               nullable: true
@@ -6743,22 +6757,22 @@ components:
               type: integer
               example: 2
               description: Accepted protocol major version
+              nullable: true
             protocol_minor_ver:
               type: integer
               example: 0
               description: Accepted protocol minor version
+              nullable: true
             min_utxo:
               type: string
               example: '1000000'
               description: Minimum UTXO value
+              nullable: true
             min_pool_cost:
               type: string
               example: '340000000'
               description: Minimum stake cost forced on the pool
-            nonce:
-              type: string
-              example: 1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81
-              description: Epoch number only used once
+              nullable: true
             cost_models:
               additionalProperties: true
               type: object
@@ -6944,7 +6958,6 @@ components:
             - protocol_minor_ver
             - min_utxo
             - min_pool_cost
-            - nonce
             - cost_models
             - price_mem
             - price_step

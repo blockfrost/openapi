@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- Allow all proposal parameters to be nullable, remove unused `nonce` param
+
 ## [0.1.72] - 2025-01-16
 
 ### Added

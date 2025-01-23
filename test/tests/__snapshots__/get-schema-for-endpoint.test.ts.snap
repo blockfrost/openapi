@@ -12605,6 +12605,7 @@ under which it is valid
               "a0": {
                 "description": "Pool pledge influence",
                 "example": 0.3,
+                "nullable": true,
                 "type": "number",
               },
               "coins_per_utxo_size": {
@@ -12657,6 +12658,7 @@ under which it is valid
               "decentralisation_param": {
                 "description": "Percentage of blocks produced by federated nodes",
                 "example": 0.5,
+                "nullable": true,
                 "type": "number",
               },
               "drep_activity": {
@@ -12724,11 +12726,13 @@ under which it is valid
               "e_max": {
                 "description": "Epoch bound on pool retirement",
                 "example": 18,
+                "nullable": true,
                 "type": "integer",
               },
               "epoch": {
                 "description": "Epoch number",
                 "example": 225,
+                "nullable": true,
                 "type": "integer",
               },
               "extra_entropy": {
@@ -12752,6 +12756,7 @@ under which it is valid
               "key_deposit": {
                 "description": "The amount of a key registration deposit in Lovelaces",
                 "example": "2000000",
+                "nullable": true,
                 "type": "string",
               },
               "max_block_ex_mem": {
@@ -12769,11 +12774,13 @@ under which it is valid
               "max_block_header_size": {
                 "description": "Maximum block header size",
                 "example": 1100,
+                "nullable": true,
                 "type": "integer",
               },
               "max_block_size": {
                 "description": "Maximum block body size in Bytes",
                 "example": 65536,
+                "nullable": true,
                 "type": "integer",
               },
               "max_collateral_inputs": {
@@ -12797,6 +12804,7 @@ under which it is valid
               "max_tx_size": {
                 "description": "Maximum transaction size",
                 "example": 16384,
+                "nullable": true,
                 "type": "integer",
               },
               "max_val_size": {
@@ -12808,11 +12816,13 @@ under which it is valid
               "min_fee_a": {
                 "description": "The linear factor for the minimum fee calculation for given epoch",
                 "example": 44,
+                "nullable": true,
                 "type": "integer",
               },
               "min_fee_b": {
                 "description": "The constant factor for the minimum fee calculation",
                 "example": 155381,
+                "nullable": true,
                 "type": "integer",
               },
               "min_fee_ref_script_cost_per_byte": {
@@ -12822,26 +12832,25 @@ under which it is valid
               "min_pool_cost": {
                 "description": "Minimum stake cost forced on the pool",
                 "example": "340000000",
+                "nullable": true,
                 "type": "string",
               },
               "min_utxo": {
                 "description": "Minimum UTXO value",
                 "example": "1000000",
+                "nullable": true,
                 "type": "string",
               },
               "n_opt": {
                 "description": "Desired number of pools",
                 "example": 150,
+                "nullable": true,
                 "type": "integer",
-              },
-              "nonce": {
-                "description": "Epoch number only used once",
-                "example": "1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81",
-                "type": "string",
               },
               "pool_deposit": {
                 "description": "The amount of a pool registration deposit in Lovelaces",
                 "example": "500000000",
+                "nullable": true,
                 "type": "string",
               },
               "price_mem": {
@@ -12859,11 +12868,13 @@ under which it is valid
               "protocol_major_ver": {
                 "description": "Accepted protocol major version",
                 "example": 2,
+                "nullable": true,
                 "type": "integer",
               },
               "protocol_minor_ver": {
                 "description": "Accepted protocol minor version",
                 "example": 0,
+                "nullable": true,
                 "type": "integer",
               },
               "pvt_committee_no_confidence": {
@@ -12900,11 +12911,13 @@ under which it is valid
               "rho": {
                 "description": "Monetary expansion",
                 "example": 0.003,
+                "nullable": true,
                 "type": "number",
               },
               "tau": {
                 "description": "Treasury expansion",
                 "example": 0.2,
+                "nullable": true,
                 "type": "number",
               },
             },
@@ -12927,7 +12940,6 @@ under which it is valid
               "protocol_minor_ver",
               "min_utxo",
               "min_pool_cost",
-              "nonce",
               "cost_models",
               "price_mem",
               "price_step",

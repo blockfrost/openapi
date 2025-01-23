@@ -6994,72 +6994,72 @@ export interface components {
                  * @description Epoch number
                  * @example 225
                  */
-                epoch?: number;
+                epoch?: number | null;
                 /**
                  * @description The linear factor for the minimum fee calculation for given epoch
                  * @example 44
                  */
-                min_fee_a: number;
+                min_fee_a: number | null;
                 /**
                  * @description The constant factor for the minimum fee calculation
                  * @example 155381
                  */
-                min_fee_b: number;
+                min_fee_b: number | null;
                 /**
                  * @description Maximum block body size in Bytes
                  * @example 65536
                  */
-                max_block_size: number;
+                max_block_size: number | null;
                 /**
                  * @description Maximum transaction size
                  * @example 16384
                  */
-                max_tx_size: number;
+                max_tx_size: number | null;
                 /**
                  * @description Maximum block header size
                  * @example 1100
                  */
-                max_block_header_size: number;
+                max_block_header_size: number | null;
                 /**
                  * @description The amount of a key registration deposit in Lovelaces
                  * @example 2000000
                  */
-                key_deposit: string;
+                key_deposit: string | null;
                 /**
                  * @description The amount of a pool registration deposit in Lovelaces
                  * @example 500000000
                  */
-                pool_deposit: string;
+                pool_deposit: string | null;
                 /**
                  * @description Epoch bound on pool retirement
                  * @example 18
                  */
-                e_max: number;
+                e_max: number | null;
                 /**
                  * @description Desired number of pools
                  * @example 150
                  */
-                n_opt: number;
+                n_opt: number | null;
                 /**
                  * @description Pool pledge influence
                  * @example 0.3
                  */
-                a0: number;
+                a0: number | null;
                 /**
                  * @description Monetary expansion
                  * @example 0.003
                  */
-                rho: number;
+                rho: number | null;
                 /**
                  * @description Treasury expansion
                  * @example 0.2
                  */
-                tau: number;
+                tau: number | null;
                 /**
                  * @description Percentage of blocks produced by federated nodes
                  * @example 0.5
                  */
-                decentralisation_param: number;
+                decentralisation_param: number | null;
                 /**
                  * @description Seed for extra entropy
                  * @example null
@@ -7069,27 +7069,22 @@ export interface components {
                  * @description Accepted protocol major version
                  * @example 2
                  */
-                protocol_major_ver: number;
+                protocol_major_ver: number | null;
                 /**
                  * @description Accepted protocol minor version
                  * @example 0
                  */
-                protocol_minor_ver: number;
+                protocol_minor_ver: number | null;
                 /**
                  * @description Minimum UTXO value
                  * @example 1000000
                  */
-                min_utxo: string;
+                min_utxo: string | null;
                 /**
                  * @description Minimum stake cost forced on the pool
                  * @example 340000000
                  */
-                min_pool_cost: string;
-                /**
-                 * @description Epoch number only used once
-                 * @example 1a3be38bcbb7911969283716ad7aa550250226b76a61fc51cc9a9a35d9276d81
-                 */
-                nonce: string;
+                min_pool_cost: string | null;
                 /**
                  * @description Cost models parameters for Plutus Core scripts in raw list form
                  * @example {

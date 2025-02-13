@@ -9079,23 +9079,27 @@
           },
           "ratified_epoch": {
             "type": "integer",
-            "nullable": true
+            "nullable": true,
+            "description": "The epoch at which the proposal was ratified. Null if the proposal has not been ratified."
           },
           "enacted_epoch": {
             "type": "integer",
-            "nullable": true
+            "nullable": true,
+            "description": "The epoch at which the proposal was enacted. Null if the proposal has not been enacted."
           },
           "dropped_epoch": {
             "type": "integer",
-            "nullable": true
+            "nullable": true,
+            "description": "The epoch at which the proposal was dropped. A proposal is dropped if it expires, is enacted, or if any of its dependencies expire."
           },
           "expired_epoch": {
             "type": "integer",
-            "nullable": true
+            "nullable": true,
+            "description": "The epoch at which the proposal expired. Null if the proposal has not expired."
           },
           "expiration": {
             "type": "integer",
-            "description": "Shows the epoch at which this governance action will expire."
+            "description": "The epoch at which this governance action will expire."
           }
         },
         "required": [

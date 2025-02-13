@@ -6977,11 +6977,15 @@ export interface components {
             deposit: string;
             /** @description Bech32 stake address of the reward address to receive the deposit when it is repaid. */
             return_address: string;
+            /** @description The epoch at which the proposal was ratified. Null if the proposal has not been ratified. */
             ratified_epoch: number | null;
+            /** @description The epoch at which the proposal was enacted. Null if the proposal has not been enacted. */
             enacted_epoch: number | null;
+            /** @description The epoch at which the proposal was dropped. A proposal is dropped if it expires, is enacted, or if any of its dependencies expire. */
             dropped_epoch: number | null;
+            /** @description The epoch at which the proposal expired. Null if the proposal has not expired. */
             expired_epoch: number | null;
-            /** @description Shows the epoch at which this governance action will expire. */
+            /** @description The epoch at which this governance action will expire. */
             expiration: number;
         };
         proposal_parameters: {

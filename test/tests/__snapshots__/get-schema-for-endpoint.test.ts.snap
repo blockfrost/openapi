@@ -12139,18 +12139,21 @@ under which it is valid
             "type": "string",
           },
           "dropped_epoch": {
+            "description": "The epoch at which the proposal was dropped. A proposal is dropped if it expires, is enacted, or if any of its dependencies expire.",
             "nullable": true,
             "type": "integer",
           },
           "enacted_epoch": {
+            "description": "The epoch at which the proposal was enacted. Null if the proposal has not been enacted.",
             "nullable": true,
             "type": "integer",
           },
           "expiration": {
-            "description": "Shows the epoch at which this governance action will expire.",
+            "description": "The epoch at which this governance action will expire.",
             "type": "integer",
           },
           "expired_epoch": {
+            "description": "The epoch at which the proposal expired. Null if the proposal has not expired.",
             "nullable": true,
             "type": "integer",
           },
@@ -12174,6 +12177,7 @@ under which it is valid
             "type": "string",
           },
           "ratified_epoch": {
+            "description": "The epoch at which the proposal was ratified. Null if the proposal has not been ratified.",
             "nullable": true,
             "type": "integer",
           },

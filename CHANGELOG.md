@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `/blocks/latest/txs/cbor` endpoint
+
 ## [0.1.73] - 2025-01-30
 
 ### Fixed

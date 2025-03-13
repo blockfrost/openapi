@@ -6419,6 +6419,197 @@ under which it is valid
       },
     },
   },
+  "/blocks/latest/txs/cbor": {
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cbor": "a10081825820cccfe2be401c85342497f6e1e4a241629790b0fb7f2af5f18441779d11f25b1f5840c38a93d63faac9335ecc2f24ead7ca2d46a6637f354ee707bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305",
+            "tx_hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
+          },
+          {
+            "cbor": "bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305",
+            "tx_hash": "4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cbor": {
+              "description": "CBOR representation of the transaction data",
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Hash of the transaction",
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cbor",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
   "/blocks/slot/{slot_number}": {
     "params": {
       "properties": {

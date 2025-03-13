@@ -310,7 +310,10 @@ paths:
     $ref: ./paths/api/blocks/latest/index.yaml
 
   /blocks/latest/txs:
-    $ref: ./paths/api/blocks/latest/txs.yaml
+    $ref: ./paths/api/blocks/latest/txs/index.yaml
+
+  /blocks/latest/txs/cbor:
+    $ref: ./paths/api/blocks/latest/txs/cbor.yaml
 
   /blocks/{hash_or_number}:
     $ref: ./paths/api/blocks/{hash_or_number}/index.yaml

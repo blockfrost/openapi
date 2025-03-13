@@ -455,6 +455,63 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /blocks/latest/txs/cbor:
+    get:
+      tags:
+        - Cardano » Blocks
+      summary: Latest block transactions with CBOR data
+      description: Return the transactions within the latest block, including CBOR representations.
+      parameters:
+        - in: query
+          name: count
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+          description: The number of results displayed on one page.
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 21474836
+            default: 1
+          description: The page number for listing the results.
+        - in: query
+          name: order
+          required: false
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+          description: |
+            Ordered by tx index in the block.
+            The ordering of items from the point of view of the blockchain,
+            not the page listing itself. By default, we return oldest first, newest last.
+      responses:
+        '200':
+          description: Return the contents of the block with CBOR data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/block_content_txs_cbor'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '418':
+          $ref: '#/components/responses/418'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /blocks/{hash_or_number}:
     get:
       tags:
@@ -6238,6 +6295,25 @@ components:
         - 4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036
         - 52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f
         - e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b
+    block_content_txs_cbor:
+      type: array
+      items:
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+          cbor:
+            type: string
+            description: CBOR representation of the transaction data
+        required:
+          - tx_hash
+          - cbor
+      example:
+        - tx_hash: 8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b
+          cbor: a10081825820cccfe2be401c85342497f6e1e4a241629790b0fb7f2af5f18441779d11f25b1f5840c38a93d63faac9335ecc2f24ead7ca2d46a6637f354ee707bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305
+        - tx_hash: 4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036
+          cbor: bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305
     block_content_array:
       type: array
       items:

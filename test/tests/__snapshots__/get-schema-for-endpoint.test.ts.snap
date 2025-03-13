@@ -6458,8 +6458,21 @@ under which it is valid
           },
         ],
         "items": {
-          "description": "Hash of the transaction",
-          "type": "string",
+          "properties": {
+            "cbor": {
+              "description": "CBOR representation of the transaction data",
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Hash of the transaction",
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cbor",
+          ],
+          "type": "object",
         },
         "type": "array",
       },

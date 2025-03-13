@@ -256,6 +256,61 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/blocks/latest/txs/cbor": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Latest block transactions with CBOR data
+         * @description Return the transactions within the latest block, including CBOR representations.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description Ordered by tx index in the block.
+                     *     The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the contents of the block with CBOR data */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["block_content_txs_cbor"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/blocks/{hash_or_number}": {
         parameters: {
             query?: never;
@@ -6638,6 +6693,17 @@ export interface components {
          *       "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
          *     ] */
         block_content_txs: string[];
+        /** @example [
+         *       {
+         *         "tx_hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
+         *         "cbor": "a10081825820cccfe2be401c85342497f6e1e4a241629790b0fb7f2af5f18441779d11f25b1f5840c38a93d63faac9335ecc2f24ead7ca2d46a6637f354ee707bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305"
+         *       },
+         *       {
+         *         "tx_hash": "4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036",
+         *         "cbor": "bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305"
+         *       }
+         *     ] */
+        block_content_txs_cbor: string[];
         block_content_array: components["schemas"]["block_content"][];
         /** @example [
          *       {

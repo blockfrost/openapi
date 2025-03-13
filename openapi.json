@@ -8611,8 +8611,21 @@
       "block_content_txs_cbor": {
         "type": "array",
         "items": {
-          "type": "string",
-          "description": "Hash of the transaction"
+          "type": "object",
+          "properties": {
+            "tx_hash": {
+              "type": "string",
+              "description": "Hash of the transaction"
+            },
+            "cbor": {
+              "type": "string",
+              "description": "CBOR representation of the transaction data"
+            }
+          },
+          "required": [
+            "tx_hash",
+            "cbor"
+          ]
         },
         "example": [
           {

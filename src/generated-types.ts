@@ -6703,7 +6703,12 @@ export interface components {
          *         "cbor": "bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305"
          *       }
          *     ] */
-        block_content_txs_cbor: string[];
+        block_content_txs_cbor: {
+            /** @description Hash of the transaction */
+            tx_hash: string;
+            /** @description CBOR representation of the transaction data */
+            cbor: string;
+        }[];
         block_content_array: components["schemas"]["block_content"][];
         /** @example [
          *       {

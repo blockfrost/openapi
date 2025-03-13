@@ -6600,8 +6600,17 @@ components:
     block_content_txs_cbor:
       type: array
       items:
-        type: string
-        description: Hash of the transaction
+        type: object
+        properties:
+          tx_hash:
+            type: string
+            description: Hash of the transaction
+          cbor:
+            type: string
+            description: CBOR representation of the transaction data
+        required:
+          - tx_hash
+          - cbor
       example:
         - tx_hash: 8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b
           cbor: >-

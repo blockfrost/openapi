@@ -14,6 +14,7 @@ Unreleased changes are in the `master` branch.
 ### Added
 
 - `/blocks/latest/txs/cbor` endpoint
+- exposed new attributes `live_saturation`, `blocks_minted`, `declared_pledge`, `margin_cost`, `fixed_cost` and `metadata` in `/pools/metadata`
 
 ## [0.1.73] - 2025-01-30
 

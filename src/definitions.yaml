@@ -331,7 +331,10 @@ paths:
     $ref: ./paths/api/blocks/epoch/{epoch_number}/slot/{slot_number}/index.yaml
 
   /blocks/{hash_or_number}/txs:
-    $ref: ./paths/api/blocks/txs/index.yaml
+    $ref: ./paths/api/blocks/{hash_or_number}/txs/index.yaml
+
+  /blocks/{hash_or_number}/txs/cbor:
+    $ref: ./paths/api/blocks/{hash_or_number}/txs/cbor.yaml
 
   /blocks/{hash_or_number}/addresses:
     $ref: ./paths/api/blocks/addresses/index.yaml

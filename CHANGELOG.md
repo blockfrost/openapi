@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.75] - 2025-03-26
+
 ### Added
 
 - `/blocks/:hash_or_number/txs/cbor` endpoint

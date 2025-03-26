@@ -1,8 +1,8 @@
 get:
   tags:
     - Cardano » Blocks
-  summary: Block transactions
-  description: Return the transactions within the block.
+  summary: Block transactions with CBOR data
+  description: Return the transactions within the block, including CBOR representations.
   parameters:
     - in: path
       name: hash_or_number
@@ -43,20 +43,20 @@ get:
         not the page listing itself. By default, we return oldest first, newest last.
   responses:
     "200":
-      description: Return the contents of the block
+      description: Return the contents of the block with CBOR data
       content:
         application/json:
           schema:
-            $ref: ../../../../schemas/blocks/block_content_txs.yaml
+            $ref: ../../../../../schemas/blocks/block_content_txs_cbor.yaml
     "400":
-      $ref: ../../../../responses/errors/400.yaml
+      $ref: ../../../../../responses/errors/400.yaml
     "403":
-      $ref: ../../../../responses/errors/403.yaml
+      $ref: ../../../../../responses/errors/403.yaml
     "404":
-      $ref: ../../../../responses/errors/404.yaml
+      $ref: ../../../../../responses/errors/404.yaml
     "429":
-      $ref: ../../../../responses/errors/429.yaml
+      $ref: ../../../../../responses/errors/429.yaml
     "418":
-      $ref: ../../../../responses/errors/418.yaml
+      $ref: ../../../../../responses/errors/418.yaml
     "500":
-      $ref: ../../../../responses/errors/500.yaml
+      $ref: ../../../../../responses/errors/500.yaml

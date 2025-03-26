@@ -647,6 +647,67 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/blocks/{hash_or_number}/txs/cbor": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Block transactions with CBOR data
+         * @description Return the transactions within the block, including CBOR representations.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description Ordered by tx index in the block.
+                     *     The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path: {
+                    /**
+                     * @description Hash of the requested block.
+                     * @example 4873401
+                     */
+                    hash_or_number: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the contents of the block with CBOR data */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["block_content_txs_cbor"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/blocks/{hash_or_number}/addresses": {
         parameters: {
             query?: never;

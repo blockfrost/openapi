@@ -12,12 +12,13 @@
   ],
   "scripts": {
     "prepublish": "yarn build",
-    "build": "rimraf lib && yarn tsc && yarn bundle && yarn generate-types && yarn generate-json-schema",
+    "build": "yarn sync-version && rimraf lib && yarn tsc && yarn bundle && yarn generate-types && yarn generate-json-schema",
     "copy-spec": "cp ./openapi.yaml ./docs/blockfrost-openapi.yaml",
     "lint": "scalar validate ./src/definitions.yaml",
     "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn redocly bundle -o ./openapi.json ./openapi.yaml && yarn copy-spec",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
+    "sync-version": "ts-node ./src/scripts/sync-version.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
@@ -28,6 +29,7 @@
     "@vitest/coverage-v8": "2.1.8",
     "openapi-merge-cli": "^1.3.2",
     "openapi-typescript": "7.4.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "vitest": "2.1.8"
   },

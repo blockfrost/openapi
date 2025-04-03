@@ -9,6 +9,17 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.76] - 2025-04-03
+
+### Fixed
+
+- nix-shell commands
+
+### Added
+
+- rust types
+- exposed new attributes `live_saturation`, `blocks_minted`, `declared_pledge`, `margin_cost`, `fixed_cost` and `metadata` in `/pools/extended`
+
 ## [0.1.75] - 2025-03-26
 
 ### Added

@@ -137,3 +137,4 @@ dist
 
 rust/src/docs
 rust/target
+rust/docs

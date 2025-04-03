@@ -4,6 +4,7 @@ stdenv.mkDerivation {
   name = "openapi";
   buildInputs = [
     nodejs_20
+    pkgs.openjdk21
     (yarn.override { nodejs = nodejs_20; })
   ];
   shellHook = ''
@@ -11,8 +12,7 @@ stdenv.mkDerivation {
     yarn
     echo "Rebuilding docs"
     yarn build
-    yarn run bundle && yarn run generate-docs && yarn run generate-types
-    echo -e "\nDON'T FORGET TO RUN yarn build && yarn run bundle && yarn run generate-docs && yarn run generate-types"
-    echo "yarn build && yarn run bundle && yarn run generate-docs && yarn run generate-types"
+    yarn run build
+    echo -e "\nDON'T FORGET TO RUN yarn build after changing files"
   '';
 }

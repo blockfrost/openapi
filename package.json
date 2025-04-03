@@ -16,13 +16,16 @@
     "copy-spec": "cp ./openapi.yaml ./docs/blockfrost-openapi.yaml",
     "lint": "scalar validate ./src/definitions.yaml",
     "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn redocly bundle -o ./openapi.json ./openapi.yaml && yarn copy-spec",
-    "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
+    "generate-types": "yarn generate-types:typescript && yarn generate-types:rust",
+    "generate-types:typescript": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
+    "generate-types:rust": "openapi-generator-cli generate -i openapi.yaml -g rust -o ./rust --global-property models",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
     "sync-version": "ts-node ./src/scripts/sync-version.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.18.4",
     "@redocly/cli": "1.26.0",
     "@scalar/cli": "^0.2.265",
     "@types/node": "^22.10.2",

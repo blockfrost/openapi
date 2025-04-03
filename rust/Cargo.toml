@@ -4,7 +4,6 @@ description = "Blockfrost is an API as a service that allows users to interact w
 version = "0.1.75"
 authors = ["contact@blockfrost.io"]
 edition = "2021"
-build = "build.rs"
 license = "Apache-2.0"
 
 [dependencies]

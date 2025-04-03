@@ -18578,20 +18578,135 @@ relative to the start of the network
         "example": [
           {
             "active_stake": "1541200000",
+            "blocks_minted": {
+              "description": "Total minted blocks",
+              "example": 69,
+              "type": "integer",
+            },
+            "declared_pledge": {
+              "description": "Stake pool certificate pledge",
+              "example": "5000000000",
+              "type": "string",
+            },
+            "fixed_cost": {
+              "description": "Fixed tax cost of the stake pool",
+              "example": "340000000",
+              "type": "string",
+            },
             "hex": "2f355f79ee007502d116ecb07e36f985b34cebf2d84118f5c6b455a1",
+            "live_saturation": {
+              "example": 0.93,
+              "type": "number",
+            },
             "live_stake": "1541400000",
+            "margin_cost": {
+              "description": "Margin tax cost of the stake pool",
+              "example": 0.05,
+              "type": "number",
+            },
+            "metadata": {
+              "properties": {
+                "description": {
+                  "description": "Description of the stake pool",
+                  "example": "The best pool ever",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "hash": {
+                  "description": "Hash of the metadata file",
+                  "example": "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "homepage": {
+                  "description": "Home page of the stake pool",
+                  "example": "https://stakentus.com/",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "name": {
+                  "description": "Name of the stake pool",
+                  "example": "Stake Nuts",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "ticker": {
+                  "description": "Ticker of the stake pool",
+                  "example": "NUTS",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "url": {
+                  "description": "URL to the stake pool metadata",
+                  "example": "https://stakenuts.com/mainnet.json",
+                  "nullable": true,
+                  "type": "string",
+                },
+              },
+              "type": "object",
+            },
             "pool_id": "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q",
           },
           {
             "active_stake": "22200000",
+            "blocks_minted": {
+              "description": "Total minted blocks",
+              "example": 69,
+              "type": "integer",
+            },
+            "declared_pledge": {
+              "description": "Stake pool certificate pledge",
+              "example": "5000000000",
+              "type": "string",
+            },
+            "fixed_cost": {
+              "description": "Fixed tax cost of the stake pool",
+              "example": "340000000",
+              "type": "string",
+            },
             "hex": "6b3fda88053dc2cee18a7c2736f032182fcc78a2fe912e869aa4edcd",
+            "live_saturation": {
+              "example": 0.93,
+              "type": "number",
+            },
             "live_stake": "48955550",
+            "margin_cost": {
+              "description": "Margin tax cost of the stake pool",
+              "example": 0.05,
+              "type": "number",
+            },
+            "metadata": null,
             "pool_id": "pool1dvla4zq98hpvacv20snndupjrqhuc79zl6gjap565nku6et5zdx",
           },
           {
             "active_stake": "9989541215",
+            "blocks_minted": {
+              "description": "Total minted blocks",
+              "example": 69,
+              "type": "integer",
+            },
+            "declared_pledge": {
+              "description": "Stake pool certificate pledge",
+              "example": "5000000000",
+              "type": "string",
+            },
+            "fixed_cost": {
+              "description": "Fixed tax cost of the stake pool",
+              "example": "340000000",
+              "type": "string",
+            },
             "hex": "73318ec975cf1125a6367cbb1c9a406cbcb3e510e49d7c3aab14aa31",
+            "live_saturation": {
+              "example": 0.93,
+              "type": "number",
+            },
             "live_stake": "168445464878",
+            "margin_cost": {
+              "description": "Margin tax cost of the stake pool",
+              "example": 0.05,
+              "type": "number",
+            },
+            "metadata": null,
             "pool_id": "pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w",
           },
         ],
@@ -18602,15 +18717,90 @@ relative to the start of the network
               "example": "4200000000",
               "type": "string",
             },
+            "blocks_minted": {
+              "description": "Total minted blocks",
+              "example": 69,
+              "type": "integer",
+            },
+            "declared_pledge": {
+              "description": "Stake pool certificate pledge",
+              "example": "5000000000",
+              "type": "string",
+            },
+            "fixed_cost": {
+              "description": "Fixed tax cost of the stake pool",
+              "example": "340000000",
+              "type": "string",
+            },
             "hex": {
               "description": "Hexadecimal pool ID.",
               "example": "0f292fcaa02b8b2f9b3c8f9fd8e0bb21abedb692a6d5058df3ef2735",
               "type": "string",
             },
+            "live_saturation": {
+              "example": 0.93,
+              "type": "number",
+            },
             "live_stake": {
               "description": "Currently delegated amount",
               "example": "6900000000",
               "type": "string",
+            },
+            "margin_cost": {
+              "description": "Margin tax cost of the stake pool",
+              "example": 0.05,
+              "type": "number",
+            },
+            "metadata": {
+              "properties": {
+                "description": {
+                  "description": "Description of the stake pool",
+                  "example": "The best pool ever",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "hash": {
+                  "description": "Hash of the metadata file",
+                  "example": "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "homepage": {
+                  "description": "Home page of the stake pool",
+                  "example": "https://stakentus.com/",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "name": {
+                  "description": "Name of the stake pool",
+                  "example": "Stake Nuts",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "ticker": {
+                  "description": "Ticker of the stake pool",
+                  "example": "NUTS",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "url": {
+                  "description": "URL to the stake pool metadata",
+                  "example": "https://stakenuts.com/mainnet.json",
+                  "nullable": true,
+                  "type": "string",
+                },
+              },
+              "required": [
+                "pool_id",
+                "hex",
+                "url",
+                "hash",
+                "ticker",
+                "name",
+                "description",
+                "homepage",
+              ],
+              "type": "object",
             },
             "pool_id": {
               "description": "Bech32 encoded pool ID",
@@ -18623,6 +18813,11 @@ relative to the start of the network
             "hex",
             "active_stake",
             "live_stake",
+            "blocks_minted",
+            "live_saturation",
+            "declared_pledge",
+            "margin_cost",
+            "fixed_cost",
           ],
           "type": "object",
         },

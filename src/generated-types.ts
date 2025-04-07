@@ -7113,7 +7113,7 @@ export interface components {
             ratified_epoch: number | null;
             /** @description The epoch at which the proposal was enacted. Null if the proposal has not been enacted. */
             enacted_epoch: number | null;
-            /** @description The epoch at which the proposal was dropped. A proposal is dropped if it expires, is enacted, or if any of its dependencies expire. */
+            /** @description The epoch at which the proposal was dropped. A proposal is dropped if it expires or if any of its dependencies expire. */
             dropped_epoch: number | null;
             /** @description The epoch at which the proposal expired. Null if the proposal has not expired. */
             expired_epoch: number | null;

@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- `/governance/proposals/:tx_hash/:cert_index`: fixed description for `dropped_epoch`
+
 ## [0.1.76] - 2025-04-03
 
 ### Fixed

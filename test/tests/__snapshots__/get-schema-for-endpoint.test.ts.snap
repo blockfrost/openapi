@@ -12529,7 +12529,7 @@ under which it is valid
             "type": "string",
           },
           "dropped_epoch": {
-            "description": "The epoch at which the proposal was dropped. A proposal is dropped if it expires, is enacted, or if any of its dependencies expire.",
+            "description": "The epoch at which the proposal was dropped. A proposal is dropped if it expires or if any of its dependencies expire.",
             "nullable": true,
             "type": "integer",
           },

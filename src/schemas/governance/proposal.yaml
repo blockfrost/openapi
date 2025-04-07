@@ -41,7 +41,7 @@ properties:
   dropped_epoch:
     type: integer
     nullable: true
-    description: The epoch at which the proposal was dropped. A proposal is dropped if it expires, is enacted, or if any of its dependencies expire.
+    description: The epoch at which the proposal was dropped. A proposal is dropped if it expires or if any of its dependencies expire.
   expired_epoch:
     type: integer
     nullable: true

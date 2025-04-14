@@ -5,6 +5,7 @@ version = "0.1.75"
 authors = ["contact@blockfrost.io"]
 edition = "2021"
 license = "Apache-2.0"
+readme = "../README.md"
 
 [dependencies]
 serde = { version = "^1.0", features = ["derive"] }

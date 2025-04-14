@@ -555,4 +555,3 @@ cargo doc --open
 ## Author
 
 contact@blockfrost.io
-

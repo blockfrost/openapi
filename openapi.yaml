@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  version: 0.1.77
+  version: 0.1.78
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: 'https://staging.blockfrost.io/images/logo.svg'
@@ -10304,6 +10304,51 @@ components:
             type: string
             description: Hash of the transaction including retirement
             example: 252f622976d39e646815db75a77289cf16df4ad2b287dd8e3a889ce14c13d1a8
+        calidus_key:
+          type: object
+          nullable: true
+          description: Last valid Calidus key for the pool
+          properties:
+            id:
+              type: string
+              example: calidus15yt3nqapz799tvp2lt8adttt29k6xa2xnltahn655tu4sgcph42p7
+              description: A Bech32-encoded identifier derived from the calidus public key
+            pub_key:
+              type: string
+              example: 57758911253f6b31df2a87c10eb08a2c9b8450768cb8dd0d378d93f7c2e220f0
+              description: >-
+                The raw hexadecimal-encoded calidus public key used for
+                verification purposes
+            nonce:
+              type: integer
+              example: 149292000
+              description: >-
+                A unique number used once to prevent replay attacks and ensure
+                the uniqueness of the key registration
+            tx_hash:
+              type: string
+              example: f45ed21c6bc1832cf7f11f4bd6ee47ca9684b4f6f8ff8a398aa2df065eac0ba8
+              description: The transaction hash that submitted the Calidus key registration
+            block_height:
+              type: integer
+              example: 11548408
+              description: The block height at which this key registration was recorded
+            block_time:
+              type: integer
+              example: 1740858988
+              description: Block time of the key registration
+            epoch:
+              type: integer
+              example: 543
+              description: Epoch number of the key registration
+          required:
+            - id
+            - pub_key
+            - nonce
+            - tx_hash
+            - block_height
+            - block_time
+            - epoch
       required:
         - pool_id
         - hex
@@ -10324,6 +10369,7 @@ components:
         - owners
         - registration
         - retirement
+        - calidus_key
     pool_history:
       type: array
       items:

@@ -9680,6 +9680,44 @@ export interface components {
              *     ] */
             registration: string[];
             retirement: string[];
+            /** @description Last valid Calidus key for the pool */
+            calidus_key: {
+                /**
+                 * @description A Bech32-encoded identifier derived from the calidus public key
+                 * @example calidus15yt3nqapz799tvp2lt8adttt29k6xa2xnltahn655tu4sgcph42p7
+                 */
+                id: string;
+                /**
+                 * @description The raw hexadecimal-encoded calidus public key used for verification purposes
+                 * @example 57758911253f6b31df2a87c10eb08a2c9b8450768cb8dd0d378d93f7c2e220f0
+                 */
+                pub_key: string;
+                /**
+                 * @description A unique number used once to prevent replay attacks and ensure the uniqueness of the key registration
+                 * @example 149292000
+                 */
+                nonce: number;
+                /**
+                 * @description The transaction hash that submitted the Calidus key registration
+                 * @example f45ed21c6bc1832cf7f11f4bd6ee47ca9684b4f6f8ff8a398aa2df065eac0ba8
+                 */
+                tx_hash: string;
+                /**
+                 * @description The block height at which this key registration was recorded
+                 * @example 11548408
+                 */
+                block_height: number;
+                /**
+                 * @description Block time of the key registration
+                 * @example 1740858988
+                 */
+                block_time: number;
+                /**
+                 * @description Epoch number of the key registration
+                 * @example 543
+                 */
+                epoch: number;
+            } | null;
         };
         pool_history: {
             /**

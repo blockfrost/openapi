@@ -39,6 +39,7 @@ items:
       description: Fixed tax cost of the stake pool
     metadata:
       type: object
+      nullable: true
       properties:
         url:
           type: string
@@ -71,8 +72,6 @@ items:
           example: "https://stakentus.com/"
           description: Home page of the stake pool
       required:
-        - pool_id
-        - hex
         - url
         - hash
         - ticker
@@ -89,6 +88,7 @@ items:
     - declared_pledge
     - margin_cost
     - fixed_cost
+    - metadata
 example:
   - pool_id: "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q"
     hex: "2f355f79ee007502d116ecb07e36f985b34cebf2d84118f5c6b455a1"

@@ -9547,7 +9547,7 @@ export interface components {
              * @example 340000000
              */
             fixed_cost: string;
-            metadata?: {
+            metadata: {
                 /**
                  * @description URL to the stake pool metadata
                  * @example https://stakenuts.com/mainnet.json
@@ -9578,7 +9578,7 @@ export interface components {
                  * @example https://stakentus.com/
                  */
                 homepage: string | null;
-            };
+            } | null;
         }[];
         /** @example [
          *       {

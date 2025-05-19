@@ -18752,6 +18752,7 @@ relative to the start of the network
               "type": "number",
             },
             "metadata": {
+              "nullable": true,
               "properties": {
                 "description": {
                   "description": "Description of the stake pool",
@@ -18791,8 +18792,6 @@ relative to the start of the network
                 },
               },
               "required": [
-                "pool_id",
-                "hex",
                 "url",
                 "hash",
                 "ticker",
@@ -18818,6 +18817,7 @@ relative to the start of the network
             "declared_pledge",
             "margin_cost",
             "fixed_cost",
+            "metadata",
           ],
           "type": "object",
         },

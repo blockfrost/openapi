@@ -9,9 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.77] - 2025-05-19
+
 ### Fixed
 
 - `/governance/proposals/:tx_hash/:cert_index`: fixed description for `dropped_epoch`
+- cleaned up metadata in `/pools/extended` by removing unnecessary required fields
 
 ## [0.1.76] - 2025-04-03
 

@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.78] - 2025-05-23
+
 ### Added
 
 - Added support for calidus keys (CIP-0151) in `/pools/:pool_id` endpoint

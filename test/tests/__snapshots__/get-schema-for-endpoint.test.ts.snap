@@ -19381,6 +19381,57 @@ relative to the start of the network
             "example": 69,
             "type": "integer",
           },
+          "calidus_key": {
+            "description": "Last valid Calidus key for the pool",
+            "nullable": true,
+            "properties": {
+              "block_height": {
+                "description": "The block height at which this key registration was recorded",
+                "example": 11548408,
+                "type": "integer",
+              },
+              "block_time": {
+                "description": "Block time of the key registration",
+                "example": 1740858988,
+                "type": "integer",
+              },
+              "epoch": {
+                "description": "Epoch number of the key registration",
+                "example": 543,
+                "type": "integer",
+              },
+              "id": {
+                "description": "A Bech32-encoded identifier derived from the calidus public key",
+                "example": "calidus15yt3nqapz799tvp2lt8adttt29k6xa2xnltahn655tu4sgcph42p7",
+                "type": "string",
+              },
+              "nonce": {
+                "description": "A unique number used once to prevent replay attacks and ensure the uniqueness of the key registration",
+                "example": 149292000,
+                "type": "integer",
+              },
+              "pub_key": {
+                "description": "The raw hexadecimal-encoded calidus public key used for verification purposes",
+                "example": "57758911253f6b31df2a87c10eb08a2c9b8450768cb8dd0d378d93f7c2e220f0",
+                "type": "string",
+              },
+              "tx_hash": {
+                "description": "The transaction hash that submitted the Calidus key registration",
+                "example": "f45ed21c6bc1832cf7f11f4bd6ee47ca9684b4f6f8ff8a398aa2df065eac0ba8",
+                "type": "string",
+              },
+            },
+            "required": [
+              "id",
+              "pub_key",
+              "nonce",
+              "tx_hash",
+              "block_height",
+              "block_time",
+              "epoch",
+            ],
+            "type": "object",
+          },
           "declared_pledge": {
             "description": "Stake pool certificate pledge",
             "example": "5000000000",
@@ -19488,6 +19539,7 @@ relative to the start of the network
           "owners",
           "registration",
           "retirement",
+          "calidus_key",
         ],
         "type": "object",
       },

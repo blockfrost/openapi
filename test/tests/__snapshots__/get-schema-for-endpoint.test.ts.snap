@@ -12508,12 +12508,14 @@ under which it is valid
       "200": {
         "example": {
           "cert_index": 1,
-          "deposit": 12000,
+          "deposit": "12000",
           "dropped_epoch": null,
           "enacted_epoch": 123,
           "expiration": 120,
           "expired_epoch": null,
-          "governance_description": "TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60")},Coin 20000000)])",
+          "governance_description": {
+            "tag": "InfoAction",
+          },
           "governance_type": "treasury_withdrawals",
           "ratified_epoch": null,
           "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",

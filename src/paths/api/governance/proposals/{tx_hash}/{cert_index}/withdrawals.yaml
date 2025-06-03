@@ -2,7 +2,7 @@ get:
   tags:
     - Cardano » Governance
   summary: Specific withdrawals proposal
-  description: Parameters withdrawals details.
+  description: Withdrawal proposal details.
   parameters:
     - in: path
       name: tx_hash

@@ -1374,7 +1374,7 @@ paths:
       tags:
         - Cardano » Governance
       summary: Specific withdrawals proposal
-      description: Parameters withdrawals details.
+      description: Withdrawal proposal details.
       parameters:
         - in: path
           name: tx_hash
@@ -6803,9 +6803,10 @@ components:
         tx_hash: 2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531
         cert_index: 1
         governance_type: treasury_withdrawals
-        deposit: 12000
+        deposit: '12000'
         return_address: stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz
-        governance_description: TreasuryWithdrawals (fromList [(RewardAcnt {getRwdNetwork = Testnet, getRwdCred = KeyHashObj (KeyHash "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60")},Coin 20000000)])
+        governance_description:
+          tag: InfoAction
         ratified_epoch: null
         enacted_epoch: 123
         dropped_epoch: null

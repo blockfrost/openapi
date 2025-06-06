@@ -7030,7 +7030,7 @@ export interface components {
              * @description Action in the certificate
              * @enum {string}
              */
-            action: "registered" | "deregistered";
+            action: "registered" | "deregistered" | "updated";
         }[];
         /** @example [
          *       {

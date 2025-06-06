@@ -11985,6 +11985,7 @@ under which it is valid
               "enum": [
                 "registered",
                 "deregistered",
+                "updated",
               ],
               "type": "string",
             },

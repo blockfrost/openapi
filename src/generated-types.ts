@@ -6895,9 +6895,9 @@ export interface components {
             active_epoch: number | null;
             /** @description Flag which shows if this DRep credentials are a script hash */
             has_script: boolean;
-            /** @description Indicates the registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`. */
+            /** @description Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`. */
             retired: boolean;
-            /** @description Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
+            /** @description Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;
@@ -7030,7 +7030,7 @@ export interface components {
              * @description Action in the certificate
              * @enum {string}
              */
-            action: "registered" | "deregistered";
+            action: "registered" | "deregistered" | "updated";
         }[];
         /** @example [
          *       {

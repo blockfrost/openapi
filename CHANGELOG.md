@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.79] - 2025-06-06
+
+### Fixed
+
+- Added action `updated` to DReps updates `/accounts/:drep_id/updates`
+
 ## [0.1.78] - 2025-05-23
 
 ### Added

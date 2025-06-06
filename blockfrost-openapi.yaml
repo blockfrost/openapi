@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.78
+  version: 0.1.79
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -6510,10 +6510,10 @@ components:
           description: Flag which shows if this DRep credentials are a script hash
         retired:
           type: boolean
-          description: Indicates the registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`.
+          description: Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`.
         expired:
           type: boolean
-          description: Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)
+          description: Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)
         last_active_epoch:
           type: integer
           nullable: true
@@ -6663,6 +6663,7 @@ components:
             enum:
               - registered
               - deregistered
+              - updated
             description: Action in the certificate
         required:
           - tx_hash

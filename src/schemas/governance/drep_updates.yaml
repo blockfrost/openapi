@@ -10,7 +10,7 @@ items:
       description: Index of the certificate within the update transaction.
     action:
       type: string
-      enum: [registered, deregistered]
+      enum: [registered, deregistered, updated]
       description: Action in the certificate
   required:
     - tx_hash

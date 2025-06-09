@@ -11353,7 +11353,7 @@ under which it is valid
             "type": "string",
           },
           "expired": {
-            "description": "Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter \`drep_activity\`)",
+            "description": "Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter \`drep_activity\`)",
             "type": "boolean",
           },
           "has_script": {
@@ -11370,7 +11370,7 @@ under which it is valid
             "type": "integer",
           },
           "retired": {
-            "description": "Indicates the registration state of the DRep. Set to \`true\` if the DRep has been deregistered; otherwise, \`false\`.",
+            "description": "Registration state of the DRep. Set to \`true\` if the DRep has been deregistered; otherwise, \`false\`.",
             "type": "boolean",
           },
         },
@@ -11985,6 +11985,7 @@ under which it is valid
               "enum": [
                 "registered",
                 "deregistered",
+                "updated",
               ],
               "type": "string",
             },

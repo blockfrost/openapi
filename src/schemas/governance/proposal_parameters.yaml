@@ -1,5 +1,8 @@
 type: object
 properties:
+  id:
+    type: string
+    description: Governance Action Identifier (CIP-0129)
   tx_hash:
     type: string
     description: Off-chain metadata of a proposal with a specific transaction hash
@@ -321,6 +324,7 @@ properties:
       - pvt_p_p_security_group
       - min_fee_ref_script_cost_per_byte
 required:
+  - id
   - tx_hash
   - cert_index
   - parameters

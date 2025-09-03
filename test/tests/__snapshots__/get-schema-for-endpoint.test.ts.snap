@@ -12340,11 +12340,13 @@ under which it is valid
           {
             "cert_index": 1,
             "governance_type": "treasury_withdrawals",
+            "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
             "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
           },
           {
             "cert_index": 4,
             "governance_type": "no_confidence",
+            "id": "gov_action1zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3zyx3",
             "tx_hash": "71317e951b20aa46e9fbf45a46a6e950d5723a481225519655bf6c60",
           },
         ],
@@ -12367,12 +12369,17 @@ under which it is valid
               ],
               "type": "string",
             },
+            "id": {
+              "description": "Governance Action Identifier (CIP-0129)",
+              "type": "string",
+            },
             "tx_hash": {
               "description": "Hash of the proposal transaction.",
               "type": "string",
             },
           },
           "required": [
+            "id",
             "tx_hash",
             "cert_index",
             "governance_type",
@@ -12493,13 +12500,10 @@ under which it is valid
       },
     },
   },
-  "/governance/proposals/{tx_hash}/{cert_index}": {
+  "/governance/proposals/{gov_action_id}": {
     "params": {
       "properties": {
-        "cert_index": {
-          "type": "integer",
-        },
-        "tx_hash": {
+        "gov_action_id": {
           "type": "string",
         },
       },
@@ -12518,6 +12522,7 @@ under which it is valid
             "tag": "InfoAction",
           },
           "governance_type": "treasury_withdrawals",
+          "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
           "ratified_epoch": null,
           "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
           "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
@@ -12569,6 +12574,10 @@ under which it is valid
             ],
             "type": "string",
           },
+          "id": {
+            "description": "Governance Action Identifier (CIP-0129)",
+            "type": "string",
+          },
           "ratified_epoch": {
             "description": "The epoch at which the proposal was ratified. Null if the proposal has not been ratified.",
             "nullable": true,
@@ -12584,6 +12593,7 @@ under which it is valid
           },
         },
         "required": [
+          "id",
           "tx_hash",
           "cert_index",
           "governance_type",
@@ -12710,13 +12720,10 @@ under which it is valid
       },
     },
   },
-  "/governance/proposals/{tx_hash}/{cert_index}/metadata": {
+  "/governance/proposals/{gov_action_id}/metadata": {
     "params": {
       "properties": {
-        "cert_index": {
-          "type": "integer",
-        },
-        "tx_hash": {
+        "gov_action_id": {
           "type": "string",
         },
       },
@@ -12728,6 +12735,7 @@ under which it is valid
           "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6d6423222c0a2020202022434950313038223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130382f524541444d452e6d6423222c0a202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d222c0a2020202022626f6479223a207b0a20202020202022406964223a20224349503130383a626f6479222c0a2020202020202240636f6e74657874223a207b0a2020202020202020227265666572656e636573223a207b0a2020202020202020202022406964223a20224349503130383a7265666572656e636573222c0a202020202020202020202240636f6e7461696e6572223a202240736574222c0a202020202020202020202240636f6e74657874223a207b0a20202020202020202020202022476f7665726e616e63654d65746164617461223a20224349503130303a476f7665726e616e63654d657461646174615265666572656e6365222c0a202020202020202020202020224f74686572223a20224349503130303a4f746865725265666572656e6365222c0a202020202020202020202020226c6162656c223a20224349503130303a7265666572656e63652d6c6162656c222c0a20202020202020202020202022757269223a20224349503130303a7265666572656e63652d757269222c0a202020202020202020202020227265666572656e636548617368223a207b0a202020202020202020202020202022406964223a20224349503130383a7265666572656e636548617368222c0a20202020202020202020202020202240636f6e74657874223a207b0a202020202020202020202020202020202268617368446967657374223a20224349503130383a68617368446967657374222c0a202020202020202020202020202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d220a20202020202020202020202020207d0a2020202020202020202020207d0a202020202020202020207d0a20202020202020207d2c0a2020202020202020227469746c65223a20224349503130383a7469746c65222c0a2020202020202020226162737472616374223a20224349503130383a6162737472616374222c0a2020202020202020226d6f7469766174696f6e223a20224349503130383a6d6f7469766174696f6e222c0a202020202020202022726174696f6e616c65223a20224349503130383a726174696f6e616c65220a2020202020207d0a202020207d2c0a2020202022617574686f7273223a207b0a20202020202022406964223a20224349503130303a617574686f7273222c0a2020202020202240636f6e7461696e6572223a202240736574222c0a2020202020202240636f6e74657874223a207b0a2020202020202020226e616d65223a2022687474703a2f2f786d6c6e732e636f6d2f666f61662f302e312f6e616d65222c0a2020202020202020227769746e657373223a207b0a2020202020202020202022406964223a20224349503130303a7769746e657373222c0a202020202020202020202240636f6e74657874223a207b0a202020202020202020202020227769746e657373416c676f726974686d223a20224349503130303a7769746e657373416c676f726974686d222c0a202020202020202020202020227075626c69634b6579223a20224349503130303a7075626c69634b6579222c0a202020202020202020202020227369676e6174757265223a20224349503130303a7369676e6174757265220a202020202020202020207d0a20202020202020207d0a2020202020207d0a202020207d0a20207d2c0a20202268617368416c676f726974686d223a2022626c616b6532622d323536222c0a202022626f6479223a207b0a20202020227469746c65223a202248617264666f726b20746f2050726f746f636f6c2076657273696f6e203130222c0a20202020226162737472616374223a20224c6574277320686176652073616e63686f4e657420696e2066756c6c20676f7665726e616e636520617320736f6f6e20617320706f737369626c65222c0a20202020226d6f7469766174696f6e223a2022505639206973206e6f742061732066756e2061732050563130222c0a2020202022726174696f6e616c65223a20224c65742773206b6565702074657374696e67207374756666222c0a20202020227265666572656e636573223a205b0a2020202020207b0a2020202020202020224074797065223a20224f74686572222c0a2020202020202020226c6162656c223a202248617264666f726b20746f2050563130222c0a202020202020202022757269223a2022220a2020202020207d0a202020205d0a20207d2c0a202022617574686f7273223a205b0a202020207b0a202020202020226e616d65223a20224361726c6f73222c0a202020202020227769746e657373223a207b0a2020202020202020227769746e657373416c676f726974686d223a202265643235353139222c0a2020202020202020227075626c69634b6579223a202237656130396133346165626231336339383431633731333937623163616266656335646466393530343035323933646565343936636163326634333734383061222c0a2020202020202020227369676e6174757265223a20226134373639383562346363306434353766323437373937363131373939613666366138306663386362376563396463623561383232333838386430363138653330646531363566336438363963346130643931303764386135623631326164376335653432343431393037663562393137393666306437313837643634613031220a2020202020207d0a202020207d0a20205d0a7d",
           "cert_index": 2,
           "hash": "ffa226f3863aca006172d559cf46bb8b883a47233962ae2fc94c158d7de6fa81",
+          "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
           "json_metadata": {
             "@context": {
               "@language": "en-us",
@@ -12807,6 +12815,7 @@ under which it is valid
         "properties": {
           "bytes": {
             "description": "Content of the metadata (raw)",
+            "nullable": true,
             "type": "string",
           },
           "cert_index": {
@@ -12816,6 +12825,10 @@ under which it is valid
           "hash": {
             "description": "Hash of the metadata file",
             "example": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"",
+            "type": "string",
+          },
+          "id": {
+            "description": "Governance Action Identifier (CIP-0129)",
             "type": "string",
           },
           "json_metadata": {
@@ -12857,6 +12870,7 @@ under which it is valid
           },
         },
         "required": [
+          "id",
           "tx_hash",
           "cert_index",
           "url",
@@ -12978,13 +12992,10 @@ under which it is valid
       },
     },
   },
-  "/governance/proposals/{tx_hash}/{cert_index}/parameters": {
+  "/governance/proposals/{gov_action_id}/parameters": {
     "params": {
       "properties": {
-        "cert_index": {
-          "type": "integer",
-        },
-        "tx_hash": {
+        "gov_action_id": {
           "type": "string",
         },
       },
@@ -12996,6 +13007,10 @@ under which it is valid
           "cert_index": {
             "description": "Off-chain metadata of a proposal with a specific transaction cert_index",
             "type": "integer",
+          },
+          "id": {
+            "description": "Governance Action Identifier (CIP-0129)",
+            "type": "string",
           },
           "parameters": {
             "properties": {
@@ -13381,6 +13396,1435 @@ under which it is valid
           },
         },
         "required": [
+          "id",
+          "tx_hash",
+          "cert_index",
+          "parameters",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{gov_action_id}/votes": {
+    "params": {
+      "properties": {
+        "gov_action_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "cert_index": 2,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+            "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+            "voter_role": "drep",
+          },
+          {
+            "cert_index": 3,
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "abstain",
+            "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+            "voter_role": "constitutional_committee",
+          },
+        ],
+        "items": {
+          "properties": {
+            "cert_index": {
+              "description": "Index of the certificate within the voting transaction.",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Hash of the voting transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+            "voter": {
+              "description": "The actual voter.",
+              "type": "string",
+            },
+            "voter_role": {
+              "description": "The role of the voter. Can be one of constitutional_committee, drep, spo.",
+              "enum": [
+                "constitutional_committee",
+                "drep",
+                "spo",
+              ],
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "cert_index",
+            "voter_role",
+            "voter",
+            "vote",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{gov_action_id}/withdrawals": {
+    "params": {
+      "properties": {
+        "gov_action_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "amount": "454541212442",
+            "stake_address": "stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7",
+          },
+          {
+            "amount": "97846969",
+            "stake_address": "stake1xx2g2c9dx2nhhehyrezyxpkstoppcqmu9hk63qgfkccw5rqttygt2",
+          },
+        ],
+        "items": {
+          "properties": {
+            "amount": {
+              "description": "Withdrawal amount in Lovelaces",
+              "type": "string",
+            },
+            "stake_address": {
+              "description": "Bech32 stake address",
+              "example": "stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7",
+              "type": "string",
+            },
+          },
+          "required": [
+            "stake_address",
+            "amount",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{tx_hash}/{cert_index}": {
+    "params": {
+      "properties": {
+        "cert_index": {
+          "type": "integer",
+        },
+        "tx_hash": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": {
+          "cert_index": 1,
+          "deposit": "12000",
+          "dropped_epoch": null,
+          "enacted_epoch": 123,
+          "expiration": 120,
+          "expired_epoch": null,
+          "governance_description": {
+            "tag": "InfoAction",
+          },
+          "governance_type": "treasury_withdrawals",
+          "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+          "ratified_epoch": null,
+          "return_address": "stake_test1urd3hs7rlxwwdzthe6hj026dmyt3y0heuulctscyydh2kgck6nkmz",
+          "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+        },
+        "properties": {
+          "cert_index": {
+            "description": "Index of the certificate within the proposal transaction.",
+            "type": "integer",
+          },
+          "deposit": {
+            "description": "The deposit amount paid for this proposal.",
+            "type": "string",
+          },
+          "dropped_epoch": {
+            "description": "The epoch at which the proposal was dropped. A proposal is dropped if it expires or if any of its dependencies expire.",
+            "nullable": true,
+            "type": "integer",
+          },
+          "enacted_epoch": {
+            "description": "The epoch at which the proposal was enacted. Null if the proposal has not been enacted.",
+            "nullable": true,
+            "type": "integer",
+          },
+          "expiration": {
+            "description": "The epoch at which this governance action will expire.",
+            "type": "integer",
+          },
+          "expired_epoch": {
+            "description": "The epoch at which the proposal expired. Null if the proposal has not expired.",
+            "nullable": true,
+            "type": "integer",
+          },
+          "governance_description": {
+            "additionalProperties": true,
+            "description": "An object describing the content of this GovActionProposal in a readable way.",
+            "nullable": true,
+            "type": "object",
+          },
+          "governance_type": {
+            "description": "Type of proposal.",
+            "enum": [
+              "hard_fork_initiation",
+              "new_committee",
+              "new_constitution",
+              "info_action",
+              "no_confidence",
+              "parameter_change",
+              "treasury_withdrawals",
+            ],
+            "type": "string",
+          },
+          "id": {
+            "description": "Governance Action Identifier (CIP-0129)",
+            "type": "string",
+          },
+          "ratified_epoch": {
+            "description": "The epoch at which the proposal was ratified. Null if the proposal has not been ratified.",
+            "nullable": true,
+            "type": "integer",
+          },
+          "return_address": {
+            "description": "Bech32 stake address of the reward address to receive the deposit when it is repaid.",
+            "type": "string",
+          },
+          "tx_hash": {
+            "description": "Hash of the proposal transaction.",
+            "type": "string",
+          },
+        },
+        "required": [
+          "id",
+          "tx_hash",
+          "cert_index",
+          "governance_type",
+          "deposit",
+          "return_address",
+          "governance_description",
+          "ratified_epoch",
+          "enacted_epoch",
+          "dropped_epoch",
+          "expired_epoch",
+          "expiration",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{tx_hash}/{cert_index}/metadata": {
+    "params": {
+      "properties": {
+        "cert_index": {
+          "type": "integer",
+        },
+        "tx_hash": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": {
+          "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6d6423222c0a2020202022434950313038223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130382f524541444d452e6d6423222c0a202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d222c0a2020202022626f6479223a207b0a20202020202022406964223a20224349503130383a626f6479222c0a2020202020202240636f6e74657874223a207b0a2020202020202020227265666572656e636573223a207b0a2020202020202020202022406964223a20224349503130383a7265666572656e636573222c0a202020202020202020202240636f6e7461696e6572223a202240736574222c0a202020202020202020202240636f6e74657874223a207b0a20202020202020202020202022476f7665726e616e63654d65746164617461223a20224349503130303a476f7665726e616e63654d657461646174615265666572656e6365222c0a202020202020202020202020224f74686572223a20224349503130303a4f746865725265666572656e6365222c0a202020202020202020202020226c6162656c223a20224349503130303a7265666572656e63652d6c6162656c222c0a20202020202020202020202022757269223a20224349503130303a7265666572656e63652d757269222c0a202020202020202020202020227265666572656e636548617368223a207b0a202020202020202020202020202022406964223a20224349503130383a7265666572656e636548617368222c0a20202020202020202020202020202240636f6e74657874223a207b0a202020202020202020202020202020202268617368446967657374223a20224349503130383a68617368446967657374222c0a202020202020202020202020202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d220a20202020202020202020202020207d0a2020202020202020202020207d0a202020202020202020207d0a20202020202020207d2c0a2020202020202020227469746c65223a20224349503130383a7469746c65222c0a2020202020202020226162737472616374223a20224349503130383a6162737472616374222c0a2020202020202020226d6f7469766174696f6e223a20224349503130383a6d6f7469766174696f6e222c0a202020202020202022726174696f6e616c65223a20224349503130383a726174696f6e616c65220a2020202020207d0a202020207d2c0a2020202022617574686f7273223a207b0a20202020202022406964223a20224349503130303a617574686f7273222c0a2020202020202240636f6e7461696e6572223a202240736574222c0a2020202020202240636f6e74657874223a207b0a2020202020202020226e616d65223a2022687474703a2f2f786d6c6e732e636f6d2f666f61662f302e312f6e616d65222c0a2020202020202020227769746e657373223a207b0a2020202020202020202022406964223a20224349503130303a7769746e657373222c0a202020202020202020202240636f6e74657874223a207b0a202020202020202020202020227769746e657373416c676f726974686d223a20224349503130303a7769746e657373416c676f726974686d222c0a202020202020202020202020227075626c69634b6579223a20224349503130303a7075626c69634b6579222c0a202020202020202020202020227369676e6174757265223a20224349503130303a7369676e6174757265220a202020202020202020207d0a20202020202020207d0a2020202020207d0a202020207d0a20207d2c0a20202268617368416c676f726974686d223a2022626c616b6532622d323536222c0a202022626f6479223a207b0a20202020227469746c65223a202248617264666f726b20746f2050726f746f636f6c2076657273696f6e203130222c0a20202020226162737472616374223a20224c6574277320686176652073616e63686f4e657420696e2066756c6c20676f7665726e616e636520617320736f6f6e20617320706f737369626c65222c0a20202020226d6f7469766174696f6e223a2022505639206973206e6f742061732066756e2061732050563130222c0a2020202022726174696f6e616c65223a20224c65742773206b6565702074657374696e67207374756666222c0a20202020227265666572656e636573223a205b0a2020202020207b0a2020202020202020224074797065223a20224f74686572222c0a2020202020202020226c6162656c223a202248617264666f726b20746f2050563130222c0a202020202020202022757269223a2022220a2020202020207d0a202020205d0a20207d2c0a202022617574686f7273223a205b0a202020207b0a202020202020226e616d65223a20224361726c6f73222c0a202020202020227769746e657373223a207b0a2020202020202020227769746e657373416c676f726974686d223a202265643235353139222c0a2020202020202020227075626c69634b6579223a202237656130396133346165626231336339383431633731333937623163616266656335646466393530343035323933646565343936636163326634333734383061222c0a2020202020202020227369676e6174757265223a20226134373639383562346363306434353766323437373937363131373939613666366138306663386362376563396463623561383232333838386430363138653330646531363566336438363963346130643931303764386135623631326164376335653432343431393037663562393137393666306437313837643634613031220a2020202020207d0a202020207d0a20205d0a7d",
+          "cert_index": 2,
+          "hash": "ffa226f3863aca006172d559cf46bb8b883a47233962ae2fc94c158d7de6fa81",
+          "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+          "json_metadata": {
+            "@context": {
+              "@language": "en-us",
+              "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+              "CIP108": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0108/README.md#",
+              "authors": {
+                "@container": "@set",
+                "@context": {
+                  "name": "http://xmlns.com/foaf/0.1/name",
+                  "witness": {
+                    "@context": {
+                      "publicKey": "CIP100:publicKey",
+                      "signature": "CIP100:signature",
+                      "witnessAlgorithm": "CIP100:witnessAlgorithm",
+                    },
+                    "@id": "CIP100:witness",
+                  },
+                },
+                "@id": "CIP100:authors",
+              },
+              "body": {
+                "@context": {
+                  "abstract": "CIP108:abstract",
+                  "motivation": "CIP108:motivation",
+                  "rationale": "CIP108:rationale",
+                  "references": {
+                    "@container": "@set",
+                    "@context": {
+                      "GovernanceMetadata": "CIP100:GovernanceMetadataReference",
+                      "Other": "CIP100:OtherReference",
+                      "label": "CIP100:reference-label",
+                      "referenceHash": {
+                        "@context": {
+                          "hashAlgorithm": "CIP100:hashAlgorithm",
+                          "hashDigest": "CIP108:hashDigest",
+                        },
+                        "@id": "CIP108:referenceHash",
+                      },
+                      "uri": "CIP100:reference-uri",
+                    },
+                    "@id": "CIP108:references",
+                  },
+                  "title": "CIP108:title",
+                },
+                "@id": "CIP108:body",
+              },
+              "hashAlgorithm": "CIP100:hashAlgorithm",
+            },
+            "authors": [
+              {
+                "name": "Carlos",
+                "witness": {
+                  "publicKey": "7ea09a34aebb13c9841c71397b1cabfec5ddf950405293dee496cac2f437480a",
+                  "signature": "a476985b4cc0d457f247797611799a6f6a80fc8cb7ec9dcb5a8223888d0618e30de165f3d869c4a0d9107d8a5b612ad7c5e42441907f5b91796f0d7187d64a01",
+                  "witnessAlgorithm": "ed25519",
+                },
+              },
+            ],
+            "body": {
+              "abstract": "Let's have sanchoNet in full governance as soon as possible",
+              "motivation": "PV9 is not as fun as PV10",
+              "rationale": "Let's keep testing stuff",
+              "references": [
+                {
+                  "@type": "Other",
+                  "label": "Hardfork to PV10",
+                  "uri": "",
+                },
+              ],
+              "title": "Hardfork to Protocol version 10",
+            },
+            "hashAlgorithm": "blake2b-256",
+          },
+          "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
+          "url": "https://raw.githubusercontent.com/carloslodelar/proposals/main/pv10.json",
+        },
+        "properties": {
+          "bytes": {
+            "description": "Content of the metadata (raw)",
+            "type": "string",
+          },
+          "cert_index": {
+            "description": "Off-chain metadata of a proposal with a specific transaction cert_index",
+            "type": "integer",
+          },
+          "hash": {
+            "description": "Hash of the metadata file",
+            "example": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"",
+            "type": "string",
+          },
+          "id": {
+            "description": "Governance Action Identifier (CIP-0129)",
+            "type": "string",
+          },
+          "json_metadata": {
+            "anyOf": [
+              {
+                "type": "string",
+              },
+              {
+                "additionalProperties": true,
+                "type": "object",
+              },
+              {
+                "items": {},
+                "type": "array",
+              },
+              {
+                "type": "integer",
+              },
+              {
+                "type": "number",
+              },
+              {
+                "type": "boolean",
+              },
+              {
+                "type": "null",
+              },
+            ],
+            "description": "Content of the JSON metadata (validated CIP-108)",
+          },
+          "tx_hash": {
+            "description": "Off-chain metadata of a proposal with a specific transaction hash",
+            "type": "string",
+          },
+          "url": {
+            "description": "URL to the proposal metadata",
+            "example": "https://abc.xyz/gov.json",
+            "type": "string",
+          },
+        },
+        "required": [
+          "id",
+          "tx_hash",
+          "cert_index",
+          "url",
+          "hash",
+          "json_metadata",
+          "bytes",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/proposals/{tx_hash}/{cert_index}/parameters": {
+    "params": {
+      "properties": {
+        "cert_index": {
+          "type": "integer",
+        },
+        "tx_hash": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "properties": {
+          "cert_index": {
+            "description": "Off-chain metadata of a proposal with a specific transaction cert_index",
+            "type": "integer",
+          },
+          "id": {
+            "description": "Governance Action Identifier (CIP-0129)",
+            "type": "string",
+          },
+          "parameters": {
+            "properties": {
+              "a0": {
+                "description": "Pool pledge influence",
+                "example": 0.3,
+                "nullable": true,
+                "type": "number",
+              },
+              "coins_per_utxo_size": {
+                "description": "Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.",
+                "example": "34482",
+                "nullable": true,
+                "type": "string",
+              },
+              "coins_per_utxo_word": {
+                "deprecated": true,
+                "description": "Cost per UTxO word for Alonzo. Cost per UTxO byte for Babbage and later.",
+                "example": "34482",
+                "nullable": true,
+                "type": "string",
+              },
+              "collateral_percent": {
+                "description": "The percentage of the transactions fee which must be provided as collateral when including non-native scripts",
+                "example": 150,
+                "nullable": true,
+                "type": "integer",
+              },
+              "committee_max_term_length": {
+                "description": "Constitutional committee term limits. New in 13.2-Conway.",
+                "format": "word64type",
+                "nullable": true,
+                "type": "string",
+              },
+              "committee_min_size": {
+                "description": "Minimal constitutional committee size. New in 13.2-Conway.",
+                "format": "word64type",
+                "nullable": true,
+                "type": "string",
+              },
+              "cost_models": {
+                "additionalProperties": true,
+                "description": "Cost models parameters for Plutus Core scripts in raw list form",
+                "example": {
+                  "PlutusV1": [
+                    197209,
+                    0,
+                  ],
+                  "PlutusV2": [
+                    197209,
+                    0,
+                  ],
+                },
+                "nullable": true,
+                "type": "object",
+              },
+              "decentralisation_param": {
+                "description": "Percentage of blocks produced by federated nodes",
+                "example": 0.5,
+                "nullable": true,
+                "type": "number",
+              },
+              "drep_activity": {
+                "description": "DRep activity period. New in 13.2-Conway.",
+                "format": "word64type",
+                "nullable": true,
+                "type": "string",
+              },
+              "drep_deposit": {
+                "description": "DRep deposit amount. New in 13.2-Conway.",
+                "format": "word64type",
+                "nullable": true,
+                "type": "string",
+              },
+              "dvt_committee_no_confidence": {
+                "description": "DRep Vote threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_committee_normal": {
+                "description": "DRep Vote threshold for new committee/threshold (normal state). New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_hard_fork_initiation": {
+                "description": "DRep Vote threshold for hard-fork initiation. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_motion_no_confidence": {
+                "description": "DRep Vote threshold for motion of no-confidence. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_p_p_economic_group": {
+                "description": "DRep Vote threshold for protocol parameter changes, economic group. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_p_p_gov_group": {
+                "description": "DRep Vote threshold for protocol parameter changes, governance group. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_p_p_network_group": {
+                "description": "DRep Vote threshold for protocol parameter changes, network group. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_p_p_technical_group": {
+                "description": "DRep Vote threshold for protocol parameter changes, technical group. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_treasury_withdrawal": {
+                "description": "DRep Vote threshold for treasury withdrawal. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "dvt_update_to_constitution": {
+                "description": "DRep Vote threshold for update to the Constitution. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "e_max": {
+                "description": "Epoch bound on pool retirement",
+                "example": 18,
+                "nullable": true,
+                "type": "integer",
+              },
+              "epoch": {
+                "description": "Epoch number",
+                "example": 225,
+                "nullable": true,
+                "type": "integer",
+              },
+              "extra_entropy": {
+                "description": "Seed for extra entropy",
+                "example": null,
+                "nullable": true,
+                "type": "string",
+              },
+              "gov_action_deposit": {
+                "description": "Governance action deposit. New in 13.2-Conway.",
+                "format": "word64type",
+                "nullable": true,
+                "type": "string",
+              },
+              "gov_action_lifetime": {
+                "description": "Governance action expiration. New in 13.2-Conway.",
+                "format": "word64type",
+                "nullable": true,
+                "type": "string",
+              },
+              "key_deposit": {
+                "description": "The amount of a key registration deposit in Lovelaces",
+                "example": "2000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "max_block_ex_mem": {
+                "description": "The maximum number of execution memory allowed to be used in a single block",
+                "example": "50000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "max_block_ex_steps": {
+                "description": "The maximum number of execution steps allowed to be used in a single block",
+                "example": "40000000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "max_block_header_size": {
+                "description": "Maximum block header size",
+                "example": 1100,
+                "nullable": true,
+                "type": "integer",
+              },
+              "max_block_size": {
+                "description": "Maximum block body size in Bytes",
+                "example": 65536,
+                "nullable": true,
+                "type": "integer",
+              },
+              "max_collateral_inputs": {
+                "description": "The maximum number of collateral inputs allowed in a transaction",
+                "example": 3,
+                "nullable": true,
+                "type": "integer",
+              },
+              "max_tx_ex_mem": {
+                "description": "The maximum number of execution memory allowed to be used in a single transaction",
+                "example": "10000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "max_tx_ex_steps": {
+                "description": "The maximum number of execution steps allowed to be used in a single transaction",
+                "example": "10000000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "max_tx_size": {
+                "description": "Maximum transaction size",
+                "example": 16384,
+                "nullable": true,
+                "type": "integer",
+              },
+              "max_val_size": {
+                "description": "The maximum Val size",
+                "example": "5000",
+                "nullable": true,
+                "type": "string",
+              },
+              "min_fee_a": {
+                "description": "The linear factor for the minimum fee calculation for given epoch",
+                "example": 44,
+                "nullable": true,
+                "type": "integer",
+              },
+              "min_fee_b": {
+                "description": "The constant factor for the minimum fee calculation",
+                "example": 155381,
+                "nullable": true,
+                "type": "integer",
+              },
+              "min_fee_ref_script_cost_per_byte": {
+                "nullable": true,
+                "type": "number",
+              },
+              "min_pool_cost": {
+                "description": "Minimum stake cost forced on the pool",
+                "example": "340000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "min_utxo": {
+                "description": "Minimum UTXO value",
+                "example": "1000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "n_opt": {
+                "description": "Desired number of pools",
+                "example": 150,
+                "nullable": true,
+                "type": "integer",
+              },
+              "pool_deposit": {
+                "description": "The amount of a pool registration deposit in Lovelaces",
+                "example": "500000000",
+                "nullable": true,
+                "type": "string",
+              },
+              "price_mem": {
+                "description": "The per word cost of script memory usage",
+                "example": 0.0577,
+                "nullable": true,
+                "type": "number",
+              },
+              "price_step": {
+                "description": "The cost of script execution step usage",
+                "example": 0.0000721,
+                "nullable": true,
+                "type": "number",
+              },
+              "protocol_major_ver": {
+                "description": "Accepted protocol major version",
+                "example": 2,
+                "nullable": true,
+                "type": "integer",
+              },
+              "protocol_minor_ver": {
+                "description": "Accepted protocol minor version",
+                "example": 0,
+                "nullable": true,
+                "type": "integer",
+              },
+              "pvt_committee_no_confidence": {
+                "description": "Pool Voting threshold for new committee/threshold (state of no-confidence). New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "pvt_committee_normal": {
+                "description": "Pool Voting threshold for new committee/threshold (normal state). New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "pvt_hard_fork_initiation": {
+                "description": "Pool Voting threshold for hard-fork initiation. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "pvt_motion_no_confidence": {
+                "description": "Pool Voting threshold for motion of no-confidence. New in 13.2-Conway.",
+                "nullable": true,
+                "type": "number",
+              },
+              "pvt_p_p_security_group": {
+                "description": "Pool Voting threshold for security-relevant protocol parameters changes.",
+                "nullable": true,
+                "type": "number",
+              },
+              "pvtpp_security_group": {
+                "deprecated": true,
+                "description": "Pool Voting threshold for security-relevant protocol parameters changes. Renamed to pvt_p_p_security_group.",
+                "nullable": true,
+                "type": "number",
+              },
+              "rho": {
+                "description": "Monetary expansion",
+                "example": 0.003,
+                "nullable": true,
+                "type": "number",
+              },
+              "tau": {
+                "description": "Treasury expansion",
+                "example": 0.2,
+                "nullable": true,
+                "type": "number",
+              },
+            },
+            "required": [
+              "min_fee_a",
+              "min_fee_b",
+              "max_block_size",
+              "max_tx_size",
+              "max_block_header_size",
+              "key_deposit",
+              "pool_deposit",
+              "e_max",
+              "n_opt",
+              "a0",
+              "rho",
+              "tau",
+              "decentralisation_param",
+              "extra_entropy",
+              "protocol_major_ver",
+              "protocol_minor_ver",
+              "min_utxo",
+              "min_pool_cost",
+              "cost_models",
+              "price_mem",
+              "price_step",
+              "max_tx_ex_mem",
+              "max_tx_ex_steps",
+              "max_block_ex_mem",
+              "max_block_ex_steps",
+              "max_val_size",
+              "collateral_percent",
+              "max_collateral_inputs",
+              "coins_per_utxo_size",
+              "coins_per_utxo_word",
+              "pvt_motion_no_confidence",
+              "pvt_committee_normal",
+              "pvt_committee_no_confidence",
+              "pvt_hard_fork_initiation",
+              "dvt_motion_no_confidence",
+              "dvt_committee_normal",
+              "dvt_committee_no_confidence",
+              "dvt_update_to_constitution",
+              "dvt_hard_fork_initiation",
+              "dvt_p_p_network_group",
+              "dvt_p_p_economic_group",
+              "dvt_p_p_technical_group",
+              "dvt_p_p_gov_group",
+              "dvt_treasury_withdrawal",
+              "committee_min_size",
+              "committee_max_term_length",
+              "gov_action_lifetime",
+              "gov_action_deposit",
+              "drep_deposit",
+              "drep_activity",
+              "pvtpp_security_group",
+              "pvt_p_p_security_group",
+              "min_fee_ref_script_cost_per_byte",
+            ],
+            "type": "object",
+          },
+          "tx_hash": {
+            "description": "Off-chain metadata of a proposal with a specific transaction hash",
+            "type": "string",
+          },
+        },
+        "required": [
+          "id",
           "tx_hash",
           "cert_index",
           "parameters",

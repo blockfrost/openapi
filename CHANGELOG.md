@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- Support for Governance Action Identifier (CIP-129)
+  - New endpoints for querying with Gov Action ID : `/governance/proposals/:gov_action_id`
+  - Proposal response now includes an `id` field containing the governance action identifier
+
 ## [0.1.79] - 2025-06-06
 
 ### Fixed

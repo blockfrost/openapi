@@ -382,6 +382,21 @@ paths:
   /governance/proposals/{tx_hash}/{cert_index}/metadata:
     $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/metadata.yaml
 
+  /governance/proposals/{gov_action_id}:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/index.yaml
+
+  /governance/proposals/{gov_action_id}/parameters:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/parameters.yaml
+
+  /governance/proposals/{gov_action_id}/withdrawals:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/withdrawals.yaml
+
+  /governance/proposals/{gov_action_id}/votes:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/votes.yaml
+
+  /governance/proposals/{gov_action_id}/metadata:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/metadata.yaml
+
   # epochs
 
   /epochs/latest:

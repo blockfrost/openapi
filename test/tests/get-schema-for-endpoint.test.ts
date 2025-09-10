@@ -242,6 +242,30 @@ describe('getSchemaForEndpoint', () => {
                   nullable: true,
                   type: 'string',
                 },
+                error: {
+                  description:
+                    'Present when metadata could not be fetched or validated.',
+                  properties: {
+                    code: {
+                      description: 'Stable machine-readable error code.',
+                      enum: [
+                        'HASH_MISMATCH',
+                        'CONNECTION_ERROR',
+                        'HTTP_RESPONSE_ERROR',
+                        'DECODE_ERROR',
+                        'SIZE_EXCEEDED',
+                        'UNKNOWN_ERROR',
+                      ],
+                      type: 'string',
+                    },
+                    message: {
+                      description: 'Human-readable description of the error.',
+                      type: 'string',
+                    },
+                  },
+                  required: ['code', 'message'],
+                  type: 'object',
+                },
                 hash: {
                   description: 'Hash of the metadata file',
                   example:
@@ -841,14 +865,14 @@ describe('getSchemaForEndpoint', () => {
 
   test('/utils/txs/evaluate/utxos', () => {
     expect(getSchemaForEndpoint('/utils/txs/evaluate/utxos')).toStrictEqual({
-      "querystring": {
-        "properties": {
-          "version": {
-            "default": 5,
-            "type": "number",
+      querystring: {
+        properties: {
+          version: {
+            default: 5,
+            type: 'number',
           },
         },
-        "type": "object",
+        type: 'object',
       },
       response: {
         '200': { type: 'object', additionalProperties: true },

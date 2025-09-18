@@ -32,6 +32,7 @@ properties:
   bytes:
     type: string
     description: Content of the metadata (raw)
+    nullable: true
 required:
   - id
   - tx_hash

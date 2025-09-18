@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.80] - 2025-09-18
+
 ### Added
 
 - Support for Governance Action Identifier (CIP-129)

@@ -14,6 +14,19 @@ Unreleased changes are in the `master` branch.
 - Support for Governance Action Identifier (CIP-129)
   - New endpoints for querying with Gov Action ID : `/governance/proposals/:gov_action_id`
   - Proposal response now includes an `id` field containing the governance action identifier
+- Exposed dbsync off-chain metadata fetch errors in metadata responses
+  - Applies to endpoints:
+    - `/pools/:pool_id/metadata`
+    - `/pools/extended`
+    - `/governance/proposals/:gov_action_id/metadata`
+  - Error object structure:
+    ```ts
+    {
+      "code": "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR",
+      "message": "Human-readable description of the error"
+    }
+    ```
+  - If metadata are available, the `error` field is omitted
 
 ## [0.1.79] - 2025-06-06
 

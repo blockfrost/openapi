@@ -12822,6 +12822,32 @@ under which it is valid
             "description": "Off-chain metadata of a proposal with a specific transaction cert_index",
             "type": "integer",
           },
+          "error": {
+            "description": "Present when metadata could not be fetched or validated.",
+            "properties": {
+              "code": {
+                "description": "Stable machine-readable error code.",
+                "enum": [
+                  "HASH_MISMATCH",
+                  "CONNECTION_ERROR",
+                  "HTTP_RESPONSE_ERROR",
+                  "DECODE_ERROR",
+                  "SIZE_EXCEEDED",
+                  "UNKNOWN_ERROR",
+                ],
+                "type": "string",
+              },
+              "message": {
+                "description": "Human-readable description of the error.",
+                "type": "string",
+              },
+            },
+            "required": [
+              "code",
+              "message",
+            ],
+            "type": "object",
+          },
           "hash": {
             "description": "Hash of the metadata file",
             "example": "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"",
@@ -20207,6 +20233,32 @@ relative to the start of the network
                   "nullable": true,
                   "type": "string",
                 },
+                "error": {
+                  "description": "Present when metadata could not be fetched or validated.",
+                  "properties": {
+                    "code": {
+                      "description": "Stable machine-readable error code.",
+                      "enum": [
+                        "HASH_MISMATCH",
+                        "CONNECTION_ERROR",
+                        "HTTP_RESPONSE_ERROR",
+                        "DECODE_ERROR",
+                        "SIZE_EXCEEDED",
+                        "UNKNOWN_ERROR",
+                      ],
+                      "type": "string",
+                    },
+                    "message": {
+                      "description": "Human-readable description of the error.",
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                  ],
+                  "type": "object",
+                },
                 "hash": {
                   "description": "Hash of the metadata file",
                   "example": "47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c",
@@ -21749,6 +21801,32 @@ relative to the start of the network
                 "example": "The best pool ever",
                 "nullable": true,
                 "type": "string",
+              },
+              "error": {
+                "description": "Present when metadata could not be fetched or validated.",
+                "properties": {
+                  "code": {
+                    "description": "Stable machine-readable error code.",
+                    "enum": [
+                      "HASH_MISMATCH",
+                      "CONNECTION_ERROR",
+                      "HTTP_RESPONSE_ERROR",
+                      "DECODE_ERROR",
+                      "SIZE_EXCEEDED",
+                      "UNKNOWN_ERROR",
+                    ],
+                    "type": "string",
+                  },
+                  "message": {
+                    "description": "Human-readable description of the error.",
+                    "type": "string",
+                  },
+                },
+                "required": [
+                  "code",
+                  "message",
+                ],
+                "type": "object",
               },
               "hash": {
                 "description": "Hash of the metadata file",

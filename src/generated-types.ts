@@ -7895,6 +7895,16 @@ export interface components {
             } | unknown[] | number | boolean | null;
             /** @description Content of the metadata (raw) */
             bytes: string | null;
+            /** @description Present when metadata could not be fetched or validated. */
+            error?: {
+                /**
+                 * @description Stable machine-readable error code.
+                 * @enum {string}
+                 */
+                code: "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR";
+                /** @description Human-readable description of the error. */
+                message: string;
+            };
         };
         epoch_content: {
             /**
@@ -9938,6 +9948,16 @@ export interface components {
                  * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
                  */
                 hash: string | null;
+                /** @description Present when metadata could not be fetched or validated. */
+                error?: {
+                    /**
+                     * @description Stable machine-readable error code.
+                     * @enum {string}
+                     */
+                    code: "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR";
+                    /** @description Human-readable description of the error. */
+                    message: string;
+                };
                 /**
                  * @description Ticker of the stake pool
                  * @example NUTS
@@ -10157,6 +10177,16 @@ export interface components {
              * @example 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
              */
             hash: string | null;
+            /** @description Present when metadata could not be fetched or validated. */
+            error?: {
+                /**
+                 * @description Stable machine-readable error code.
+                 * @enum {string}
+                 */
+                code: "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR";
+                /** @description Human-readable description of the error. */
+                message: string;
+            };
             /**
              * @description Ticker of the stake pool
              * @example NUTS

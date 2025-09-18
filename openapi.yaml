@@ -7963,6 +7963,26 @@ components:
           type: string
           description: Content of the metadata (raw)
           nullable: true
+        error:
+          type: object
+          description: Present when metadata could not be fetched or validated.
+          properties:
+            code:
+              type: string
+              description: Stable machine-readable error code.
+              enum:
+                - HASH_MISMATCH
+                - CONNECTION_ERROR
+                - HTTP_RESPONSE_ERROR
+                - DECODE_ERROR
+                - SIZE_EXCEEDED
+                - UNKNOWN_ERROR
+            message:
+              type: string
+              description: Human-readable description of the error.
+          required:
+            - code
+            - message
       required:
         - id
         - tx_hash
@@ -10382,6 +10402,26 @@ components:
                 example: >-
                   47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
                 description: Hash of the metadata file
+              error:
+                type: object
+                description: Present when metadata could not be fetched or validated.
+                properties:
+                  code:
+                    type: string
+                    description: Stable machine-readable error code.
+                    enum:
+                      - HASH_MISMATCH
+                      - CONNECTION_ERROR
+                      - HTTP_RESPONSE_ERROR
+                      - DECODE_ERROR
+                      - SIZE_EXCEEDED
+                      - UNKNOWN_ERROR
+                  message:
+                    type: string
+                    description: Human-readable description of the error.
+                required:
+                  - code
+                  - message
               ticker:
                 type: string
                 nullable: true
@@ -10760,6 +10800,26 @@ components:
           nullable: true
           example: 47c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
           description: Hash of the metadata file
+        error:
+          type: object
+          description: Present when metadata could not be fetched or validated.
+          properties:
+            code:
+              type: string
+              description: Stable machine-readable error code.
+              enum:
+                - HASH_MISMATCH
+                - CONNECTION_ERROR
+                - HTTP_RESPONSE_ERROR
+                - DECODE_ERROR
+                - SIZE_EXCEEDED
+                - UNKNOWN_ERROR
+            message:
+              type: string
+              description: Human-readable description of the error.
+          required:
+            - code
+            - message
         ticker:
           type: string
           nullable: true

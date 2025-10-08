@@ -12158,11 +12158,17 @@ under which it is valid
         "example": [
           {
             "cert_index": 2,
+            "proposal_cert_index": 0,
+            "proposal_id": "gov_action1k2jertppnnndejjcglszfqq4yzw8evzrd2nt66rr6rqlz54xp0zsq05ecsn",
+            "proposal_tx_hash": "b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5",
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "yes",
           },
           {
             "cert_index": 3,
+            "proposal_cert_index": 1,
+            "proposal_id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+            "proposal_tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "abstain",
           },
@@ -12170,11 +12176,23 @@ under which it is valid
         "items": {
           "properties": {
             "cert_index": {
+              "description": "Index of the certificate within the vote transaction.",
+              "type": "integer",
+            },
+            "proposal_cert_index": {
               "description": "Index of the certificate within the proposal transaction.",
               "type": "integer",
             },
-            "tx_hash": {
+            "proposal_id": {
+              "description": "Governance Action Identifier (CIP-0129) of the proposal being voted on.",
+              "type": "string",
+            },
+            "proposal_tx_hash": {
               "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Hash of the vote transaction.",
               "type": "string",
             },
             "vote": {
@@ -12190,6 +12208,9 @@ under which it is valid
           "required": [
             "tx_hash",
             "cert_index",
+            "proposal_id",
+            "proposal_tx_hash",
+            "proposal_cert_index",
             "vote",
           ],
           "type": "object",

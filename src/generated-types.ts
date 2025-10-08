@@ -7297,19 +7297,31 @@ export interface components {
          *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 2,
+         *         "proposal_id": "gov_action1k2jertppnnndejjcglszfqq4yzw8evzrd2nt66rr6rqlz54xp0zsq05ecsn",
+         *         "proposal_tx_hash": "b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5",
+         *         "proposal_cert_index": 0,
          *         "vote": "yes"
          *       },
          *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 3,
+         *         "proposal_id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+         *         "proposal_tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+         *         "proposal_cert_index": 1,
          *         "vote": "abstain"
          *       }
          *     ] */
         drep_votes: {
-            /** @description Hash of the proposal transaction. */
+            /** @description Hash of the vote transaction. */
             tx_hash: string;
-            /** @description Index of the certificate within the proposal transaction. */
+            /** @description Index of the certificate within the vote transaction. */
             cert_index: number;
+            /** @description Governance Action Identifier (CIP-0129) of the proposal being voted on. */
+            proposal_id: string;
+            /** @description Hash of the proposal transaction. */
+            proposal_tx_hash: string;
+            /** @description Index of the certificate within the proposal transaction. */
+            proposal_cert_index: number;
             /**
              * @description The Vote. Can be one of yes, no, abstain.
              * @enum {string}

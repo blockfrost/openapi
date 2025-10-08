@@ -9,10 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.81] - 2025-10-08
+
 ### Added
 
 - Included proposal reference fields in `/governance/drep/:drep_id/votes`
-  - Each vote now includes `proposal_id` and `proposal_tx_hash` `proposal_cert_index`
+  - Each vote now includes `proposal_id`, `proposal_tx_hash` and `proposal_cert_index`
 
 ### Fixed
 

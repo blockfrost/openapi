@@ -69,31 +69,8 @@ info:
                 <code>https://ipfs.blockfrost.io/api/v0</code>
             </td>
         </tr>
-        <tr>
-            <td>Milkomeda mainnet</td>
-            <td>
-                <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
-            </td>
-        </tr>
-        <tr>
-            <td>Milkomeda testnet</td>
-            <td>
-                <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
-            </td>
-        </tr>
       </tbody>
     </table>
-
-
-    ## Milkomeda
-
-
-    <p>
-      <span>
-        For more information about how to use Milkomeda as well as the list of available endpoints, see the <a href="https://blockfrost.dev/start-building/milkomeda" target="_blank">Milkomeda section</a>.
-      </span>
-    </p>
-
 
 
     ## Concepts

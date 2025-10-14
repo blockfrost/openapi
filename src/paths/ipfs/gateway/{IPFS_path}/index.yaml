@@ -10,6 +10,12 @@ get:
     <p>
       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
     </p>
+  x-codeSamples:
+    - lang: "Shell"
+      label: "cURL"
+      source: |
+        curl "https://ipfs.blockfrost.io/api/v0/ipfs/gateway/{IPFS_path}" \
+          -H "project_id: $PROJECT_ID" \
   parameters:
     - in: path
       required: true

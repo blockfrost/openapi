@@ -1,0 +1,20 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./blockfrost-openapi.yaml"
+    },
+    {
+      "inputFile": "./mithril.yaml",
+      "pathModification": {
+        "prepend": "/mithril"
+      },
+      "operationSelection": {
+        "includeTags": ["SKIPCardano » Mithril"]
+      },
+      "description": {
+        "append": false
+      }
+    }
+  ],
+  "output": "./openapi.yaml"
+}

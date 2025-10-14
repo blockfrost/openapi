@@ -9,8 +9,198 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.81] - 2025-10-08
+
 ### Added
 
+- Included proposal reference fields in `/governance/drep/:drep_id/votes`
+  - Each vote now includes `proposal_id`, `proposal_tx_hash` and `proposal_cert_index`
+
+### Fixed
+
+- Description of `tx_hash` and `cert_index` in in `/governance/drep/:drep_id/votes`
+
+## [0.1.80] - 2025-09-18
+
+### Added
+
+- Support for Governance Action Identifier (CIP-129)
+  - New endpoints for querying with Gov Action ID : `/governance/proposals/:gov_action_id`
+  - Proposal response now includes an `id` field containing the governance action identifier
+- Exposed dbsync off-chain metadata fetch errors in metadata responses
+  - Applies to endpoints:
+    - `/pools/:pool_id/metadata`
+    - `/pools/extended`
+    - `/governance/proposals/:gov_action_id/metadata`
+  - Error object structure:
+    ```ts
+    {
+      "code": "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR",
+      "message": "Human-readable description of the error"
+    }
+    ```
+  - If metadata are available, the `error` field is omitted
+
+## [0.1.79] - 2025-06-06
+
+### Fixed
+
+- Added action `updated` to DReps updates `/accounts/:drep_id/updates`
+
+## [0.1.78] - 2025-05-23
+
+### Added
+
+- Added support for calidus keys (CIP-0151) in `/pools/:pool_id` endpoint
+
+## [0.1.77] - 2025-05-19
+
+### Fixed
+
+- `/governance/proposals/:tx_hash/:cert_index`: fixed description for `dropped_epoch`
+- cleaned up metadata in `/pools/extended` by removing unnecessary required fields
+
+## [0.1.76] - 2025-04-03
+
+### Fixed
+
+- nix-shell commands
+
+### Added
+
+- rust types
+- exposed new attributes `live_saturation`, `blocks_minted`, `declared_pledge`, `margin_cost`, `fixed_cost` and `metadata` in `/pools/extended`
+
+## [0.1.75] - 2025-03-26
+
+### Added
+
+- `/blocks/:hash_or_number/txs/cbor` endpoint
+
+## [0.1.74] - 2025-03-13
+
+### Added
+
+- `/blocks/latest/txs/cbor` endpoint
+- exposed new attributes `live_saturation`, `blocks_minted`, `declared_pledge`, `margin_cost`, `fixed_cost` and `metadata` in `/pools/extended`
+
+## [0.1.73] - 2025-01-30
+
+### Fixed
+
+- Allow all proposal parameters to be nullable, remove unused `nonce` param
+
+## [0.1.72] - 2025-01-16
+
+### Added
+
+- New fields in `/governance/dreps/:drep`
+  - `retired`: Indicates the registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`.
+  - `expired`: , Indicates whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)
+  - `last_active_epoch`: Epoch of the most recent action - registration, update, deregistration or voting
+
+### Changed
+
+- Deprecated fields in `/governance/dreps/:drep`
+  - `active`: Superseded by the new `retired` and `expired`
+  - `active_epoch`: Replaced by `last_active_epoch`
+
+## [0.1.71] - 2024-12-01
+
+### Added
+
+- Filecoin support in IPFS endpoints
+
+## [0.1.70] - 2024-11-26
+
+### Added
+
+- `version` query param in `/utils/txs/evaluate` and `/utils/txs/evaluate/utxos` endpoint
+
+### Fixed
+
+- IPFS state enum
+
+## [0.1.69] - 2024-10-31
+
+### Added
+
+- `/account/:stake_addr/utxos` for retrieving utxos associated with a stake account
+
+## [0.1.68] - 2024-10-14
+
+### Added
+
+- new UI for the API Reference
+- parsing version 3 of `CIP68` metadata
+
+### Changed
+
+- updated dependencies
+- allow CIP25v1 metadata encoding where asset name not utf8 encoded (hex asset name = lookup key in json map)
+
+### Fixed
+
+- Ogmios API Reference URL
+
+## [0.1.67] - 2024-09-11
+
+### Added
+
+- `/txs/{hash}/utxos`
+  - `consumed_by_tx` field
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `cost_models_raw` field, list variant of `cost_models` without name mapping
+
+### Fixed
+
+- Naming of `pvtpp_security_group` -> `pvt_p_p_security_group`, the old field is
+  preserved but marked as deprecated.
+- `/governance/proposals/{tx_hash}/{cert_index}/parameters`
+  - Example and description of `cost_models` (these match `cost_models_raw` of epoch parameters)
+
+## [0.1.66] - 2024-09-02
+
+### Changed
+
+- reverted Mithril support
+
+## [0.1.65] - 2024-07-24
+
+### Added
+
+- CIP-1964 support
+- Mithrill support
+- raw tx CBOR
+
+## [0.1.64] - 2024-06-27
+
+### Added
+
+- `/txs/{hash}/cbor` endpoint
+
+## [0.1.63] - 2024-03-14
+
+### Changed
+
+- `/epochs/{number}/parameters` and `/epochs/latest/parameters`
+  - `min_utxo` field deprecated, prefer `coins_per_utxo_size` for Alonzo and later eras
+
+## [0.1.62] - 2024-03-05
+
+### Added
+
+- Parsing version 2 of `CIP68` metadata
+
+### Fixed
+
+- `tx_metadata_label_json` and `script_json` compatibility with fast-json-stringify for non-object/primitive types (eg. string)
+
+## [0.1.61] - 2024-02-06
+
+### Added
+
+- `/txs/{hash}/required_signers` endpoint
 - rust models definitions
 
 ### Changed

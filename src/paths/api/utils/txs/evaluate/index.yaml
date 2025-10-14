@@ -15,6 +15,14 @@ post:
       schema:
         type: string
         enum: ["application/cbor"]
+    - in: query
+      name: version
+      required: false
+      schema:
+        type: number
+        default: 5
+      description: |
+        Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
   x-codeSamples:
     - lang: "Shell"
       label: "cURL"
@@ -44,7 +52,7 @@ post:
         <p>
           <div class="custom-paragraph">
             Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
-            and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
+            and<a href="https://ogmios.dev/http-api/"> API reference (EvaluateTxResponse)</a> for related errors.
           </div>
         </p>
       content:

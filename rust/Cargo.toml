@@ -1,13 +1,18 @@
 [package]
 name = "blockfrost-openapi"
-description = "Blockfrost OpenAPI generated models"
-version = "0.0.3"
+description = "Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem. This crate provides a Rust models for the Blockfrost API."
+version = "0.1.75"
+authors = ["contact@blockfrost.io"]
 edition = "2021"
-build = "build.rs"
 license = "Apache-2.0"
+readme = "./README.md"
 
 [dependencies]
-serde = { features = ["derive"], version = "1.0.130" }
-serde_derive = { version = "1.0.130" }
-serde_json = { version = "1.0.68" }
-serde_with = { version = "3.4.0" }
+serde = { version = "^1.0", features = ["derive"] }
+serde_with = { version = "^3.8", default-features = false, features = [
+    "base64",
+    "std",
+    "macros",
+] }
+serde_json = "^1.0"
+uuid = { version = "^1.8", features = ["serde", "v4"] }

@@ -41,7 +41,13 @@ properties:
     type: string
     nullable: true
     example: pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy
-    description: Bech32 pool ID that owns the account
+    description: Bech32 pool ID to which this account is delegated
+  drep_id:
+    type: string
+    nullable: true
+    example: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
+    description: Bech32 drep ID to which this account is delegated
+
 required:
   - stake_address
   - active
@@ -53,3 +59,4 @@ required:
   - treasury_sum
   - withdrawable_amount
   - pool_id
+  - drep_id

@@ -5,6 +5,7 @@ import {
   GetOnchainMetadataResult,
   Asset,
   validateCIP68MetadataOverload,
+  ValidCIP68Version,
 } from '../types/metadata';
 
 export const getCIPstandard = (version: number, isValid: boolean): CIPTypes => {
@@ -128,9 +129,19 @@ export const getOnchainMetadata = (
 
   if (version === 1) {
     try {
-      onchainMetadataResult =
-        internalOnchainMetadata[policyId][assetNameVersion1] || null;
-      isFound = true;
+      if (
+        policyId in internalOnchainMetadata &&
+        assetNameVersion1 in internalOnchainMetadata[policyId]
+      ) {
+        onchainMetadataResult =
+          internalOnchainMetadata[policyId][assetNameVersion1];
+        isFound = true;
+      } else if (internalOnchainMetadata[policyId]?.[assetNameBase]) {
+        // alternative for incorrect metadata where asset name in JSON map is not utf8 encoded (test case "CIP25v1 but asset name is not valid utf8 (hex asset name = lookup key in json map)")
+        onchainMetadataResult =
+          internalOnchainMetadata[policyId][assetNameBase];
+        isFound = true;
+      }
     } catch (error) {
       onchainMetadataResult = null;
     }
@@ -186,11 +197,21 @@ export const getOnchainMetadata = (
 };
 
 export const validateCIP68Metadata: validateCIP68MetadataOverload = (
-  input: any,
-  schema: any,
+  input,
+  schema,
 ) => {
   if (!input) return false;
-  if (input.version !== 1) return false;
+  // Validating only v1, v2, v3.
+  // Note: Version 2 added support for RFT, but due to botched CIP68 update process
+  // it was initially included in v1.
+  // As a result we are allowing both v1 and v2 for any token standard (NFT, FT, RFT).
+  //
+  // Version 3 allows image and files.src to include array of bytes for >64B payloads.
+  // Conversion into a string is handled via blockfrost-utils,
+  // this validation function always receives these values as a string.
+  if (!Number.isInteger(input.version) || input.version > 3) return false;
+
+  const versionString = `CIP68v${input.version}` as ValidCIP68Version;
 
   if (schema === 'nft') {
     const { isValid: isValidNFT } = validateSchema(
@@ -199,11 +220,11 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
     );
 
     return isValidNFT
-      ? {
-          version: 'CIP68v1',
+      ? ({
+          version: versionString,
           metadata: input.metadata,
           extra: input.extra,
-        }
+        } as Extract<validateCIP68MetadataOverload, { type: 'nft' }>)
       : false;
   } else if (schema === 'ft') {
     const { isValid: isValidFT } = validateSchema(
@@ -212,11 +233,11 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
     );
 
     return isValidFT
-      ? {
-          version: 'CIP68v1',
+      ? ({
+          version: versionString,
           metadata: input.metadata,
           extra: input.extra,
-        }
+        } as Extract<validateCIP68MetadataOverload, { type: 'ft' }>)
       : false;
   } else if (schema === 'rft') {
     const { isValid: isValidRFT } = validateSchema(
@@ -225,11 +246,11 @@ export const validateCIP68Metadata: validateCIP68MetadataOverload = (
     );
 
     return isValidRFT
-      ? {
-          version: 'CIP68v1',
+      ? ({
+          version: versionString,
           metadata: input.metadata,
           extra: input.extra,
-        }
+        } as Extract<validateCIP68MetadataOverload, { type: 'rft' }>)
       : false;
   } else {
     return false;

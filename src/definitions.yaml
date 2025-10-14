@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: "0.1.60"
+  version: 0.1.81
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -59,28 +59,8 @@ info:
                 <code>https://ipfs.blockfrost.io/api/v0</code>
             </td>
         </tr>
-        <tr>
-            <td>Milkomeda mainnet</td>
-            <td>
-                <code>https://milkomeda-mainnet.blockfrost.io/api/v0</code>
-            </td>
-        </tr>
-        <tr>
-            <td>Milkomeda testnet</td>
-            <td>
-                <code>https://milkomeda-testnet.blockfrost.io/api/v0</code>
-            </td>
-        </tr>
       </tbody>
     </table>
-
-    ## Milkomeda
-
-    <p>
-      <span>
-        For more information about how to use Milkomeda as well as the list of available endpoints, see the <a href="/start-building/milkomeda">Milkomeda section</a>.
-      </span>
-    </p>
 
     ## Concepts
 
@@ -263,9 +243,25 @@ tags:
   - name: Cardano » Assets
   - name: Cardano » Blocks
   - name: Cardano » Epochs
+  - name: Cardano » Governance
   - name: Cardano » Ledger
   - name: Cardano » Mempool
   - name: Cardano » Metadata
+  # - name: Cardano » Mithril
+  #   description: |
+  #     Mithril integration allows you to leverage the capabilities of the Mithril Aggregator API without needing to interact with multiple APIs, simplifying the development process and enhancing usability.
+
+  #     > **Please note that the integration of Mithril is experimental. Blockfrost acts as a proxy for the subset of Mithril API endpoints. The format of the Mithril API may change independently of the core Blockfrost API.**
+
+  #     All Mithril endpoints are accessible under the <code>/mithril</code> path.
+
+  #     > For example, to retrieve a snapshot artifact of the cardano mainnet, you would use:
+  #     `https://cardano-mainnet.blockfrost.io/api/v0/mithril/artifact/snapshot/{digest}`
+
+  #     In addition to error responses listed in Mithril endpoints (such as `404`, `412` and `500`), the API may also return error responses related to Blockfrost (e.g. `400` for invalid path or `403` for unauthenticated request). For the full list of Blockfrost error status codes, please see [Blockfrost Errors](#section/Errors).
+
+  #     For more information about how to use Mithril API, please see the <a href="https://mithril.network/doc/">Mithril docs</a>.
+
   - name: Cardano » Network
   - name: Cardano » Pools
   - name: Cardano » Scripts
@@ -279,17 +275,24 @@ paths:
   /:
     $ref: ./paths/api/root/index.yaml
 
+  # health
+
   /health:
     $ref: ./paths/api/health/index.yaml
 
   /health/clock:
     $ref: ./paths/api/health/clock.yaml
 
+  # blocks
+
   /blocks/latest:
     $ref: ./paths/api/blocks/latest/index.yaml
 
   /blocks/latest/txs:
-    $ref: ./paths/api/blocks/latest/txs.yaml
+    $ref: ./paths/api/blocks/latest/txs/index.yaml
+
+  /blocks/latest/txs/cbor:
+    $ref: ./paths/api/blocks/latest/txs/cbor.yaml
 
   /blocks/{hash_or_number}:
     $ref: ./paths/api/blocks/{hash_or_number}/index.yaml
@@ -307,13 +310,73 @@ paths:
     $ref: ./paths/api/blocks/epoch/{epoch_number}/slot/{slot_number}/index.yaml
 
   /blocks/{hash_or_number}/txs:
-    $ref: ./paths/api/blocks/txs/index.yaml
+    $ref: ./paths/api/blocks/{hash_or_number}/txs/index.yaml
+
+  /blocks/{hash_or_number}/txs/cbor:
+    $ref: ./paths/api/blocks/{hash_or_number}/txs/cbor.yaml
 
   /blocks/{hash_or_number}/addresses:
     $ref: ./paths/api/blocks/addresses/index.yaml
 
+  # genesis
+
   /genesis:
     $ref: ./paths/api/genesis/index.yaml
+
+  # governance
+
+  /governance/dreps:
+    $ref: ./paths/api/governance/dreps/index.yaml
+
+  /governance/dreps/{drep_id}:
+    $ref: ./paths/api/governance/dreps/{drep_id}/index.yaml
+
+  /governance/dreps/{drep_id}/delegators:
+    $ref: ./paths/api/governance/dreps/{drep_id}/delegators.yaml
+
+  /governance/dreps/{drep_id}/metadata:
+    $ref: ./paths/api/governance/dreps/{drep_id}/metadata.yaml
+
+  /governance/dreps/{drep_id}/updates:
+    $ref: ./paths/api/governance/dreps/{drep_id}/updates.yaml
+
+  /governance/dreps/{drep_id}/votes:
+    $ref: ./paths/api/governance/dreps/{drep_id}/votes.yaml
+
+  /governance/proposals:
+    $ref: ./paths/api/governance/proposals/index.yaml
+
+  /governance/proposals/{tx_hash}/{cert_index}:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/index.yaml
+
+  /governance/proposals/{tx_hash}/{cert_index}/parameters:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/parameters.yaml
+
+  /governance/proposals/{tx_hash}/{cert_index}/withdrawals:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/withdrawals.yaml
+
+  /governance/proposals/{tx_hash}/{cert_index}/votes:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/votes.yaml
+
+  /governance/proposals/{tx_hash}/{cert_index}/metadata:
+    $ref: ./paths/api/governance/proposals/{tx_hash}/{cert_index}/metadata.yaml
+
+  /governance/proposals/{gov_action_id}:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/index.yaml
+
+  /governance/proposals/{gov_action_id}/parameters:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/parameters.yaml
+
+  /governance/proposals/{gov_action_id}/withdrawals:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/withdrawals.yaml
+
+  /governance/proposals/{gov_action_id}/votes:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/votes.yaml
+
+  /governance/proposals/{gov_action_id}/metadata:
+    $ref: ./paths/api/governance/proposals/{gov_action_id}/metadata.yaml
+
+  # epochs
 
   /epochs/latest:
     $ref: ./paths/api/epochs/latest/index.yaml
@@ -344,6 +407,8 @@ paths:
 
   /epochs/{number}/parameters:
     $ref: ./paths/api/epochs/{number}/parameters.yaml
+
+  # transactions
 
   /txs/{hash}:
     $ref: ./paths/api/txs/{hash}/index.yaml
@@ -378,8 +443,16 @@ paths:
   /txs/{hash}/redeemers:
     $ref: ./paths/api/txs/{hash}/redeemers.yaml
 
+  /txs/{hash}/required_signers:
+    $ref: ./paths/api/txs/{hash}/required_signers.yaml
+
+  /txs/{hash}/cbor:
+    $ref: ./paths/api/txs/{hash}/cbor.yaml
+
   /tx/submit:
     $ref: ./paths/api/tx/submit.yaml
+
+  # accounts
 
   /accounts/{stake_address}:
     $ref: ./paths/api/accounts/{stake_address}/index.yaml
@@ -411,6 +484,11 @@ paths:
   /accounts/{stake_address}/addresses/total:
     $ref: ./paths/api/accounts/{stake_address}/addresses/total.yaml
 
+  /accounts/{stake_address}/utxos:
+    $ref: ./paths/api/accounts/{stake_address}/utxos.yaml
+
+  # mempool
+
   /mempool:
     $ref: ./paths/api/mempool/index.yaml
 
@@ -420,14 +498,21 @@ paths:
   /mempool/addresses/{address}:
     $ref: ./paths/api/mempool/addresses/{address}/index.yaml
 
+  # metadata
+
   /metadata/txs/labels:
     $ref: ./paths/api/metadata/txs/labels/index.yaml
 
   /metadata/txs/labels/{label}:
     $ref: ./paths/api/metadata/txs/labels/{label}/index.yaml
 
+  # /mithril:
+  #   $ref: ./paths/api/mithril/index.yaml
+
   /metadata/txs/labels/{label}/cbor:
     $ref: ./paths/api/metadata/txs/labels/{label}/cbor.yaml
+
+  # addresses
 
   /addresses/{address}:
     $ref: ./paths/api/addresses/{address}/index.yaml
@@ -449,6 +534,8 @@ paths:
 
   /addresses/{address}/transactions:
     $ref: ./paths/api/addresses/{address}/transactions.yaml
+
+  # pools
 
   /pools:
     $ref: ./paths/api/pools/index.yaml
@@ -483,6 +570,11 @@ paths:
   /pools/{pool_id}/updates:
     $ref: ./paths/api/pools/{pool_id}/updates.yaml
 
+  /pools/{pool_id}/votes:
+    $ref: ./paths/api/pools/{pool_id}/votes.yaml
+
+  # assets
+
   /assets:
     $ref: ./paths/api/assets/index.yaml
 
@@ -503,6 +595,8 @@ paths:
 
   /assets/policy/{policy_id}:
     $ref: ./paths/api/assets/policy/{policy_id}/index.yaml
+
+  # scripts
 
   /scripts:
     $ref: ./paths/api/scripts/index.yaml
@@ -525,6 +619,8 @@ paths:
   /scripts/datum/{datum_hash}/cbor:
     $ref: ./paths/api/scripts/datum/{datum_hash}/cbor.yaml
 
+  # utils
+
   /utils/addresses/xpub/{xpub}/{role}/{index}:
     $ref: ./paths/api/utils/addresses/xpub/{xpub}/{role}/{index}/index.yaml
 
@@ -533,6 +629,8 @@ paths:
 
   /utils/txs/evaluate/utxos:
     $ref: ./paths/api/utils/txs/evaluate/utxos.yaml
+
+  # ipfs
 
   /ipfs/add:
     $ref: ./paths/ipfs/add.yaml
@@ -552,17 +650,23 @@ paths:
   /ipfs/pin/remove/{IPFS_path}:
     $ref: ./paths/ipfs/pin/remove/{IPFS_path}/index.yaml
 
+  # metrics
+
   /metrics:
     $ref: ./paths/api/metrics/index.yaml
 
   /metrics/endpoints:
     $ref: ./paths/api/metrics/endpoints.yaml
 
+  # network
+
   /network:
     $ref: ./paths/api/network/index.yaml
 
   /network/eras:
     $ref: ./paths/api/network/eras.yaml
+
+  # nutlink
 
   /nutlink/{address}:
     $ref: ./paths/api/nutlink/{address}/index.yaml

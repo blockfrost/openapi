@@ -29,7 +29,13 @@ Released documentation can be found at [docs.blockfrost.io](https://docs.blockfr
 
 ## Development
 
-Final [`openapi.yaml`](openapi.yaml) specification is generated from all yaml files in `src` directory.
+Blockfrost OpenAPI [`blockfrost-openapi.yaml`](blockfrost-openapi.yaml) specification is generated from all yaml files in `src` directory.
+Then there is Mithril Aggregator API spec [`mithril.yaml`](mithril.yaml) which can be downloaded from [Mithril Github](https://github.com/input-output-hk/mithril).
+These two specs are then merged together via `openapi-merge-cli` (configuration is inside [`openapi-merge.json`](openapi-merge.json)).
+Only the Mithril endpoints with a tag `Cardano » Mithril` are included into the final spec.
+
+> Tag `Cardano » Mithril` needs to be added manually to each relevant endpoint in Mithril OpenAPI spec.
+
 If you add a new file then don't forget to add it to `paths` in [`src/definitions.yaml`](src/definitions.yaml).
 
 Edit the source yaml files and build the package:
@@ -38,13 +44,11 @@ Edit the source yaml files and build the package:
 yarn build
 ```
 
-To build the documentation, run:
-
-```typescript
-yarn generate-docs
-```
-
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
+
+### UI
+
+When you push a new commit, the documentation for your branch is automatically generated on Vercel and added to your PR as a deployment.
 
 ## Usage
 

@@ -21,11 +21,9 @@
 
 ## Getting started
 
-Active version can be found in `released` branch and also in [GitHub releases](https://github.com/blockfrost/openapi/releases).
-
-Development version is in `master` branch and is being merged into `released` upon each release.
-
-Released documentation can be found at [docs.blockfrost.io](https://docs.blockfrost.io/).
+The **development version** is available in the `master` branch.  
+The **latest active release** can be found under [GitHub Releases](https://github.com/blockfrost/openapi/releases).  
+For the **published documentation**, visit [docs.blockfrost.io](https://docs.blockfrost.io/).
 
 ## Development
 

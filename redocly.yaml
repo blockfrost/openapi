@@ -1,5 +1,0 @@
-extends:
-  - recommended
-theme:
-  openapi:
-    specUrl: "https://raw.githubusercontent.com/blockfrost/openapi/released/openapi.json"

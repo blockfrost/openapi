@@ -2046,6 +2046,239 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
       },
     },
   },
+  "/accounts/{stake_address}/transactions": {
+    "params": {
+      "properties": {
+        "stake_address": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "from": {
+          "type": "string",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "to": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "address": "addr1q8zsjx7vxkl4esfejafhxthyew8c54c9ch95gkv3nz37sxrc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgq3jd3w2",
+            "block_height": 7900364,
+            "block_time": 1666114079,
+            "tx_hash": "bd78e0e73fb1691f08746a331bd764d11552c3a36ef766d4f1a3bbdc7f29918d",
+            "tx_index": 34,
+          },
+          {
+            "address": "addr1q8zsjx7vxkl4esfejafhxthyew8c54c9ch95gkv3nz37sxrc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgq3jd3w2",
+            "block_height": 7900557,
+            "block_time": 1666118180,
+            "tx_hash": "67e9a201bc08a92bcc6f447a4ed032300d933545ccd7f1da94ec1e8dbeb4a696",
+            "tx_index": 6,
+          },
+          {
+            "address": "addr1qxrrzqsqnzqx3p8sxxsry936h6c78ml4rdl224f33l7pmcnc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgqr735lq",
+            "block_height": 7900557,
+            "block_time": 1666118180,
+            "tx_hash": "67e9a201bc08a92bcc6f447a4ed032300d933545ccd7f1da94ec1e8dbeb4a696",
+            "tx_index": 6,
+          },
+        ],
+        "items": {
+          "properties": {
+            "address": {
+              "description": "Bech32 address",
+              "type": "string",
+            },
+            "block_height": {
+              "description": "Block height",
+              "type": "integer",
+            },
+            "block_time": {
+              "description": "Block creation time in UNIX time",
+              "type": "integer",
+            },
+            "tx_hash": {
+              "description": "Hash of the transaction",
+              "type": "string",
+            },
+            "tx_index": {
+              "description": "Transaction index within the block",
+              "type": "integer",
+            },
+          },
+          "required": [
+            "address",
+            "tx_hash",
+            "tx_index",
+            "block_height",
+            "block_time",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
   "/accounts/{stake_address}/utxos": {
     "params": {
       "properties": {

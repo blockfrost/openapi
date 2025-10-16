@@ -3669,6 +3669,80 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/accounts/{stake_address}/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Account transactions
+         * @description Transactions associated with the stake address.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of transactions per page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                    /**
+                     * @description The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
+                     *     Has to be lower than or equal to `to` parameter.
+                     *
+                     * @example 8929261
+                     */
+                    from?: string;
+                    /**
+                     * @description The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
+                     *     Has to be higher than or equal to `from` parameter.
+                     *
+                     * @example 9999269:10
+                     */
+                    to?: string;
+                };
+                header?: never;
+                path: {
+                    /**
+                     * @description Bech32 stake address.
+                     * @example stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc
+                     */
+                    stake_address: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the list of account transactions */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["account_transactions_content"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/mempool": {
         parameters: {
             query?: never;
@@ -4381,7 +4455,7 @@ export interface paths {
         get: {
             parameters: {
                 query?: {
-                    /** @description The number of addresses per page. */
+                    /** @description The number of transactions per page. */
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
@@ -9186,6 +9260,41 @@ export interface components {
              * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
              */
             reference_script_hash: string | null;
+        }[];
+        /** @example [
+         *       {
+         *         "address": "addr1q8zsjx7vxkl4esfejafhxthyew8c54c9ch95gkv3nz37sxrc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgq3jd3w2",
+         *         "tx_hash": "bd78e0e73fb1691f08746a331bd764d11552c3a36ef766d4f1a3bbdc7f29918d",
+         *         "tx_index": 34,
+         *         "block_height": 7900364,
+         *         "block_time": 1666114079
+         *       },
+         *       {
+         *         "address": "addr1q8zsjx7vxkl4esfejafhxthyew8c54c9ch95gkv3nz37sxrc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgq3jd3w2",
+         *         "tx_hash": "67e9a201bc08a92bcc6f447a4ed032300d933545ccd7f1da94ec1e8dbeb4a696",
+         *         "tx_index": 6,
+         *         "block_height": 7900557,
+         *         "block_time": 1666118180
+         *       },
+         *       {
+         *         "address": "addr1qxrrzqsqnzqx3p8sxxsry936h6c78ml4rdl224f33l7pmcnc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgqr735lq",
+         *         "tx_hash": "67e9a201bc08a92bcc6f447a4ed032300d933545ccd7f1da94ec1e8dbeb4a696",
+         *         "tx_index": 6,
+         *         "block_height": 7900557,
+         *         "block_time": 1666118180
+         *       }
+         *     ] */
+        account_transactions_content: {
+            /** @description Bech32 address */
+            address: string;
+            /** @description Hash of the transaction */
+            tx_hash: string;
+            /** @description Transaction index within the block */
+            tx_index: number;
+            /** @description Block height */
+            block_height: number;
+            /** @description Block creation time in UNIX time */
+            block_time: number;
         }[];
         /** @example [
          *       {

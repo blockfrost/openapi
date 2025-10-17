@@ -1,16 +1,16 @@
 get:
   tags:
-    - Cardano » Addresses
-  summary: Address transactions
-  description: Transactions on the address.
+    - Cardano » Accounts
+  summary: Account transactions
+  description: Transactions associated with the stake address.
   parameters:
     - in: path
-      name: address
+      name: stake_address
       required: true
       schema:
         type: string
-      description: Bech32 address.
-      example: "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz"
+      description: Bech32 stake address.
+      example: "stake1u9ylzsgxaa6xctf4juup682ar3juj85n8tx3hthnljg47zctvm3rc"
     - in: query
       name: count
       required: false
@@ -59,11 +59,11 @@ get:
       example: "9999269:10"
   responses:
     "200":
-      description: Return the address content
+      description: Return the list of account transactions
       content:
         application/json:
           schema:
-            $ref: ../../../../schemas/addresses/address_transactions_content.yaml
+            $ref: ../../../../schemas/accounts/account_transactions_content.yaml
     "400":
       $ref: ../../../../responses/errors/400.yaml
     "403":

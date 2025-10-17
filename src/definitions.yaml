@@ -487,6 +487,9 @@ paths:
   /accounts/{stake_address}/utxos:
     $ref: ./paths/api/accounts/{stake_address}/utxos.yaml
 
+  /accounts/{stake_address}/transactions:
+    $ref: ./paths/api/accounts/{stake_address}/transactions.yaml
+
   # mempool
 
   /mempool:

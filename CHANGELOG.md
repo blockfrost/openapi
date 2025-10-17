@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- New endpoint for retrieving transactions linked to a stake account `/accounts/:stake_address/transactions`
+
 ## [0.1.81] - 2025-10-08
 
 ### Added

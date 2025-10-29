@@ -14749,7 +14749,8 @@
             "enum": [
               "timelock",
               "plutusV1",
-              "plutusV2"
+              "plutusV2",
+              "plutusV3"
             ],
             "example": "plutusV1",
             "description": "Type of the script language"

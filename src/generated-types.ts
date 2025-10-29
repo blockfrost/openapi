@@ -10673,7 +10673,7 @@ export interface components {
              * @example plutusV1
              * @enum {string}
              */
-            type: "timelock" | "plutusV1" | "plutusV2";
+            type: "timelock" | "plutusV1" | "plutusV2" | "plutusV3";
             /**
              * @description The size of the CBOR serialised script, if a Plutus script
              * @example 3119

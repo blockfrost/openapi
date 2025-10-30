@@ -23420,6 +23420,7 @@ relative to the start of the network
               "timelock",
               "plutusV1",
               "plutusV2",
+              "plutusV3",
             ],
             "example": "plutusV1",
             "type": "string",

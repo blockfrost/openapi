@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- added PlutusV3 to the type field of the script object, to match the actual API response types
+
 ## [0.1.82] - 2025-10-20
 
 ### Added

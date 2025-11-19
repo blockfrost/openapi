@@ -7342,7 +7342,17 @@ export interface components {
                 [key: string]: unknown;
             } | unknown[] | number | boolean | null;
             /** @description Content of the metadata (raw) */
-            bytes: string;
+            bytes: string | null;
+            /** @description Present when metadata could not be fetched or validated. */
+            error?: {
+                /**
+                 * @description Stable machine-readable error code.
+                 * @enum {string}
+                 */
+                code: "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR";
+                /** @description Human-readable description of the error. */
+                message: string;
+            };
         };
         /** @example [
          *       {

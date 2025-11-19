@@ -11992,11 +11992,38 @@ under which it is valid
         "properties": {
           "bytes": {
             "description": "Content of the metadata (raw)",
+            "nullable": true,
             "type": "string",
           },
           "drep_id": {
             "description": "Bech32 encoded addresses",
             "type": "string",
+          },
+          "error": {
+            "description": "Present when metadata could not be fetched or validated.",
+            "properties": {
+              "code": {
+                "description": "Stable machine-readable error code.",
+                "enum": [
+                  "HASH_MISMATCH",
+                  "CONNECTION_ERROR",
+                  "HTTP_RESPONSE_ERROR",
+                  "DECODE_ERROR",
+                  "SIZE_EXCEEDED",
+                  "UNKNOWN_ERROR",
+                ],
+                "type": "string",
+              },
+              "message": {
+                "description": "Human-readable description of the error.",
+                "type": "string",
+              },
+            },
+            "required": [
+              "code",
+              "message",
+            ],
+            "type": "object",
           },
           "hash": {
             "description": "Hash of the metadata file",

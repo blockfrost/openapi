@@ -11094,7 +11094,7 @@ components:
               relative to the start of the network
             properties:
               time:
-                type: number
+                type: integer
                 description: Time in seconds relative to the start time of the network
               slot:
                 type: integer
@@ -11113,7 +11113,7 @@ components:
               relative to the start of the network
             properties:
               time:
-                type: number
+                type: integer
                 description: Time in seconds relative to the start time of the network
               slot:
                 type: integer
@@ -11133,7 +11133,7 @@ components:
                 type: integer
                 description: Epoch length in number of slots
               slot_length:
-                type: number
+                type: integer
                 description: Slot length in seconds
               safe_zone:
                 type: integer

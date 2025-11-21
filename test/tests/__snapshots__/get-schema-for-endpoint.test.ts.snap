@@ -19088,7 +19088,7 @@ relative to the start of the network
                 },
                 "time": {
                   "description": "Time in seconds relative to the start time of the network",
-                  "type": "number",
+                  "type": "integer",
                 },
               },
               "required": [
@@ -19111,7 +19111,7 @@ relative to the start of the network
                 },
                 "slot_length": {
                   "description": "Slot length in seconds",
-                  "type": "number",
+                  "type": "integer",
                 },
               },
               "required": [
@@ -19136,7 +19136,7 @@ relative to the start of the network
                 },
                 "time": {
                   "description": "Time in seconds relative to the start time of the network",
-                  "type": "number",
+                  "type": "integer",
                 },
               },
               "required": [

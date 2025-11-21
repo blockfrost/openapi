@@ -1,6 +1,6 @@
 {
   "name": "@blockfrost/openapi",
-  "version": "0.1.82",
+  "version": "0.1.83",
   "description": "OpenAPI specifications for blockfrost.io",
   "repository": "git@github.com:blockfrost/openapi.git",
   "author": "admin@blockfrost.io",
@@ -17,14 +17,14 @@
     "lint": "scalar validate ./src/definitions.yaml",
     "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn redocly bundle -o ./openapi.json ./openapi.yaml && yarn copy-spec",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
-    "generate-types:rust": "openapi-generator-cli generate -i openapi.yaml -g rust -o ./rust --global-property models",
+    "generate-types:rust": "openapi-generator-cli generate -i openapi.yaml -g rust -o ./rust --global-property models,modelDocs=false,apis=false,apiDocs=false,supportingFiles",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
     "sync-version": "ts-node ./src/scripts/sync-version.ts",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.18.4",
+    "@openapitools/openapi-generator-cli": "2.25.2",
     "@redocly/cli": "1.26.0",
     "@scalar/cli": "^0.2.265",
     "@types/node": "^22.10.2",

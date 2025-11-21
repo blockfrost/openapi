@@ -17,7 +17,7 @@
     "lint": "scalar validate ./src/definitions.yaml",
     "bundle": "yarn redocly bundle -o ./blockfrost-openapi.yaml src/definitions.yaml && yarn openapi-merge-cli && yarn redocly bundle -o ./openapi.json ./openapi.yaml && yarn copy-spec",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
-    "generate-types:rust": "openapi-generator-cli generate -i openapi.yaml -g rust -o ./rust",
+    "generate-types:rust": "openapi-generator-cli generate -i openapi.yaml -g rust -o ./rust --global-property models,modelDocs=false,apis=false,apiDocs=false,supportingFiles",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
     "sync-version": "ts-node ./src/scripts/sync-version.ts",
     "test": "vitest",

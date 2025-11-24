@@ -1,0 +1,98 @@
+name: 1. Bump Version & Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: 'Release type (semver)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  bump-and-tag:
+    name: Bump Version and Push Tag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      # Check branch
+      - name: Check Branch
+        if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main'
+        run: |
+          echo "ERROR: You can only perform a release from the 'master' or 'main' branch."
+          exit 1
+
+      # Check changelog
+      - name: Check Changelog for Unreleased section
+        run: |
+          if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
+            echo "ERROR: CHANGELOG.md is missing the '## [Unreleased]' section. Cannot insert release date."
+            exit 1
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      # Check build
+      - name: Dry Run Build
+        run: |
+          yarn build
+          yarn test
+
+      # PASS
+
+      - name: Setup Git User
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump NPM version
+        id: npm-version
+        run: |
+          # Updates package.json and package-lock.json without creating a git tag yet
+          npm version ${{ inputs.semver }} --no-git-tag-version
+
+          # Store the new version in an environment variable (e.g., 0.1.84)
+          echo "NEW_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
+      - name: Sync Cargo.toml version
+        run: |
+          echo "Updating rust/Cargo.toml to version ${{ env.NEW_VERSION }}"
+          # Finds the first 'version = "..."' line and replaces it
+          sed -i '0,/^version = .*/s//version = "${{ env.NEW_VERSION }}"/' rust/Cargo.toml
+
+      - name: Update Changelog
+        run: |
+          DATE=$(date +'%Y-%m-%d')
+          VERSION=${{ env.NEW_VERSION }}
+          # Replaces '## [Unreleased]' with '## [Unreleased]\n\n## [VERSION] - DATE'
+          sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n## [$VERSION] - $DATE/" CHANGELOG.md
+
+      - name: Commit changes
+        run: |
+          git add package.json rust/Cargo.toml CHANGELOG.md
+          git commit -m "chore: release v${{ env.NEW_VERSION }}"
+
+      # Creating this tag triggers the SECOND workflow (release.yaml)
+      - name: Push changes and Tag
+        run: |
+          git push origin HEAD
+          git tag v${{ env.NEW_VERSION }}
+          git push origin v${{ env.NEW_VERSION }}

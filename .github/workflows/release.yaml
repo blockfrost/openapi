@@ -1,98 +1,96 @@
-name: 1. Bump Version & Tag
+name: 2. Publish & Release
 
+# Trigger on tags
 on:
-  workflow_dispatch:
-    inputs:
-      semver:
-        description: 'Release type (semver)'
-        required: true
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
 
 jobs:
-  bump-and-tag:
-    name: Bump Version and Push Tag
+  integrity-check:
+    name: Verify Version Integrity
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-
-      # Check branch
-      - name: Check Branch
-        if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main'
+      - uses: actions/checkout@v4
+      - name: Check Version Consistency
         run: |
-          echo "ERROR: You can only perform a release from the 'master' or 'main' branch."
-          exit 1
+          # Extract version from tag (v0.1.83 -> 0.1.83)
+          TAG_VERSION=${GITHUB_REF_NAME#v}
 
-      # Check changelog
-      - name: Check Changelog for Unreleased section
-        run: |
-          if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
-            echo "ERROR: CHANGELOG.md is missing the '## [Unreleased]' section. Cannot insert release date."
+          # Extract version from package.json
+          PKG_VERSION=$(grep '"version":' package.json | head -1 | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+
+          echo "Tag version: $TAG_VERSION"
+          echo "Package version: $PKG_VERSION"
+
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "CRITICAL ERROR: Tag version ($TAG_VERSION) does not match package.json version ($PKG_VERSION)!"
             exit 1
           fi
+          echo "Versions match. Proceeding..."
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+  publish-npm:
+    name: Publish to NPM
+    needs: integrity-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+  publish-rust:
+    name: Publish to Crates.io
+    needs: integrity-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
 
-      # Check build
-      - name: Dry Run Build
+      - name: Rust Build Check
+        working-directory: ./rust
+        run: cargo build --release
+
+      - name: Publish to Crates.io
+        working-directory: ./rust
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_TOKEN }}
+        run: cargo publish
+
+  create-github-release:
+    name: Create GitHub Release
+    needs: [publish-npm, publish-rust]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract release notes
+        id: extract_release_notes
         run: |
-          yarn build
-          yarn test
+          VERSION=${GITHUB_REF_NAME#v}
+          # Extracts text between current version header and the next header in CHANGELOG.md
+          sed -n "/^## \[\?${VERSION}\]\?/,/^## /p" CHANGELOG.md | sed '$d' > release_body.md
 
-      # PASS
+          # Fallback if extraction fails or is empty
+          if [ ! -s release_body.md ]; then
+            echo "Warning: No changelog entry found for this version. Using default text."
+            echo "Release $VERSION" > release_body.md
+          fi
 
-      - name: Setup Git User
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Bump NPM version
-        id: npm-version
-        run: |
-          # Updates package.json and package-lock.json without creating a git tag yet
-          npm version ${{ inputs.semver }} --no-git-tag-version
-
-          # Store the new version in an environment variable (e.g., 0.1.84)
-          echo "NEW_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
-
-      - name: Sync Cargo.toml version
-        run: |
-          echo "Updating rust/Cargo.toml to version ${{ env.NEW_VERSION }}"
-          # Finds the first 'version = "..."' line and replaces it
-          sed -i '0,/^version = .*/s//version = "${{ env.NEW_VERSION }}"/' rust/Cargo.toml
-
-      - name: Update Changelog
-        run: |
-          DATE=$(date +'%Y-%m-%d')
-          VERSION=${{ env.NEW_VERSION }}
-          # Replaces '## [Unreleased]' with '## [Unreleased]\n\n## [VERSION] - DATE'
-          sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n## [$VERSION] - $DATE/" CHANGELOG.md
-
-      - name: Commit changes
-        run: |
-          git add package.json rust/Cargo.toml CHANGELOG.md
-          git commit -m "chore: release v${{ env.NEW_VERSION }}"
-
-      # Creating this tag triggers the SECOND workflow (release.yaml)
-      - name: Push changes and Tag
-        run: |
-          git push origin HEAD
-          git tag v${{ env.NEW_VERSION }}
-          git push origin v${{ env.NEW_VERSION }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: release_body.md
+          files: |
+            openapi.yaml
+            json-schema.json

@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.82",
+    "version": "0.1.83",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -15136,7 +15136,7 @@
               "description": "Start of the blockchain era,\nrelative to the start of the network\n",
               "properties": {
                 "time": {
-                  "type": "number",
+                  "type": "integer",
                   "description": "Time in seconds relative to the start time of the network"
                 },
                 "slot": {
@@ -15159,7 +15159,7 @@
               "description": "End of the blockchain era,\nrelative to the start of the network\n",
               "properties": {
                 "time": {
-                  "type": "number",
+                  "type": "integer",
                   "description": "Time in seconds relative to the start time of the network"
                 },
                 "slot": {
@@ -15186,7 +15186,7 @@
                   "description": "Epoch length in number of slots"
                 },
                 "slot_length": {
-                  "type": "number",
+                  "type": "integer",
                   "description": "Slot length in seconds"
                 },
                 "safe_zone": {

@@ -9,12 +9,26 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.84] - 2025-11-27
+
+### Added
+
+- Exposed off-chain metadata fetch errors in metadata responses in `/governance/dreps/:drep_id/metadata`
+  - Error object structure:
+    ```ts
+    {
+      "code": "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR",
+      "message": "Human-readable description of the error"
+    }
+    ```
+  - If metadata are available, the `error` field is omitted
+
 ## [0.1.83] - 2025-11-25
 
 ### Fixed
 
 - `/network/eras` number format
-- added PlutusV3 to the type field of the script object, to match the actual API response types
+- Added PlutusV3 to the type field of the script object, to match the actual API response types
 
 ## [0.1.82] - 2025-10-20
 

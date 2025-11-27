@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.83
+  version: 0.1.84
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -6840,6 +6840,27 @@ components:
         bytes:
           type: string
           description: Content of the metadata (raw)
+          nullable: true
+        error:
+          type: object
+          description: Present when metadata could not be fetched or validated.
+          properties:
+            code:
+              type: string
+              description: Stable machine-readable error code.
+              enum:
+                - HASH_MISMATCH
+                - CONNECTION_ERROR
+                - HTTP_RESPONSE_ERROR
+                - DECODE_ERROR
+                - SIZE_EXCEEDED
+                - UNKNOWN_ERROR
+            message:
+              type: string
+              description: Human-readable description of the error.
+          required:
+            - code
+            - message
       required:
         - drep_id
         - hex

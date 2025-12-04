@@ -25,15 +25,15 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.25.2",
-    "@redocly/cli": "1.26.0",
-    "@scalar/cli": "^0.2.265",
-    "@types/node": "^22.10.2",
-    "@vitest/coverage-v8": "2.1.8",
+    "@redocly/cli": "2.12.2",
+    "@scalar/cli": "1.3.7",
+    "@types/node": "^24.10.1",
+    "@vitest/coverage-v8": "4.0.15",
     "openapi-merge-cli": "^1.3.2",
-    "openapi-typescript": "7.4.4",
+    "openapi-typescript": "7.10.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2",
-    "vitest": "2.1.8"
+    "typescript": "^5.9.3",
+    "vitest": "4.0.15"
   },
   "dependencies": {
     "ajv": "^8.17.1",
@@ -41,8 +41,8 @@
     "rimraf": "6.0.1",
     "yaml": "^2.6.1"
   },
-  "packageManager": "yarn@4.5.0",
+  "packageManager": "yarn@4.12.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

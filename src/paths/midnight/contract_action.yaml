@@ -1,0 +1,71 @@
+post:
+  tags:
+    - Midnight » Queries
+  summary: Query contract action
+  description: |
+    Find a contract action for the given address and optional offset.
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    query ContractAction($address: HexEncoded!, $offset: ContractActionOffset) {
+                      contractAction(address: $address, offset: $offset) {
+                        address
+                        state
+                        zswapState
+                        unshieldedBalances {
+                          tokenType
+                          amount
+                        }
+                      }
+                    }
+                variables:
+                  type: object
+                  required:
+                    - address
+                  properties:
+                    address:
+                      type: string
+                      description: Hex-encoded contract address
+                    offset:
+                      type: object
+                      description: Either a block offset or transaction offset
+                      properties:
+                        blockOffset:
+                          type: object
+                          description: Block hash or height
+                        transactionOffset:
+                          type: object
+                          description: Transaction hash or identifier
+  responses:
+    "200":
+      description: Contract action returned successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  contractAction:
+                    $ref: ../../schemas/midnight/contract_action.yaml
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

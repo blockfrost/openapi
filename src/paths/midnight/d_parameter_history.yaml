@@ -1,0 +1,53 @@
+post:
+  tags:
+    - Midnight » Queries
+  summary: Query D-parameter history
+  description: |
+    Get the full history of D-parameter changes for governance auditability.
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    query {
+                      dParameterHistory {
+                        blockHeight
+                        blockHash
+                        timestamp
+                        numPermissionedCandidates
+                        numRegisteredCandidates
+                      }
+                    }
+  responses:
+    "200":
+      description: D-parameter history returned successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  dParameterHistory:
+                    type: array
+                    items:
+                      $ref: ../../schemas/midnight/d_parameter_change.yaml
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

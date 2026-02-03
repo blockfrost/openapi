@@ -1,0 +1,67 @@
+post:
+  tags:
+    - Midnight » Queries
+  summary: Query transactions
+  description: |
+    Find transactions for the given offset (either a transaction hash or identifier).
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    query Transactions($offset: TransactionOffset!) {
+                      transactions(offset: $offset) {
+                        id
+                        hash
+                        protocolVersion
+                        raw
+                      }
+                    }
+                variables:
+                  type: object
+                  required:
+                    - offset
+                  properties:
+                    offset:
+                      type: object
+                      description: Either a transaction hash or identifier
+                      properties:
+                        hash:
+                          type: string
+                          description: A hex-encoded transaction hash
+                        identifier:
+                          type: string
+                          description: A hex-encoded transaction identifier
+  responses:
+    "200":
+      description: Transactions returned successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    items:
+                      $ref: ../../schemas/midnight/transaction.yaml
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

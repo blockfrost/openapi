@@ -1,0 +1,66 @@
+post:
+  tags:
+    - Midnight » Queries
+  summary: Query DUST generation status
+  description: |
+    Get DUST generation status for specific Cardano reward addresses.
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    query DustGenerationStatus($cardanoRewardAddresses: [CardanoRewardAddress!]!) {
+                      dustGenerationStatus(cardanoRewardAddresses: $cardanoRewardAddresses) {
+                        cardanoRewardAddress
+                        dustAddress
+                        registered
+                        nightBalance
+                        generationRate
+                        maxCapacity
+                        currentCapacity
+                      }
+                    }
+                variables:
+                  type: object
+                  required:
+                    - cardanoRewardAddresses
+                  properties:
+                    cardanoRewardAddresses:
+                      type: array
+                      description: Array of Bech32-encoded Cardano reward addresses
+                      items:
+                        type: string
+                      example: ["stake_test1...", "stake1..."]
+  responses:
+    "200":
+      description: DUST generation status returned successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  dustGenerationStatus:
+                    type: array
+                    items:
+                      $ref: ../../schemas/midnight/dust_generation_status.yaml
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

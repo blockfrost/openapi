@@ -1,0 +1,205 @@
+post:
+  tags:
+    - Midnight » Subscriptions
+  summary: WebSocket Subscriptions
+  description: |
+    Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+
+    **WebSocket Endpoint:** `wss://midnight-{network}.blockfrost.io/api/v0/ws`
+
+    Where `{network}` is either `mainnet` or `preview`.
+
+    ## Authentication
+
+    You can authenticate using one of the following methods:
+
+    **Option 1: HTTP Header**
+
+    Include your project ID as the `project_id` HTTP header when establishing the WebSocket connection.
+
+    **Option 2: WebSocket Subprotocol (for browsers)**
+
+    When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
+
+    ```javascript
+    const ws = new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+      "graphql-transport-ws",
+      "project_id_YOUR_PROJECT_ID"
+    ]);
+    ```
+
+    ## Connection Protocol
+
+    The WebSocket uses the `graphql-transport-ws` protocol. After establishing the connection, you must follow this handshake sequence:
+
+    1. **Send initialization message:** `{"type":"connection_init"}`
+    2. **Wait for acknowledgement:** Server responds with `{"type":"connection_ack"}`
+    3. **Subscribe to events:** Send subscription messages with your GraphQL query
+
+    ## Example using websocat
+
+    ```bash
+    websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+      --protocol "graphql-transport-ws" \
+      -H "project_id: YOUR_PROJECT_ID" -v
+    ```
+
+    Then send these messages in order:
+
+    ```json
+    {"type":"connection_init"}
+    ```
+
+    Wait for `{"type":"connection_ack"}` response, then subscribe:
+
+    ```json
+    {"id":"1","type":"subscribe","payload":{"query":"subscription { blocks { hash height timestamp transactions { hash } } }"}}
+    ```
+
+    ## Example using JavaScript
+
+    ```javascript
+    const ws = new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+      "graphql-transport-ws",
+      "project_id_YOUR_PROJECT_ID"
+    ]);
+
+    ws.onopen = () => {
+      // Step 1: Initialize connection
+      ws.send(JSON.stringify({ type: "connection_init" }));
+    };
+
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      
+      if (message.type === "connection_ack") {
+        // Step 2: Subscribe after acknowledgement
+        ws.send(JSON.stringify({
+          id: "1",
+          type: "subscribe",
+          payload: {
+            query: `subscription { blocks { hash height timestamp } }`
+          }
+        }));
+      } else if (message.type === "next") {
+        // Step 3: Handle incoming data
+        console.log("Received:", message.payload.data);
+      }
+    };
+    ```
+
+    ## Available Subscriptions
+
+    ### blocks
+    Subscribe to blocks starting at the given offset or at the latest block if omitted.
+    ```graphql
+    subscription Blocks($offset: BlockOffset) {
+      blocks(offset: $offset) {
+        hash
+        height
+        timestamp
+        protocolVersion
+      }
+    }
+    ```
+
+    ### contractActions
+    Subscribe to contract actions with the given address starting at the given offset.
+    ```graphql
+    subscription ContractActions($address: HexEncoded!, $offset: BlockOffset) {
+      contractActions(address: $address, offset: $offset) {
+        address
+        state
+        zswapState
+      }
+    }
+    ```
+
+    ### dustLedgerEvents
+    Subscribe to DUST ledger events starting at the given ID or at the very start if omitted.
+    ```graphql
+    subscription DustLedgerEvents($id: Int) {
+      dustLedgerEvents(id: $id) {
+        id
+        raw
+        maxId
+      }
+    }
+    ```
+
+    ### shieldedTransactions
+    Subscribe to shielded transaction events for the given session ID.
+    ```graphql
+    subscription ShieldedTransactions($sessionId: HexEncoded!, $index: Int) {
+      shieldedTransactions(sessionId: $sessionId, index: $index) {
+        ... on RelevantTransaction {
+          transaction { id hash }
+          collapsedMerkleTree { startIndex endIndex }
+        }
+        ... on ShieldedTransactionsProgress {
+          highestEndIndex
+          highestCheckedEndIndex
+          highestRelevantEndIndex
+        }
+      }
+    }
+    ```
+
+    ### unshieldedTransactions
+    Subscribe to unshielded transaction events for the given address.
+    ```graphql
+    subscription UnshieldedTransactions($address: UnshieldedAddress!, $transactionId: Int) {
+      unshieldedTransactions(address: $address, transactionId: $transactionId) {
+        ... on UnshieldedTransaction {
+          transaction { id hash }
+          createdUtxos { owner tokenType value }
+          spentUtxos { owner tokenType value }
+        }
+        ... on UnshieldedTransactionsProgress {
+          highestTransactionId
+        }
+      }
+    }
+    ```
+
+    ### zswapLedgerEvents
+    Subscribe to zswap ledger events starting at the given ID or at the very start if omitted.
+    ```graphql
+    subscription ZswapLedgerEvents($id: Int) {
+      zswapLedgerEvents(id: $id) {
+        id
+        raw
+        maxId
+      }
+    }
+    ```
+  requestBody:
+    description: |
+      This endpoint is for documentation purposes. Subscriptions use WebSocket, not HTTP.
+      See the description above for WebSocket connection details.
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            info:
+              type: string
+              example: "Use WebSocket connection for subscriptions"
+  responses:
+    "200":
+      description: |
+        This is a WebSocket endpoint. HTTP requests will not work.
+        Connect via `wss://midnight-{network}.blockfrost.io/api/v0/ws`
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Use WebSocket for subscriptions"
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml

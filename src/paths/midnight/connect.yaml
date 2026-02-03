@@ -1,0 +1,56 @@
+post:
+  tags:
+    - Midnight » Mutations
+  summary: Connect wallet
+  description: |
+    Connect the wallet with the given viewing key and return a session ID.
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    mutation Connect($viewingKey: ViewingKey!) {
+                      connect(viewingKey: $viewingKey)
+                    }
+                variables:
+                  type: object
+                  required:
+                    - viewingKey
+                  properties:
+                    viewingKey:
+                      type: string
+                      description: The wallet viewing key
+                      example: "viewing_key_1..."
+  responses:
+    "200":
+      description: Wallet connected successfully, session ID returned
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  connect:
+                    type: string
+                    description: Hex-encoded session ID
+                    example: "0x1234567890abcdef"
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

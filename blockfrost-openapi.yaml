@@ -14,7 +14,7 @@ info:
     url: https://opensource.org/licenses/MIT
   termsOfService: https://blockfrost.io/terms
   description: |
-    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
+    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain, Midnight blockchain, and parts of their ecosystems.
 
     ## Tokens
 
@@ -54,6 +54,18 @@ info:
             </td>
         </tr>
         <tr>
+            <td>Midnight mainnet</td>
+            <td>
+                <code>https://midnight-mainnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Midnight preview</td>
+            <td>
+                <code>https://midnight-preview.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
             <td>InterPlanetary File System</td>
             <td>
                 <code>https://ipfs.blockfrost.io/api/v0</code>
@@ -78,6 +90,48 @@ info:
     * Only pinned IPFS files are counted towards the IPFS quota.
     * Non-pinned IPFS files are subject to regular garbage collection and will be removed unless pinned.
     * We allow maximum of 100 queued pins per IPFS user.
+
+    ## Midnight Indexer API
+
+    The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data—blocks, transactions, contracts, and wallet-related events—indexed from the Midnight blockchain.
+
+    The deployed version is **v3**. For the complete GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
+
+    ### Endpoint
+
+    All GraphQL operations (queries, mutations, and subscriptions) use the same endpoint:
+    * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST requests)
+    * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for subscriptions)
+
+    Where `{network}` is either `mainnet` or `preview`.
+
+    ### Request Format
+
+    * Send a POST request with a JSON body containing:
+      * `query`: The GraphQL query or mutation string
+      * `variables`: (optional) Variables for the GraphQL operation
+      * `operationName`: (optional) Name of the operation to execute
+    * The response follows the standard GraphQL format with `data` and `errors` fields
+
+    ### Authentication
+
+    Include your project ID as the `project_id` HTTP header.
+
+    When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
+    ```javascript
+    new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+      "graphql-transport-ws",
+      "project_id_nightpreviewtesttoken"
+    ]);
+    ```
+
+    ### Available Operations
+
+    * [**Queries**](#tag/Midnight-%C2%BB-Queries): Fetch blockchain data (blocks, transactions, contracts, DUST status, governance parameters)
+    * [**Mutations**](#tag/Midnight-%C2%BB-Mutations): Wallet connection management (connect/disconnect)
+    * [**Subscriptions**](#tag/Midnight-%C2%BB-Subscriptions): Real-time updates via WebSocket (blocks, contract actions, transactions, ledger events)
+
+    For more information, see the [Midnight Indexer API documentation](https://docs.midnight.network/develop/reference/midnight-api/midnight-indexer).
 
     ## Errors
 
@@ -228,6 +282,10 @@ servers:
     description: Cardano Preprod network
   - url: https://cardano-preview.blockfrost.io/api/v0
     description: Cardano Preview network
+  - url: https://midnight-mainnet.blockfrost.io/api/v0
+    description: Midnight Mainnet network
+  - url: https://midnight-preview.blockfrost.io/api/v0
+    description: Midnight Preview network
   - url: https://localhost:3000
     description: local
 security:
@@ -252,6 +310,37 @@ tags:
   - name: IPFS » Add
   - name: IPFS » Gateway
   - name: IPFS » Pins
+  - name: Midnight » Queries
+    description: |
+      Query data from the Midnight blockchain using the Midnight Indexer GraphQL API.
+
+      All queries are sent as POST requests to the `/` endpoint with the GraphQL query in the request body.
+  - name: Midnight » Mutations
+    description: |
+      Execute mutations on the Midnight Indexer GraphQL API.
+
+      All mutations are sent as POST requests to the `/` endpoint with the GraphQL mutation in the request body.
+  - name: Midnight » Subscriptions
+    description: |
+      Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+
+      Connect to `wss://midnight-{network}.blockfrost.io/api/v0/ws` using the `graphql-transport-ws` protocol.
+
+      **Available subscriptions:**
+      * `blocks` - Subscribe to new blocks
+      * `contractActions` - Subscribe to contract actions for a specific address
+      * `dustLedgerEvents` - Subscribe to DUST ledger events
+      * `shieldedTransactions` - Subscribe to shielded transaction events for a wallet session
+      * `unshieldedTransactions` - Subscribe to unshielded transaction events for an address
+      * `zswapLedgerEvents` - Subscribe to zswap ledger events
+
+      **WebSocket Authentication:**
+      ```javascript
+      new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+        "graphql-transport-ws",
+        "project_id_YOUR_PROJECT_ID"
+      ]);
+      ```
 paths:
   /:
     get:
@@ -6487,6 +6576,655 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /query/block:
+    post:
+      tags:
+        - Midnight » Queries
+      summary: Query block
+      description: |
+        Find a block for the given optional offset; if not present, the latest block is returned.
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        query Block($offset: BlockOffset) {
+                          block(offset: $offset) {
+                            hash
+                            height
+                            protocolVersion
+                            timestamp
+                            author
+                            ledgerParameters
+                          }
+                        }
+                    variables:
+                      type: object
+                      properties:
+                        offset:
+                          type: object
+                          description: Either a block hash or block height
+                          properties:
+                            hash:
+                              type: string
+                              description: A hex-encoded block hash
+                            height:
+                              type: integer
+                              description: A block height
+      responses:
+        '200':
+          description: Block data returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      block:
+                        $ref: '#/components/schemas/block'
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /query/transactions:
+    post:
+      tags:
+        - Midnight » Queries
+      summary: Query transactions
+      description: |
+        Find transactions for the given offset (either a transaction hash or identifier).
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        query Transactions($offset: TransactionOffset!) {
+                          transactions(offset: $offset) {
+                            id
+                            hash
+                            protocolVersion
+                            raw
+                          }
+                        }
+                    variables:
+                      type: object
+                      required:
+                        - offset
+                      properties:
+                        offset:
+                          type: object
+                          description: Either a transaction hash or identifier
+                          properties:
+                            hash:
+                              type: string
+                              description: A hex-encoded transaction hash
+                            identifier:
+                              type: string
+                              description: A hex-encoded transaction identifier
+      responses:
+        '200':
+          description: Transactions returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      transactions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/transaction'
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /query/contract-action:
+    post:
+      tags:
+        - Midnight » Queries
+      summary: Query contract action
+      description: |
+        Find a contract action for the given address and optional offset.
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        query ContractAction($address: HexEncoded!, $offset: ContractActionOffset) {
+                          contractAction(address: $address, offset: $offset) {
+                            address
+                            state
+                            zswapState
+                            unshieldedBalances {
+                              tokenType
+                              amount
+                            }
+                          }
+                        }
+                    variables:
+                      type: object
+                      required:
+                        - address
+                      properties:
+                        address:
+                          type: string
+                          description: Hex-encoded contract address
+                        offset:
+                          type: object
+                          description: Either a block offset or transaction offset
+                          properties:
+                            blockOffset:
+                              type: object
+                              description: Block hash or height
+                            transactionOffset:
+                              type: object
+                              description: Transaction hash or identifier
+      responses:
+        '200':
+          description: Contract action returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      contractAction:
+                        $ref: '#/components/schemas/contract_action'
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /query/dust-generation-status:
+    post:
+      tags:
+        - Midnight » Queries
+      summary: Query DUST generation status
+      description: |
+        Get DUST generation status for specific Cardano reward addresses.
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        query DustGenerationStatus($cardanoRewardAddresses: [CardanoRewardAddress!]!) {
+                          dustGenerationStatus(cardanoRewardAddresses: $cardanoRewardAddresses) {
+                            cardanoRewardAddress
+                            dustAddress
+                            registered
+                            nightBalance
+                            generationRate
+                            maxCapacity
+                            currentCapacity
+                          }
+                        }
+                    variables:
+                      type: object
+                      required:
+                        - cardanoRewardAddresses
+                      properties:
+                        cardanoRewardAddresses:
+                          type: array
+                          description: Array of Bech32-encoded Cardano reward addresses
+                          items:
+                            type: string
+                          example:
+                            - stake_test1...
+                            - stake1...
+      responses:
+        '200':
+          description: DUST generation status returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      dustGenerationStatus:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/dust_generation_status'
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /query/d-parameter-history:
+    post:
+      tags:
+        - Midnight » Queries
+      summary: Query D-parameter history
+      description: |
+        Get the full history of D-parameter changes for governance auditability.
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        query {
+                          dParameterHistory {
+                            blockHeight
+                            blockHash
+                            timestamp
+                            numPermissionedCandidates
+                            numRegisteredCandidates
+                          }
+                        }
+      responses:
+        '200':
+          description: D-parameter history returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      dParameterHistory:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/d_parameter_change'
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /mutation/connect:
+    post:
+      tags:
+        - Midnight » Mutations
+      summary: Connect wallet
+      description: |
+        Connect the wallet with the given viewing key and return a session ID.
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        mutation Connect($viewingKey: ViewingKey!) {
+                          connect(viewingKey: $viewingKey)
+                        }
+                    variables:
+                      type: object
+                      required:
+                        - viewingKey
+                      properties:
+                        viewingKey:
+                          type: string
+                          description: The wallet viewing key
+                          example: viewing_key_1...
+      responses:
+        '200':
+          description: Wallet connected successfully, session ID returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      connect:
+                        type: string
+                        description: Hex-encoded session ID
+                        example: '0x1234567890abcdef'
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /mutation/disconnect:
+    post:
+      tags:
+        - Midnight » Mutations
+      summary: Disconnect wallet
+      description: |
+        Disconnect the wallet with the given session ID.
+
+        **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/graphql_request'
+                - type: object
+                  properties:
+                    query:
+                      example: |
+                        mutation Disconnect($sessionId: HexEncoded!) {
+                          disconnect(sessionId: $sessionId)
+                        }
+                    variables:
+                      type: object
+                      required:
+                        - sessionId
+                      properties:
+                        sessionId:
+                          type: string
+                          description: Hex-encoded session ID to disconnect
+                          example: '0x1234567890abcdef'
+      responses:
+        '200':
+          description: Wallet disconnected successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      disconnect:
+                        type: object
+                        description: Unit type (empty response)
+                        nullable: true
+                  errors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/graphql_error'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+  /ws:
+    post:
+      tags:
+        - Midnight » Subscriptions
+      summary: WebSocket Subscriptions
+      description: |
+        Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+
+        **WebSocket Endpoint:** `wss://midnight-{network}.blockfrost.io/api/v0/ws`
+
+        Where `{network}` is either `mainnet` or `preview`.
+
+        ## Authentication
+
+        You can authenticate using one of the following methods:
+
+        **Option 1: HTTP Header**
+
+        Include your project ID as the `project_id` HTTP header when establishing the WebSocket connection.
+
+        **Option 2: WebSocket Subprotocol (for browsers)**
+
+        When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
+
+        ```javascript
+        const ws = new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+          "graphql-transport-ws",
+          "project_id_YOUR_PROJECT_ID"
+        ]);
+        ```
+
+        ## Connection Protocol
+
+        The WebSocket uses the `graphql-transport-ws` protocol. After establishing the connection, you must follow this handshake sequence:
+
+        1. **Send initialization message:** `{"type":"connection_init"}`
+        2. **Wait for acknowledgement:** Server responds with `{"type":"connection_ack"}`
+        3. **Subscribe to events:** Send subscription messages with your GraphQL query
+
+        ## Example using websocat
+
+        ```bash
+        websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+          --protocol "graphql-transport-ws" \
+          -H "project_id: YOUR_PROJECT_ID" -v
+        ```
+
+        Then send these messages in order:
+
+        ```json
+        {"type":"connection_init"}
+        ```
+
+        Wait for `{"type":"connection_ack"}` response, then subscribe:
+
+        ```json
+        {"id":"1","type":"subscribe","payload":{"query":"subscription { blocks { hash height timestamp transactions { hash } } }"}}
+        ```
+
+        ## Example using JavaScript
+
+        ```javascript
+        const ws = new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+          "graphql-transport-ws",
+          "project_id_YOUR_PROJECT_ID"
+        ]);
+
+        ws.onopen = () => {
+          // Step 1: Initialize connection
+          ws.send(JSON.stringify({ type: "connection_init" }));
+        };
+
+        ws.onmessage = (event) => {
+          const message = JSON.parse(event.data);
+          
+          if (message.type === "connection_ack") {
+            // Step 2: Subscribe after acknowledgement
+            ws.send(JSON.stringify({
+              id: "1",
+              type: "subscribe",
+              payload: {
+                query: `subscription { blocks { hash height timestamp } }`
+              }
+            }));
+          } else if (message.type === "next") {
+            // Step 3: Handle incoming data
+            console.log("Received:", message.payload.data);
+          }
+        };
+        ```
+
+        ## Available Subscriptions
+
+        ### blocks
+        Subscribe to blocks starting at the given offset or at the latest block if omitted.
+        ```graphql
+        subscription Blocks($offset: BlockOffset) {
+          blocks(offset: $offset) {
+            hash
+            height
+            timestamp
+            protocolVersion
+          }
+        }
+        ```
+
+        ### contractActions
+        Subscribe to contract actions with the given address starting at the given offset.
+        ```graphql
+        subscription ContractActions($address: HexEncoded!, $offset: BlockOffset) {
+          contractActions(address: $address, offset: $offset) {
+            address
+            state
+            zswapState
+          }
+        }
+        ```
+
+        ### dustLedgerEvents
+        Subscribe to DUST ledger events starting at the given ID or at the very start if omitted.
+        ```graphql
+        subscription DustLedgerEvents($id: Int) {
+          dustLedgerEvents(id: $id) {
+            id
+            raw
+            maxId
+          }
+        }
+        ```
+
+        ### shieldedTransactions
+        Subscribe to shielded transaction events for the given session ID.
+        ```graphql
+        subscription ShieldedTransactions($sessionId: HexEncoded!, $index: Int) {
+          shieldedTransactions(sessionId: $sessionId, index: $index) {
+            ... on RelevantTransaction {
+              transaction { id hash }
+              collapsedMerkleTree { startIndex endIndex }
+            }
+            ... on ShieldedTransactionsProgress {
+              highestEndIndex
+              highestCheckedEndIndex
+              highestRelevantEndIndex
+            }
+          }
+        }
+        ```
+
+        ### unshieldedTransactions
+        Subscribe to unshielded transaction events for the given address.
+        ```graphql
+        subscription UnshieldedTransactions($address: UnshieldedAddress!, $transactionId: Int) {
+          unshieldedTransactions(address: $address, transactionId: $transactionId) {
+            ... on UnshieldedTransaction {
+              transaction { id hash }
+              createdUtxos { owner tokenType value }
+              spentUtxos { owner tokenType value }
+            }
+            ... on UnshieldedTransactionsProgress {
+              highestTransactionId
+            }
+          }
+        }
+        ```
+
+        ### zswapLedgerEvents
+        Subscribe to zswap ledger events starting at the given ID or at the very start if omitted.
+        ```graphql
+        subscription ZswapLedgerEvents($id: Int) {
+          zswapLedgerEvents(id: $id) {
+            id
+            raw
+            maxId
+          }
+        }
+        ```
+      requestBody:
+        description: |
+          This endpoint is for documentation purposes. Subscriptions use WebSocket, not HTTP.
+          See the description above for WebSocket connection details.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                info:
+                  type: string
+                  example: Use WebSocket connection for subscriptions
+      responses:
+        '200':
+          description: |
+            This is a WebSocket endpoint. HTTP requests will not work.
+            Connect via `wss://midnight-{network}.blockfrost.io/api/v0/ws`
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Use WebSocket for subscriptions
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
 components:
   schemas:
     onchain_metadata_cip25:
@@ -11333,6 +12071,440 @@ components:
               value: '1.29'
             - source: cryptoCompare
               value: '1.283'
+    graphql_request:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: |
+            query {
+              block {
+                hash
+                height
+                timestamp
+              }
+            }
+        variables:
+          type: object
+          description: Variables for the GraphQL query
+          additionalProperties: true
+        operationName:
+          type: string
+          description: The name of the operation to execute (if the query contains multiple operations)
+    block:
+      type: object
+      description: A block with its relevant data
+      properties:
+        hash:
+          type: string
+          description: The hex-encoded block hash
+          example: '0x1234567890abcdef'
+        height:
+          type: integer
+          description: The block height
+          example: 12345
+        protocolVersion:
+          type: integer
+          description: The protocol version
+          example: 1
+        timestamp:
+          type: integer
+          description: The UNIX timestamp
+          example: 1704067200
+        author:
+          type: string
+          description: The hex-encoded block author
+          nullable: true
+          example: '0xabcdef1234567890'
+        parent:
+          $ref: '#/components/schemas/block'
+          description: The parent of this block
+          nullable: true
+        transactions:
+          type: array
+          description: The transactions within this block
+          items:
+            $ref: '#/components/schemas/transaction'
+        ledgerParameters:
+          type: string
+          description: The hex-encoded ledger parameters for this block
+          example: 0x...
+        systemParameters:
+          $ref: '#/components/schemas/system_parameters'
+          description: The system parameters (governance) at this block height
+    transaction:
+      type: object
+      description: A Midnight transaction
+      properties:
+        id:
+          type: integer
+          description: The transaction ID
+          example: 1
+        hash:
+          type: string
+          description: The hex-encoded transaction hash
+          example: '0x1234567890abcdef'
+        protocolVersion:
+          type: integer
+          description: The protocol version
+          example: 1
+        raw:
+          type: string
+          description: The hex-encoded serialized transaction content
+          example: 0x...
+        block:
+          $ref: '#/components/schemas/block'
+          description: The block for this transaction
+        contractActions:
+          type: array
+          description: The contract actions for this transaction
+          items:
+            $ref: '#/components/schemas/contract_action'
+        unshieldedCreatedOutputs:
+          type: array
+          description: Unshielded UTXOs created by this transaction
+          items:
+            $ref: '#/components/schemas/unshielded_utxo'
+        unshieldedSpentOutputs:
+          type: array
+          description: Unshielded UTXOs spent (consumed) by this transaction
+          items:
+            $ref: '#/components/schemas/unshielded_utxo'
+        zswapLedgerEvents:
+          type: array
+          description: Zswap ledger events of this transaction
+          items:
+            $ref: '#/components/schemas/zswap_ledger_event'
+        dustLedgerEvents:
+          type: array
+          description: Dust ledger events of this transaction
+          items:
+            $ref: '#/components/schemas/dust_ledger_event'
+        transactionResult:
+          $ref: '#/components/schemas/transaction_result'
+          description: The result of applying this transaction to the ledger state (regular transactions only)
+          nullable: true
+        identifiers:
+          type: array
+          description: The hex-encoded serialized transaction identifiers (regular transactions only)
+          nullable: true
+          items:
+            type: string
+        merkleTreeRoot:
+          type: string
+          description: The hex-encoded serialized merkle-tree root (regular transactions only)
+          nullable: true
+          example: 0x...
+        startIndex:
+          type: integer
+          description: The zswap state start index (regular transactions only)
+          nullable: true
+          example: 0
+        endIndex:
+          type: integer
+          description: The zswap state end index (regular transactions only)
+          nullable: true
+          example: 100
+        fees:
+          $ref: '#/components/schemas/transaction_fees'
+          description: Fee information for this transaction (regular transactions only)
+          nullable: true
+    contract_balance:
+      type: object
+      description: Represents a token balance held by a contract
+      properties:
+        tokenType:
+          type: string
+          description: Hex-encoded token type identifier
+          example: '0x1234'
+        amount:
+          type: string
+          description: Balance amount as string to support larger integer values (up to 16 bytes)
+          example: '1000000'
+    contract_deploy:
+      type: object
+      description: A contract deployment
+      properties:
+        address:
+          type: string
+          description: The hex-encoded serialized address
+          example: '0xabcdef1234567890'
+        state:
+          type: string
+          description: The hex-encoded serialized state
+          example: 0x...
+        zswapState:
+          type: string
+          description: The hex-encoded serialized contract-specific zswap state
+          example: 0x...
+    contract_action:
+      type: object
+      description: A contract action (deploy, call, or update)
+      properties:
+        address:
+          type: string
+          description: The hex-encoded serialized address
+          example: '0xabcdef1234567890'
+        state:
+          type: string
+          description: The hex-encoded serialized state
+          example: 0x...
+        zswapState:
+          type: string
+          description: The hex-encoded serialized contract-specific zswap state
+          example: 0x...
+        transaction:
+          $ref: '#/components/schemas/transaction'
+          description: Transaction for this contract action
+        unshieldedBalances:
+          type: array
+          description: Unshielded token balances held by this contract
+          items:
+            $ref: '#/components/schemas/contract_balance'
+        entryPoint:
+          type: string
+          description: The entry point (for contract calls only)
+          nullable: true
+          example: transfer
+        deploy:
+          $ref: '#/components/schemas/contract_deploy'
+          description: Contract deploy for this contract call (for contract calls only)
+          nullable: true
+    unshielded_utxo:
+      type: object
+      description: Represents an unshielded UTXO
+      properties:
+        owner:
+          type: string
+          description: Owner Bech32m-encoded address
+          example: midnight1...
+        tokenType:
+          type: string
+          description: Token hex-encoded serialized token type
+          example: '0x1234'
+        value:
+          type: string
+          description: UTXO value (quantity) as a string to support u128
+          example: '1000000'
+        intentHash:
+          type: string
+          description: The hex-encoded serialized intent hash
+          example: 0x...
+        outputIndex:
+          type: integer
+          description: Index of this output within its creating transaction
+          example: 0
+        ctime:
+          type: integer
+          description: The creation time in seconds
+          nullable: true
+          example: 1704067200
+        initialNonce:
+          type: string
+          description: The hex-encoded initial nonce for DUST generation tracking
+          example: 0x...
+        registeredForDustGeneration:
+          type: boolean
+          description: Whether this UTXO is registered for DUST generation
+          example: false
+        createdAtTransaction:
+          $ref: '#/components/schemas/transaction'
+          description: Transaction that created this UTXO
+        spentAtTransaction:
+          $ref: '#/components/schemas/transaction'
+          description: Transaction that spent this UTXO
+          nullable: true
+    zswap_ledger_event:
+      type: object
+      description: A zswap related ledger event
+      properties:
+        id:
+          type: integer
+          description: The ID of this zswap ledger event
+          example: 1
+        raw:
+          type: string
+          description: The hex-encoded serialized event
+          example: 0x...
+        maxId:
+          type: integer
+          description: The maximum ID of all zswap ledger events
+          example: 1000
+    dust_output:
+      type: object
+      description: A dust output
+      properties:
+        nonce:
+          type: string
+          description: The hex-encoded 32-byte nonce
+          example: 0x...
+    dust_ledger_event:
+      type: object
+      description: A dust related ledger event
+      properties:
+        id:
+          type: integer
+          description: The ID of this dust ledger event
+          example: 1
+        raw:
+          type: string
+          description: The hex-encoded serialized event
+          example: 0x...
+        maxId:
+          type: integer
+          description: The maximum ID of all dust ledger events
+          example: 1000
+        output:
+          $ref: '#/components/schemas/dust_output'
+          description: The dust output (for initial UTXO events only)
+          nullable: true
+    transaction_result:
+      type: object
+      description: The result of applying a transaction to the ledger state
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - PARTIAL_SUCCESS
+            - FAILURE
+          description: The status of the transaction result
+          example: SUCCESS
+        segments:
+          type: array
+          description: Segments for partial success showing which parts succeeded
+          nullable: true
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Segment ID
+              success:
+                type: boolean
+                description: Whether this segment succeeded
+    transaction_fees:
+      type: object
+      description: Fees information for a transaction, including both paid and estimated fees
+      properties:
+        paidFees:
+          type: string
+          description: The actual fees paid for this transaction in DUST
+          example: '1000'
+        estimatedFees:
+          type: string
+          description: The estimated fees that was calculated for this transaction in DUST
+          example: '1000'
+    d_parameter:
+      type: object
+      description: The D-parameter controlling validator committee composition
+      properties:
+        numPermissionedCandidates:
+          type: integer
+          description: Number of permissioned candidates
+          example: 10
+        numRegisteredCandidates:
+          type: integer
+          description: Number of registered candidates
+          example: 50
+    system_parameters:
+      type: object
+      description: System parameters at a specific block height
+      properties:
+        dParameter:
+          $ref: '#/components/schemas/d_parameter'
+          description: The D-parameter controlling validator committee composition
+    graphql_error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        locations:
+          type: array
+          description: Locations in the query where the error occurred
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+              column:
+                type: integer
+        path:
+          type: array
+          description: Path to the field that caused the error
+          items:
+            type: string
+    dust_generation_status:
+      type: object
+      description: DUST generation status for a specific Cardano reward address
+      properties:
+        cardanoRewardAddress:
+          type: string
+          description: The Bech32-encoded Cardano reward address (e.g., stake_test1... or stake1...)
+          example: stake_test1...
+        dustAddress:
+          type: string
+          description: The Bech32m-encoded associated DUST address if registered
+          nullable: true
+          example: midnight1...
+        registered:
+          type: boolean
+          description: Whether this reward address is registered
+          example: true
+        nightBalance:
+          type: string
+          description: NIGHT balance backing generation in STAR
+          example: '1000000'
+        generationRate:
+          type: string
+          description: DUST generation rate in SPECK per second
+          example: '100'
+        maxCapacity:
+          type: string
+          description: Maximum DUST capacity in SPECK
+          example: '1000000'
+        currentCapacity:
+          type: string
+          description: Current generated DUST capacity in SPECK
+          example: '500000'
+        utxoTxHash:
+          type: string
+          description: Cardano UTXO transaction hash for update/unregister operations
+          nullable: true
+          example: 0x...
+        utxoOutputIndex:
+          type: integer
+          description: Cardano UTXO output index for update/unregister operations
+          nullable: true
+          example: 0
+    d_parameter_change:
+      type: object
+      description: D-parameter change record for history queries
+      properties:
+        blockHeight:
+          type: integer
+          description: The block height where this parameter became effective
+          example: 12345
+        blockHash:
+          type: string
+          description: The hex-encoded block hash where this parameter became effective
+          example: '0x1234567890abcdef'
+        timestamp:
+          type: integer
+          description: The UNIX timestamp when this parameter became effective
+          example: 1704067200
+        numPermissionedCandidates:
+          type: integer
+          description: Number of permissioned candidates
+          example: 10
+        numRegisteredCandidates:
+          type: integer
+          description: Number of registered candidates
+          example: 50
     asset_onchain_metadata_cip25:
       type: object
       additionalProperties: true

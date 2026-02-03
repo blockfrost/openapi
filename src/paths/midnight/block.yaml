@@ -1,0 +1,65 @@
+post:
+  tags:
+    - Midnight » Queries
+  summary: Query block
+  description: |
+    Find a block for the given optional offset; if not present, the latest block is returned.
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    query Block($offset: BlockOffset) {
+                      block(offset: $offset) {
+                        hash
+                        height
+                        protocolVersion
+                        timestamp
+                        author
+                        ledgerParameters
+                      }
+                    }
+                variables:
+                  type: object
+                  properties:
+                    offset:
+                      type: object
+                      description: Either a block hash or block height
+                      properties:
+                        hash:
+                          type: string
+                          description: A hex-encoded block hash
+                        height:
+                          type: integer
+                          description: A block height
+  responses:
+    "200":
+      description: Block data returned successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  block:
+                    $ref: ../../schemas/midnight/block.yaml
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

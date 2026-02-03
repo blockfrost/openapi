@@ -7,14 +7,14 @@ info:
     altText: Blockfrost
   contact:
     name: Blockfrost Team
-    url: 'https://blockfrost.io'
+    url: "https://blockfrost.io"
     email: contact@blockfrost.io
   license:
     name: MIT
-    url: 'https://opensource.org/licenses/MIT'
-  termsOfService: 'https://blockfrost.io/terms'
+    url: "https://opensource.org/licenses/MIT"
+  termsOfService: "https://blockfrost.io/terms"
   description: |
-    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
+    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain, Midnight blockchain, and parts of their ecosystems.
 
     ## Tokens
 
@@ -54,6 +54,18 @@ info:
             </td>
         </tr>
         <tr>
+            <td>Midnight mainnet</td>
+            <td>
+                <code>https://midnight-mainnet.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Midnight preview</td>
+            <td>
+                <code>https://midnight-preview.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
             <td>InterPlanetary File System</td>
             <td>
                 <code>https://ipfs.blockfrost.io/api/v0</code>
@@ -78,6 +90,48 @@ info:
     * Only pinned IPFS files are counted towards the IPFS quota.
     * Non-pinned IPFS files are subject to regular garbage collection and will be removed unless pinned.
     * We allow maximum of 100 queued pins per IPFS user.
+
+    ## Midnight Indexer API
+
+    The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data—blocks, transactions, contracts, and wallet-related events—indexed from the Midnight blockchain.
+
+    The deployed version is **v3**. For the complete GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
+
+    ### Endpoint
+
+    All GraphQL operations (queries, mutations, and subscriptions) use the same endpoint:
+    * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST requests)
+    * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for subscriptions)
+
+    Where `{network}` is either `mainnet` or `preview`.
+
+    ### Request Format
+
+    * Send a POST request with a JSON body containing:
+      * `query`: The GraphQL query or mutation string
+      * `variables`: (optional) Variables for the GraphQL operation
+      * `operationName`: (optional) Name of the operation to execute
+    * The response follows the standard GraphQL format with `data` and `errors` fields
+
+    ### Authentication
+
+    Include your project ID as the `project_id` HTTP header.
+
+    When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
+    ```javascript
+    new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+      "graphql-transport-ws",
+      "project_id_nightpreviewtesttoken"
+    ]);
+    ```
+
+    ### Available Operations
+
+    * [**Queries**](#tag/Midnight-%C2%BB-Queries): Fetch blockchain data (blocks, transactions, contracts, DUST status, governance parameters)
+    * [**Mutations**](#tag/Midnight-%C2%BB-Mutations): Wallet connection management (connect/disconnect)
+    * [**Subscriptions**](#tag/Midnight-%C2%BB-Subscriptions): Real-time updates via WebSocket (blocks, contract actions, transactions, ledger events)
+
+    For more information, see the [Midnight Indexer API documentation](https://docs.midnight.network/develop/reference/midnight-api/midnight-indexer).
 
     ## Errors
 
@@ -229,6 +283,10 @@ servers:
     description: Cardano Preprod network
   - url: https://cardano-preview.blockfrost.io/api/v0
     description: Cardano Preview network
+  - url: https://midnight-mainnet.blockfrost.io/api/v0
+    description: Midnight Mainnet network
+  - url: https://midnight-preview.blockfrost.io/api/v0
+    description: Midnight Preview network
   - url: https://localhost:3000
     description: local
 
@@ -270,6 +328,37 @@ tags:
   - name: IPFS » Add
   - name: IPFS » Gateway
   - name: IPFS » Pins
+  - name: Midnight » Queries
+    description: |
+      Query data from the Midnight blockchain using the Midnight Indexer GraphQL API.
+
+      All queries are sent as POST requests to the `/` endpoint with the GraphQL query in the request body.
+  - name: Midnight » Mutations
+    description: |
+      Execute mutations on the Midnight Indexer GraphQL API.
+
+      All mutations are sent as POST requests to the `/` endpoint with the GraphQL mutation in the request body.
+  - name: Midnight » Subscriptions
+    description: |
+      Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+
+      Connect to `wss://midnight-{network}.blockfrost.io/api/v0/ws` using the `graphql-transport-ws` protocol.
+
+      **Available subscriptions:**
+      * `blocks` - Subscribe to new blocks
+      * `contractActions` - Subscribe to contract actions for a specific address
+      * `dustLedgerEvents` - Subscribe to DUST ledger events
+      * `shieldedTransactions` - Subscribe to shielded transaction events for a wallet session
+      * `unshieldedTransactions` - Subscribe to unshielded transaction events for an address
+      * `zswapLedgerEvents` - Subscribe to zswap ledger events
+
+      **WebSocket Authentication:**
+      ```javascript
+      new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+        "graphql-transport-ws",
+        "project_id_YOUR_PROJECT_ID"
+      ]);
+      ```
 
 paths:
   /:
@@ -682,6 +771,36 @@ paths:
 
   /nutlink/tickers/{ticker}:
     $ref: ./paths/api/nutlink/tickers/{ticker}/index.yaml
+
+  # midnight indexer - queries
+
+  /query/block:
+    $ref: ./paths/midnight/block.yaml
+
+  /query/transactions:
+    $ref: ./paths/midnight/transactions.yaml
+
+  /query/contract-action:
+    $ref: ./paths/midnight/contract_action.yaml
+
+  /query/dust-generation-status:
+    $ref: ./paths/midnight/dust_generation_status.yaml
+
+  /query/d-parameter-history:
+    $ref: ./paths/midnight/d_parameter_history.yaml
+
+  # midnight indexer - mutations
+
+  /mutation/connect:
+    $ref: ./paths/midnight/connect.yaml
+
+  /mutation/disconnect:
+    $ref: ./paths/midnight/disconnect.yaml
+
+  # midnight indexer - subscriptions (WebSocket)
+
+  /ws:
+    $ref: ./paths/midnight/subscriptions.yaml
 
 components:
   schemas:

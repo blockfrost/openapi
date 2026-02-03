@@ -6987,6 +6987,744 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/query/block": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Query block
+         * @description Find a block for the given optional offset; if not present, the latest block is returned.
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example query Block($offset: BlockOffset) {
+                         *       block(offset: $offset) {
+                         *         hash
+                         *         height
+                         *         protocolVersion
+                         *         timestamp
+                         *         author
+                         *         ledgerParameters
+                         *       }
+                         *     }
+                         *      */
+                        query?: unknown;
+                        variables?: {
+                            /** @description Either a block hash or block height */
+                            offset?: {
+                                /** @description A hex-encoded block hash */
+                                hash?: string;
+                                /** @description A block height */
+                                height?: number;
+                            };
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Block data returned successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                block?: components["schemas"]["block"];
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/query/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Query transactions
+         * @description Find transactions for the given offset (either a transaction hash or identifier).
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example query Transactions($offset: TransactionOffset!) {
+                         *       transactions(offset: $offset) {
+                         *         id
+                         *         hash
+                         *         protocolVersion
+                         *         raw
+                         *       }
+                         *     }
+                         *      */
+                        query?: unknown;
+                        variables?: {
+                            /** @description Either a transaction hash or identifier */
+                            offset: {
+                                /** @description A hex-encoded transaction hash */
+                                hash?: string;
+                                /** @description A hex-encoded transaction identifier */
+                                identifier?: string;
+                            };
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Transactions returned successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                transactions?: components["schemas"]["transaction"][];
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/query/contract-action": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Query contract action
+         * @description Find a contract action for the given address and optional offset.
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example query ContractAction($address: HexEncoded!, $offset: ContractActionOffset) {
+                         *       contractAction(address: $address, offset: $offset) {
+                         *         address
+                         *         state
+                         *         zswapState
+                         *         unshieldedBalances {
+                         *           tokenType
+                         *           amount
+                         *         }
+                         *       }
+                         *     }
+                         *      */
+                        query?: unknown;
+                        variables?: {
+                            /** @description Hex-encoded contract address */
+                            address: string;
+                            /** @description Either a block offset or transaction offset */
+                            offset?: {
+                                /** @description Block hash or height */
+                                blockOffset?: Record<string, never>;
+                                /** @description Transaction hash or identifier */
+                                transactionOffset?: Record<string, never>;
+                            };
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Contract action returned successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                contractAction?: components["schemas"]["contract_action"];
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/query/dust-generation-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Query DUST generation status
+         * @description Get DUST generation status for specific Cardano reward addresses.
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example query DustGenerationStatus($cardanoRewardAddresses: [CardanoRewardAddress!]!) {
+                         *       dustGenerationStatus(cardanoRewardAddresses: $cardanoRewardAddresses) {
+                         *         cardanoRewardAddress
+                         *         dustAddress
+                         *         registered
+                         *         nightBalance
+                         *         generationRate
+                         *         maxCapacity
+                         *         currentCapacity
+                         *       }
+                         *     }
+                         *      */
+                        query?: unknown;
+                        variables?: {
+                            /**
+                             * @description Array of Bech32-encoded Cardano reward addresses
+                             * @example [
+                             *       "stake_test1...",
+                             *       "stake1..."
+                             *     ]
+                             */
+                            cardanoRewardAddresses: string[];
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description DUST generation status returned successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                dustGenerationStatus?: components["schemas"]["dust_generation_status"][];
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/query/d-parameter-history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Query D-parameter history
+         * @description Get the full history of D-parameter changes for governance auditability.
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example query {
+                         *       dParameterHistory {
+                         *         blockHeight
+                         *         blockHash
+                         *         timestamp
+                         *         numPermissionedCandidates
+                         *         numRegisteredCandidates
+                         *       }
+                         *     }
+                         *      */
+                        query?: unknown;
+                    };
+                };
+            };
+            responses: {
+                /** @description D-parameter history returned successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                dParameterHistory?: components["schemas"]["d_parameter_change"][];
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/mutation/connect": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Connect wallet
+         * @description Connect the wallet with the given viewing key and return a session ID.
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example mutation Connect($viewingKey: ViewingKey!) {
+                         *       connect(viewingKey: $viewingKey)
+                         *     }
+                         *      */
+                        query?: unknown;
+                        variables?: {
+                            /**
+                             * @description The wallet viewing key
+                             * @example viewing_key_1...
+                             */
+                            viewingKey: string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Wallet connected successfully, session ID returned */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                /**
+                                 * @description Hex-encoded session ID
+                                 * @example 0x1234567890abcdef
+                                 */
+                                connect?: string;
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/mutation/disconnect": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Disconnect wallet
+         * @description Disconnect the wallet with the given session ID.
+         *
+         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["graphql_request"] & {
+                        /** @example mutation Disconnect($sessionId: HexEncoded!) {
+                         *       disconnect(sessionId: $sessionId)
+                         *     }
+                         *      */
+                        query?: unknown;
+                        variables?: {
+                            /**
+                             * @description Hex-encoded session ID to disconnect
+                             * @example 0x1234567890abcdef
+                             */
+                            sessionId: string;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description Wallet disconnected successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            data?: {
+                                /** @description Unit type (empty response) */
+                                disconnect?: Record<string, never>;
+                            };
+                            errors?: components["schemas"]["graphql_error"][];
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                500: components["responses"]["500"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/ws": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * WebSocket Subscriptions
+         * @description Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+         *
+         *     **WebSocket Endpoint:** `wss://midnight-{network}.blockfrost.io/api/v0/ws`
+         *
+         *     Where `{network}` is either `mainnet` or `preview`.
+         *
+         *     ## Authentication
+         *
+         *     You can authenticate using one of the following methods:
+         *
+         *     **Option 1: HTTP Header**
+         *
+         *     Include your project ID as the `project_id` HTTP header when establishing the WebSocket connection.
+         *
+         *     **Option 2: WebSocket Subprotocol (for browsers)**
+         *
+         *     When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
+         *
+         *     ```javascript
+         *     const ws = new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+         *       "graphql-transport-ws",
+         *       "project_id_YOUR_PROJECT_ID"
+         *     ]);
+         *     ```
+         *
+         *     ## Connection Protocol
+         *
+         *     The WebSocket uses the `graphql-transport-ws` protocol. After establishing the connection, you must follow this handshake sequence:
+         *
+         *     1. **Send initialization message:** `{"type":"connection_init"}`
+         *     2. **Wait for acknowledgement:** Server responds with `{"type":"connection_ack"}`
+         *     3. **Subscribe to events:** Send subscription messages with your GraphQL query
+         *
+         *     ## Example using websocat
+         *
+         *     ```bash
+         *     websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+         *       --protocol "graphql-transport-ws" \
+         *       -H "project_id: YOUR_PROJECT_ID" -v
+         *     ```
+         *
+         *     Then send these messages in order:
+         *
+         *     ```json
+         *     {"type":"connection_init"}
+         *     ```
+         *
+         *     Wait for `{"type":"connection_ack"}` response, then subscribe:
+         *
+         *     ```json
+         *     {"id":"1","type":"subscribe","payload":{"query":"subscription { blocks { hash height timestamp transactions { hash } } }"}}
+         *     ```
+         *
+         *     ## Example using JavaScript
+         *
+         *     ```javascript
+         *     const ws = new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+         *       "graphql-transport-ws",
+         *       "project_id_YOUR_PROJECT_ID"
+         *     ]);
+         *
+         *     ws.onopen = () => {
+         *       // Step 1: Initialize connection
+         *       ws.send(JSON.stringify({ type: "connection_init" }));
+         *     };
+         *
+         *     ws.onmessage = (event) => {
+         *       const message = JSON.parse(event.data);
+         *
+         *       if (message.type === "connection_ack") {
+         *         // Step 2: Subscribe after acknowledgement
+         *         ws.send(JSON.stringify({
+         *           id: "1",
+         *           type: "subscribe",
+         *           payload: {
+         *             query: `subscription { blocks { hash height timestamp } }`
+         *           }
+         *         }));
+         *       } else if (message.type === "next") {
+         *         // Step 3: Handle incoming data
+         *         console.log("Received:", message.payload.data);
+         *       }
+         *     };
+         *     ```
+         *
+         *     ## Available Subscriptions
+         *
+         *     ### blocks
+         *     Subscribe to blocks starting at the given offset or at the latest block if omitted.
+         *     ```graphql
+         *     subscription Blocks($offset: BlockOffset) {
+         *       blocks(offset: $offset) {
+         *         hash
+         *         height
+         *         timestamp
+         *         protocolVersion
+         *       }
+         *     }
+         *     ```
+         *
+         *     ### contractActions
+         *     Subscribe to contract actions with the given address starting at the given offset.
+         *     ```graphql
+         *     subscription ContractActions($address: HexEncoded!, $offset: BlockOffset) {
+         *       contractActions(address: $address, offset: $offset) {
+         *         address
+         *         state
+         *         zswapState
+         *       }
+         *     }
+         *     ```
+         *
+         *     ### dustLedgerEvents
+         *     Subscribe to DUST ledger events starting at the given ID or at the very start if omitted.
+         *     ```graphql
+         *     subscription DustLedgerEvents($id: Int) {
+         *       dustLedgerEvents(id: $id) {
+         *         id
+         *         raw
+         *         maxId
+         *       }
+         *     }
+         *     ```
+         *
+         *     ### shieldedTransactions
+         *     Subscribe to shielded transaction events for the given session ID.
+         *     ```graphql
+         *     subscription ShieldedTransactions($sessionId: HexEncoded!, $index: Int) {
+         *       shieldedTransactions(sessionId: $sessionId, index: $index) {
+         *         ... on RelevantTransaction {
+         *           transaction { id hash }
+         *           collapsedMerkleTree { startIndex endIndex }
+         *         }
+         *         ... on ShieldedTransactionsProgress {
+         *           highestEndIndex
+         *           highestCheckedEndIndex
+         *           highestRelevantEndIndex
+         *         }
+         *       }
+         *     }
+         *     ```
+         *
+         *     ### unshieldedTransactions
+         *     Subscribe to unshielded transaction events for the given address.
+         *     ```graphql
+         *     subscription UnshieldedTransactions($address: UnshieldedAddress!, $transactionId: Int) {
+         *       unshieldedTransactions(address: $address, transactionId: $transactionId) {
+         *         ... on UnshieldedTransaction {
+         *           transaction { id hash }
+         *           createdUtxos { owner tokenType value }
+         *           spentUtxos { owner tokenType value }
+         *         }
+         *         ... on UnshieldedTransactionsProgress {
+         *           highestTransactionId
+         *         }
+         *       }
+         *     }
+         *     ```
+         *
+         *     ### zswapLedgerEvents
+         *     Subscribe to zswap ledger events starting at the given ID or at the very start if omitted.
+         *     ```graphql
+         *     subscription ZswapLedgerEvents($id: Int) {
+         *       zswapLedgerEvents(id: $id) {
+         *         id
+         *         raw
+         *         maxId
+         *       }
+         *     }
+         *     ```
+         *
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            /** @description This endpoint is for documentation purposes. Subscriptions use WebSocket, not HTTP.
+             *     See the description above for WebSocket connection details.
+             *      */
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        /** @example Use WebSocket connection for subscriptions */
+                        info?: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description This is a WebSocket endpoint. HTTP requests will not work.
+                 *     Connect via `wss://midnight-{network}.blockfrost.io/api/v0/ws`
+                 *      */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example Use WebSocket for subscriptions */
+                            message?: string;
+                        };
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -11081,6 +11819,408 @@ export interface components {
                 [key: string]: unknown;
             } | string | Record<string, never> | unknown[] | number | boolean;
         }[];
+        graphql_request: {
+            /**
+             * @description The GraphQL query or mutation string
+             * @example query {
+             *       block {
+             *         hash
+             *         height
+             *         timestamp
+             *       }
+             *     }
+             *
+             */
+            query: string;
+            /** @description Variables for the GraphQL query */
+            variables?: {
+                [key: string]: unknown;
+            };
+            /** @description The name of the operation to execute (if the query contains multiple operations) */
+            operationName?: string;
+        };
+        /** @description A block with its relevant data */
+        block: {
+            /**
+             * @description The hex-encoded block hash
+             * @example 0x1234567890abcdef
+             */
+            hash?: string;
+            /**
+             * @description The block height
+             * @example 12345
+             */
+            height?: number;
+            /**
+             * @description The protocol version
+             * @example 1
+             */
+            protocolVersion?: number;
+            /**
+             * @description The UNIX timestamp
+             * @example 1704067200
+             */
+            timestamp?: number;
+            /**
+             * @description The hex-encoded block author
+             * @example 0xabcdef1234567890
+             */
+            author?: string | null;
+            /** @description The parent of this block */
+            parent?: components["schemas"]["block"];
+            /** @description The transactions within this block */
+            transactions?: components["schemas"]["transaction"][];
+            /**
+             * @description The hex-encoded ledger parameters for this block
+             * @example 0x...
+             */
+            ledgerParameters?: string;
+            /** @description The system parameters (governance) at this block height */
+            systemParameters?: components["schemas"]["system_parameters"];
+        };
+        /** @description A Midnight transaction */
+        transaction: {
+            /**
+             * @description The transaction ID
+             * @example 1
+             */
+            id?: number;
+            /**
+             * @description The hex-encoded transaction hash
+             * @example 0x1234567890abcdef
+             */
+            hash?: string;
+            /**
+             * @description The protocol version
+             * @example 1
+             */
+            protocolVersion?: number;
+            /**
+             * @description The hex-encoded serialized transaction content
+             * @example 0x...
+             */
+            raw?: string;
+            /** @description The block for this transaction */
+            block?: components["schemas"]["block"];
+            /** @description The contract actions for this transaction */
+            contractActions?: components["schemas"]["contract_action"][];
+            /** @description Unshielded UTXOs created by this transaction */
+            unshieldedCreatedOutputs?: components["schemas"]["unshielded_utxo"][];
+            /** @description Unshielded UTXOs spent (consumed) by this transaction */
+            unshieldedSpentOutputs?: components["schemas"]["unshielded_utxo"][];
+            /** @description Zswap ledger events of this transaction */
+            zswapLedgerEvents?: components["schemas"]["zswap_ledger_event"][];
+            /** @description Dust ledger events of this transaction */
+            dustLedgerEvents?: components["schemas"]["dust_ledger_event"][];
+            /** @description The result of applying this transaction to the ledger state (regular transactions only) */
+            transactionResult?: components["schemas"]["transaction_result"];
+            /** @description The hex-encoded serialized transaction identifiers (regular transactions only) */
+            identifiers?: string[] | null;
+            /**
+             * @description The hex-encoded serialized merkle-tree root (regular transactions only)
+             * @example 0x...
+             */
+            merkleTreeRoot?: string | null;
+            /**
+             * @description The zswap state start index (regular transactions only)
+             * @example 0
+             */
+            startIndex?: number | null;
+            /**
+             * @description The zswap state end index (regular transactions only)
+             * @example 100
+             */
+            endIndex?: number | null;
+            /** @description Fee information for this transaction (regular transactions only) */
+            fees?: components["schemas"]["transaction_fees"];
+        };
+        /** @description Represents a token balance held by a contract */
+        contract_balance: {
+            /**
+             * @description Hex-encoded token type identifier
+             * @example 0x1234
+             */
+            tokenType?: string;
+            /**
+             * @description Balance amount as string to support larger integer values (up to 16 bytes)
+             * @example 1000000
+             */
+            amount?: string;
+        };
+        /** @description A contract deployment */
+        contract_deploy: {
+            /**
+             * @description The hex-encoded serialized address
+             * @example 0xabcdef1234567890
+             */
+            address?: string;
+            /**
+             * @description The hex-encoded serialized state
+             * @example 0x...
+             */
+            state?: string;
+            /**
+             * @description The hex-encoded serialized contract-specific zswap state
+             * @example 0x...
+             */
+            zswapState?: string;
+        };
+        /** @description A contract action (deploy, call, or update) */
+        contract_action: {
+            /**
+             * @description The hex-encoded serialized address
+             * @example 0xabcdef1234567890
+             */
+            address?: string;
+            /**
+             * @description The hex-encoded serialized state
+             * @example 0x...
+             */
+            state?: string;
+            /**
+             * @description The hex-encoded serialized contract-specific zswap state
+             * @example 0x...
+             */
+            zswapState?: string;
+            /** @description Transaction for this contract action */
+            transaction?: components["schemas"]["transaction"];
+            /** @description Unshielded token balances held by this contract */
+            unshieldedBalances?: components["schemas"]["contract_balance"][];
+            /**
+             * @description The entry point (for contract calls only)
+             * @example transfer
+             */
+            entryPoint?: string | null;
+            /** @description Contract deploy for this contract call (for contract calls only) */
+            deploy?: components["schemas"]["contract_deploy"];
+        };
+        /** @description Represents an unshielded UTXO */
+        unshielded_utxo: {
+            /**
+             * @description Owner Bech32m-encoded address
+             * @example midnight1...
+             */
+            owner?: string;
+            /**
+             * @description Token hex-encoded serialized token type
+             * @example 0x1234
+             */
+            tokenType?: string;
+            /**
+             * @description UTXO value (quantity) as a string to support u128
+             * @example 1000000
+             */
+            value?: string;
+            /**
+             * @description The hex-encoded serialized intent hash
+             * @example 0x...
+             */
+            intentHash?: string;
+            /**
+             * @description Index of this output within its creating transaction
+             * @example 0
+             */
+            outputIndex?: number;
+            /**
+             * @description The creation time in seconds
+             * @example 1704067200
+             */
+            ctime?: number | null;
+            /**
+             * @description The hex-encoded initial nonce for DUST generation tracking
+             * @example 0x...
+             */
+            initialNonce?: string;
+            /**
+             * @description Whether this UTXO is registered for DUST generation
+             * @example false
+             */
+            registeredForDustGeneration?: boolean;
+            /** @description Transaction that created this UTXO */
+            createdAtTransaction?: components["schemas"]["transaction"];
+            /** @description Transaction that spent this UTXO */
+            spentAtTransaction?: components["schemas"]["transaction"];
+        };
+        /** @description A zswap related ledger event */
+        zswap_ledger_event: {
+            /**
+             * @description The ID of this zswap ledger event
+             * @example 1
+             */
+            id?: number;
+            /**
+             * @description The hex-encoded serialized event
+             * @example 0x...
+             */
+            raw?: string;
+            /**
+             * @description The maximum ID of all zswap ledger events
+             * @example 1000
+             */
+            maxId?: number;
+        };
+        /** @description A dust output */
+        dust_output: {
+            /**
+             * @description The hex-encoded 32-byte nonce
+             * @example 0x...
+             */
+            nonce?: string;
+        };
+        /** @description A dust related ledger event */
+        dust_ledger_event: {
+            /**
+             * @description The ID of this dust ledger event
+             * @example 1
+             */
+            id?: number;
+            /**
+             * @description The hex-encoded serialized event
+             * @example 0x...
+             */
+            raw?: string;
+            /**
+             * @description The maximum ID of all dust ledger events
+             * @example 1000
+             */
+            maxId?: number;
+            /** @description The dust output (for initial UTXO events only) */
+            output?: components["schemas"]["dust_output"];
+        };
+        /** @description The result of applying a transaction to the ledger state */
+        transaction_result: {
+            /**
+             * @description The status of the transaction result
+             * @example SUCCESS
+             * @enum {string}
+             */
+            status?: "SUCCESS" | "PARTIAL_SUCCESS" | "FAILURE";
+            /** @description Segments for partial success showing which parts succeeded */
+            segments?: {
+                /** @description Segment ID */
+                id?: number;
+                /** @description Whether this segment succeeded */
+                success?: boolean;
+            }[] | null;
+        };
+        /** @description Fees information for a transaction, including both paid and estimated fees */
+        transaction_fees: {
+            /**
+             * @description The actual fees paid for this transaction in DUST
+             * @example 1000
+             */
+            paidFees?: string;
+            /**
+             * @description The estimated fees that was calculated for this transaction in DUST
+             * @example 1000
+             */
+            estimatedFees?: string;
+        };
+        /** @description The D-parameter controlling validator committee composition */
+        d_parameter: {
+            /**
+             * @description Number of permissioned candidates
+             * @example 10
+             */
+            numPermissionedCandidates?: number;
+            /**
+             * @description Number of registered candidates
+             * @example 50
+             */
+            numRegisteredCandidates?: number;
+        };
+        /** @description System parameters at a specific block height */
+        system_parameters: {
+            /** @description The D-parameter controlling validator committee composition */
+            dParameter?: components["schemas"]["d_parameter"];
+        };
+        graphql_error: {
+            /** @description Error message */
+            message?: string;
+            /** @description Locations in the query where the error occurred */
+            locations?: {
+                line?: number;
+                column?: number;
+            }[];
+            /** @description Path to the field that caused the error */
+            path?: string[];
+        };
+        /** @description DUST generation status for a specific Cardano reward address */
+        dust_generation_status: {
+            /**
+             * @description The Bech32-encoded Cardano reward address (e.g., stake_test1... or stake1...)
+             * @example stake_test1...
+             */
+            cardanoRewardAddress?: string;
+            /**
+             * @description The Bech32m-encoded associated DUST address if registered
+             * @example midnight1...
+             */
+            dustAddress?: string | null;
+            /**
+             * @description Whether this reward address is registered
+             * @example true
+             */
+            registered?: boolean;
+            /**
+             * @description NIGHT balance backing generation in STAR
+             * @example 1000000
+             */
+            nightBalance?: string;
+            /**
+             * @description DUST generation rate in SPECK per second
+             * @example 100
+             */
+            generationRate?: string;
+            /**
+             * @description Maximum DUST capacity in SPECK
+             * @example 1000000
+             */
+            maxCapacity?: string;
+            /**
+             * @description Current generated DUST capacity in SPECK
+             * @example 500000
+             */
+            currentCapacity?: string;
+            /**
+             * @description Cardano UTXO transaction hash for update/unregister operations
+             * @example 0x...
+             */
+            utxoTxHash?: string | null;
+            /**
+             * @description Cardano UTXO output index for update/unregister operations
+             * @example 0
+             */
+            utxoOutputIndex?: number | null;
+        };
+        /** @description D-parameter change record for history queries */
+        d_parameter_change: {
+            /**
+             * @description The block height where this parameter became effective
+             * @example 12345
+             */
+            blockHeight?: number;
+            /**
+             * @description The hex-encoded block hash where this parameter became effective
+             * @example 0x1234567890abcdef
+             */
+            blockHash?: string;
+            /**
+             * @description The UNIX timestamp when this parameter became effective
+             * @example 1704067200
+             */
+            timestamp?: number;
+            /**
+             * @description Number of permissioned candidates
+             * @example 10
+             */
+            numPermissionedCandidates?: number;
+            /**
+             * @description Number of registered candidates
+             * @example 50
+             */
+            numRegisteredCandidates?: number;
+        };
         /** @description On-chain metadata stored in the minting transaction under label 721,
          *     which adheres to https://cips.cardano.org/cips/cip25/
          *      */

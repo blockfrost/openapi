@@ -1,0 +1,56 @@
+post:
+  tags:
+    - Midnight » Mutations
+  summary: Disconnect wallet
+  description: |
+    Disconnect the wallet with the given session ID.
+
+    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          allOf:
+            - $ref: ../../schemas/midnight/graphql_request.yaml
+            - type: object
+              properties:
+                query:
+                  example: |
+                    mutation Disconnect($sessionId: HexEncoded!) {
+                      disconnect(sessionId: $sessionId)
+                    }
+                variables:
+                  type: object
+                  required:
+                    - sessionId
+                  properties:
+                    sessionId:
+                      type: string
+                      description: Hex-encoded session ID to disconnect
+                      example: "0x1234567890abcdef"
+  responses:
+    "200":
+      description: Wallet disconnected successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  disconnect:
+                    type: object
+                    description: Unit type (empty response)
+                    nullable: true
+              errors:
+                type: array
+                items:
+                  $ref: ../../schemas/midnight/graphql_error.yaml
+    "400":
+      $ref: ../../responses/errors/400.yaml
+    "403":
+      $ref: ../../responses/errors/403.yaml
+    "500":
+      $ref: ../../responses/errors/500.yaml

@@ -134,6 +134,20 @@ info:
     Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
 
 
+    ### Quick Start
+
+
+    Make your first API call:
+
+    ```bash
+
+    curl -X POST https://midnight-{network}.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ block { hash height timestamp } }"}'
+    ```
+
+
     ### Endpoint
 
 
@@ -153,12 +167,71 @@ info:
     ### Request Format
 
 
-    * Send a POST request with a JSON body containing:
-      * `query`: The GraphQL query or mutation string
-      * `variables`: (optional) Variables for the GraphQL operation
-      * `operationName`: (optional) Name of the operation to execute
-    * The response follows the standard GraphQL format with `data` and `errors`
-    fields
+    Send a POST request with a JSON body containing:
+
+    * `query` (required): The GraphQL query, mutation, or subscription string
+
+    * `variables` (optional): Variables for the GraphQL operation
+
+
+    Example request body:
+
+    ```json
+
+    {
+      "query": "query GetBlock($offset: BlockOffset) { block(offset: $offset) { hash height } }",
+      "variables": { "offset": { "height": 100 } },
+    }
+
+    ```
+
+
+    or without variables:
+
+    ```json
+
+    {
+      "query": "query { block(offset: { height: 100 }) { hash height } }",
+    }
+
+    ```
+
+
+    ### Response Format
+
+
+    Responses follow the standard GraphQL format:
+
+    ```json
+
+    {
+      "data": {
+        "block": {
+          "hash": "0x1234...",
+          "height": 100
+        }
+      }
+    }
+
+    ```
+
+
+    On error:
+
+    ```json
+
+    {
+      "data": null,
+      "errors": [
+        {
+          "message": "Block not found",
+          "locations": [{ "line": 1, "column": 1 }],
+          "path": ["block"]
+        }
+      ]
+    }
+
+    ```
 
 
     ### Authentication
@@ -174,8 +247,102 @@ info:
 
     new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
       "graphql-transport-ws",
-      "project_id_nightpreviewtesttoken"
+      "project_id_YOUR_PROJECT_ID"
     ]);
+
+    ```
+
+
+    ### Scalar Types
+
+
+    The API uses custom scalar types:
+
+
+    | Scalar | Description | Example |
+
+    |--------|-------------|---------|
+
+    | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) |
+    `"0x1234abcd..."` |
+
+    | `ViewingKey` | Wallet viewing key in Bech32m or hex format |
+    `"mn_shield-esk1abc..."` |
+
+    | `CardanoRewardAddress` | Bech32-encoded Cardano reward address |
+    `"stake_test1..."` |
+
+    | `UnshieldedAddress` | Bech32m-encoded Midnight unshielded address |
+    `"midnight1..."` |
+
+    | `DustAddress` | Bech32m-encoded DUST address | `"midnight1..."` |
+
+    | `Unit` | Empty return type for mutations with no data | `null` |
+
+
+    ### Query Limits
+
+
+    The server may apply limitations to queries:
+
+    * `max-depth`: Maximum nesting depth
+
+    * `max-fields`: Maximum number of fields
+
+    * `timeout`: Query execution timeout
+
+    * `complexity`: Query complexity cost
+
+
+    Requests exceeding limits return errors:
+
+    ```json
+
+    {
+      "data": null,
+      "errors": [{ "message": "Query has too many fields: 20. Max fields: 10." }]
+    }
+
+    ```
+
+
+    ### Pagination with Offsets
+
+
+    Many queries support offsets for pagination:
+
+
+    **BlockOffset** (oneOf - provide exactly one):
+
+    * `hash`: Hex-encoded block hash
+
+    * `height`: Block height number
+
+
+    **TransactionOffset** (oneOf - provide exactly one):
+
+    * `hash`: Hex-encoded transaction hash
+
+    * `identifier`: Hex-encoded transaction identifier
+
+
+    **ContractActionOffset** (oneOf - provide exactly one):
+
+    * `blockOffset`: A BlockOffset
+
+    * `transactionOffset`: A TransactionOffset
+
+
+    Example - fetch block at height 100:
+
+    ```graphql
+
+    query {
+      block(offset: { height: 100 }) {
+        hash
+        height
+      }
+    }
 
     ```
 
@@ -6956,8 +7123,17 @@ paths:
         block is returned.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        **Parameters (BlockOffset - oneOf, provide exactly one or omit for
+        latest):**
+
+        * `hash` - Hex-encoded block hash
+
+        * `height` - Block height number
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -6977,6 +7153,15 @@ paths:
                             timestamp
                             author
                             ledgerParameters
+                            transactions {
+                              hash
+                            }
+                            systemParameters {
+                              dParameter {
+                                numPermissionedCandidates
+                                numRegisteredCandidates
+                              }
+                            }
                           }
                         }
                     variables:
@@ -6984,7 +7169,7 @@ paths:
                       properties:
                         offset:
                           type: object
-                          description: Either a block hash or block height
+                          description: Either a block hash or block height (oneOf)
                           properties:
                             hash:
                               type: string
@@ -6992,6 +7177,9 @@ paths:
                             height:
                               type: integer
                               description: A block height
+                      example:
+                        offset:
+                          height: 100
       responses:
         '200':
           description: Block data returned successfully
@@ -7009,6 +7197,21 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  block:
+                    hash: 0x1234567890abcdef...
+                    height: 100
+                    protocolVersion: 1
+                    timestamp: 1704067200
+                    author: 0xabcdef...
+                    ledgerParameters: 0x...
+                    transactions:
+                      - hash: 0xabc123...
+                    systemParameters:
+                      dParameter:
+                        numPermissionedCandidates: 10
+                        numRegisteredCandidates: 50
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7021,12 +7224,20 @@ paths:
         - Midnight » Queries
       summary: Query transactions
       description: >
-        Find transactions for the given offset (either a transaction hash or
-        identifier).
+        Find transactions for the given offset. Returns an array since a hash
+        may map to multiple related actions.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        **Parameters (TransactionOffset - oneOf, exactly one required):**
+
+        * `hash` - Hex-encoded transaction hash
+
+        * `identifier` - Hex-encoded transaction identifier
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -7044,6 +7255,28 @@ paths:
                             hash
                             protocolVersion
                             raw
+                            merkleTreeRoot
+                            identifiers
+                            block {
+                              height
+                              hash
+                            }
+                            contractActions {
+                              __typename
+                              ... on ContractDeploy {
+                                address
+                                state
+                              }
+                              ... on ContractCall {
+                                address
+                                state
+                                entryPoint
+                              }
+                              ... on ContractUpdate {
+                                address
+                                state
+                              }
+                            }
                           }
                         }
                     variables:
@@ -7053,7 +7286,7 @@ paths:
                       properties:
                         offset:
                           type: object
-                          description: Either a transaction hash or identifier
+                          description: Either a transaction hash or identifier (oneOf)
                           properties:
                             hash:
                               type: string
@@ -7061,6 +7294,9 @@ paths:
                             identifier:
                               type: string
                               description: A hex-encoded transaction identifier
+                      example:
+                        offset:
+                          hash: 0x3031323...
       responses:
         '200':
           description: Transactions returned successfully
@@ -7080,6 +7316,25 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  transactions:
+                    - id: 1
+                      hash: 0x3031323...
+                      protocolVersion: 1
+                      raw: 0x...
+                      merkleTreeRoot: 0x...
+                      identifiers:
+                        - 0xabc...
+                        - 0xdef...
+                      block:
+                        height: 100
+                        hash: 0x1234...
+                      contractActions:
+                        - __typename: ContractCall
+                          address: 0x...
+                          state: 0x...
+                          entryPoint: transfer
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7092,11 +7347,36 @@ paths:
         - Midnight » Queries
       summary: Query contract action
       description: >
-        Find a contract action for the given address and optional offset.
+        Retrieve the latest known contract action for a given address at an
+        optional offset. If no offset is provided, returns the latest state.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        **Contract Action Types:**
+
+        * `ContractDeploy` - Initial contract deployment
+
+        * `ContractCall` - Invocation of a contract's entry point (includes
+        `entryPoint` field)
+
+        * `ContractUpdate` - State update to an existing contract
+
+
+        All types share common fields: `address`, `state`, `zswapState`,
+        `transaction`, `unshieldedBalances`.
+
+
+        **Parameters:**
+
+        * `address` (required) - Hex-encoded contract address
+
+        * `offset` (optional, oneOf):
+          * `blockOffset` - A BlockOffset (hash or height)
+          * `transactionOffset` - A TransactionOffset (hash or identifier)
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -7111,12 +7391,16 @@ paths:
                         query ContractAction($address: HexEncoded!, $offset:
                         ContractActionOffset) {
                           contractAction(address: $address, offset: $offset) {
+                            __typename
                             address
                             state
                             zswapState
                             unshieldedBalances {
                               tokenType
                               amount
+                            }
+                            ... on ContractCall {
+                              entryPoint
                             }
                           }
                         }
@@ -7130,7 +7414,7 @@ paths:
                           description: Hex-encoded contract address
                         offset:
                           type: object
-                          description: Either a block offset or transaction offset
+                          description: Either a block offset or transaction offset (oneOf)
                           properties:
                             blockOffset:
                               type: object
@@ -7138,6 +7422,11 @@ paths:
                             transactionOffset:
                               type: object
                               description: Transaction hash or identifier
+                      example:
+                        address: 0x3031323...
+                        offset:
+                          blockOffset:
+                            height: 100
       responses:
         '200':
           description: Contract action returned successfully
@@ -7155,6 +7444,17 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  contractAction:
+                    __typename: ContractCall
+                    address: 0x3031323...
+                    state: 0x...
+                    zswapState: 0x...
+                    entryPoint: transfer
+                    unshieldedBalances:
+                      - tokenType: 0x...
+                        amount: '1000000'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7170,8 +7470,29 @@ paths:
         Get DUST generation status for specific Cardano reward addresses.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        DUST is Midnight's token generation system where users register Cardano
+        reward addresses to generate DUST tokens based on their NIGHT balance.
+
+
+        **Response fields:**
+
+        * `cardanoRewardAddress` - The Bech32-encoded Cardano reward address
+
+        * `dustAddress` - The Bech32m-encoded DUST address (if registered)
+
+        * `registered` - Whether the address is registered for generation
+
+        * `nightBalance` - NIGHT balance backing generation (in STAR)
+
+        * `generationRate` - DUST generation rate (in SPECK per second)
+
+        * `maxCapacity` / `currentCapacity` - Maximum and current DUST capacity
+        (in SPECK)
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -7193,6 +7514,8 @@ paths:
                             generationRate
                             maxCapacity
                             currentCapacity
+                            utxoTxHash
+                            utxoOutputIndex
                           }
                         }
                     variables:
@@ -7205,9 +7528,10 @@ paths:
                           description: Array of Bech32-encoded Cardano reward addresses
                           items:
                             type: string
-                          example:
-                            - stake_test1...
-                            - stake1...
+                      example:
+                        cardanoRewardAddresses:
+                          - >-
+                            stake_test1uqfu74w3wh4gfzu8m6e7j987h4lq9r3t7ef5gaw497uu85qsqfy27
       responses:
         '200':
           description: DUST generation status returned successfully
@@ -7227,6 +7551,19 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  dustGenerationStatus:
+                    - cardanoRewardAddress: >-
+                        stake_test1uqfu74w3wh4gfzu8m6e7j987h4lq9r3t7ef5gaw497uu85qsqfy27
+                      dustAddress: midnight1...
+                      registered: true
+                      nightBalance: '1000000000'
+                      generationRate: '100'
+                      maxCapacity: '10000000'
+                      currentCapacity: '5000000'
+                      utxoTxHash: 0x...
+                      utxoOutputIndex: 0
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7242,8 +7579,23 @@ paths:
         Get the full history of D-parameter changes for governance auditability.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        The **D-parameter** controls the validator committee composition on the
+        Midnight network:
+
+        * `numPermissionedCandidates` - Number of permissioned (foundation)
+        validators in the committee
+
+        * `numRegisteredCandidates` - Number of registered (SPO) validators in
+        the committee
+
+
+        Each record shows when the parameter changed and includes the block
+        information for verification.
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -7283,6 +7635,19 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  dParameterHistory:
+                    - blockHeight: 100
+                      blockHash: 0xabc123...
+                      timestamp: '2024-01-15T10:30:00Z'
+                      numPermissionedCandidates: 3
+                      numRegisteredCandidates: 0
+                    - blockHeight: 50000
+                      blockHash: 0xdef456...
+                      timestamp: '2024-06-01T12:00:00Z'
+                      numPermissionedCandidates: 2
+                      numRegisteredCandidates: 1
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7295,11 +7660,29 @@ paths:
         - Midnight » Mutations
       summary: Connect wallet
       description: >
-        Connect the wallet with the given viewing key and return a session ID.
+        Connect a wallet with the given viewing key and return a session ID.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        The **viewing key** allows the indexer to identify and index
+        transactions for a specific wallet without revealing private key
+        material. Once connected, you can subscribe to wallet-specific events
+        using the returned session ID.
+
+
+        **ViewingKey formats:**
+
+        * Bech32m-encoded (preferred): `vk_viewing1q...`
+
+        * Hex-encoded (fallback): `0x...`
+
+
+        The session ID returned is hex-encoded and used for WebSocket
+        subscriptions to receive wallet-specific transaction notifications.
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -7321,8 +7704,10 @@ paths:
                       properties:
                         viewingKey:
                           type: string
-                          description: The wallet viewing key
-                          example: viewing_key_1...
+                          description: |
+                            The wallet viewing key (Bech32m or hex-encoded)
+                      example:
+                        viewingKey: vk_viewing1qg4v5h...
       responses:
         '200':
           description: 'Wallet connected successfully, session ID returned'
@@ -7336,12 +7721,14 @@ paths:
                     properties:
                       connect:
                         type: string
-                        description: Hex-encoded session ID
-                        example: '0x1234567890abcdef'
+                        description: Hex-encoded session ID for subscriptions
                   errors:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  connect: '0x1a2b3c4d5e6f7890abcdef1234567890abcdef12'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7354,11 +7741,18 @@ paths:
         - Midnight » Mutations
       summary: Disconnect wallet
       description: >
-        Disconnect the wallet with the given session ID.
+        Disconnect a wallet session and stop receiving wallet-specific events.
 
 
-        **Note:** All GraphQL operations are sent to the same endpoint (`/`).
-        The operation type (query/mutation) is specified in the request body.
+        Use the session ID returned from the `connect` mutation to terminate the
+        session. After disconnecting, any WebSocket subscriptions using this
+        session ID will stop receiving wallet-specific transaction
+        notifications.
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       requestBody:
         required: true
         content:
@@ -7380,8 +7774,9 @@ paths:
                       properties:
                         sessionId:
                           type: string
-                          description: Hex-encoded session ID to disconnect
-                          example: '0x1234567890abcdef'
+                          description: Hex-encoded session ID from connect mutation
+                      example:
+                        sessionId: '0x1a2b3c4d5e6f7890abcdef1234567890abcdef12'
       responses:
         '200':
           description: Wallet disconnected successfully
@@ -7395,12 +7790,15 @@ paths:
                     properties:
                       disconnect:
                         type: object
-                        description: Unit type (empty response)
+                        description: Unit type (empty object indicates success)
                         nullable: true
                   errors:
                     type: array
                     items:
                       $ref: '#/components/schemas/graphql_error'
+              example:
+                data:
+                  disconnect: null
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -7412,6 +7810,11 @@ paths:
       tags:
         - Midnight » Subscriptions
       summary: WebSocket Subscriptions
+      servers:
+        - url: 'https://midnight-mainnet.blockfrost.io/api/v0'
+          description: Midnight Mainnet network
+        - url: 'https://midnight-preview.blockfrost.io/api/v0'
+          description: Midnight Preview network
       description: >
         Subscribe to real-time updates from the Midnight blockchain via
         WebSocket.
@@ -12827,11 +13230,6 @@ components:
           type: object
           description: Variables for the GraphQL query
           additionalProperties: true
-        operationName:
-          type: string
-          description: >-
-            The name of the operation to execute (if the query contains multiple
-            operations)
     block:
       type: object
       description: A block with its relevant data

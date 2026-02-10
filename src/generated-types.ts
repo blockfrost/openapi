@@ -7000,7 +7000,9 @@ export interface paths {
          * Query block
          * @description Find a block for the given optional offset; if not present, the latest block is returned.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     **Parameters (BlockOffset - oneOf, provide exactly one or omit for latest):**
+         *     * `hash` - Hex-encoded block hash
+         *     * `height` - Block height number
          *
          */
         post: {
@@ -7021,12 +7023,26 @@ export interface paths {
                          *         timestamp
                          *         author
                          *         ledgerParameters
+                         *         transactions {
+                         *           hash
+                         *         }
+                         *         systemParameters {
+                         *           dParameter {
+                         *             numPermissionedCandidates
+                         *             numRegisteredCandidates
+                         *           }
+                         *         }
                          *       }
                          *     }
                          *      */
                         query?: unknown;
+                        /** @example {
+                         *       "offset": {
+                         *         "height": 100
+                         *       }
+                         *     } */
                         variables?: {
-                            /** @description Either a block hash or block height */
+                            /** @description Either a block hash or block height (oneOf) */
                             offset?: {
                                 /** @description A hex-encoded block hash */
                                 hash?: string;
@@ -7074,9 +7090,11 @@ export interface paths {
         put?: never;
         /**
          * Query transactions
-         * @description Find transactions for the given offset (either a transaction hash or identifier).
+         * @description Find transactions for the given offset. Returns an array since a hash may map to multiple related actions.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     **Parameters (TransactionOffset - oneOf, exactly one required):**
+         *     * `hash` - Hex-encoded transaction hash
+         *     * `identifier` - Hex-encoded transaction identifier
          *
          */
         post: {
@@ -7095,12 +7113,39 @@ export interface paths {
                          *         hash
                          *         protocolVersion
                          *         raw
+                         *         merkleTreeRoot
+                         *         identifiers
+                         *         block {
+                         *           height
+                         *           hash
+                         *         }
+                         *         contractActions {
+                         *           __typename
+                         *           ... on ContractDeploy {
+                         *             address
+                         *             state
+                         *           }
+                         *           ... on ContractCall {
+                         *             address
+                         *             state
+                         *             entryPoint
+                         *           }
+                         *           ... on ContractUpdate {
+                         *             address
+                         *             state
+                         *           }
+                         *         }
                          *       }
                          *     }
                          *      */
                         query?: unknown;
+                        /** @example {
+                         *       "offset": {
+                         *         "hash": "0x3031323..."
+                         *       }
+                         *     } */
                         variables?: {
-                            /** @description Either a transaction hash or identifier */
+                            /** @description Either a transaction hash or identifier (oneOf) */
                             offset: {
                                 /** @description A hex-encoded transaction hash */
                                 hash?: string;
@@ -7148,9 +7193,20 @@ export interface paths {
         put?: never;
         /**
          * Query contract action
-         * @description Find a contract action for the given address and optional offset.
+         * @description Retrieve the latest known contract action for a given address at an optional offset. If no offset is provided, returns the latest state.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     **Contract Action Types:**
+         *     * `ContractDeploy` - Initial contract deployment
+         *     * `ContractCall` - Invocation of a contract's entry point (includes `entryPoint` field)
+         *     * `ContractUpdate` - State update to an existing contract
+         *
+         *     All types share common fields: `address`, `state`, `zswapState`, `transaction`, `unshieldedBalances`.
+         *
+         *     **Parameters:**
+         *     * `address` (required) - Hex-encoded contract address
+         *     * `offset` (optional, oneOf):
+         *       * `blockOffset` - A BlockOffset (hash or height)
+         *       * `transactionOffset` - A TransactionOffset (hash or identifier)
          *
          */
         post: {
@@ -7165,6 +7221,7 @@ export interface paths {
                     "application/json": components["schemas"]["graphql_request"] & {
                         /** @example query ContractAction($address: HexEncoded!, $offset: ContractActionOffset) {
                          *       contractAction(address: $address, offset: $offset) {
+                         *         __typename
                          *         address
                          *         state
                          *         zswapState
@@ -7172,14 +7229,25 @@ export interface paths {
                          *           tokenType
                          *           amount
                          *         }
+                         *         ... on ContractCall {
+                         *           entryPoint
+                         *         }
                          *       }
                          *     }
                          *      */
                         query?: unknown;
+                        /** @example {
+                         *       "address": "0x3031323...",
+                         *       "offset": {
+                         *         "blockOffset": {
+                         *           "height": 100
+                         *         }
+                         *       }
+                         *     } */
                         variables?: {
                             /** @description Hex-encoded contract address */
                             address: string;
-                            /** @description Either a block offset or transaction offset */
+                            /** @description Either a block offset or transaction offset (oneOf) */
                             offset?: {
                                 /** @description Block hash or height */
                                 blockOffset?: Record<string, never>;
@@ -7229,7 +7297,15 @@ export interface paths {
          * Query DUST generation status
          * @description Get DUST generation status for specific Cardano reward addresses.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     DUST is Midnight's token generation system where users register Cardano reward addresses to generate DUST tokens based on their NIGHT balance.
+         *
+         *     **Response fields:**
+         *     * `cardanoRewardAddress` - The Bech32-encoded Cardano reward address
+         *     * `dustAddress` - The Bech32m-encoded DUST address (if registered)
+         *     * `registered` - Whether the address is registered for generation
+         *     * `nightBalance` - NIGHT balance backing generation (in STAR)
+         *     * `generationRate` - DUST generation rate (in SPECK per second)
+         *     * `maxCapacity` / `currentCapacity` - Maximum and current DUST capacity (in SPECK)
          *
          */
         post: {
@@ -7251,18 +7327,19 @@ export interface paths {
                          *         generationRate
                          *         maxCapacity
                          *         currentCapacity
+                         *         utxoTxHash
+                         *         utxoOutputIndex
                          *       }
                          *     }
                          *      */
                         query?: unknown;
+                        /** @example {
+                         *       "cardanoRewardAddresses": [
+                         *         "stake_test1uqfu74w3wh4gfzu8m6e7j987h4lq9r3t7ef5gaw497uu85qsqfy27"
+                         *       ]
+                         *     } */
                         variables?: {
-                            /**
-                             * @description Array of Bech32-encoded Cardano reward addresses
-                             * @example [
-                             *       "stake_test1...",
-                             *       "stake1..."
-                             *     ]
-                             */
+                            /** @description Array of Bech32-encoded Cardano reward addresses */
                             cardanoRewardAddresses: string[];
                         };
                     };
@@ -7307,7 +7384,11 @@ export interface paths {
          * Query D-parameter history
          * @description Get the full history of D-parameter changes for governance auditability.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     The **D-parameter** controls the validator committee composition on the Midnight network:
+         *     * `numPermissionedCandidates` - Number of permissioned (foundation) validators in the committee
+         *     * `numRegisteredCandidates` - Number of registered (SPO) validators in the committee
+         *
+         *     Each record shows when the parameter changed and includes the block information for verification.
          *
          */
         post: {
@@ -7371,9 +7452,15 @@ export interface paths {
         put?: never;
         /**
          * Connect wallet
-         * @description Connect the wallet with the given viewing key and return a session ID.
+         * @description Connect a wallet with the given viewing key and return a session ID.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     The **viewing key** allows the indexer to identify and index transactions for a specific wallet without revealing private key material. Once connected, you can subscribe to wallet-specific events using the returned session ID.
+         *
+         *     **ViewingKey formats:**
+         *     * Bech32m-encoded (preferred): `vk_viewing1q...`
+         *     * Hex-encoded (fallback): `0x...`
+         *
+         *     The session ID returned is hex-encoded and used for WebSocket subscriptions to receive wallet-specific transaction notifications.
          *
          */
         post: {
@@ -7391,11 +7478,12 @@ export interface paths {
                          *     }
                          *      */
                         query?: unknown;
+                        /** @example {
+                         *       "viewingKey": "vk_viewing1qg4v5h..."
+                         *     } */
                         variables?: {
-                            /**
-                             * @description The wallet viewing key
-                             * @example viewing_key_1...
-                             */
+                            /** @description The wallet viewing key (Bech32m or hex-encoded)
+                             *      */
                             viewingKey: string;
                         };
                     };
@@ -7410,10 +7498,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             data?: {
-                                /**
-                                 * @description Hex-encoded session ID
-                                 * @example 0x1234567890abcdef
-                                 */
+                                /** @description Hex-encoded session ID for subscriptions */
                                 connect?: string;
                             };
                             errors?: components["schemas"]["graphql_error"][];
@@ -7442,9 +7527,9 @@ export interface paths {
         put?: never;
         /**
          * Disconnect wallet
-         * @description Disconnect the wallet with the given session ID.
+         * @description Disconnect a wallet session and stop receiving wallet-specific events.
          *
-         *     **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+         *     Use the session ID returned from the `connect` mutation to terminate the session. After disconnecting, any WebSocket subscriptions using this session ID will stop receiving wallet-specific transaction notifications.
          *
          */
         post: {
@@ -7462,11 +7547,11 @@ export interface paths {
                          *     }
                          *      */
                         query?: unknown;
+                        /** @example {
+                         *       "sessionId": "0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
+                         *     } */
                         variables?: {
-                            /**
-                             * @description Hex-encoded session ID to disconnect
-                             * @example 0x1234567890abcdef
-                             */
+                            /** @description Hex-encoded session ID from connect mutation */
                             sessionId: string;
                         };
                     };
@@ -7481,7 +7566,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             data?: {
-                                /** @description Unit type (empty response) */
+                                /** @description Unit type (empty object indicates success) */
                                 disconnect?: Record<string, never>;
                             };
                             errors?: components["schemas"]["graphql_error"][];
@@ -11836,8 +11921,6 @@ export interface components {
             variables?: {
                 [key: string]: unknown;
             };
-            /** @description The name of the operation to execute (if the query contains multiple operations) */
-            operationName?: string;
         };
         /** @description A block with its relevant data */
         block: {

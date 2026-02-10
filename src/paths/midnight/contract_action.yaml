@@ -3,9 +3,25 @@ post:
     - Midnight » Queries
   summary: Query contract action
   description: |
-    Find a contract action for the given address and optional offset.
+    Retrieve the latest known contract action for a given address at an optional offset. If no offset is provided, returns the latest state.
 
-    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+    **Contract Action Types:**
+    * `ContractDeploy` - Initial contract deployment
+    * `ContractCall` - Invocation of a contract's entry point (includes `entryPoint` field)
+    * `ContractUpdate` - State update to an existing contract
+
+    All types share common fields: `address`, `state`, `zswapState`, `transaction`, `unshieldedBalances`.
+
+    **Parameters:**
+    * `address` (required) - Hex-encoded contract address
+    * `offset` (optional, oneOf):
+      * `blockOffset` - A BlockOffset (hash or height)
+      * `transactionOffset` - A TransactionOffset (hash or identifier)
+  servers:
+    - url: https://midnight-mainnet.blockfrost.io/api/v0
+      description: Midnight Mainnet network
+    - url: https://midnight-preview.blockfrost.io/api/v0
+      description: Midnight Preview network
   requestBody:
     required: true
     content:
@@ -19,12 +35,16 @@ post:
                   example: |
                     query ContractAction($address: HexEncoded!, $offset: ContractActionOffset) {
                       contractAction(address: $address, offset: $offset) {
+                        __typename
                         address
                         state
                         zswapState
                         unshieldedBalances {
                           tokenType
                           amount
+                        }
+                        ... on ContractCall {
+                          entryPoint
                         }
                       }
                     }
@@ -38,7 +58,7 @@ post:
                       description: Hex-encoded contract address
                     offset:
                       type: object
-                      description: Either a block offset or transaction offset
+                      description: Either a block offset or transaction offset (oneOf)
                       properties:
                         blockOffset:
                           type: object
@@ -46,6 +66,11 @@ post:
                         transactionOffset:
                           type: object
                           description: Transaction hash or identifier
+                  example:
+                    address: "0x3031323..."
+                    offset:
+                      blockOffset:
+                        height: 100
   responses:
     "200":
       description: Contract action returned successfully
@@ -63,6 +88,17 @@ post:
                 type: array
                 items:
                   $ref: ../../schemas/midnight/graphql_error.yaml
+          example:
+            data:
+              contractAction:
+                __typename: "ContractCall"
+                address: "0x3031323..."
+                state: "0x..."
+                zswapState: "0x..."
+                entryPoint: "transfer"
+                unshieldedBalances:
+                  - tokenType: "0x..."
+                    amount: "1000000"
     "400":
       $ref: ../../responses/errors/400.yaml
     "403":

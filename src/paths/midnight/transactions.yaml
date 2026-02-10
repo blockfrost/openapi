@@ -3,9 +3,16 @@ post:
     - Midnight » Queries
   summary: Query transactions
   description: |
-    Find transactions for the given offset (either a transaction hash or identifier).
+    Find transactions for the given offset. Returns an array since a hash may map to multiple related actions.
 
-    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+    **Parameters (TransactionOffset - oneOf, exactly one required):**
+    * `hash` - Hex-encoded transaction hash
+    * `identifier` - Hex-encoded transaction identifier
+  servers:
+    - url: https://midnight-mainnet.blockfrost.io/api/v0
+      description: Midnight Mainnet network
+    - url: https://midnight-preview.blockfrost.io/api/v0
+      description: Midnight Preview network
   requestBody:
     required: true
     content:
@@ -23,6 +30,28 @@ post:
                         hash
                         protocolVersion
                         raw
+                        merkleTreeRoot
+                        identifiers
+                        block {
+                          height
+                          hash
+                        }
+                        contractActions {
+                          __typename
+                          ... on ContractDeploy {
+                            address
+                            state
+                          }
+                          ... on ContractCall {
+                            address
+                            state
+                            entryPoint
+                          }
+                          ... on ContractUpdate {
+                            address
+                            state
+                          }
+                        }
                       }
                     }
                 variables:
@@ -32,7 +61,7 @@ post:
                   properties:
                     offset:
                       type: object
-                      description: Either a transaction hash or identifier
+                      description: Either a transaction hash or identifier (oneOf)
                       properties:
                         hash:
                           type: string
@@ -40,6 +69,9 @@ post:
                         identifier:
                           type: string
                           description: A hex-encoded transaction identifier
+                  example:
+                    offset:
+                      hash: "0x3031323..."
   responses:
     "200":
       description: Transactions returned successfully
@@ -59,6 +91,23 @@ post:
                 type: array
                 items:
                   $ref: ../../schemas/midnight/graphql_error.yaml
+          example:
+            data:
+              transactions:
+                - id: 1
+                  hash: "0x3031323..."
+                  protocolVersion: 1
+                  raw: "0x..."
+                  merkleTreeRoot: "0x..."
+                  identifiers: ["0xabc...", "0xdef..."]
+                  block:
+                    height: 100
+                    hash: "0x1234..."
+                  contractActions:
+                    - __typename: "ContractCall"
+                      address: "0x..."
+                      state: "0x..."
+                      entryPoint: "transfer"
     "400":
       $ref: ../../responses/errors/400.yaml
     "403":

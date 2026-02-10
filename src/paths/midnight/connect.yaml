@@ -3,9 +3,20 @@ post:
     - Midnight » Mutations
   summary: Connect wallet
   description: |
-    Connect the wallet with the given viewing key and return a session ID.
+    Connect a wallet with the given viewing key and return a session ID.
 
-    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+    The **viewing key** allows the indexer to identify and index transactions for a specific wallet without revealing private key material. Once connected, you can subscribe to wallet-specific events using the returned session ID.
+
+    **ViewingKey formats:**
+    * Bech32m-encoded (preferred): `vk_viewing1q...`
+    * Hex-encoded (fallback): `0x...`
+
+    The session ID returned is hex-encoded and used for WebSocket subscriptions to receive wallet-specific transaction notifications.
+  servers:
+    - url: https://midnight-mainnet.blockfrost.io/api/v0
+      description: Midnight Mainnet network
+    - url: https://midnight-preview.blockfrost.io/api/v0
+      description: Midnight Preview network
   requestBody:
     required: true
     content:
@@ -27,8 +38,10 @@ post:
                   properties:
                     viewingKey:
                       type: string
-                      description: The wallet viewing key
-                      example: "viewing_key_1..."
+                      description: |
+                        The wallet viewing key (Bech32m or hex-encoded)
+                  example:
+                    viewingKey: "vk_viewing1qg4v5h..."
   responses:
     "200":
       description: Wallet connected successfully, session ID returned
@@ -42,12 +55,14 @@ post:
                 properties:
                   connect:
                     type: string
-                    description: Hex-encoded session ID
-                    example: "0x1234567890abcdef"
+                    description: Hex-encoded session ID for subscriptions
               errors:
                 type: array
                 items:
                   $ref: ../../schemas/midnight/graphql_error.yaml
+          example:
+            data:
+              connect: "0x1a2b3c4d5e6f7890abcdef1234567890abcdef12"
     "400":
       $ref: ../../responses/errors/400.yaml
     "403":

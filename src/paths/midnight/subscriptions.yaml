@@ -2,6 +2,11 @@ post:
   tags:
     - Midnight » Subscriptions
   summary: WebSocket Subscriptions
+  servers:
+    - url: https://midnight-mainnet.blockfrost.io/api/v0
+      description: Midnight Mainnet network
+    - url: https://midnight-preview.blockfrost.io/api/v0
+      description: Midnight Preview network
   description: |
     Subscribe to real-time updates from the Midnight blockchain via WebSocket.
 

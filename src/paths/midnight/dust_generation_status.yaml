@@ -5,7 +5,20 @@ post:
   description: |
     Get DUST generation status for specific Cardano reward addresses.
 
-    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+    DUST is Midnight's token generation system where users register Cardano reward addresses to generate DUST tokens based on their NIGHT balance.
+
+    **Response fields:**
+    * `cardanoRewardAddress` - The Bech32-encoded Cardano reward address
+    * `dustAddress` - The Bech32m-encoded DUST address (if registered)
+    * `registered` - Whether the address is registered for generation
+    * `nightBalance` - NIGHT balance backing generation (in STAR)
+    * `generationRate` - DUST generation rate (in SPECK per second)
+    * `maxCapacity` / `currentCapacity` - Maximum and current DUST capacity (in SPECK)
+  servers:
+    - url: https://midnight-mainnet.blockfrost.io/api/v0
+      description: Midnight Mainnet network
+    - url: https://midnight-preview.blockfrost.io/api/v0
+      description: Midnight Preview network
   requestBody:
     required: true
     content:
@@ -26,6 +39,8 @@ post:
                         generationRate
                         maxCapacity
                         currentCapacity
+                        utxoTxHash
+                        utxoOutputIndex
                       }
                     }
                 variables:
@@ -38,7 +53,9 @@ post:
                       description: Array of Bech32-encoded Cardano reward addresses
                       items:
                         type: string
-                      example: ["stake_test1...", "stake1..."]
+                  example:
+                    cardanoRewardAddresses:
+                      - "stake_test1uqfu74w3wh4gfzu8m6e7j987h4lq9r3t7ef5gaw497uu85qsqfy27"
   responses:
     "200":
       description: DUST generation status returned successfully
@@ -58,6 +75,18 @@ post:
                 type: array
                 items:
                   $ref: ../../schemas/midnight/graphql_error.yaml
+          example:
+            data:
+              dustGenerationStatus:
+                - cardanoRewardAddress: "stake_test1uqfu74w3wh4gfzu8m6e7j987h4lq9r3t7ef5gaw497uu85qsqfy27"
+                  dustAddress: "midnight1..."
+                  registered: true
+                  nightBalance: "1000000000"
+                  generationRate: "100"
+                  maxCapacity: "10000000"
+                  currentCapacity: "5000000"
+                  utxoTxHash: "0x..."
+                  utxoOutputIndex: 0
     "400":
       $ref: ../../responses/errors/400.yaml
     "403":

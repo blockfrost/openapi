@@ -5,7 +5,16 @@ post:
   description: |
     Get the full history of D-parameter changes for governance auditability.
 
-    **Note:** All GraphQL operations are sent to the same endpoint (`/`). The operation type (query/mutation) is specified in the request body.
+    The **D-parameter** controls the validator committee composition on the Midnight network:
+    * `numPermissionedCandidates` - Number of permissioned (foundation) validators in the committee
+    * `numRegisteredCandidates` - Number of registered (SPO) validators in the committee
+
+    Each record shows when the parameter changed and includes the block information for verification.
+  servers:
+    - url: https://midnight-mainnet.blockfrost.io/api/v0
+      description: Midnight Mainnet network
+    - url: https://midnight-preview.blockfrost.io/api/v0
+      description: Midnight Preview network
   requestBody:
     required: true
     content:
@@ -45,6 +54,19 @@ post:
                 type: array
                 items:
                   $ref: ../../schemas/midnight/graphql_error.yaml
+          example:
+            data:
+              dParameterHistory:
+                - blockHeight: 100
+                  blockHash: "0xabc123..."
+                  timestamp: "2024-01-15T10:30:00Z"
+                  numPermissionedCandidates: 3
+                  numRegisteredCandidates: 0
+                - blockHeight: 50000
+                  blockHash: "0xdef456..."
+                  timestamp: "2024-06-01T12:00:00Z"
+                  numPermissionedCandidates: 2
+                  numRegisteredCandidates: 1
     "400":
       $ref: ../../responses/errors/400.yaml
     "403":

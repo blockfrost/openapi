@@ -121,249 +121,6 @@ info:
     * We allow maximum of 100 queued pins per IPFS user.
 
 
-    ## Midnight Indexer API
-
-
-    The Midnight Indexer API exposes a GraphQL API that enables clients to query
-    and subscribe to blockchain data—blocks, transactions, contracts, and
-    wallet-related events—indexed from the Midnight blockchain.
-
-
-    The deployed version is **v3**. For the complete GraphQL schema
-    specification, see the [Midnight Indexer GraphQL
-    Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
-
-
-    ### Quick Start
-
-
-    Make your first API call:
-
-    ```bash
-
-    curl -X POST https://midnight-{network}.blockfrost.io/api/v0 \
-      -H "project_id: YOUR_PROJECT_ID" \
-      -H "Content-Type: application/json" \
-      -d '{"query": "{ block { hash height timestamp } }"}'
-    ```
-
-
-    ### Endpoint
-
-
-    All GraphQL operations (queries, mutations, and subscriptions) use the same
-    endpoint:
-
-    * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST
-    requests)
-
-    * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for
-    subscriptions)
-
-
-    Where `{network}` is either `mainnet` or `preview`.
-
-
-    ### Request Format
-
-
-    Send a POST request with a JSON body containing:
-
-    * `query` (required): The GraphQL query, mutation, or subscription string
-
-    * `variables` (optional): Variables for the GraphQL operation
-
-
-    Example request body:
-
-    ```json
-
-    {
-      "query": "query GetBlock($offset: BlockOffset) { block(offset: $offset) { hash height } }",
-      "variables": { "offset": { "height": 100 } },
-    }
-
-    ```
-
-
-    or without variables:
-
-    ```json
-
-    {
-      "query": "query { block(offset: { height: 100 }) { hash height } }",
-    }
-
-    ```
-
-
-    ### Response Format
-
-
-    Responses follow the standard GraphQL format:
-
-    ```json
-
-    {
-      "data": {
-        "block": {
-          "hash": "0x1234...",
-          "height": 100
-        }
-      }
-    }
-
-    ```
-
-
-    On error:
-
-    ```json
-
-    {
-      "data": null,
-      "errors": [
-        {
-          "message": "Block not found",
-          "locations": [{ "line": 1, "column": 1 }],
-          "path": ["block"]
-        }
-      ]
-    }
-
-    ```
-
-
-    ### Authentication
-
-
-    Include your project ID as the `project_id` HTTP header.
-
-
-    When using WebSocket in the browser (which doesn't support custom headers),
-    include your project ID as a subprotocol by prefixing it with `project_id_`:
-
-    ```javascript
-
-    new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
-      "graphql-transport-ws",
-      "project_id_YOUR_PROJECT_ID"
-    ]);
-
-    ```
-
-
-    ### Scalar Types
-
-
-    The API uses custom scalar types:
-
-
-    | Scalar | Description | Example |
-
-    |--------|-------------|---------|
-
-    | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) |
-    `"0x1234abcd..."` |
-
-    | `ViewingKey` | Wallet viewing key in Bech32m or hex format |
-    `"mn_shield-esk1abc..."` |
-
-    | `CardanoRewardAddress` | Bech32-encoded Cardano reward address |
-    `"stake_test1..."` |
-
-    | `UnshieldedAddress` | Bech32m-encoded Midnight unshielded address |
-    `"midnight1..."` |
-
-    | `DustAddress` | Bech32m-encoded DUST address | `"midnight1..."` |
-
-    | `Unit` | Empty return type for mutations with no data | `null` |
-
-
-    ### Query Limits
-
-
-    The server may apply limitations to queries:
-
-    * `max-depth`: Maximum nesting depth
-
-    * `max-fields`: Maximum number of fields
-
-    * `timeout`: Query execution timeout
-
-    * `complexity`: Query complexity cost
-
-
-    Requests exceeding limits return errors:
-
-    ```json
-
-    {
-      "data": null,
-      "errors": [{ "message": "Query has too many fields: 20. Max fields: 10." }]
-    }
-
-    ```
-
-
-    ### Pagination with Offsets
-
-
-    Many queries support offsets for pagination:
-
-
-    **BlockOffset** (oneOf - provide exactly one):
-
-    * `hash`: Hex-encoded block hash
-
-    * `height`: Block height number
-
-
-    **TransactionOffset** (oneOf - provide exactly one):
-
-    * `hash`: Hex-encoded transaction hash
-
-    * `identifier`: Hex-encoded transaction identifier
-
-
-    **ContractActionOffset** (oneOf - provide exactly one):
-
-    * `blockOffset`: A BlockOffset
-
-    * `transactionOffset`: A TransactionOffset
-
-
-    Example - fetch block at height 100:
-
-    ```graphql
-
-    query {
-      block(offset: { height: 100 }) {
-        hash
-        height
-      }
-    }
-
-    ```
-
-
-    ### Available Operations
-
-
-    * [**Queries**](#tag/Midnight-%C2%BB-Queries): Fetch blockchain data
-    (blocks, transactions, contracts, DUST status, governance parameters)
-
-    * [**Mutations**](#tag/Midnight-%C2%BB-Mutations): Wallet connection
-    management (connect/disconnect)
-
-    * [**Subscriptions**](#tag/Midnight-%C2%BB-Subscriptions): Real-time updates
-    via WebSocket (blocks, contract actions, transactions, ledger events)
-
-
-    For more information, see the [Midnight Indexer API
-    documentation](https://docs.midnight.network/develop/reference/midnight-api/midnight-indexer).
-
-
     ## Errors
 
 
@@ -549,6 +306,248 @@ info:
         </tr>
       </tbody>
     </table>
+
+
+
+    ## Midnight Indexer API
+
+
+
+    The Midnight Indexer API exposes a GraphQL API that enables clients to query
+    and subscribe to blockchain data—blocks, transactions, contracts, and
+    wallet-related events—indexed from the Midnight blockchain.
+
+
+    The deployed version is **v3**. 
+
+
+    [![Open Midnight GraphQL API
+    Reference](https://img.shields.io/badge/Open_Midnight_GraphQL_API_Reference_→-0033AD?style=for-the-badge)](./midnight/)
+
+
+    For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL
+    Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
+
+
+    ### Quick Start
+
+
+    Make your first API call:
+
+    ```bash
+
+    curl -X POST https://midnight-{network}.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ block { hash height timestamp } }"}'
+    ```
+
+
+    ### Endpoint
+
+
+    All GraphQL operations (queries, mutations, and subscriptions) use the same
+    endpoint:
+
+    * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST
+    requests)
+
+    * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for
+    subscriptions)
+
+
+    Where `{network}` is either `mainnet` or `preview`.
+
+
+    ### Request Format
+
+
+    Send a POST request with a JSON body containing:
+
+    * `query` (required): The GraphQL query, mutation, or subscription string
+
+    * `variables` (optional): Variables for the GraphQL operation
+
+
+    Example request:
+
+    ```json
+
+    {
+      "query": "query GetBlock($offset: BlockOffset) { block(offset: $offset) { hash height } }",
+      "variables": { "offset": { "height": 100 } }
+    }
+
+    ```
+
+
+    or without variables:
+
+    ```json
+
+    {
+      "query": "query { block(offset: { height: 100 }) { hash height } }"
+    }
+
+    ```
+
+
+    ### Response Format
+
+
+    Responses follow the standard GraphQL format:
+
+    ```json
+
+    {
+      "data": {
+        "block": {
+          "hash": "0x1234...",
+          "height": 100
+        }
+      }
+    }
+
+    ```
+
+
+    On error:
+
+    ```json
+
+    {
+      "data": null,
+      "errors": [
+        {
+          "message": "Block not found",
+          "locations": [{ "line": 1, "column": 1 }],
+          "path": ["block"]
+        }
+      ]
+    }
+
+    ```
+
+
+    ### Authentication
+
+
+    Include your project ID as the `project_id` HTTP header.
+
+
+    When using WebSocket in the browser (which doesn't support custom headers),
+    include your project ID as a subprotocol by prefixing it with `project_id_`:
+
+    ```javascript
+
+    new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+      "graphql-transport-ws",
+      "project_id_YOUR_PROJECT_ID"
+    ]);
+
+    ```
+
+
+    ### Scalar Types
+
+
+    The API uses custom scalar types:
+
+
+    | Scalar | Description | Example |
+
+    |--------|-------------|---------|
+
+    | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) |
+    `"0x1234abcd..."` |
+
+    | `ViewingKey` | Wallet viewing key in Bech32m or hex format |
+    `"mn_shield-esk1abc..."` |
+
+    | `CardanoRewardAddress` | Bech32-encoded Cardano reward address |
+    `"stake_test1..."` |
+
+    | `UnshieldedAddress` | Bech32m-encoded Midnight unshielded address |
+    `"midnight1..."` |
+
+    | `DustAddress` | Bech32m-encoded DUST address | `"midnight1..."` |
+
+    | `Unit` | Empty return type for mutations with no data | `null` |
+
+
+    ### Query Limits
+
+
+    The server may apply limitations to queries:
+
+    * `max-depth`: Maximum nesting depth
+
+    * `max-fields`: Maximum number of fields
+
+    * `timeout`: Query execution timeout
+
+    * `complexity`: Query complexity cost
+
+
+    Requests exceeding limits return errors:
+
+    ```json
+
+    {
+      "data": null,
+      "errors": [{ "message": "Query has too many fields: 20. Max fields: 10." }]
+    }
+
+    ```
+
+
+    ### Pagination with Offsets
+
+
+    Many queries support offsets for pagination:
+
+
+    **BlockOffset** (oneOf - provide exactly one):
+
+    * `hash`: Hex-encoded block hash
+
+    * `height`: Block height number
+
+
+    **TransactionOffset** (oneOf - provide exactly one):
+
+    * `hash`: Hex-encoded transaction hash
+
+    * `identifier`: Hex-encoded transaction identifier
+
+
+    **ContractActionOffset** (oneOf - provide exactly one):
+
+    * `blockOffset`: A BlockOffset
+
+    * `transactionOffset`: A TransactionOffset
+
+
+    Example - fetch block at height 100:
+
+    ```graphql
+
+    query {
+      block(offset: { height: 100 }) {
+        hash
+        height
+      }
+    }
+
+    ```
+
+
+    For the full list of available queries, mutations, subscriptions and types,
+    see
+
+
+    [![GraphQL API Reference
+    →](https://img.shields.io/badge/Midnight_GraphQL_Reference_→-0033AD?style=for-the-badge)](./midnight/)
 servers:
   - url: 'https://cardano-mainnet.blockfrost.io/api/v0'
     description: Cardano Mainnet network

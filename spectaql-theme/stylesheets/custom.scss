@@ -1,0 +1,163 @@
+// Dark theme matching Scalar Kepler style
+// Colors extracted from Scalar Kepler dark mode
+
+$background: #000211;
+$sidebar-background:#000211;
+
+$text-color: #e0e0e6;
+$text-color-subtle: #8e8ea0;
+
+$link-color: #6b9eff;
+$link-color-hover: #8fb5ff;
+
+// Logo sizing
+#spectaql #logo img {
+  max-width: 40px !important;
+}
+
+$border-color: #2a2a3c;
+$border-color-subtle: #222233;
+
+$background-code-block: #1a1a2e;
+$background-code-block-heading: #12121f;
+$text-color-code-block: #d4d4e8;
+
+$background-arguments: #1a1a2e;
+
+$background-error: #3d1518;
+$text-color-error: #ff6b6b;
+
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+$font-family-monospaced: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+
+// Sidebar styling
+// Using !important to override SpectaQL base theme styles which are concatenated after custom styles
+#spectaql #sidebar {
+  border-right: 0.5px solid $border-color !important;
+
+  a {
+    color: $text-color-subtle !important;
+  }
+
+  a.nav-scroll-active {
+    color: $text-color !important;
+    font-weight: 700;
+  }
+
+  a:hover {
+    color: $link-color !important;
+  }
+}
+
+// Nav group titles
+#spectaql #nav .nav-group-title {
+  color: $text-color-subtle;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  letter-spacing: 0.05em;
+}
+
+// Mobile navbar
+#spectaql #mobile-navbar {
+  background: $background;
+  border-bottom: 1px solid $border-color;
+}
+
+// Tables (fields, arguments)
+#spectaql .doc-copy table {
+  tr th {
+    border-bottom-color: $border-color;
+    color: $text-color-subtle;
+  }
+  tr td {
+    border-bottom-color: $border-color-subtle;
+  }
+}
+
+// Inline code
+#spectaql code {
+  background: #1e1e30;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #c4b5fd;
+}
+
+// Code blocks - override inline code style
+#spectaql pre code,
+#spectaql pre code.hljs {
+  background: $background-code-block;
+  padding: 15px 20px;
+  border-radius: 8px;
+}
+
+// Headings
+#spectaql .doc-heading {
+  color: #ffffff;
+}
+
+#spectaql .operation .operation-heading,
+#spectaql .definition .definition-heading {
+  color: #ffffff;
+
+  code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+}
+
+// Section dividers
+#spectaql .group-heading,
+#spectaql .operation-group-name,
+#spectaql .definition-group-name {
+  border-top-color: $border-color;
+  color: $text-color-subtle;
+
+  a {
+    color: $text-color-subtle;
+  }
+}
+
+// Field arguments
+#spectaql .field-arguments {
+  background-color: #151522;
+  border-color: $border-color-subtle;
+}
+
+// Links in description
+#spectaql #introduction a,
+#spectaql .doc-copy a {
+  color: $link-color;
+  &:hover {
+    color: $link-color-hover;
+  }
+}
+
+// Scrollbar styling
+#spectaql #sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+#spectaql #sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+#spectaql #sidebar::-webkit-scrollbar-thumb {
+  background: $border-color;
+  border-radius: 3px;
+}
+
+// Introduction section
+#spectaql #introduction {
+  .example-section:not(.example-section-is-code) {
+    h5 {
+      color: $text-color-subtle;
+    }
+  }
+}
+
+// Type links
+#spectaql .field-type a {
+  color: #c4b5fd;
+  &:hover {
+    color: #ddd6fe;
+  }
+}

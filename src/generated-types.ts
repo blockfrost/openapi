@@ -8892,10 +8892,15 @@ export interface components {
              */
             stake_address: string;
             /**
-             * @description Registration state of an account
+             * @description Delegation state of the account. **Note:** For registration state, use the `registered` field instead.
              * @example true
              */
             active: boolean;
+            /**
+             * @description Registration state of an account
+             * @example true
+             */
+            registered: boolean;
             /**
              * @description Epoch of the most recent action - registration or deregistration
              * @example 412

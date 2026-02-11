@@ -9,6 +9,16 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.85] - 2026-02-11
+
+### Added
+
+- New `registered` field in `/accounts/:stake_address` response indicating whether the stake address is currently registered
+
+### Fixed
+
+- description for `active` field in `/accounts/:stake_address` response to clarify it represents delegation state
+
 ## [0.1.84] - 2025-11-27
 
 ### Added
@@ -599,7 +609,6 @@ Unreleased changes are in the `master` branch.
 ### Added
 
 - Alonzo support related additions
-
   - `/scripts` endpoint for listing all scripts
   - `/scripts/{hash}` endpoint for script details
   - `/scripts/{hash}/redeemers` endpoint for listing reedemers of a script

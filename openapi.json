@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.84",
+    "version": "0.1.85",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -11992,6 +11992,11 @@
           "active": {
             "type": "boolean",
             "example": true,
+            "description": "Delegation state of the account. **Note:** For registration state, use the `registered` field instead."
+          },
+          "registered": {
+            "type": "boolean",
+            "example": true,
             "description": "Registration state of an account"
           },
           "active_epoch": {
@@ -12046,6 +12051,7 @@
         "required": [
           "stake_address",
           "active",
+          "registered",
           "active_epoch",
           "controlled_amount",
           "rewards_sum",

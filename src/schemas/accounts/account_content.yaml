@@ -7,6 +7,10 @@ properties:
   active:
     type: boolean
     example: true
+    description: "Delegation state of the account. **Note:** For registration state, use the `registered` field instead."
+  registered:
+    type: boolean
+    example: true
     description: Registration state of an account
   active_epoch:
     type: integer
@@ -51,6 +55,7 @@ properties:
 required:
   - stake_address
   - active
+  - registered
   - active_epoch
   - controlled_amount
   - rewards_sum

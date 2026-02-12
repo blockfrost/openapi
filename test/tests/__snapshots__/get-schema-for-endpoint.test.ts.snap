@@ -146,7 +146,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
       "200": {
         "properties": {
           "active": {
-            "description": "Registration state of an account",
+            "description": "Delegation state of the account. **Note:** For registration state, use the \`registered\` field instead.",
             "example": true,
             "type": "boolean",
           },
@@ -172,6 +172,11 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
             "example": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
             "nullable": true,
             "type": "string",
+          },
+          "registered": {
+            "description": "Registration state of an account",
+            "example": true,
+            "type": "boolean",
           },
           "reserves_sum": {
             "description": "Sum of all  funds from reserves for the account in the Lovelaces",
@@ -207,6 +212,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
         "required": [
           "stake_address",
           "active",
+          "registered",
           "active_epoch",
           "controlled_amount",
           "rewards_sum",

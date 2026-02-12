@@ -16,58 +16,60 @@ info:
 
     The deployed version is **v3**. For the complete GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
 
-    ## Quick Start
-
-    ```bash
-    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
-      -H "project_id: YOUR_PROJECT_ID" \
-      -H "Content-Type: application/json" \
-      -d '{"query": "{ block { hash height timestamp } }"}'
-    ```
-
-    ## Endpoints
-
-    All GraphQL operations (queries, mutations, and subscriptions) use the same endpoint:
-    * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST requests)
-    * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for subscriptions)
-
-    Where `{network}` is either `mainnet` or `preview`.
-
-    ## Authentication
-
-    Include your project ID as the `project_id` HTTP header.
-
-    When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
-    ```javascript
-    new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
-      "graphql-transport-ws",
-      "project_id_YOUR_PROJECT_ID"
-    ]);
-    ```
-
-    ## Request Format
-
-    Send a POST request with a JSON body containing:
-    * `query` (required): The GraphQL query, mutation, or subscription string
-    * `variables` (optional): Variables for the GraphQL operation
-
-    Example:
-    ```json
-    {
-      "query": "query GetBlock($offset: BlockOffset) { block(offset: $offset) { hash height } }",
-      "variables": { "offset": { "height": 100 } }
-    }
-    ```
-
-    ## Query Limits
-
-    The server may apply limitations to queries:
-    * `max-depth`: Maximum nesting depth
-    * `max-fields`: Maximum number of fields
-    * `timeout`: Query execution timeout
-    * `complexity`: Query complexity cost
-
   x-introItems:
+    - title: Quick Start
+      description: |
+        Create a Midnight project on [blockfrost.io](https://blockfrost.io) and make your first API call:
+
+        ```bash
+        curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ block { hash height timestamp } }"}'
+        ```
+
+    - title: Endpoints
+      description: |
+        All GraphQL operations (queries, mutations, and subscriptions) use the same endpoint:
+        * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST requests)
+        * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for subscriptions)
+
+        Currently available network is `preview`. The `mainnet` network is coming soon.
+
+    - title: Authentication
+      description: |
+        Include your project ID as the `project_id` HTTP header.
+
+        When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
+        ```javascript
+        new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+          "graphql-transport-ws",
+          "project_id_YOUR_PROJECT_ID"
+        ]);
+        ```
+
+    - title: Request Format
+      description: |
+        Send a POST request with a JSON body containing:
+        * `query` (required): The GraphQL query, mutation, or subscription string
+        * `variables` (optional): Variables for the GraphQL operation
+
+        Example:
+        ```json
+        {
+          "query": "query GetBlock($offset: BlockOffset) { block(offset: $offset) { hash height } }",
+          "variables": { "offset": { "height": 100 } }
+        }
+        ```
+
+    - title: Query Limits
+      description: |
+        The server may apply limitations to queries:
+        * `max-depth`: Maximum nesting depth
+        * `max-fields`: Maximum number of fields
+        * `timeout`: Query execution timeout
+        * `complexity`: Query complexity cost
+
     - title: Scalar Types
       description: |
         The API uses custom scalar types:

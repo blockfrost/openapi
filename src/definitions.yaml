@@ -235,7 +235,7 @@ info:
     </table>
 
 
-    ## Midnight Indexer API
+    ## Midnight API
 
 
     The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data—blocks, transactions, contracts, and wallet-related events—indexed from the Midnight blockchain.
@@ -248,7 +248,8 @@ info:
 
     ### Quick Start
 
-    Make your first API call:
+    Create a Midnight project on [blockfrost.io](https://blockfrost.io) and make your first API call:
+
     ```bash
     curl -X POST https://midnight-{network}.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
@@ -262,7 +263,7 @@ info:
     * **HTTP:** `https://midnight-{network}.blockfrost.io/api/v0` (POST requests)
     * **WebSocket:** `wss://midnight-{network}.blockfrost.io/api/v0/ws` (for subscriptions)
 
-    Where `{network}` is either `mainnet` or `preview`.
+    Currently available network is `preview`. The `mainnet` network is coming soon.
 
     ### Request Format
 
@@ -325,19 +326,6 @@ info:
     ]);
     ```
 
-    ### Scalar Types
-
-    The API uses custom scalar types:
-
-    | Scalar | Description | Example |
-    |--------|-------------|---------|
-    | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) | `"0x1234abcd..."` |
-    | `ViewingKey` | Wallet viewing key in Bech32m or hex format | `"mn_shield-esk1abc..."` |
-    | `CardanoRewardAddress` | Bech32-encoded Cardano reward address | `"stake_test1..."` |
-    | `UnshieldedAddress` | Bech32m-encoded Midnight unshielded address | `"midnight1..."` |
-    | `DustAddress` | Bech32m-encoded DUST address | `"midnight1..."` |
-    | `Unit` | Empty return type for mutations with no data | `null` |
-
     ### Query Limits
 
     The server may apply limitations to queries:
@@ -380,6 +368,15 @@ info:
     }
     ```
 
+     ### Available Operations
+
+    The following links will redirect you to the Midnight GraphQL API Reference:
+
+    * [**Queries**](midnight/#group-Operations-Queries): Fetch blockchain data (blocks, transactions, contracts, DUST status, governance parameters)
+    * [**Mutations**](midnight/#group-Operations-Mutations): Wallet connection management (connect/disconnect)
+    * [**Subscriptions**](midnight/#group-Operations-Subscriptions): Real-time updates via WebSocket (blocks, contract actions, transactions, ledger events)
+
+
     For the full list of available queries, mutations, subscriptions and types, see
 
     [![GraphQL API Reference →](https://img.shields.io/badge/Midnight_GraphQL_Reference_→-0033AD?style=for-the-badge)](./midnight/)
@@ -391,10 +388,6 @@ servers:
     description: Cardano Preprod network
   - url: https://cardano-preview.blockfrost.io/api/v0
     description: Cardano Preview network
-  - url: https://midnight-mainnet.blockfrost.io/api/v0
-    description: Midnight Mainnet network
-  - url: https://midnight-preview.blockfrost.io/api/v0
-    description: Midnight Preview network
   - url: https://localhost:3000
     description: local
 
@@ -436,37 +429,37 @@ tags:
   - name: IPFS » Add
   - name: IPFS » Gateway
   - name: IPFS » Pins
-  - name: Midnight » Queries
-    description: |
-      Query data from the Midnight blockchain using the Midnight Indexer GraphQL API.
+  # - name: Midnight » Queries
+  #   description: |
+  #     Query data from the Midnight blockchain using the Midnight Indexer GraphQL API.
 
-      All queries are sent as POST requests to the `/` endpoint with the GraphQL query in the request body.
-  - name: Midnight » Mutations
-    description: |
-      Execute mutations on the Midnight Indexer GraphQL API.
+  #     All queries are sent as POST requests to the `/` endpoint with the GraphQL query in the request body.
+  # - name: Midnight » Mutations
+  #   description: |
+  #     Execute mutations on the Midnight Indexer GraphQL API.
 
-      All mutations are sent as POST requests to the `/` endpoint with the GraphQL mutation in the request body.
-  - name: Midnight » Subscriptions
-    description: |
-      Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+  #     All mutations are sent as POST requests to the `/` endpoint with the GraphQL mutation in the request body.
+  # - name: Midnight » Subscriptions
+  #   description: |
+  #     Subscribe to real-time updates from the Midnight blockchain via WebSocket.
 
-      Connect to `wss://midnight-{network}.blockfrost.io/api/v0/ws` using the `graphql-transport-ws` protocol.
+  #     Connect to `wss://midnight-{network}.blockfrost.io/api/v0/ws` using the `graphql-transport-ws` protocol.
 
-      **Available subscriptions:**
-      * `blocks` - Subscribe to new blocks
-      * `contractActions` - Subscribe to contract actions for a specific address
-      * `dustLedgerEvents` - Subscribe to DUST ledger events
-      * `shieldedTransactions` - Subscribe to shielded transaction events for a wallet session
-      * `unshieldedTransactions` - Subscribe to unshielded transaction events for an address
-      * `zswapLedgerEvents` - Subscribe to zswap ledger events
+  #     **Available subscriptions:**
+  #     * `blocks` - Subscribe to new blocks
+  #     * `contractActions` - Subscribe to contract actions for a specific address
+  #     * `dustLedgerEvents` - Subscribe to DUST ledger events
+  #     * `shieldedTransactions` - Subscribe to shielded transaction events for a wallet session
+  #     * `unshieldedTransactions` - Subscribe to unshielded transaction events for an address
+  #     * `zswapLedgerEvents` - Subscribe to zswap ledger events
 
-      **WebSocket Authentication:**
-      ```javascript
-      new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
-        "graphql-transport-ws",
-        "project_id_YOUR_PROJECT_ID"
-      ]);
-      ```
+  #     **WebSocket Authentication:**
+  #     ```javascript
+  #     new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+  #       "graphql-transport-ws",
+  #       "project_id_YOUR_PROJECT_ID"
+  #     ]);
+  #     ```
 
 paths:
   /:
@@ -879,36 +872,6 @@ paths:
 
   /nutlink/tickers/{ticker}:
     $ref: ./paths/api/nutlink/tickers/{ticker}/index.yaml
-
-  # midnight indexer - queries
-
-  /query/block:
-    $ref: ./paths/midnight/block.yaml
-
-  /query/transactions:
-    $ref: ./paths/midnight/transactions.yaml
-
-  /query/contract-action:
-    $ref: ./paths/midnight/contract_action.yaml
-
-  /query/dust-generation-status:
-    $ref: ./paths/midnight/dust_generation_status.yaml
-
-  /query/d-parameter-history:
-    $ref: ./paths/midnight/d_parameter_history.yaml
-
-  # midnight indexer - mutations
-
-  /mutation/connect:
-    $ref: ./paths/midnight/connect.yaml
-
-  /mutation/disconnect:
-    $ref: ./paths/midnight/disconnect.yaml
-
-  # midnight indexer - subscriptions (WebSocket)
-
-  /ws:
-    $ref: ./paths/midnight/subscriptions.yaml
 
 components:
   schemas:

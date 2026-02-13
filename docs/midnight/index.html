@@ -29,8 +29,12 @@
               <li><a href="#introduction-item-1">Endpoints</a></li>
               <li><a href="#introduction-item-2">Authentication</a></li>
               <li><a href="#introduction-item-3">Request Format</a></li>
-              <li><a href="#introduction-item-4">Query Limits</a></li>
-              <li><a href="#introduction-item-5">Scalar Types</a></li>
+              <li><a href="#introduction-item-4">Response Format</a></li>
+              <li><a href="#introduction-item-5">HTTP Query Examples</a></li>
+              <li><a href="#introduction-item-6">WebSocket Subscriptions</a></li>
+              <li><a href="#introduction-item-7">Query Limits</a></li>
+              <li><a href="#introduction-item-8">Pagination with Offsets</a></li>
+              <li><a href="#introduction-item-9">Scalar Types</a></li>
             </ul>
           </div>
           <div class="nav-group">
@@ -163,6 +167,17 @@ project_id: YOUR_PROJECT_ID</code></pre>
   -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
   -d <span class="hljs-string">&#x27;{&quot;query&quot;: &quot;{ block { hash height timestamp } }&quot;}&#x27;</span>
 </code></pre>
+                  <p>Response:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;block&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">192998</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1770787800000</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
                 </div>
                 <div class="doc-examples">
                 </div>
@@ -214,12 +229,151 @@ project_id: YOUR_PROJECT_ID</code></pre>
   <span class="hljs-attr">&quot;variables&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;offset&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span> <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
+                  <p>or without variables:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;query { block(offset: { height: 100 }) { hash height } }&quot;</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
                 </div>
                 <div class="doc-examples">
                 </div>
               </div>
             </div>
             <div id="introduction-item-4" class="introduction-item" data-traverse-target="introduction-item-4">
+              <h2 class="introduction-item-title">Response Format</h2>
+              <div class="doc-row">
+                <div class="doc-copy">
+                  <p>Responses follow the standard GraphQL format:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;block&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">192998</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1770787800000</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                  <p>On error:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;errors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Invalid value for argument \&quot;offset.height\&quot; expected type \&quot;Int\&quot;&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;locations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;line&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;column&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">15</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;path&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;block&quot;</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                </div>
+                <div class="doc-examples">
+                </div>
+              </div>
+            </div>
+            <div id="introduction-item-5" class="introduction-item" data-traverse-target="introduction-item-5">
+              <h2 class="introduction-item-title">HTTP Query Examples</h2>
+              <div class="doc-row">
+                <div class="doc-copy">
+                  <p><strong>Query the latest block:</strong></p>
+                  <pre><code class="hljs language-bash">curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+  -H <span class="hljs-string">&quot;project_id: YOUR_PROJECT_ID&quot;</span> \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;query&quot;: &quot;{ block { hash height timestamp author transactions { hash } } }&quot;}&#x27;</span>
+</code></pre>
+                  <p><strong>Query a block by height:</strong></p>
+                  <pre><code class="hljs language-bash">curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+  -H <span class="hljs-string">&quot;project_id: YOUR_PROJECT_ID&quot;</span> \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;query&quot;: &quot;{ block(offset: { height: 3 }) { hash height protocolVersion timestamp transactions { hash } } }&quot;}&#x27;</span>
+</code></pre>
+                  <p><strong>Query transactions by hash:</strong></p>
+                  <pre><code class="hljs language-bash">curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+  -H <span class="hljs-string">&quot;project_id: YOUR_PROJECT_ID&quot;</span> \
+  -H <span class="hljs-string">&quot;Content-Type: application/json&quot;</span> \
+  -d <span class="hljs-string">&#x27;{&quot;query&quot;: &quot;{ transactions(offset: { hash: \&quot;YOUR_TX_HASH\&quot; }) { hash protocolVersion block { height hash } } }&quot;}&#x27;</span>
+</code></pre>
+                </div>
+                <div class="doc-examples">
+                </div>
+              </div>
+            </div>
+            <div id="introduction-item-6" class="introduction-item" data-traverse-target="introduction-item-6">
+              <h2 class="introduction-item-title">WebSocket Subscriptions</h2>
+              <div class="doc-row">
+                <div class="doc-copy">
+                  <p>Subscriptions use a WebSocket connection following the <a href="https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md">GraphQL over WebSocket</a> protocol.</p>
+                  <p><strong>Connecting with <code>websocat</code>:</strong></p>
+                  <pre><code class="hljs language-bash">websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+  --protocol <span class="hljs-string">&quot;graphql-transport-ws&quot;</span> \
+  -H <span class="hljs-string">&quot;project_id: YOUR_PROJECT_ID&quot;</span>
+</code></pre>
+                  <p><strong>Step 1 — Initialize the connection:</strong></p>
+                  <p>After connecting, send a <code>connection_init</code> message:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;connection_init&quot;</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                  <p>The server responds with:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;connection_ack&quot;</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                  <p><strong>Step 2 — Send a subscription:</strong></p>
+                  <p>Once acknowledged, send a <code>subscribe</code> message with your GraphQL subscription query:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;subscribe&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;payload&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;query&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;subscription { blocks { hash height timestamp transactions { hash } } }&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                  <p><strong>Step 3 — Receive events:</strong></p>
+                  <p>The server pushes <code>next</code> messages whenever new data is available:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;next&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;payload&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;blocks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;hash&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;height&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">192998</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;timestamp&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1770787800000</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;transactions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+                  <p><strong>Connecting from JavaScript:</strong></p>
+                  <pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>(
+              <span class="hljs-string">&quot;wss://midnight-preview.blockfrost.io/api/v0/ws&quot;</span>,
+              [<span class="hljs-string">&quot;graphql-transport-ws&quot;</span>, <span class="hljs-string">&quot;project_id_YOUR_PROJECT_ID&quot;</span>]
+            );
+            
+            ws.<span class="hljs-property">onopen</span> = <span class="hljs-function">() =&gt;</span> {
+              ws.<span class="hljs-title function_">send</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;connection_init&quot;</span> }));
+            };
+            
+            ws.<span class="hljs-property">onmessage</span> = <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+              <span class="hljs-keyword">const</span> msg = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(event.<span class="hljs-property">data</span>);
+              <span class="hljs-keyword">if</span> (msg.<span class="hljs-property">type</span> === <span class="hljs-string">&quot;connection_ack&quot;</span>) {
+                ws.<span class="hljs-title function_">send</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>({
+                  <span class="hljs-attr">id</span>: <span class="hljs-string">&quot;1&quot;</span>,
+                  <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;subscribe&quot;</span>,
+                  <span class="hljs-attr">payload</span>: {
+                    <span class="hljs-attr">query</span>: <span class="hljs-string">&quot;subscription { blocks { hash height timestamp } }&quot;</span>
+                  }
+                }));
+              }
+              <span class="hljs-keyword">if</span> (msg.<span class="hljs-property">type</span> === <span class="hljs-string">&quot;next&quot;</span>) {
+                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;New block:&quot;</span>, msg.<span class="hljs-property">payload</span>.<span class="hljs-property">data</span>);
+              }
+            };
+            </code></pre>
+                </div>
+                <div class="doc-examples">
+                </div>
+              </div>
+            </div>
+            <div id="introduction-item-7" class="introduction-item" data-traverse-target="introduction-item-7">
               <h2 class="introduction-item-title">Query Limits</h2>
               <div class="doc-row">
                 <div class="doc-copy">
@@ -230,12 +384,44 @@ project_id: YOUR_PROJECT_ID</code></pre>
                     <li><code>timeout</code>: Query execution timeout</li>
                     <li><code>complexity</code>: Query complexity cost</li>
                   </ul>
+                  <p>Requests exceeding limits return errors:</p>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;errors&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Query has too many fields: 20. Max fields: 10.&quot;</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
                 </div>
                 <div class="doc-examples">
                 </div>
               </div>
             </div>
-            <div id="introduction-item-5" class="introduction-item" data-traverse-target="introduction-item-5">
+            <div id="introduction-item-8" class="introduction-item" data-traverse-target="introduction-item-8">
+              <h2 class="introduction-item-title">Pagination with Offsets</h2>
+              <div class="doc-row">
+                <div class="doc-copy">
+                  <p>Many queries support offsets for pagination:</p>
+                  <p><strong>BlockOffset</strong> (oneOf — provide exactly one):</p>
+                  <ul>
+                    <li><code>hash</code>: Hex-encoded block hash</li>
+                    <li><code>height</code>: Block height number</li>
+                  </ul>
+                  <p><strong>TransactionOffset</strong> (oneOf — provide exactly one):</p>
+                  <ul>
+                    <li><code>hash</code>: Hex-encoded transaction hash</li>
+                    <li><code>identifier</code>: Hex-encoded transaction identifier</li>
+                  </ul>
+                  <p><strong>ContractActionOffset</strong> (oneOf — provide exactly one):</p>
+                  <ul>
+                    <li><code>blockOffset</code>: A BlockOffset</li>
+                    <li><code>transactionOffset</code>: A TransactionOffset</li>
+                  </ul>
+                  <p>If no offset is provided, the latest result is returned.</p>
+                </div>
+                <div class="doc-examples">
+                </div>
+              </div>
+            </div>
+            <div id="introduction-item-9" class="introduction-item" data-traverse-target="introduction-item-9">
               <h2 class="introduction-item-title">Scalar Types</h2>
               <div class="doc-row">
                 <div class="doc-copy">
@@ -252,7 +438,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                       <tr>
                         <td><code>HexEncoded</code></td>
                         <td>Hex-encoded bytes (hashes, addresses, session IDs)</td>
-                        <td><code>&quot;0x1234abcd...&quot;</code></td>
+                        <td><code>&quot;d193b268...&quot;</code></td>
                       </tr>
                       <tr>
                         <td><code>ViewingKey</code></td>
@@ -498,9 +684,9 @@ project_id: YOUR_PROJECT_ID</code></pre>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"block"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Block</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"transactions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Transaction</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -735,7 +921,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
       <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
       <span class="hljs-punctuation">}</span>
@@ -824,7 +1010,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
         <span class="hljs-attr">"dustAddress"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DustAddress</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"registered"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"nightBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"generationRate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"generationRate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"maxCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"utxoTxHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
@@ -886,7 +1072,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
         <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+        <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
       <span class="hljs-punctuation">}</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">}</span>
@@ -1538,9 +1724,9 @@ project_id: YOUR_PROJECT_ID</code></pre>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"blocks"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Block</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"transactions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Transaction</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -1787,7 +1973,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
@@ -1795,7 +1981,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"dustLedgerEvents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
     <span class="hljs-punctuation">}</span>
@@ -1921,7 +2107,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"sessionId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"sessionId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
@@ -2061,7 +2247,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UnshieldedAddress</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"transactionId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UnshieldedAddress</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"transactionId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
@@ -2144,7 +2330,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
     <span class="hljs-attr">"zswapLedgerEvents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
+      <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
     <span class="hljs-punctuation">}</span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
@@ -2226,7 +2412,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
@@ -2365,7 +2551,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"startIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"endIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"endIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"update"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
 <span class="hljs-punctuation">}</span>
@@ -2634,7 +2820,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
   <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"zswapState"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"entryPoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"entryPoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"transaction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"deploy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ContractDeploy</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"unshieldedBalances"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">ContractBalance</span><span class="hljs-punctuation">]</span>
@@ -2812,7 +2998,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -2874,8 +3060,8 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
@@ -3021,13 +3207,13 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"cardanoRewardAddress"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">CardanoRewardAddress</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"dustAddress"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DustAddress</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"registered"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"nightBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"registered"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nightBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"generationRate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"maxCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"utxoTxHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"utxoOutputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
+  <span class="hljs-attr">"utxoOutputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -3079,7 +3265,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DustOutput</span>
@@ -3251,7 +3437,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3289,7 +3475,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-number">123</span>
+                  <pre><code class="hljs language-json"><span class="hljs-number">987</span>
 </code></pre>
                 </div>
               </div>
@@ -3334,7 +3520,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3449,7 +3635,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
@@ -3556,7 +3742,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3650,8 +3836,8 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"highestEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"highestCheckedEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"highestRelevantEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
+  <span class="hljs-attr">"highestCheckedEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"highestRelevantEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -3673,7 +3859,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"xyz789"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"abc123"</span>
 </code></pre>
                 </div>
               </div>
@@ -3922,11 +4108,11 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+  <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -4044,9 +4230,9 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"block"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Block</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"contractActions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">ContractAction</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -4099,8 +4285,8 @@ project_id: YOUR_PROJECT_ID</code></pre>
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"paidFees"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"estimatedFees"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+  <span class="hljs-attr">"paidFees"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"estimatedFees"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -4507,12 +4693,12 @@ project_id: YOUR_PROJECT_ID</code></pre>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UnshieldedAddress</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"tokenType"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"value"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"value"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"intentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"outputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"ctime"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"initialNonce"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"registeredForDustGeneration"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"registeredForDustGeneration"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"createdAtTransaction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"spentAtTransaction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span>
 <span class="hljs-punctuation">}</span>
@@ -4581,7 +4767,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>

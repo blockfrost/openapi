@@ -28,6 +28,19 @@ info:
           -d '{"query": "{ block { hash height timestamp } }"}'
         ```
 
+        Response:
+        ```json
+        {
+          "data": {
+            "block": {
+              "hash": "d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4",
+              "height": 192998,
+              "timestamp": 1770787800000
+            }
+          }
+        }
+        ```
+
     - title: Endpoints
       description: |
         All GraphQL operations (queries, mutations, and subscriptions) use the same endpoint:
@@ -62,6 +75,152 @@ info:
         }
         ```
 
+        or without variables:
+        ```json
+        {
+          "query": "query { block(offset: { height: 100 }) { hash height } }"
+        }
+        ```
+
+    - title: Response Format
+      description: |
+        Responses follow the standard GraphQL format:
+        ```json
+        {
+          "data": {
+            "block": {
+              "hash": "d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4",
+              "height": 192998,
+              "timestamp": 1770787800000
+            }
+          }
+        }
+        ```
+
+        On error:
+        ```json
+        {
+          "data": null,
+          "errors": [
+            {
+              "message": "Invalid value for argument \"offset.height\" expected type \"Int\"",
+              "locations": [{ "line": 1, "column": 15 }],
+              "path": ["block"]
+            }
+          ]
+        }
+        ```
+
+    - title: HTTP Query Examples
+      description: |
+        **Query the latest block:**
+        ```bash
+        curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ block { hash height timestamp author transactions { hash } } }"}'
+        ```
+
+        **Query a block by height:**
+        ```bash
+        curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ block(offset: { height: 3 }) { hash height protocolVersion timestamp transactions { hash } } }"}'
+        ```
+
+        **Query transactions by hash:**
+        ```bash
+        curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion block { height hash } } }"}'
+        ```
+
+    - title: WebSocket Subscriptions
+      description: |
+        Subscriptions use a WebSocket connection following the GraphQL over WebSocket protocol.
+
+        **Connecting with `websocat`:**
+        ```bash
+        websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+          --protocol "graphql-transport-ws" \
+          -H "project_id: YOUR_PROJECT_ID"
+        ```
+
+        **Step 1 — Initialize the connection:**
+
+        After connecting, send a `connection_init` message:
+        ```json
+        {"type": "connection_init"}
+        ```
+
+        The server responds with:
+        ```json
+        {"type": "connection_ack"}
+        ```
+
+        **Step 2 — Send a subscription:**
+
+        Once acknowledged, send a `subscribe` message with your GraphQL subscription query:
+        ```json
+        {
+          "id": "1",
+          "type": "subscribe",
+          "payload": {
+            "query": "subscription { blocks { hash height timestamp transactions { hash } } }"
+          }
+        }
+        ```
+
+        **Step 3 — Receive events:**
+
+        The server pushes `next` messages whenever new data is available:
+        ```json
+        {
+          "id": "1",
+          "type": "next",
+          "payload": {
+            "data": {
+              "blocks": {
+                "hash": "d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4",
+                "height": 192998,
+                "timestamp": 1770787800000,
+                "transactions": []
+              }
+            }
+          }
+        }
+        ```
+
+        **Connecting from JavaScript:**
+        ```javascript
+        const ws = new WebSocket(
+          "wss://midnight-preview.blockfrost.io/api/v0/ws",
+          ["graphql-transport-ws", "project_id_YOUR_PROJECT_ID"]
+        );
+
+        ws.onopen = () => {
+          ws.send(JSON.stringify({ type: "connection_init" }));
+        };
+
+        ws.onmessage = (event) => {
+          const msg = JSON.parse(event.data);
+          if (msg.type === "connection_ack") {
+            ws.send(JSON.stringify({
+              id: "1",
+              type: "subscribe",
+              payload: {
+                query: "subscription { blocks { hash height timestamp } }"
+              }
+            }));
+          }
+          if (msg.type === "next") {
+            console.log("New block:", msg.payload.data);
+          }
+        };
+        ```
+
     - title: Query Limits
       description: |
         The server may apply limitations to queries:
@@ -70,13 +229,39 @@ info:
         * `timeout`: Query execution timeout
         * `complexity`: Query complexity cost
 
+        Requests exceeding limits return errors:
+        ```json
+        {
+          "data": null,
+          "errors": [{ "message": "Query has too many fields: 20. Max fields: 10." }]
+        }
+        ```
+
+    - title: Pagination with Offsets
+      description: |
+        Many queries support offsets for pagination:
+
+        **BlockOffset** (oneOf — provide exactly one):
+        * `hash`: Hex-encoded block hash
+        * `height`: Block height number
+
+        **TransactionOffset** (oneOf — provide exactly one):
+        * `hash`: Hex-encoded transaction hash
+        * `identifier`: Hex-encoded transaction identifier
+
+        **ContractActionOffset** (oneOf — provide exactly one):
+        * `blockOffset`: A BlockOffset
+        * `transactionOffset`: A TransactionOffset
+
+        If no offset is provided, the latest result is returned.
+
     - title: Scalar Types
       description: |
         The API uses custom scalar types:
 
         | Scalar | Description | Example |
         |--------|-------------|---------|
-        | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) | `"0x1234abcd..."` |
+        | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) | `"d193b268..."` |
         | `ViewingKey` | Wallet viewing key in Bech32m or hex format | `"mn_shield-esk1abc..."` |
         | `CardanoRewardAddress` | Bech32-encoded Cardano reward address | `"stake_test1..."` |
         | `UnshieldedAddress` | Bech32m-encoded Midnight unshielded address | `"midnight1..."` |

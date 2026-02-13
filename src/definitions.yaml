@@ -251,10 +251,23 @@ info:
     Create a Midnight project on [blockfrost.io](https://blockfrost.io) and make your first API call:
 
     ```bash
-    curl -X POST https://midnight-{network}.blockfrost.io/api/v0 \
+    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
       -H "Content-Type: application/json" \
       -d '{"query": "{ block { hash height timestamp } }"}'
+    ```
+
+    Response:
+    ```json
+    {
+      "data": {
+        "block": {
+          "hash": "d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4",
+          "height": 192998,
+          "timestamp": 1770787800000
+        }
+      }
+    }
     ```
 
     ### Endpoint
@@ -293,8 +306,9 @@ info:
     {
       "data": {
         "block": {
-          "hash": "0x1234...",
-          "height": 100
+          "hash": "d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4",
+          "height": 192998,
+          "timestamp": 1770787800000
         }
       }
     }
@@ -306,8 +320,8 @@ info:
       "data": null,
       "errors": [
         {
-          "message": "Block not found",
-          "locations": [{ "line": 1, "column": 1 }],
+          "message": "Invalid value for argument \"offset.height\" expected type \"Int\"",
+          "locations": [{ "line": 1, "column": 15 }],
           "path": ["block"]
         }
       ]
@@ -324,6 +338,116 @@ info:
       "graphql-transport-ws",
       "project_id_YOUR_PROJECT_ID"
     ]);
+    ```
+
+    ### HTTP Query Examples
+
+    **Query the latest block:**
+    ```bash
+    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ block { hash height timestamp author transactions { hash } } }"}'
+    ```
+
+    **Query a block by height:**
+    ```bash
+    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ block(offset: { height: 3 }) { hash height protocolVersion timestamp transactions { hash } } }"}'
+    ```
+
+    **Query transactions by hash:**
+    ```bash
+    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion block { height hash } } }"}'
+    ```
+
+    ### WebSocket Subscriptions
+
+    Subscriptions use a WebSocket connection following the GraphQL over WebSocket protocol.
+
+    **Connecting with `websocat`:**
+    ```bash
+    websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+      --protocol "graphql-transport-ws" \
+      -H "project_id: YOUR_PROJECT_ID"
+    ```
+
+    **Step 1 — Initialize the connection:**
+
+    After connecting, send a `connection_init` message:
+    ```json
+    {"type": "connection_init"}
+    ```
+
+    The server responds with:
+    ```json
+    {"type": "connection_ack"}
+    ```
+
+    **Step 2 — Send a subscription:**
+
+    Once acknowledged, send a `subscribe` message with your GraphQL subscription query:
+    ```json
+    {
+      "id": "1",
+      "type": "subscribe",
+      "payload": {
+        "query": "subscription { blocks { hash height timestamp transactions { hash } } }"
+      }
+    }
+    ```
+
+    **Step 3 — Receive events:**
+
+    The server pushes `next` messages whenever new data is available:
+    ```json
+    {
+      "id": "1",
+      "type": "next",
+      "payload": {
+        "data": {
+          "blocks": {
+            "hash": "d193b2686197789ace64962eb3049c5b94c4bbf9b07da04bef034cd75d83afc4",
+            "height": 192998,
+            "timestamp": 1770787800000,
+            "transactions": []
+          }
+        }
+      }
+    }
+    ```
+
+    **Connecting from JavaScript:**
+    ```javascript
+    const ws = new WebSocket(
+      "wss://midnight-preview.blockfrost.io/api/v0/ws",
+      ["graphql-transport-ws", "project_id_YOUR_PROJECT_ID"]
+    );
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ type: "connection_init" }));
+    };
+
+    ws.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      if (msg.type === "connection_ack") {
+        ws.send(JSON.stringify({
+          id: "1",
+          type: "subscribe",
+          payload: {
+            query: "subscription { blocks { hash height timestamp } }"
+          }
+        }));
+      }
+      if (msg.type === "next") {
+        console.log("New block:", msg.payload.data);
+      }
+    };
     ```
 
     ### Query Limits
@@ -346,27 +470,19 @@ info:
 
     Many queries support offsets for pagination:
 
-    **BlockOffset** (oneOf - provide exactly one):
+    **BlockOffset** (oneOf — provide exactly one):
     * `hash`: Hex-encoded block hash
     * `height`: Block height number
 
-    **TransactionOffset** (oneOf - provide exactly one):
+    **TransactionOffset** (oneOf — provide exactly one):
     * `hash`: Hex-encoded transaction hash
     * `identifier`: Hex-encoded transaction identifier
 
-    **ContractActionOffset** (oneOf - provide exactly one):
+    **ContractActionOffset** (oneOf — provide exactly one):
     * `blockOffset`: A BlockOffset
     * `transactionOffset`: A TransactionOffset
 
-    Example - fetch block at height 100:
-    ```graphql
-    query {
-      block(offset: { height: 100 }) {
-        hash
-        height
-      }
-    }
-    ```
+    If no offset is provided, the latest result is returned.
 
      ### Available Operations
 

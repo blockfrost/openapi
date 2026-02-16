@@ -332,6 +332,12 @@ info:
 
     Include your project ID as the `project_id` HTTP header.
 
+    Alternatively, you can use **HTTP Basic Auth** directly in the endpoint URL. The username is the network prefix and the password is your project ID:
+    ```
+    https://nightpreview:YOUR_PROJECT_ID@midnight-preview.blockfrost.io/api/v0
+    https://nightmainnet:YOUR_PROJECT_ID@midnight-mainnet.blockfrost.io/api/v0
+    ```
+
     When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
     ```javascript
     new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [

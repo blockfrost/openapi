@@ -5,7 +5,7 @@ spectaql:
   themeDir: ./spectaql-theme
 
 introspection:
-  schemaFile: ./midnight.graphql
+  schemaFile: ./midnight-indexer-api.graphql
   queryNameStrategy: capitalizeFirst
   fieldExpansionDepth: 3
 
@@ -14,7 +14,7 @@ info:
   description: |
     The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data — blocks, transactions, contracts, and wallet-related events — indexed from the Midnight blockchain.
 
-    The deployed version is **v3**. For the complete GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
+    The deployed version is **v3**. For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](midnight-indexer-api.graphql).
 
   x-introItems:
     - title: Quick Start
@@ -51,7 +51,7 @@ info:
         | **Midnight Indexer WebSocket API** | `wss://midnight-{network}.blockfrost.io/api/v0/ws` | WebSocket |
         | **Node RPC** | `https://midnight-{network}.blockfrost.io/node` | JSON-RPC |
 
-        The **Node RPC** endpoint exposes the Midnight node — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
+        The **Node RPC** endpoint exposes direct connection to the Midnight Node RPC for low-level runtime access, wallet providers, and transaction submission — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
 
         Currently available networks are `preview` and `preprod`. The `mainnet` network is coming soon.
 

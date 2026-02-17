@@ -244,7 +244,7 @@ info:
 
     [![Open Midnight GraphQL API Reference](https://img.shields.io/badge/Open_Midnight_GraphQL_API_Reference_→-0033AD?style=for-the-badge)](./midnight/)
 
-    For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](https://github.com/midnightntwrk/midnight-indexer/blob/release/3.0.0/indexer-api/graphql/schema-v3.graphql).
+    For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](midnight/midnight-indexer-api.graphql).
 
     ### Quick Start
 
@@ -281,7 +281,7 @@ info:
     | **Midnight Node RPC** | `https://midnight-{network}.blockfrost.io/node` | JSON-RPC |
 
 
-    The **Midnight Node RPC** endpoint exposes the Midnight node — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
+    The **Node RPC** endpoint exposes direct connection to the Midnight Node RPC for low-level runtime access, wallet providers, and transaction submission — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
     Currently available networks are `preview` and `preprod`. The `mainnet` network is coming soon.
 
     ### Request Format

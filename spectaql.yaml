@@ -49,7 +49,7 @@ info:
         |---------|-----|----------|
         | **Midnight Indexer HTTP API** | `https://midnight-{network}.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
         | **Midnight Indexer WebSocket API** | `wss://midnight-{network}.blockfrost.io/api/v0/ws` | WebSocket |
-        | **Node RPC** | `https://midnight-{network}.blockfrost.io/node` | JSON-RPC |
+        | **Node RPC** | `https://rpc.midnight-{network}.blockfrost.io` | JSON-RPC |
 
         The **Node RPC** endpoint exposes direct connection to the Midnight Node RPC for low-level runtime access, wallet providers, and transaction submission — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
 

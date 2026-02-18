@@ -378,7 +378,7 @@ info:
     | **Midnight Indexer Subscriptions API** |
     `wss://midnight-{network}.blockfrost.io/api/v0/ws` | WebSocket |
 
-    | **Midnight Node RPC** | `https://midnight-{network}.blockfrost.io/node` |
+    | **Midnight Node RPC** | `https://rpc.midnight-{network}.blockfrost.io` |
     JSON-RPC |
 
 
@@ -489,9 +489,9 @@ info:
 
     ```
 
-    https://nightpreview:YOUR_PROJECT_ID@midnight-preview.blockfrost.io/node
+    https://nightpreview:YOUR_PROJECT_ID@rpc.midnight-preview.blockfrost.io
 
-    https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
+    https://nightpreprod:YOUR_PROJECT_ID@rpc.midnight-preprod.blockfrost.io
 
     ```
 

@@ -209,7 +209,7 @@ project_id: YOUR_PROJECT_ID</code></pre>
                       </tr>
                       <tr>
                         <td><strong>Node RPC</strong></td>
-                        <td><code>https://midnight-{network}.blockfrost.io/node</code></td>
+                        <td><code>https://rpc.midnight-{network}.blockfrost.io</code></td>
                         <td>JSON-RPC</td>
                       </tr>
                     </tbody>
@@ -232,8 +232,8 @@ project_id: YOUR_PROJECT_ID</code></pre>
 https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/api/v0
 </code></pre>
                   <p><strong>Midnight Node RPC:</strong></p>
-                  <pre><code class="hljs language-text">https://nightpreview:YOUR_PROJECT_ID@midnight-preview.blockfrost.io/node
-https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
+                  <pre><code class="hljs language-text">https://nightpreview:YOUR_PROJECT_ID@rpc.midnight-preview.blockfrost.io
+https://nightpreprod:YOUR_PROJECT_ID@rpc.midnight-preprod.blockfrost.io
 </code></pre>
                   <p>When using WebSocket in the browser (which doesn&#39;t support custom headers), include your project ID as a subprotocol by prefixing it with <code>project_id_</code>:</p>
                   <pre><code class="hljs language-javascript"><span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>(<span class="hljs-string">&quot;wss://midnight-preview.blockfrost.io/api/v0/ws&quot;</span>, [
@@ -716,9 +716,9 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"block"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Block</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"transactions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Transaction</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -954,8 +954,8 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
         <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
+        <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
       <span class="hljs-punctuation">}</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">}</span>
@@ -1043,8 +1043,8 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
         <span class="hljs-attr">"registered"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"nightBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"generationRate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"maxCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"maxCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"utxoTxHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"utxoOutputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
       <span class="hljs-punctuation">}</span>
@@ -1100,11 +1100,11 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"termsAndConditionsHistory"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
       <span class="hljs-punctuation">{</span>
-        <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
+        <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
       <span class="hljs-punctuation">}</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">}</span>
@@ -1398,7 +1398,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"transactions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
       <span class="hljs-punctuation">{</span>
-        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
@@ -2015,7 +2015,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
     <span class="hljs-attr">"dustLedgerEvents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
+      <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
     <span class="hljs-punctuation">}</span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
@@ -2139,7 +2139,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"sessionId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"sessionId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"index"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
@@ -2362,7 +2362,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
     <span class="hljs-attr">"zswapLedgerEvents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
+      <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
     <span class="hljs-punctuation">}</span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
@@ -2444,9 +2444,9 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"height"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"parent"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Block</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"transactions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Transaction</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -2583,7 +2583,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"startIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"endIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"endIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"update"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
@@ -2852,7 +2852,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
   <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"state"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"zswapState"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"entryPoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"entryPoint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"transaction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"deploy"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ContractDeploy</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"unshieldedBalances"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">ContractBalance</span><span class="hljs-punctuation">]</span>
@@ -3030,7 +3030,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3090,11 +3090,11 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
+  <span class="hljs-attr">"numPermissionedCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"numRegisteredCandidates"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -3157,7 +3157,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3240,12 +3240,12 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
   <span class="hljs-attr">"cardanoRewardAddress"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">CardanoRewardAddress</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"dustAddress"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DustAddress</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"registered"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"nightBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"nightBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"generationRate"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"maxCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"maxCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"currentCapacity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"utxoTxHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"utxoOutputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
+  <span class="hljs-attr">"utxoOutputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -3299,7 +3299,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"output"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DustOutput</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
@@ -3469,7 +3469,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3507,7 +3507,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-number">987</span>
+                  <pre><code class="hljs language-json"><span class="hljs-number">123</span>
 </code></pre>
                 </div>
               </div>
@@ -3552,7 +3552,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"maxId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3669,13 +3669,13 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"transactionResult"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TransactionResult</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"identifiers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"merkleTreeRoot"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"startIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"endIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"startIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"endIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"fees"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TransactionFees</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"block"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Block</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"contractActions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">ContractAction</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -3774,7 +3774,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
               </div>
@@ -3867,9 +3867,9 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"highestEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"highestCheckedEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"highestRelevantEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
+  <span class="hljs-attr">"highestEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"highestCheckedEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"highestRelevantEndIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -4023,7 +4023,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"protocolVersion"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"raw"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
@@ -4079,7 +4079,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
+  <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
                 </div>
@@ -4140,7 +4140,7 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
                   <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"blockHeight"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"blockHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"timestamp"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
@@ -4727,10 +4727,10 @@ https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/node
   <span class="hljs-attr">"tokenType"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"value"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"intentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"outputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"outputIndex"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"ctime"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"initialNonce"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HexEncoded</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"registeredForDustGeneration"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"registeredForDustGeneration"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"createdAtTransaction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"spentAtTransaction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span>
 <span class="hljs-punctuation">}</span>

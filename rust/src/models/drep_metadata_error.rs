@@ -11,22 +11,46 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
+/// DrepMetadataError : Present when metadata could not be fetched or validated.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UtilsTxsEvaluateUtxosPostRequest {
-    /// Transaction CBOR (encoded using base64 or base16).
-    #[serde(rename = "cbor")]
-    pub cbor: String,
-    /// Additional UTXO as an array of tuples [TxIn, TxOut]. See https://ogmios.dev/mini-protocols/local-tx-submission/#additional-utxo-set.
-    #[serde(rename = "additionalUtxoSet", skip_serializing_if = "Option::is_none")]
-    pub additional_utxo_set: Option<Vec<Vec<models::UtilsTxsEvaluateUtxosPostRequestAdditionalUtxoSetInnerInner>>>,
+pub struct DrepMetadataError {
+    /// Stable machine-readable error code.
+    #[serde(rename = "code")]
+    pub code: Code,
+    /// Human-readable description of the error.
+    #[serde(rename = "message")]
+    pub message: String,
 }
 
-impl UtilsTxsEvaluateUtxosPostRequest {
-    pub fn new(cbor: String) -> UtilsTxsEvaluateUtxosPostRequest {
-        UtilsTxsEvaluateUtxosPostRequest {
-            cbor,
-            additional_utxo_set: None,
+impl DrepMetadataError {
+    /// Present when metadata could not be fetched or validated.
+    pub fn new(code: Code, message: String) -> DrepMetadataError {
+        DrepMetadataError {
+            code,
+            message,
         }
+    }
+}
+/// Stable machine-readable error code.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Code {
+    #[serde(rename = "HASH_MISMATCH")]
+    HashMismatch,
+    #[serde(rename = "CONNECTION_ERROR")]
+    ConnectionError,
+    #[serde(rename = "HTTP_RESPONSE_ERROR")]
+    HttpResponseError,
+    #[serde(rename = "DECODE_ERROR")]
+    DecodeError,
+    #[serde(rename = "SIZE_EXCEEDED")]
+    SizeExceeded,
+    #[serde(rename = "UNKNOWN_ERROR")]
+    UnknownError,
+}
+
+impl Default for Code {
+    fn default() -> Code {
+        Self::HashMismatch
     }
 }
 

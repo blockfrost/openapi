@@ -1,6 +1,6 @@
 [package]
 name = "blockfrost-openapi"
-version = "0.1.83"
+version = "0.1.85"
 authors = ["contact@blockfrost.io"]
 description = "Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem."
 license = "MIT"
@@ -8,7 +8,11 @@ edition = "2021"
 
 [dependencies]
 serde = { version = "^1.0", features = ["derive"] }
-serde_with = { version = "^3.8", default-features = false, features = ["base64", "std", "macros"] }
+serde_with = { version = "^3.8", default-features = false, features = [
+    "base64",
+    "std",
+    "macros",
+] }
 serde_json = "^1.0"
 serde_repr = "^0.1"
 url = "^2.5"

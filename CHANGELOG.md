@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- New `tx_slot` and `block_time` fields in `/accounts/:stake_address/delegations`, `/accounts/:stake_address/registrations`, `/accounts/:stake_address/withdrawals`, and `/accounts/:stake_address/mirs` responses
+
 ## [0.1.85] - 2026-02-11
 
 ### Added

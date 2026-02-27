@@ -1,8 +1,8 @@
 [package]
 name = "blockfrost-openapi"
-version = "0.1.83"
+version = "0.1.85"
 authors = ["contact@blockfrost.io"]
-description = "Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem."
+description = "Blockfrost OpenAPI types for Cardano"
 license = "MIT"
 edition = "2021"
 

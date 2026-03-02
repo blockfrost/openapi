@@ -8454,6 +8454,11 @@ export interface components {
              * @example true
              */
             valid_contract: boolean;
+            /**
+             * @description Treasury donation in Lovelaces
+             * @example 0
+             */
+            treasury_donation: string;
         };
         tx_content_utxo: {
             /**

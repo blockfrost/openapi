@@ -24506,6 +24506,11 @@ relative to the start of the network
             "example": 0,
             "type": "integer",
           },
+          "treasury_donation": {
+            "description": "Treasury donation in Lovelaces",
+            "example": "0",
+            "type": "string",
+          },
           "utxo_count": {
             "description": "Count of UTXOs within the transaction",
             "example": 4,
@@ -24545,6 +24550,7 @@ relative to the start of the network
           "asset_mint_or_burn_count",
           "redeemer_count",
           "valid_contract",
+          "treasury_donation",
         ],
         "type": "object",
       },

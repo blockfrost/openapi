@@ -11257,6 +11257,11 @@
             "type": "boolean",
             "example": true,
             "description": "True if contract script passed validation"
+          },
+          "treasury_donation": {
+            "type": "string",
+            "example": "0",
+            "description": "Treasury donation in Lovelaces"
           }
         },
         "required": [
@@ -11281,7 +11286,8 @@
           "pool_retire_count",
           "asset_mint_or_burn_count",
           "redeemer_count",
-          "valid_contract"
+          "valid_contract",
+          "treasury_donation"
         ]
       },
       "tx_content_utxo": {

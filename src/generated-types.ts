@@ -9033,7 +9033,8 @@ export interface components {
          *         "amount": "12695385",
          *         "pool_id": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
          *         "tx_slot": 45093580,
-         *         "block_time": 1646437200
+         *         "block_time": 1646437200,
+         *         "block_height": 6745358
          *       },
          *       {
          *         "active_epoch": 242,
@@ -9041,7 +9042,8 @@ export interface components {
          *         "amount": "12691385",
          *         "pool_id": "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj",
          *         "tx_slot": 48093580,
-         *         "block_time": 1649033600
+         *         "block_time": 1649033600,
+         *         "block_height": 7126896
          *       }
          *     ] */
         account_delegation_content: {
@@ -9060,19 +9062,23 @@ export interface components {
             tx_slot: number;
             /** @description Block creation time in UNIX time of the transaction containing the delegation */
             block_time: number;
+            /** @description Block height of the transaction containing the delegation */
+            block_height: number;
         }[];
         /** @example [
          *       {
          *         "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
          *         "action": "registered",
          *         "tx_slot": 45093580,
-         *         "block_time": 1646437200
+         *         "block_time": 1646437200,
+         *         "block_height": 6745358
          *       },
          *       {
          *         "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0",
          *         "action": "deregistered",
          *         "tx_slot": 48093580,
-         *         "block_time": 1649033600
+         *         "block_time": 1649033600,
+         *         "block_height": 7126896
          *       }
          *     ] */
         account_registration_content: {
@@ -9087,19 +9093,23 @@ export interface components {
             tx_slot: number;
             /** @description Block creation time in UNIX time of the transaction containing the (de)registration certificate */
             block_time: number;
+            /** @description Block height of the transaction containing the (de)registration certificate */
+            block_height: number;
         }[];
         /** @example [
          *       {
          *         "tx_hash": "48a9625c841eea0dd2bb6cf551eabe6523b7290c9ce34be74eedef2dd8f7ecc5",
          *         "amount": "454541212442",
          *         "tx_slot": 45093580,
-         *         "block_time": 1646437200
+         *         "block_time": 1646437200,
+         *         "block_height": 6745358
          *       },
          *       {
          *         "tx_hash": "4230b0cbccf6f449f0847d8ad1d634a7a49df60d8c142bb8cc2dbc8ca03d9e34",
          *         "amount": "97846969",
          *         "tx_slot": 48093580,
-         *         "block_time": 1649033600
+         *         "block_time": 1649033600,
+         *         "block_height": 7126896
          *       }
          *     ] */
         account_withdrawal_content: {
@@ -9111,19 +9121,23 @@ export interface components {
             tx_slot: number;
             /** @description Block creation time in UNIX time of the transaction containing the withdrawal */
             block_time: number;
+            /** @description Block height of the transaction containing the withdrawal */
+            block_height: number;
         }[];
         /** @example [
          *       {
          *         "tx_hash": "69705bba1d687a816ff5a04ec0c358a1f1ef075ab7f9c6cc2763e792581cec6d",
          *         "amount": "2193707473",
          *         "tx_slot": 45093580,
-         *         "block_time": 1646437200
+         *         "block_time": 1646437200,
+         *         "block_height": 6745358
          *       },
          *       {
          *         "tx_hash": "baaa77b63d4d7d2bb3ab02c9b85978c2092c336dede7f59e31ad65452d510c13",
          *         "amount": "14520198574",
          *         "tx_slot": 48093580,
-         *         "block_time": 1649033600
+         *         "block_time": 1649033600,
+         *         "block_height": 7126896
          *       }
          *     ] */
         account_mir_content: {
@@ -9135,6 +9149,8 @@ export interface components {
             tx_slot: number;
             /** @description Block creation time in UNIX time of the transaction containing the MIR */
             block_time: number;
+            /** @description Block height of the transaction containing the MIR */
+            block_height: number;
         }[];
         /** @example [
          *       {

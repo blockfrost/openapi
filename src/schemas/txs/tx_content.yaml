@@ -107,6 +107,10 @@ properties:
     type: boolean
     example: true
     description: True if contract script passed validation
+  treasury_donation:
+    type: string
+    example: "0"
+    description: Treasury donation in Lovelaces
 required:
   - hash
   - block
@@ -130,3 +134,4 @@ required:
   - asset_mint_or_burn_count
   - redeemer_count
   - valid_contract
+  - treasury_donation

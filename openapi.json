@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.85",
+    "version": "0.1.86",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -11257,6 +11257,11 @@
             "type": "boolean",
             "example": true,
             "description": "True if contract script passed validation"
+          },
+          "treasury_donation": {
+            "type": "string",
+            "example": "0",
+            "description": "Treasury donation in Lovelaces"
           }
         },
         "required": [
@@ -11281,7 +11286,8 @@
           "pool_retire_count",
           "asset_mint_or_burn_count",
           "redeemer_count",
-          "valid_contract"
+          "valid_contract",
+          "treasury_donation"
         ]
       },
       "tx_content_utxo": {
@@ -12195,13 +12201,28 @@
             "pool_id": {
               "type": "string",
               "description": "Bech32 ID of pool being delegated to"
+            },
+            "tx_slot": {
+              "type": "integer",
+              "description": "Slot of the transaction containing the delegation"
+            },
+            "block_time": {
+              "type": "integer",
+              "description": "Block creation time in UNIX time of the transaction containing the delegation"
+            },
+            "block_height": {
+              "type": "integer",
+              "description": "Block height of the transaction containing the delegation"
             }
           },
           "required": [
             "active_epoch",
             "tx_hash",
             "amount",
-            "pool_id"
+            "pool_id",
+            "tx_slot",
+            "block_time",
+            "block_height"
           ]
         },
         "example": [
@@ -12209,13 +12230,19 @@
             "active_epoch": 210,
             "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
             "amount": "12695385",
-            "pool_id": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
+            "pool_id": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
+            "tx_slot": 45093580,
+            "block_time": 1646437200,
+            "block_height": 6745358
           },
           {
             "active_epoch": 242,
             "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0",
             "amount": "12691385",
-            "pool_id": "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj"
+            "pool_id": "pool1kchver88u3kygsak8wgll7htr8uxn5v35lfrsyy842nkscrzyvj",
+            "tx_slot": 48093580,
+            "block_time": 1649033600,
+            "block_height": 7126896
           }
         ]
       },
@@ -12235,21 +12262,42 @@
                 "deregistered"
               ],
               "description": "Action in the certificate"
+            },
+            "tx_slot": {
+              "type": "integer",
+              "description": "Slot of the transaction containing the (de)registration certificate"
+            },
+            "block_time": {
+              "type": "integer",
+              "description": "Block creation time in UNIX time of the transaction containing the (de)registration certificate"
+            },
+            "block_height": {
+              "type": "integer",
+              "description": "Block height of the transaction containing the (de)registration certificate"
             }
           },
           "required": [
             "tx_hash",
-            "action"
+            "action",
+            "tx_slot",
+            "block_time",
+            "block_height"
           ]
         },
         "example": [
           {
             "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
-            "action": "registered"
+            "action": "registered",
+            "tx_slot": 45093580,
+            "block_time": 1646437200,
+            "block_height": 6745358
           },
           {
             "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0",
-            "action": "deregistered"
+            "action": "deregistered",
+            "tx_slot": 48093580,
+            "block_time": 1649033600,
+            "block_height": 7126896
           }
         ]
       },
@@ -12265,21 +12313,42 @@
             "amount": {
               "type": "string",
               "description": "Withdrawal amount in Lovelaces"
+            },
+            "tx_slot": {
+              "type": "integer",
+              "description": "Slot of the transaction containing the withdrawal"
+            },
+            "block_time": {
+              "type": "integer",
+              "description": "Block creation time in UNIX time of the transaction containing the withdrawal"
+            },
+            "block_height": {
+              "type": "integer",
+              "description": "Block height of the transaction containing the withdrawal"
             }
           },
           "required": [
             "tx_hash",
-            "amount"
+            "amount",
+            "tx_slot",
+            "block_time",
+            "block_height"
           ]
         },
         "example": [
           {
             "tx_hash": "48a9625c841eea0dd2bb6cf551eabe6523b7290c9ce34be74eedef2dd8f7ecc5",
-            "amount": "454541212442"
+            "amount": "454541212442",
+            "tx_slot": 45093580,
+            "block_time": 1646437200,
+            "block_height": 6745358
           },
           {
             "tx_hash": "4230b0cbccf6f449f0847d8ad1d634a7a49df60d8c142bb8cc2dbc8ca03d9e34",
-            "amount": "97846969"
+            "amount": "97846969",
+            "tx_slot": 48093580,
+            "block_time": 1649033600,
+            "block_height": 7126896
           }
         ]
       },
@@ -12295,21 +12364,42 @@
             "amount": {
               "type": "string",
               "description": "MIR amount in Lovelaces"
+            },
+            "tx_slot": {
+              "type": "integer",
+              "description": "Slot of the transaction containing the MIR"
+            },
+            "block_time": {
+              "type": "integer",
+              "description": "Block creation time in UNIX time of the transaction containing the MIR"
+            },
+            "block_height": {
+              "type": "integer",
+              "description": "Block height of the transaction containing the MIR"
             }
           },
           "required": [
             "tx_hash",
-            "amount"
+            "amount",
+            "tx_slot",
+            "block_time",
+            "block_height"
           ]
         },
         "example": [
           {
             "tx_hash": "69705bba1d687a816ff5a04ec0c358a1f1ef075ab7f9c6cc2763e792581cec6d",
-            "amount": "2193707473"
+            "amount": "2193707473",
+            "tx_slot": 45093580,
+            "block_time": 1646437200,
+            "block_height": 6745358
           },
           {
             "tx_hash": "baaa77b63d4d7d2bb3ab02c9b85978c2092c336dede7f59e31ad65452d510c13",
-            "amount": "14520198574"
+            "amount": "14520198574",
+            "tx_slot": 48093580,
+            "block_time": 1649033600,
+            "block_height": 7126896
           }
         ]
       },

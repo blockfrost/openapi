@@ -11,23 +11,21 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SignerRegistrationsListItemMessage : represents an item of a SignerRegistrationsMessage registration
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SignerRegistrationsListItemMessage {
-    /// The unique identifier of the signer
-    #[serde(rename = "party_id", skip_serializing_if = "Option::is_none")]
-    pub party_id: Option<String>,
     /// Stake share as computed in the 'stake distribution' by the Cardano Node, multiplied by a billion (1.0e9)
     #[serde(rename = "stake")]
     pub stake: i64,
+    /// The unique identifier of the signer
+    #[serde(rename = "party_id", skip_serializing_if = "Option::is_none")]
+    pub party_id: Option<String>,
 }
 
 impl SignerRegistrationsListItemMessage {
-    /// represents an item of a SignerRegistrationsMessage registration
     pub fn new(stake: i64) -> SignerRegistrationsListItemMessage {
         SignerRegistrationsListItemMessage {
-            party_id: None,
             stake,
+            party_id: None,
         }
     }
 }

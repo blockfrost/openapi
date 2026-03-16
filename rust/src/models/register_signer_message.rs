@@ -13,13 +13,9 @@ use serde::{Deserialize, Serialize};
 
 use serde_with::serde_as;
 
-/// RegisterSignerMessage : This message represents a signing participant in the network.
 #[serde_as]
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RegisterSignerMessage {
-    /// Cardano chain epoch number
-    #[serde(rename = "epoch", skip_serializing_if = "Option::is_none")]
-    pub epoch: Option<i64>,
     /// The unique identifier of the signer
     #[serde(rename = "party_id")]
     pub party_id: String,
@@ -38,18 +34,20 @@ pub struct RegisterSignerMessage {
     /// The number of updates of the KES secret key that signed the verification key
     #[serde(rename = "kes_period", skip_serializing_if = "Option::is_none")]
     pub kes_period: Option<i64>,
+    /// Cardano chain epoch number
+    #[serde(rename = "epoch", skip_serializing_if = "Option::is_none")]
+    pub epoch: Option<i64>,
 }
 
 impl RegisterSignerMessage {
-    /// This message represents a signing participant in the network.
     pub fn new(party_id: String, verification_key: Vec<u8>) -> RegisterSignerMessage {
         RegisterSignerMessage {
-            epoch: None,
             party_id,
             verification_key,
             verification_key_signature: None,
             operational_certificate: None,
             kes_period: None,
+            epoch: None,
         }
     }
 }

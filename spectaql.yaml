@@ -14,7 +14,7 @@ info:
   description: |
     The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data — blocks, transactions, contracts, and wallet-related events — indexed from the Midnight blockchain.
 
-    The deployed version is **v3**. For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](midnight-indexer-api.graphql).
+    The deployed version of the Midnight Indexer API is **v4**. For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](midnight-indexer-api.graphql).
 
   x-introItems:
     - title: Quick Start

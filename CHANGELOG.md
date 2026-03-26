@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- Pagination parameters (`count`, `page`, `order`) for governance proposal withdrawals endpoints
+  - `/governance/proposals/:tx_hash/:cert_index/withdrawals`
+  - `/governance/proposals/:gov_action_id/withdrawals`
+
 ## [0.1.86] - 2026-03-02
 
 ### Added

@@ -1317,7 +1317,16 @@ export interface paths {
          */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
                 header?: never;
                 path: {
                     /**
@@ -1593,7 +1602,16 @@ export interface paths {
          */
         get: {
             parameters: {
-                query?: never;
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
                 header?: never;
                 path: {
                     /**

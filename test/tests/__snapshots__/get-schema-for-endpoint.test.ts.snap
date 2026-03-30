@@ -14151,6 +14151,31 @@ under which it is valid
       },
       "type": "object",
     },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
     "response": {
       "200": {
         "example": [
@@ -15581,6 +15606,31 @@ under which it is valid
         },
         "tx_hash": {
           "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
         },
       },
       "type": "object",

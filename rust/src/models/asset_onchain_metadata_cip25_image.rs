@@ -17,7 +17,7 @@ use serde::{Deserialize, Serialize};
 #[serde(untagged)]
 pub enum AssetOnchainMetadataCip25Image {
     String(String),
-    Array(Vec<String>),
+    ArrayVecString(Vec<String>),
 }
 
 impl Default for AssetOnchainMetadataCip25Image {

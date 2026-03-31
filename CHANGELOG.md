@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.87] - 2026-03-31
+
+### Added
+
+- TLS features to Rust API client (upgraded generator from `7.12.0` to `7.20.0`, `reqwest` to `0.13+`)
+
 ### Fixed
 
 - Pagination parameters (`count`, `page`, `order`) for governance proposal withdrawals endpoints

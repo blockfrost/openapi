@@ -65,7 +65,7 @@ checksum = "812e12b5285cc515a9c72a5c1d3b6d46a19dac5acfef5265968c166106e31dd3"
 
 [[package]]
 name = "blockfrost-openapi"
-version = "0.1.86"
+version = "0.1.87"
 dependencies = [
  "reqwest",
  "serde",

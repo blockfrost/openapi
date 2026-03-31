@@ -13,7 +13,7 @@ Unreleased changes are in the `master` branch.
 
 ### Added
 
-- TLS features to Rust API client (upgraded generator from `0.7.12` to `0.7.20`, `reqwest` to `0.13+`)
+- TLS features to Rust API client (upgraded generator from `7.12.0` to `7.20.0`, `reqwest` to `0.13+`)
 
 ### Fixed
 

@@ -456,7 +456,16 @@ info:
     ### Authentication
 
 
-    Include your project ID as the `project_id` HTTP header.
+    Include your project ID as the `project_id` HTTP header:
+
+
+    ```bash
+
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ block { hash height } }"}'
+    ```
 
 
     Alternatively, you can use **HTTP Basic Auth** directly in the endpoint URL.
@@ -526,7 +535,29 @@ info:
     curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
       -H "Content-Type: application/json" \
-      -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion block { height hash } } }"}'
+      -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion fees { paidFees estimatedFees } block { height hash } } }"}'
+    ```
+
+
+    **Query DUST generation status:**
+
+    ```bash
+
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ dustGenerationStatus(cardanoRewardAddresses: [\"YOUR_CARDANO_REWARD_ADDRESS\"]) { cardanoRewardAddress dustAddress registered nightBalance generationRate currentCapacity } }"}'
+    ```
+
+
+    **Query contract actions:**
+
+    ```bash
+
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "{ contractAction(address: \"YOUR_CONTRACT_ADDRESS\") { address state transaction { hash } unshieldedBalances { tokenType amount } } }"}'
     ```
 
 
@@ -535,6 +566,12 @@ info:
 
     Subscriptions use a WebSocket connection following the GraphQL over
     WebSocket protocol.
+
+
+    Most subscriptions accept an optional `offset` parameter, allowing you to
+    resume from a specific block height or transaction hash instead of starting
+    from the tip. This is useful for catching up after a reconnect without
+    re-processing events you've already seen.
 
 
     **Connecting with `websocat`:**
@@ -701,21 +738,113 @@ info:
 
     If no offset is provided, the latest result is returned.
 
+
+    ### Shielded Transactions
+
+
+    Shielded transactions are at the core of Midnight's privacy model. Because
+    transaction data is encrypted on-chain, the indexer needs a **viewing key**
+    to determine which transactions are relevant to a specific wallet.
+
+
+    The `connect` mutation establishes a server-side session for a given viewing
+    key. The indexer uses this key to scan the chain and filter shielded
+    transactions relevant to that wallet. It returns a **session ID** used to
+    authenticate the `shieldedTransactions` subscription.
+
+
+    When you no longer need to monitor shielded transactions for a wallet, call
+    the `disconnect` mutation with the session ID to end the session and free
+    server-side resources.
+
+
+    **Step 1 — Connect with a viewing key:**
+
+    ```bash
+
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "mutation { connect(viewingKey: \"YOUR_VIEWING_KEY\") }"}'
+    ```
+
+
+    Response:
+
+    ```json
+
+    {
+      "data": {
+        "connect": "SESSION_ID_HEX"
+      }
+    }
+
+    ```
+
+
+    The viewing key can be in Bech32m format (preferred, e.g.
+    `mn_shield-esk1...`) or hex.
+
+
+    **Step 2 — Subscribe to shielded transactions:**
+
+
+    Using the session ID from the `connect` mutation, subscribe via WebSocket:
+
+    ```json
+
+    {
+      "id": "1",
+      "type": "subscribe",
+      "payload": {
+        "query": "subscription($sid: HexEncoded!) { shieldedTransactions(sessionId: $sid, sendProgressUpdates: true) { ... on ViewingUpdate { index update { ... on RelevantTransaction { transaction { hash } } } } ... on ShieldedTransactionsProgress { highestIndex highestRelevantIndex highestRelevantWalletIndex } } }",
+        "variables": { "sid": "SESSION_ID_HEX" }
+      }
+    }
+
+    ```
+
+
+    The subscription emits two event types:
+
+    * `ViewingUpdate` — contains relevant transactions and Merkle tree updates
+    for the wallet
+
+    * `ShieldedTransactionsProgress` — reports sync progress (`highestIndex`,
+    `highestRelevantIndex`, `highestRelevantWalletIndex`), useful for showing
+    progress in a UI. Controlled by the `sendProgressUpdates` parameter
+    (default: `true`).
+
+
+    **Step 3 — Disconnect when done:**
+
+    ```bash
+
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+      -H "project_id: YOUR_PROJECT_ID" \
+      -H "Content-Type: application/json" \
+      -d '{"query": "mutation { disconnect(sessionId: \"SESSION_ID_HEX\") }"}'
+    ```
+
      ### Available Operations
 
     The following links will redirect you to the Midnight GraphQL API Reference:
 
 
     * [**Queries**](midnight/#group-Operations-Queries): Fetch blockchain data
-    (blocks, transactions, contracts, DUST status, governance parameters)
+    (blocks, transactions, contracts, DUST generation status)
 
-    * [**Mutations**](midnight/#group-Operations-Mutations): Wallet connection
-    management (connect/disconnect)
+    * [**Mutations**](midnight/#group-Operations-Mutations): Wallet session
+    management (`connect`/`disconnect`)
 
     * [**Subscriptions**](midnight/#group-Operations-Subscriptions): Real-time
-    updates via WebSocket (blocks, contract actions, transactions, ledger
-    events)
-
+    updates via WebSocket:
+      * `blocks` — new blocks
+      * `contractActions` — contract events for a specific address
+      * `shieldedTransactions` — shielded transaction events for a wallet session (requires `connect`)
+      * `unshieldedTransactions` — unshielded transaction events for an address
+      * `dustLedgerEvents` — DUST ledger state changes
+      * `zswapLedgerEvents` — zswap ledger state changes
 
 
     For the full list of available queries, mutations, subscriptions and types,

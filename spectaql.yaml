@@ -55,7 +55,14 @@ info:
 
     - title: Authentication
       description: |
-        Include your project ID as the `project_id` HTTP header.
+        Include your project ID as the `project_id` HTTP header:
+
+        ```bash
+        curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ block { hash height } }"}'
+        ```
 
         Alternatively, you can use **HTTP Basic Auth** directly in the endpoint URL. The username is the network prefix and the password is your project ID:
 
@@ -150,12 +157,30 @@ info:
         curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
           -H "project_id: YOUR_PROJECT_ID" \
           -H "Content-Type: application/json" \
-          -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion block { height hash } } }"}'
+          -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion fees { paidFees estimatedFees } block { height hash } } }"}'
+        ```
+
+        **Query DUST generation status:**
+        ```bash
+        curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ dustGenerationStatus(cardanoRewardAddresses: [\"YOUR_CARDANO_REWARD_ADDRESS\"]) { cardanoRewardAddress dustAddress registered nightBalance generationRate currentCapacity } }"}'
+        ```
+
+        **Query contract actions:**
+        ```bash
+        curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "{ contractAction(address: \"YOUR_CONTRACT_ADDRESS\") { address state transaction { hash } unshieldedBalances { tokenType amount } } }"}'
         ```
 
     - title: WebSocket Subscriptions
       description: |
         Subscriptions use a WebSocket connection following the GraphQL over WebSocket protocol.
+
+        Most subscriptions accept an optional `offset` parameter, allowing you to resume from a specific block height or transaction hash instead of starting from the tip. This is useful for catching up after a reconnect without re-processing events you've already seen.
 
         **Connecting with `websocat`:**
         ```bash
@@ -271,18 +296,67 @@ info:
 
         If no offset is provided, the latest result is returned.
 
-    - title: Scalar Types
+    - title: Shielded Transactions
       description: |
-        The API uses custom scalar types:
+        Shielded transactions are at the core of Midnight's privacy model. Because transaction data is encrypted on-chain, the indexer needs a **viewing key** to determine which transactions are relevant to a specific wallet.
 
-        | Scalar | Description | Example |
-        |--------|-------------|---------|
-        | `HexEncoded` | Hex-encoded bytes (hashes, addresses, session IDs) | `"d193b268..."` |
-        | `ViewingKey` | Wallet viewing key in Bech32m or hex format | `"mn_shield-esk1abc..."` |
-        | `CardanoRewardAddress` | Bech32-encoded Cardano reward address | `"stake_test1..."` |
-        | `UnshieldedAddress` | Bech32m-encoded Midnight unshielded address | `"midnight1..."` |
-        | `DustAddress` | Bech32m-encoded DUST address | `"midnight1..."` |
-        | `Unit` | Empty return type for mutations with no data | `null` |
+        The `connect` mutation establishes a server-side session for a given viewing key. The indexer uses this key to scan the chain and filter shielded transactions relevant to that wallet. It returns a **session ID** used to authenticate the `shieldedTransactions` subscription.
+
+        When you no longer need to monitor shielded transactions for a wallet, call the `disconnect` mutation with the session ID to end the session and free server-side resources.
+
+        **Step 1 — Connect with a viewing key:**
+        ```bash
+        curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "mutation { connect(viewingKey: \"YOUR_VIEWING_KEY\") }"}'
+        ```
+
+        Response:
+        ```json
+        {
+          "data": {
+            "connect": "SESSION_ID_HEX"
+          }
+        }
+        ```
+
+        The viewing key can be in Bech32m format (preferred, e.g. `mn_shield-esk1...`) or hex.
+
+        **Step 2 — Subscribe to shielded transactions:**
+
+        Using the session ID from the `connect` mutation, subscribe via WebSocket:
+        ```json
+        {
+          "id": "1",
+          "type": "subscribe",
+          "payload": {
+            "query": "subscription($sid: HexEncoded!) { shieldedTransactions(sessionId: $sid, sendProgressUpdates: true) { ... on ViewingUpdate { index update { ... on RelevantTransaction { transaction { hash } } } } ... on ShieldedTransactionsProgress { highestIndex highestRelevantIndex highestRelevantWalletIndex } } }",
+            "variables": { "sid": "SESSION_ID_HEX" }
+          }
+        }
+        ```
+
+        The subscription emits two event types:
+        * `ViewingUpdate` — contains relevant transactions and Merkle tree updates for the wallet
+        * `ShieldedTransactionsProgress` — reports sync progress (`highestIndex`, `highestRelevantIndex`, `highestRelevantWalletIndex`), useful for showing progress in a UI. Controlled by the `sendProgressUpdates` parameter (default: `true`).
+
+        **Step 3 — Disconnect when done:**
+        ```bash
+        curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
+          -H "project_id: YOUR_PROJECT_ID" \
+          -H "Content-Type: application/json" \
+          -d '{"query": "mutation { disconnect(sessionId: \"SESSION_ID_HEX\") }"}'
+        ```
+
+    - title: Other Subscriptions
+      description: |
+        Besides `blocks` and `shieldedTransactions`, the following subscriptions are available:
+
+        * `contractActions(address: HexEncoded!, offset: BlockOffset)` — real-time contract events (deploys, calls, updates) for a specific contract address
+        * `unshieldedTransactions(address: UnshieldedAddress!, transactionId: Int)` — unshielded transaction events for an address, with optional resume from a specific transaction ID
+        * `dustLedgerEvents(id: Int)` — DUST ledger state changes (initial UTXOs, generation time updates, spend processing, parameter changes)
+        * `zswapLedgerEvents(id: Int)` — zswap ledger state changes
 
 servers:
   - url: https://midnight-mainnet.blockfrost.io/api/v0

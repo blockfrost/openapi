@@ -14,7 +14,9 @@ info:
   description: |
     The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data — blocks, transactions, contracts, and wallet-related events — indexed from the Midnight blockchain.
 
-    The deployed version of the Midnight Indexer API is **v4**. For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](midnight-indexer-api.graphql).
+    The deployed version of the Midnight Indexer API is **v4**.
+
+    For the raw GraphQL schema specification, see the [Midnight Indexer GraphQL Schema](midnight-indexer-api.graphql).
 
   x-introItems:
     - title: Quick Start
@@ -45,13 +47,17 @@ info:
       description: |
         Blockfrost exposes three Midnight services:
 
-        | Service | URL | Protocol |
-        |---------|-----|----------|
-        | **Midnight Indexer HTTP API** | `https://midnight-mainnet.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
-        | **Midnight Indexer WebSocket API** | `wss://midnight-mainnet.blockfrost.io/api/v0/ws` | WebSocket |
-        | **Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` | JSON-RPC |
+        | Service | URL |
+        |---------|-----|
+        | **Indexer API** | `https://midnight-mainnet.blockfrost.io/api/v0` |
+        | **Indexer WebSocket** | `wss://midnight-mainnet.blockfrost.io/api/v0/ws` |
+        | **Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` |
 
-        The **Node RPC** endpoint exposes direct connection to the Midnight Node RPC for low-level runtime access, wallet providers, and transaction submission — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
+        **Indexer API** — Send GraphQL queries and mutations over HTTP POST. This is the main entry point for fetching blockchain data (blocks, transactions, contracts, DUST status).
+
+        **Indexer WebSocket** — Subscribe to real-time events using the `graphql-transport-ws` protocol. Supports block streaming, contract actions, shielded/unshielded transactions, and ledger events.
+
+        **Node RPC** — Direct JSON-RPC connection to the Midnight Node for low-level runtime access, wallet providers, and transaction submission. Use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
 
     - title: Authentication
       description: |
@@ -357,6 +363,10 @@ info:
         * `unshieldedTransactions(address: UnshieldedAddress!, transactionId: Int)` — unshielded transaction events for an address, with optional resume from a specific transaction ID
         * `dustLedgerEvents(id: Int)` — DUST ledger state changes (initial UTXOs, generation time updates, spend processing, parameter changes)
         * `zswapLedgerEvents(id: Int)` — zswap ledger state changes
+
+    - title: Resources
+      description: |
+        For more information about the Midnight Indexer API, see the [official Midnight documentation](https://docs.midnight.network/api-reference/midnight-indexer).
 
 servers:
   - url: https://midnight-mainnet.blockfrost.io/api/v0

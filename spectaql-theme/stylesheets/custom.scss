@@ -163,3 +163,29 @@ $font-family-monospaced: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Andal
 }
 
 table { word-wrap: break-word }
+
+// Hide the right-side panels in the intro section and expand content to full width
+#spectaql #introduction .example-section.example-section-is-code,
+#spectaql #introduction .doc-examples {
+  display: none !important;
+}
+
+#spectaql #introduction .doc-row .doc-copy {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-right: 0 !important;
+
+  @media (min-width: 64em) {
+    width: 70% !important;
+    max-width: 70% !important;
+  }
+}
+
+#spectaql #introduction table {
+  table-layout: auto;
+
+  th:last-child,
+  td:last-child {
+    width: 70%;
+  }
+}

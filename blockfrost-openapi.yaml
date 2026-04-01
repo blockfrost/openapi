@@ -60,12 +60,6 @@ info:
             </td>
         </tr>
         <tr>
-            <td>Midnight preview</td>
-            <td>
-                <code>https://midnight-preview.blockfrost.io/api/v0</code>
-            </td>
-        </tr>
-        <tr>
             <td>InterPlanetary File System</td>
             <td>
                 <code>https://ipfs.blockfrost.io/api/v0</code>
@@ -251,7 +245,7 @@ info:
     Create a Midnight project on [blockfrost.io](https://blockfrost.io) and make your first API call:
 
     ```bash
-    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
       -H "Content-Type: application/json" \
       -d '{"query": "{ block { hash height timestamp } }"}'
@@ -276,13 +270,12 @@ info:
 
     | Service | URL | Protocol |
     |---------|-----|----------|
-    | **Midnight Indexer HTTP API** | `https://midnight-{network}.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
-    | **Midnight Indexer Subscriptions API** | `wss://midnight-{network}.blockfrost.io/api/v0/ws` | WebSocket |
-    | **Midnight Node RPC** | `https://rpc.midnight-{network}.blockfrost.io` | JSON-RPC |
+    | **Midnight Indexer HTTP API** | `https://midnight-mainnet.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
+    | **Midnight Indexer Subscriptions API** | `wss://midnight-mainnet.blockfrost.io/api/v0/ws` | WebSocket |
+    | **Midnight Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` | JSON-RPC |
 
 
     The **Node RPC** endpoint exposes direct connection to the Midnight Node RPC for low-level runtime access, wallet providers, and transaction submission — use it with libraries like [midnight.js](https://github.com/midnightntwrk/midnight-js) that need a node connection.
-    Currently available networks are `preview` and `preprod`. The `mainnet` network is coming soon.
 
     ### Request Format
 
@@ -342,19 +335,17 @@ info:
 
     **Midnight Indexer API:**
     ```
-    https://nightpreview:YOUR_PROJECT_ID@midnight-preview.blockfrost.io/api/v0
-    https://nightpreprod:YOUR_PROJECT_ID@midnight-preprod.blockfrost.io/api/v0
+    https://nightmainnet:YOUR_PROJECT_ID@midnight-mainnet.blockfrost.io/api/v0
     ```
 
     **Midnight Node RPC:**
     ```
-    https://nightpreview:YOUR_PROJECT_ID@rpc.midnight-preview.blockfrost.io
-    https://nightpreprod:YOUR_PROJECT_ID@rpc.midnight-preprod.blockfrost.io
+    https://nightmainnet:YOUR_PROJECT_ID@rpc.midnight-mainnet.blockfrost.io
     ```
 
     When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
     ```javascript
-    new WebSocket("wss://midnight-preview.blockfrost.io/api/v0/ws", [
+    new WebSocket("wss://midnight-mainnet.blockfrost.io/api/v0/ws", [
       "graphql-transport-ws",
       "project_id_YOUR_PROJECT_ID"
     ]);
@@ -364,7 +355,7 @@ info:
 
     **Query the latest block:**
     ```bash
-    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
       -H "Content-Type: application/json" \
       -d '{"query": "{ block { hash height timestamp author transactions { hash } } }"}'
@@ -372,7 +363,7 @@ info:
 
     **Query a block by height:**
     ```bash
-    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
       -H "Content-Type: application/json" \
       -d '{"query": "{ block(offset: { height: 3 }) { hash height protocolVersion timestamp transactions { hash } } }"}'
@@ -380,7 +371,7 @@ info:
 
     **Query transactions by hash:**
     ```bash
-    curl -X POST https://midnight-preview.blockfrost.io/api/v0 \
+    curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
       -H "project_id: YOUR_PROJECT_ID" \
       -H "Content-Type: application/json" \
       -d '{"query": "{ transactions(offset: { hash: \"YOUR_TX_HASH\" }) { hash protocolVersion block { height hash } } }"}'
@@ -392,7 +383,7 @@ info:
 
     **Connecting with `websocat`:**
     ```bash
-    websocat wss://midnight-preview.blockfrost.io/api/v0/ws \
+    websocat wss://midnight-mainnet.blockfrost.io/api/v0/ws \
       --protocol "graphql-transport-ws" \
       -H "project_id: YOUR_PROJECT_ID"
     ```
@@ -445,7 +436,7 @@ info:
     **Connecting from JavaScript:**
     ```javascript
     const ws = new WebSocket(
-      "wss://midnight-preview.blockfrost.io/api/v0/ws",
+      "wss://midnight-mainnet.blockfrost.io/api/v0/ws",
       ["graphql-transport-ws", "project_id_YOUR_PROJECT_ID"]
     );
 

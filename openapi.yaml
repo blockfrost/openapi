@@ -15,7 +15,7 @@ info:
   termsOfService: 'https://blockfrost.io/terms'
   description: >
     Blockfrost is an API as a service that allows users to interact with the
-    Cardano blockchain and parts of its ecosystem.
+    Cardano blockchain, Midnight blockchain, and parts of their ecosystems.
 
 
     ## Tokens
@@ -61,6 +61,12 @@ info:
             <td>Cardano preview</td>
             <td>
                 <code>https://cardano-preview.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Midnight mainnet</td>
+            <td>
+                <code>https://midnight-mainnet.blockfrost.io/api/v0</code>
             </td>
         </tr>
         <tr>
@@ -294,6 +300,39 @@ info:
         </tr>
       </tbody>
     </table>
+
+
+
+    ## Midnight API
+
+
+
+    The Midnight Indexer API exposes a GraphQL API that enables clients to query
+    and subscribe to blockchain data — blocks, transactions, contracts, and
+    wallet-related events — indexed from the Midnight blockchain.
+
+
+    | Service | URL | Protocol |
+
+    |---------|-----|----------|
+
+    | **Indexer HTTP API** | `https://midnight-mainnet.blockfrost.io/api/v0` |
+    HTTP POST (GraphQL) |
+
+    | **Indexer Subscriptions API** |
+    `wss://midnight-mainnet.blockfrost.io/api/v0/ws` | WebSocket |
+
+    | **Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` | JSON-RPC |
+
+
+
+    For the full documentation — queries, mutations, subscriptions,
+    authentication options, and examples — see the Midnight GraphQL API
+    Reference:
+
+
+    [![Explore the Midnight API
+    →](https://img.shields.io/badge/Explore_the_Midnight_API_→-0033AD?style=for-the-badge)](./midnight/)
 servers:
   - url: 'https://cardano-mainnet.blockfrost.io/api/v0'
     description: Cardano Mainnet network

@@ -243,7 +243,7 @@ info:
 
     For the full documentation — queries, mutations, subscriptions, authentication options, and examples — see the Midnight GraphQL API Reference:
 
-    [![Open Midnight GraphQL API Reference](https://img.shields.io/badge/Open_Midnight_GraphQL_API_Reference_→-0033AD?style=for-the-badge)](./midnight/)
+    [![Explore the Midnight API →](https://img.shields.io/badge/Explore_the_Midnight_API_→-0033AD?style=for-the-badge)](./midnight/)
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0
     description: Cardano Mainnet network

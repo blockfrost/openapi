@@ -61,8 +61,11 @@ info:
 
     - title: Authentication
       description: |
-        Include your project ID as the `project_id` HTTP header:
+        All requests require a valid project ID. There are two ways to pass it:
 
+        **HTTP header**
+
+        Include `project_id` as a request header.
         ```bash
         curl -X POST https://midnight-mainnet.blockfrost.io/api/v0 \
           -H "project_id: YOUR_PROJECT_ID" \
@@ -70,24 +73,13 @@ info:
           -d '{"query": "{ block { hash height } }"}'
         ```
 
-        Alternatively, you can use **HTTP Basic Auth** directly in the endpoint URL. The username is the network prefix and the password is your project ID:
+        **Query parameter**
 
-        **Midnight Indexer API:**
+        Append `?project_id=YOUR_PROJECT_ID` to the endpoint URL. Use this when your client doesn't support setting custom headers (e.g. Midnight.js SDK).
         ```text
-        https://nightmainnet:YOUR_PROJECT_ID@midnight-mainnet.blockfrost.io/api/v0
-        ```
-
-        **Midnight Node RPC:**
-        ```text
-        https://nightmainnet:YOUR_PROJECT_ID@rpc.midnight-mainnet.blockfrost.io
-        ```
-
-        When using WebSocket in the browser (which doesn't support custom headers), include your project ID as a subprotocol by prefixing it with `project_id_`:
-        ```javascript
-        new WebSocket("wss://midnight-mainnet.blockfrost.io/api/v0/ws", [
-          "graphql-transport-ws",
-          "project_id_YOUR_PROJECT_ID"
-        ]);
+        https://midnight-mainnet.blockfrost.io/api/v0?project_id=YOUR_PROJECT_ID
+        wss://midnight-mainnet.blockfrost.io/api/v0/ws?project_id=YOUR_PROJECT_ID
+        https://rpc.midnight-mainnet.blockfrost.io?project_id=YOUR_PROJECT_ID
         ```
 
     - title: Request Format
@@ -242,10 +234,8 @@ info:
 
         **Connecting from JavaScript:**
         ```javascript
-        const ws = new WebSocket(
-          "wss://midnight-mainnet.blockfrost.io/api/v0/ws",
-          ["graphql-transport-ws", "project_id_YOUR_PROJECT_ID"]
-        );
+        const url = "wss://midnight-mainnet.blockfrost.io/api/v0/ws?project_id=YOUR_PROJECT_ID";
+        const ws = new WebSocket(url, "graphql-transport-ws");
 
         ws.onopen = () => {
           ws.send(JSON.stringify({ type: "connection_init" }));
@@ -253,15 +243,19 @@ info:
 
         ws.onmessage = (event) => {
           const msg = JSON.parse(event.data);
+
           if (msg.type === "connection_ack") {
-            ws.send(JSON.stringify({
-              id: "1",
-              type: "subscribe",
-              payload: {
-                query: "subscription { blocks { hash height timestamp } }"
-              }
-            }));
+            ws.send(
+              JSON.stringify({
+                id: "1",
+                type: "subscribe",
+                payload: {
+                  query: "subscription { blocks { hash height timestamp } }",
+                },
+              })
+            );
           }
+
           if (msg.type === "next") {
             console.log("New block:", msg.payload.data);
           }

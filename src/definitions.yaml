@@ -7,14 +7,14 @@ info:
     altText: Blockfrost
   contact:
     name: Blockfrost Team
-    url: 'https://blockfrost.io'
+    url: "https://blockfrost.io"
     email: contact@blockfrost.io
   license:
     name: MIT
-    url: 'https://opensource.org/licenses/MIT'
-  termsOfService: 'https://blockfrost.io/terms'
+    url: "https://opensource.org/licenses/MIT"
+  termsOfService: "https://blockfrost.io/terms"
   description: |
-    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain and parts of its ecosystem.
+    Blockfrost is an API as a service that allows users to interact with the Cardano blockchain, Midnight blockchain, and parts of their ecosystems.
 
     ## Tokens
 
@@ -51,6 +51,12 @@ info:
             <td>Cardano preview</td>
             <td>
                 <code>https://cardano-preview.blockfrost.io/api/v0</code>
+            </td>
+        </tr>
+        <tr>
+            <td>Midnight mainnet</td>
+            <td>
+                <code>https://midnight-mainnet.blockfrost.io/api/v0</code>
             </td>
         </tr>
         <tr>
@@ -222,6 +228,23 @@ info:
       </tbody>
     </table>
 
+
+    ## Midnight API
+
+
+    The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data — blocks, transactions, contracts, and wallet-related events — indexed from the Midnight blockchain.
+
+    | Service | URL | Protocol |
+    |---------|-----|----------|
+    | **Indexer HTTP API** | `https://midnight-mainnet.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
+    | **Indexer Subscriptions API** | `wss://midnight-mainnet.blockfrost.io/api/v0/ws` | WebSocket |
+    | **Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` | JSON-RPC |
+
+
+    For the full documentation — queries, mutations, subscriptions, authentication options, and examples — see the Midnight GraphQL API Reference:
+
+    [![Explore the Midnight API →](https://img.shields.io/badge/Explore_the_Midnight_API_→-0033AD?style=for-the-badge)](./midnight/)
+
 servers:
   - url: https://cardano-mainnet.blockfrost.io/api/v0
     description: Cardano Mainnet network
@@ -270,6 +293,37 @@ tags:
   - name: IPFS » Add
   - name: IPFS » Gateway
   - name: IPFS » Pins
+  # - name: Midnight » Queries
+  #   description: |
+  #     Query data from the Midnight blockchain using the Midnight Indexer GraphQL API.
+
+  #     All queries are sent as POST requests to the `/` endpoint with the GraphQL query in the request body.
+  # - name: Midnight » Mutations
+  #   description: |
+  #     Execute mutations on the Midnight Indexer GraphQL API.
+
+  #     All mutations are sent as POST requests to the `/` endpoint with the GraphQL mutation in the request body.
+  # - name: Midnight » Subscriptions
+  #   description: |
+  #     Subscribe to real-time updates from the Midnight blockchain via WebSocket.
+
+  #     Connect to `wss://midnight-{network}.blockfrost.io/api/v0/ws` using the `graphql-transport-ws` protocol.
+
+  #     **Available subscriptions:**
+  #     * `blocks` - Subscribe to new blocks
+  #     * `contractActions` - Subscribe to contract actions for a specific address
+  #     * `dustLedgerEvents` - Subscribe to DUST ledger events
+  #     * `shieldedTransactions` - Subscribe to shielded transaction events for a wallet session
+  #     * `unshieldedTransactions` - Subscribe to unshielded transaction events for an address
+  #     * `zswapLedgerEvents` - Subscribe to zswap ledger events
+
+  #     **WebSocket Authentication:**
+  #     ```javascript
+  #     new WebSocket("wss://midnight-mainnet.blockfrost.io/api/v0/ws", [
+  #       "graphql-transport-ws",
+  #       "project_id_YOUR_PROJECT_ID"
+  #     ]);
+  #     ```
 
 paths:
   /:

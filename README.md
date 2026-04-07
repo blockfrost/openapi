@@ -42,6 +42,14 @@ Edit the source yaml files and build the package:
 yarn build
 ```
 
+### Midnight GraphQL docs
+
+The Midnight Indexer GraphQL API documentation is generated using [SpectaQL](https://github.com/anvilco/spectaql) from the schema file [`midnight-indexer-api.graphql`](midnight-indexer-api.graphql). The SpectaQL configuration is in [`spectaql.yaml`](spectaql.yaml) and the custom theme is in [`spectaql-theme/`](spectaql-theme/).
+
+To update the GraphQL schema, download the version matching the deployed Midnight Indexer from the [Midnight Indexer repository](https://github.com/midnightntwrk/midnight-indexer/blob/main/indexer-api/graphql/) and replace the local file:
+
+Then rebuild with `yarn bundle` (SpectaQL runs as part of the bundle step) to regenerate the docs in `docs/midnight/`.
+
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
 
 ### UI

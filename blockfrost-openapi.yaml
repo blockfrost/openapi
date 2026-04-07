@@ -234,11 +234,13 @@ info:
 
     The Midnight Indexer API exposes a GraphQL API that enables clients to query and subscribe to blockchain data — blocks, transactions, contracts, and wallet-related events — indexed from the Midnight blockchain.
 
+    Available networks: `mainnet`, `preprod`, `preview`
+
     | Service | URL | Protocol |
     |---------|-----|----------|
-    | **Indexer HTTP API** | `https://midnight-mainnet.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
-    | **Indexer Subscriptions API** | `wss://midnight-mainnet.blockfrost.io/api/v0/ws` | WebSocket |
-    | **Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` | JSON-RPC |
+    | **Indexer HTTP API** | `https://midnight-{network}.blockfrost.io/api/v0` | HTTP POST (GraphQL) |
+    | **Indexer Subscriptions API** | `wss://midnight-{network}.blockfrost.io/api/v0/ws` | WebSocket |
+    | **Node RPC** | `https://rpc.midnight-{network}.blockfrost.io` | JSON-RPC |
 
 
     For the full documentation — queries, mutations, subscriptions, authentication options, and examples — see the Midnight GraphQL API Reference:

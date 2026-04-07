@@ -45,13 +45,13 @@ info:
 
     - title: Endpoints
       description: |
-        Blockfrost exposes three Midnight services:
+        Blockfrost exposes three Midnight services. Available networks: `mainnet`, `preprod`, `preview`.
 
         | Service | URL |
         |---------|-----|
-        | **Indexer API** | `https://midnight-mainnet.blockfrost.io/api/v0` |
-        | **Indexer WebSocket** | `wss://midnight-mainnet.blockfrost.io/api/v0/ws` |
-        | **Node RPC** | `https://rpc.midnight-mainnet.blockfrost.io` |
+        | **Indexer API** | `https://midnight-{network}.blockfrost.io/api/v0` |
+        | **Indexer WebSocket** | `wss://midnight-{network}.blockfrost.io/api/v0/ws` |
+        | **Node RPC** | `https://rpc.midnight-{network}.blockfrost.io` |
 
         **Indexer API** — Send GraphQL queries and mutations over HTTP POST. This is the main entry point for fetching blockchain data (blocks, transactions, contracts, DUST status).
 
@@ -77,10 +77,12 @@ info:
 
         Append `?project_id=YOUR_PROJECT_ID` to the endpoint URL. Use this when your client doesn't support setting custom headers (e.g. Midnight.js SDK).
         ```text
-        https://midnight-mainnet.blockfrost.io/api/v0?project_id=YOUR_PROJECT_ID
-        wss://midnight-mainnet.blockfrost.io/api/v0/ws?project_id=YOUR_PROJECT_ID
-        https://rpc.midnight-mainnet.blockfrost.io?project_id=YOUR_PROJECT_ID
+        https://midnight-{network}.blockfrost.io/api/v0?project_id=YOUR_PROJECT_ID
+        wss://midnight-{network}.blockfrost.io/api/v0/ws?project_id=YOUR_PROJECT_ID
+        https://rpc.midnight-{network}.blockfrost.io?project_id=YOUR_PROJECT_ID
         ```
+
+        Replace `{network}` with `mainnet`, `preprod`, or `preview`.
 
     - title: Request Format
       description: |

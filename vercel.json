@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/midnight",
+      "destination": "/midnight/",
+      "permanent": true
+    }
+  ]
+}

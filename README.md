@@ -83,3 +83,18 @@ type Block = components['schemas']['block_content'];
 type Address = components['schemas']['address_content'];
 type UtxoAsset = components['schemas']['address_utxo_content'];
 ```
+
+### Rust crate
+
+Add `blockfrost-openapi` to your `Cargo.toml`:
+
+```toml
+[dependencies]
+blockfrost-openapi = "0.1.87"
+```
+
+Now you can use the generated Rust types:
+
+```rust
+use blockfrost_openapi::models::{BlockContent, AddressContent, AddressUtxoContentInner};
+```

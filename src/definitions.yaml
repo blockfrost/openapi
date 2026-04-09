@@ -652,8 +652,16 @@ paths:
   /assets/{asset}/addresses:
     $ref: ./paths/api/assets/{asset}/addresses.yaml
 
+  /assets/{asset}/utxos:
+    $ref: ./paths/api/assets/{asset}/utxos.yaml
+
   /assets/policy/{policy_id}:
     $ref: ./paths/api/assets/policy/{policy_id}/index.yaml
+
+  # swaps
+
+  # /swaps/{asset}:
+  #   $ref: ./paths/api/swaps/{asset}/index.yaml
 
   # scripts
 

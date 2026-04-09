@@ -6041,6 +6041,297 @@ under which it is valid
       },
     },
   },
+  "/assets/{asset}/utxos": {
+    "params": {
+      "properties": {
+        "asset": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "from": {
+          "type": "string",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "to": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "address": "addr1qxfdlum57a0083mnth9y583jvdcv5a9nwj5lzv9v34t9tl7wmz90ahznykuhr4ykwvfrge8yc63c6lpf7345yd5h59nq885d05",
+            "amount": [
+              {
+                "quantity": "1444443",
+                "unit": "lovelace",
+              },
+              {
+                "quantity": "1000",
+                "unit": "750900e4999ebe0d58f19b634768ba25e525aaf12403bfe8fe130501424f4f4b",
+              },
+            ],
+            "block": "8dadf03917c51b36c7580a49162224f71845a5492976e0449319da6e8eea243e",
+            "block_height": 5804427,
+            "block_time": 1622754311,
+            "data_hash": null,
+            "inline_datum": null,
+            "inline_datum_json": null,
+            "output_index": 0,
+            "reference_script_hash": null,
+            "tx_hash": "47abf925faa462fe7ddbf906e65b4f8a27da52c3638ec4ee4fffb2298096aced",
+          },
+        ],
+        "items": {
+          "properties": {
+            "address": {
+              "description": "Bech32 encoded address holding the UTxO",
+              "example": "addr1qxfdlum57a0083mnth9y583jvdcv5a9nwj5lzv9v34t9tl7wmz90ahznykuhr4ykwvfrge8yc63c6lpf7345yd5h59nq885d05",
+              "type": "string",
+            },
+            "amount": {
+              "items": {
+                "description": "The sum of all the UTXO per asset",
+                "properties": {
+                  "quantity": {
+                    "description": "The quantity of the unit",
+                    "type": "string",
+                  },
+                  "unit": {
+                    "description": "The unit of the value",
+                    "format": "Lovelace or concatenation of asset policy_id and hex-encoded asset_name",
+                    "type": "string",
+                  },
+                },
+                "required": [
+                  "unit",
+                  "quantity",
+                ],
+                "type": "object",
+              },
+              "type": "array",
+            },
+            "block": {
+              "description": "Block hash of the UTXO",
+              "type": "string",
+            },
+            "block_height": {
+              "description": "Block number of the UTXO",
+              "example": 5804427,
+              "type": "integer",
+            },
+            "block_time": {
+              "description": "UNIX time of the block",
+              "example": 1622754311,
+              "type": "integer",
+            },
+            "data_hash": {
+              "description": "The hash of the transaction output datum",
+              "nullable": true,
+              "type": "string",
+            },
+            "inline_datum": {
+              "description": "CBOR encoded inline datum",
+              "example": "19a6aa",
+              "nullable": true,
+              "type": "string",
+            },
+            "inline_datum_json": {
+              "description": "JSON representation of the inline datum",
+              "nullable": true,
+              "type": "object",
+            },
+            "output_index": {
+              "description": "UTXO index in the transaction",
+              "type": "integer",
+            },
+            "reference_script_hash": {
+              "description": "The hash of the reference script of the output",
+              "example": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1",
+              "nullable": true,
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Transaction hash of the UTXO",
+              "type": "string",
+            },
+          },
+          "required": [
+            "address",
+            "tx_hash",
+            "output_index",
+            "amount",
+            "block",
+            "block_height",
+            "block_time",
+            "data_hash",
+            "inline_datum",
+            "inline_datum_json",
+            "reference_script_hash",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
   "/blocks/epoch/{epoch_number}/slot/{slot_number}": {
     "params": {
       "properties": {

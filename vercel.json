@@ -4,6 +4,11 @@
       "source": "/midnight",
       "destination": "/midnight/",
       "permanent": true
+    },
+    {
+      "source": "/blockbook",
+      "destination": "/blockbook/",
+      "permanent": true
     }
   ]
 }

@@ -9,7 +9,7 @@
         "prepend": "/api/v2"
       },
       "operationSelection": {
-        "includeTags": ["Bitcoin", "Litecoin", "Dogecoin"]
+        "includeTags": ["SKIPBitcoin"]
       },
       "description": {
         "append": false

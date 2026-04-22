@@ -38,42 +38,52 @@ info:
     <table>
       <tbody>
         <tr>
-          <td>
-              <b>Network</b>
-          </td>
-          <td>
-              <b>Endpoint</b>
-          </td>
+          <td><b>Network</b></td>
+          <td><b>Endpoint</b></td>
         </tr>
         <tr>
-            <td>Cardano mainnet</td>
-            <td>
-                <code>https://cardano-mainnet.blockfrost.io/api/v0</code>
-            </td>
+          <td>Cardano mainnet</td>
+          <td><code>https://cardano-mainnet.blockfrost.io/api/v0</code></td>
         </tr>
         <tr>
-            <td>Cardano preprod</td>
-            <td>
-                <code>https://cardano-preprod.blockfrost.io/api/v0</code>
-            </td>
+          <td>Cardano preprod</td>
+          <td><code>https://cardano-preprod.blockfrost.io/api/v0</code></td>
         </tr>
         <tr>
-            <td>Cardano preview</td>
-            <td>
-                <code>https://cardano-preview.blockfrost.io/api/v0</code>
-            </td>
+          <td>Cardano preview</td>
+          <td><code>https://cardano-preview.blockfrost.io/api/v0</code></td>
         </tr>
         <tr>
-            <td>Midnight mainnet</td>
-            <td>
-                <code>https://midnight-mainnet.blockfrost.io/api/v0</code>
-            </td>
+          <td>Midnight mainnet</td>
+          <td><code>https://midnight-mainnet.blockfrost.io/api/v0</code></td>
         </tr>
         <tr>
-            <td>InterPlanetary File System</td>
-            <td>
-                <code>https://ipfs.blockfrost.io/api/v0</code>
-            </td>
+          <td>Midnight preprod</td>
+          <td><code>https://midnight-preprod.blockfrost.io/api/v0</code></td>
+        </tr>
+        <tr>
+          <td>Midnight preview</td>
+          <td><code>https://midnight-preview.blockfrost.io/api/v0</code></td>
+        </tr>
+        <tr>
+          <td>Bitcoin mainnet</td>
+          <td><code>https://bitcoin-mainnet.blockfrost.io/api/v2</code></td>
+        </tr>
+        <tr>
+          <td>Bitcoin testnet</td>
+          <td><code>https://bitcoin-testnet.blockfrost.io/api/v2</code></td>
+        </tr>
+        <tr>
+          <td>Litecoin mainnet</td>
+          <td><code>https://litecoin-mainnet.blockfrost.io/api/v2</code></td>
+        </tr>
+        <tr>
+          <td>Dogecoin mainnet</td>
+          <td><code>https://dogecoin-mainnet.blockfrost.io/api/v2</code></td>
+        </tr>
+        <tr>
+          <td>InterPlanetary File System</td>
+          <td><code>https://ipfs.blockfrost.io/api/v0</code></td>
         </tr>
       </tbody>
     </table>
@@ -336,6 +346,48 @@ info:
 
     [![Explore the Midnight API
     →](https://img.shields.io/badge/Explore_the_Midnight_API_→-0033AD?style=for-the-badge)](./midnight/)
+
+
+
+    ## Bitcoin API
+
+
+    Access the Bitcoin blockchain through the Blockbook API.
+
+
+    Endpoint: `https://bitcoin-mainnet.blockfrost.io/api/v2`
+
+
+    [![Explore the Bitcoin API
+    →](https://img.shields.io/badge/Explore_the_Bitcoin_API_→-C77800?style=for-the-badge&logo=bitcoin&logoColor=white)](./blockbook/)
+
+
+
+    ## Litecoin API
+
+
+    Access the Litecoin blockchain through the Blockbook API.
+
+
+    Endpoint: `https://litecoin-mainnet.blockfrost.io/api/v2`
+
+
+    [![Explore the Litecoin API
+    →](https://img.shields.io/badge/Explore_the_Litecoin_API_→-345D9D?style=for-the-badge&logo=litecoin&logoColor=white)](./blockbook/)
+
+
+
+    ## Dogecoin API
+
+
+    Access the Dogecoin blockchain through the Blockbook API.
+
+
+    Endpoint: `https://dogecoin-mainnet.blockfrost.io/api/v2`
+
+
+    [![Explore the Dogecoin API
+    →](https://img.shields.io/badge/Explore_the_Dogecoin_API_→-9B7E1A?style=for-the-badge&logo=dogecoin&logoColor=white)](./blockbook/)
 servers:
   - url: 'https://cardano-mainnet.blockfrost.io/api/v0'
     description: Cardano Mainnet network
@@ -13698,3 +13750,174 @@ components:
         There are multiple token types available based on network you choose
         when creating a Blockfrost a project, for a list of token types
         see available networks.
+  parameters:
+    blockHashOrHeight:
+      name: blockHashOrHeight
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 00000000000000000035835503f43c878ebb643f3b40bdfd0dfda760da74e73c
+      description: Block hash or height
+    page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 1
+      description: >-
+        specifies page of returned transactions, starting from 1. If out of
+        range, the closest possible page is returned.
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 1000
+        example: 1000
+      description: 'Number of items returned per page (1-1000, default 1000)'
+    blockHeight:
+      name: blockHeight
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 15
+      description: Block height/index
+    txId:
+      name: txId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: cd8ec77174e426070d0a50779232bba7312b712e2c6843d82d963d7076c61366
+      description: Transaction ID
+    address:
+      name: address
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 321x69Cb9HZLWwAWGiUBT1U81r1zPLnEjL
+      description: Wallet address
+    details:
+      name: details
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - basic
+          - tokens
+          - tokenBalances
+          - txids
+          - txslight
+          - txs
+        default: txids
+        example: basic
+      description: >
+        Level of detail in the response. Possible values:
+
+        `basic` — address balances only (balance, totalReceived, totalSent, txs
+        count), no pagination, no transaction data;
+
+        `txids` — (default) adds pagination and a txids array of transaction
+        hashes, subject to from/to filter and page/pageSize paging;
+
+        `txslight` — replaces txids with lightweight transaction objects
+        (vin/vout with addresses and values, block info, fees), subject to
+        paging;
+
+        `txs` — full transaction details including version, lockTime, size,
+        vsize, and raw hex, subject to paging.
+    fromBlock:
+      name: fromBlock
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 10
+      description: Filter results from this block height (inclusive). Default is no filter.
+    toBlock:
+      name: toBlock
+      in: query
+      required: false
+      schema:
+        type: integer
+        example: 100
+      description: >-
+        Filter results up to this block height (inclusive). Default is no
+        filter.
+    secondary:
+      name: secondary
+      in: query
+      required: false
+      schema:
+        type: string
+        example: usd
+      description: >-
+        Fiat currency code (e.g. `usd`, `eur`) to include fiat values alongside
+        crypto balances in the response.
+    xpub:
+      name: xpub
+      in: path
+      required: true
+      schema:
+        type: string
+        example: >-
+          tpubDC88gkaZi5HvJGxGDNLADkvtdpni3mLmx6vr2KnXmWMG8zfkBRggsxHVBkUpgcwPe2KKpkyvTJCdXHb1UHEWE64vczyyPQfHr1skBcsRedN
+      description: >-
+        Extended public key (xpub, ypub, zpub) or output descriptor. Regular
+        addresses are not accepted — use the /address endpoint instead.
+    tokens:
+      name: tokens
+      in: query
+      required: false
+      schema:
+        type: string
+        default: nonzero
+        enum:
+          - nonzero
+          - used
+          - derived
+        example: used
+      description: >
+        Controls which derived addresses (BIP44 child addresses) are included in
+        the xpub response.
+
+        `nonzero` — (default) only addresses with non-zero balance;
+
+        `used` — all addresses with at least one transaction, including zero
+        balance;
+
+        `derived` — all addresses in the derivation gap, including never-used
+        ones.
+    confirmed:
+      name: confirmed
+      in: query
+      required: false
+      schema:
+        type: boolean
+        example: true
+      description: Set to `true` to exclude unconfirmed UTXOs from the response.
+    hex:
+      name: hex
+      in: path
+      required: true
+      schema:
+        type: string
+        example: >-
+          01000000017f9a22c9cbf54bd902400df746f138f37bcf5b4d93eb755820e974ba43ed5f42040000006a4730440220037f4ed5427cde81d55b9b6a2fd08c8a25090c2c2fff3a75c1a57625ca8a7118022076c702fe55969fa08137f71afd4851c48e31082dd3c40c919c92cdbc826758d30121029f6da5623c9f9b68a9baf9c1bc7511df88fa34c6c2f71f7c62f2f03ff48dca80feffffff019c9700000000000017a9146144d57c8aff48492c9dfb914e120b20bad72d6f8773d00700
+      description: Transaction hex data
+    addressOrXpub:
+      name: addressOrXpub
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 321x69Cb9HZLWwAWGiUBT1U81r1zPLnEjL
+      description: Address or XPUB

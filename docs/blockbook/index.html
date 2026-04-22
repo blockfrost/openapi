@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      type="images/png"
+      href="https://blockfrost.io/images/logo_symbol.png"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://blockfrost.io/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blockfrost.io - Blockbook API</title>
+    <meta name="title" content="Blockfrost Blockbook API documentation" />
+    <meta
+      name="description"
+      content="Blockbook API documentation for Bitcoin, Litecoin and Dogecoin."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://blockfrost.io/" />
+    <meta property="og:title" content="Blockfrost Blockbook API documentation" />
+    <meta
+      property="og:description"
+      content="Blockbook API documentation for Bitcoin, Litecoin and Dogecoin."
+    />
+    <meta property="og:image" content="https://blockfrost.io/images/og.png" />
+    <style>
+      .section {
+        outline: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <script id="api-reference" data-url="./blockbook-openapi.yaml"></script>
+    <script>
+      var configuration = {
+        theme: 'kepler',
+        hideModels: true,
+      };
+
+      document.getElementById('api-reference').dataset.configuration =
+        JSON.stringify(configuration);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.40.2"></script>
+  </body>
+  <script
+    defer
+    data-domain="docs.blockfrost.io"
+    src="https://plausible.io/js/plausible.js"
+  ></script>
+</html>

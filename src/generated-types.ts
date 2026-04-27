@@ -5687,6 +5687,69 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/swaps/{asset}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Asset swap UTXOs
+         * @description List of unspent UTxOs containing the specified native asset, sorted by swap price.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                    /** @description Order the results by swap price instead of the default blockchain ordering.
+                     *      */
+                    order_by?: "price";
+                };
+                header?: never;
+                path: {
+                    /**
+                     * @description Concatenation of the policy_id and hex-encoded asset_name
+                     * @example 750900e4999ebe0d58f19b634768ba25e525aaf12403bfe8fe130501424f4f4b
+                     */
+                    asset: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the swap UTXOs containing the specified asset */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["asset_utxo_content"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/scripts": {
         parameters: {
             query?: never;

@@ -660,8 +660,8 @@ paths:
 
   # swaps
 
-  # /swaps/{asset}:
-  #   $ref: ./paths/api/swaps/{asset}/index.yaml
+  /swaps/{asset}:
+    $ref: ./paths/api/swaps/{asset}/index.yaml
 
   # scripts
 

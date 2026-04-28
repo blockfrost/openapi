@@ -10856,6 +10856,7 @@
             "additionalProperties": true,
             "type": "object",
             "nullable": true,
+            "deprecated": true,
             "example": {
               "PlutusV1": {
                 "addInteger-cpu-arguments-intercept": 197209,
@@ -10866,7 +10867,7 @@
                 "addInteger-cpu-arguments-slope": 0
               }
             },
-            "description": "Cost models parameters for Plutus Core scripts"
+            "description": "Cost models parameters for Plutus Core scripts. Deprecated, use `cost_models_raw` instead."
           },
           "cost_models_raw": {
             "additionalProperties": true,
@@ -10874,12 +10875,61 @@
             "nullable": true,
             "example": {
               "PlutusV1": [
-                197209,
-                0
+                100788,
+                420,
+                1,
+                1,
+                1000,
+                173,
+                0,
+                1,
+                1000,
+                59957,
+                4,
+                1,
+                11183,
+                32,
+                201305,
+                8356,
+                "..."
               ],
               "PlutusV2": [
-                197209,
-                0
+                100788,
+                420,
+                1,
+                1,
+                1000,
+                173,
+                0,
+                1,
+                1000,
+                59957,
+                4,
+                1,
+                11183,
+                32,
+                201305,
+                8356,
+                "..."
+              ],
+              "PlutusV3": [
+                100788,
+                420,
+                1,
+                1,
+                1000,
+                173,
+                0,
+                1,
+                1000,
+                59957,
+                4,
+                1,
+                11183,
+                32,
+                201305,
+                8356,
+                "..."
               ]
             },
             "description": "Cost models parameters for Plutus Core scripts in raw list form"

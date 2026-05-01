@@ -1443,6 +1443,9 @@ export interface paths {
         /**
          * Specific proposal metadata
          * @description Proposal metadata information.
+         *
+         *     If this endpoint returns `404` or empty metadata for a known proposal, the off-chain metadata could not be fetched (e.g. unreachable URL or hash mismatch). Use the [`/governance/proposals/{gov_action_id}/metadata`](#tag/cardano--governance/GET/governance/proposals/{gov_action_id}/metadata) variant instead — it always returns the anchor `url` and `hash` along with an `error` object describing the fetch failure, so you can retrieve the metadata manually if needed.
+         *
          */
         get: {
             parameters: {

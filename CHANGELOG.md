@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Deprecated
+
+- `cost_models` field in `/epochs/:number/parameters` response. Use `cost_models_raw` instead.
+
 ## [0.1.87] - 2026-03-31
 
 ### Added

@@ -8178,7 +8178,8 @@ export interface components {
              */
             nonce: string;
             /**
-             * @description Cost models parameters for Plutus Core scripts
+             * @deprecated
+             * @description Cost models parameters for Plutus Core scripts. Deprecated, use `cost_models_raw` instead.
              * @example {
              *       "PlutusV1": {
              *         "addInteger-cpu-arguments-intercept": 197209,
@@ -8197,12 +8198,61 @@ export interface components {
              * @description Cost models parameters for Plutus Core scripts in raw list form
              * @example {
              *       "PlutusV1": [
-             *         197209,
-             *         0
+             *         100788,
+             *         420,
+             *         1,
+             *         1,
+             *         1000,
+             *         173,
+             *         0,
+             *         1,
+             *         1000,
+             *         59957,
+             *         4,
+             *         1,
+             *         11183,
+             *         32,
+             *         201305,
+             *         8356,
+             *         "..."
              *       ],
              *       "PlutusV2": [
-             *         197209,
-             *         0
+             *         100788,
+             *         420,
+             *         1,
+             *         1,
+             *         1000,
+             *         173,
+             *         0,
+             *         1,
+             *         1000,
+             *         59957,
+             *         4,
+             *         1,
+             *         11183,
+             *         32,
+             *         201305,
+             *         8356,
+             *         "..."
+             *       ],
+             *       "PlutusV3": [
+             *         100788,
+             *         420,
+             *         1,
+             *         1,
+             *         1000,
+             *         173,
+             *         0,
+             *         1,
+             *         1000,
+             *         59957,
+             *         4,
+             *         1,
+             *         11183,
+             *         32,
+             *         201305,
+             *         8356,
+             *         "..."
              *       ]
              *     }
              */

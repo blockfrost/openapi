@@ -12434,7 +12434,7 @@ under which it is valid
           {
             "action": "deregistered",
             "cert_index": 0,
-            "deposit": "-500000000",
+            "deposit": null,
             "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
           },
         ],
@@ -12454,7 +12454,7 @@ under which it is valid
               "type": "integer",
             },
             "deposit": {
-              "description": "Deposit in Lovelaces associated with this certificate. Positive on \`registered\`, negative on \`deregistered\` (refund), \`0\` or \`null\` on \`updated\`.",
+              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` and \`updated\` rows.",
               "nullable": true,
               "type": "string",
             },

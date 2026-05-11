@@ -7386,7 +7386,7 @@ export interface components {
          *         "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
          *         "cert_index": 0,
          *         "action": "deregistered",
-         *         "deposit": "-500000000"
+         *         "deposit": null
          *       }
          *     ] */
         drep_updates: {
@@ -7399,7 +7399,7 @@ export interface components {
              * @enum {string}
              */
             action: "registered" | "deregistered" | "updated";
-            /** @description Deposit in Lovelaces associated with this certificate. Positive on `registered`, negative on `deregistered` (refund), `0` or `null` on `updated`. */
+            /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` and `updated` rows. */
             deposit: string | null;
         }[];
         /** @example [

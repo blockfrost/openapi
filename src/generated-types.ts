@@ -7230,7 +7230,8 @@ export interface components {
          *       "has_script": true,
          *       "last_active_epoch": 509,
          *       "retired": false,
-         *       "expired": false
+         *       "expired": false,
+         *       "deposit": "500000000"
          *     } */
         drep: {
             /** @description Bech32 encoded DRep address */
@@ -7257,6 +7258,8 @@ export interface components {
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;
+            /** @description Deposit in Lovelaces paid at the most recent DRep registration. `null` when the DRep is not currently registered. */
+            deposit: string | null;
         };
         /** @example [
          *       {
@@ -7379,12 +7382,14 @@ export interface components {
          *       {
          *         "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
          *         "cert_index": 0,
-         *         "action": "registered"
+         *         "action": "registered",
+         *         "deposit": "500000000"
          *       },
          *       {
          *         "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
          *         "cert_index": 0,
-         *         "action": "deregistered"
+         *         "action": "deregistered",
+         *         "deposit": "-500000000"
          *       }
          *     ] */
         drep_updates: {
@@ -7397,6 +7402,8 @@ export interface components {
              * @enum {string}
              */
             action: "registered" | "deregistered" | "updated";
+            /** @description Deposit in Lovelaces associated with this certificate. Positive on `registered`, negative on `deregistered` (refund), `0` or `null` on `updated`. */
+            deposit: string | null;
         }[];
         /** @example [
          *       {
@@ -9022,6 +9029,11 @@ export interface components {
              * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
              */
             drep_id: string | null;
+            /**
+             * @description Deposit in Lovelaces paid at the most recent stake key registration. `null` when the account is not currently registered. Falls back to the `key_deposit` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the `deposit` column.
+             * @example 2000000
+             */
+            deposit: string | null;
         };
         /** @example [
          *       {
@@ -9140,6 +9152,7 @@ export interface components {
          *       {
          *         "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
          *         "action": "registered",
+         *         "deposit": "2000000",
          *         "tx_slot": 45093580,
          *         "block_time": 1646437200,
          *         "block_height": 6745358
@@ -9147,6 +9160,7 @@ export interface components {
          *       {
          *         "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0",
          *         "action": "deregistered",
+         *         "deposit": null,
          *         "tx_slot": 48093580,
          *         "block_time": 1649033600,
          *         "block_height": 7126896
@@ -9160,6 +9174,8 @@ export interface components {
              * @enum {string}
              */
             action: "registered" | "deregistered";
+            /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows (the refund equals the deposit paid at the corresponding registration). Falls back to the `key_deposit` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the `deposit` column. */
+            deposit: string | null;
             /** @description Slot of the transaction containing the (de)registration certificate */
             tx_slot: number;
             /** @description Block creation time in UNIX time of the transaction containing the (de)registration certificate */

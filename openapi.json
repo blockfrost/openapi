@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.87",
+    "version": "0.1.88-beta.0",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -9391,6 +9391,11 @@
             "type": "integer",
             "nullable": true,
             "description": "Epoch of the most recent action - registration, update, deregistration or voting"
+          },
+          "deposit": {
+            "type": "string",
+            "nullable": true,
+            "description": "Deposit in Lovelaces paid at the most recent DRep registration. `null` when the DRep is not currently registered."
           }
         },
         "required": [
@@ -9402,7 +9407,8 @@
           "has_script",
           "retired",
           "expired",
-          "last_active_epoch"
+          "last_active_epoch",
+          "deposit"
         ],
         "example": {
           "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
@@ -9413,7 +9419,8 @@
           "has_script": true,
           "last_active_epoch": 509,
           "retired": false,
-          "expired": false
+          "expired": false,
+          "deposit": "500000000"
         }
       },
       "drep_delegators": {
@@ -9626,24 +9633,32 @@
                 "updated"
               ],
               "description": "Action in the certificate"
+            },
+            "deposit": {
+              "type": "string",
+              "nullable": true,
+              "description": "Deposit in Lovelaces associated with this certificate. Positive on `registered`, negative on `deregistered` (refund), `0` or `null` on `updated`."
             }
           },
           "required": [
             "tx_hash",
             "cert_index",
-            "action"
+            "action",
+            "deposit"
           ]
         },
         "example": [
           {
             "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
             "cert_index": 0,
-            "action": "registered"
+            "action": "registered",
+            "deposit": "500000000"
           },
           {
             "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
             "cert_index": 0,
-            "action": "deregistered"
+            "action": "deregistered",
+            "deposit": "-500000000"
           }
         ]
       },
@@ -12178,6 +12193,12 @@
             "nullable": true,
             "example": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
             "description": "Bech32 drep ID to which this account is delegated"
+          },
+          "deposit": {
+            "type": "string",
+            "nullable": true,
+            "example": "2000000",
+            "description": "Deposit in Lovelaces paid at the most recent stake key registration. `null` when the account is not currently registered. Falls back to the `key_deposit` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the `deposit` column."
           }
         },
         "required": [
@@ -12192,7 +12213,8 @@
           "treasury_sum",
           "withdrawable_amount",
           "pool_id",
-          "drep_id"
+          "drep_id",
+          "deposit"
         ]
       },
       "account_reward_content": {
@@ -12389,6 +12411,11 @@
               ],
               "description": "Action in the certificate"
             },
+            "deposit": {
+              "type": "string",
+              "nullable": true,
+              "description": "Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows (the refund equals the deposit paid at the corresponding registration). Falls back to the `key_deposit` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the `deposit` column."
+            },
             "tx_slot": {
               "type": "integer",
               "description": "Slot of the transaction containing the (de)registration certificate"
@@ -12405,6 +12432,7 @@
           "required": [
             "tx_hash",
             "action",
+            "deposit",
             "tx_slot",
             "block_time",
             "block_height"
@@ -12414,6 +12442,7 @@
           {
             "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
             "action": "registered",
+            "deposit": "2000000",
             "tx_slot": 45093580,
             "block_time": 1646437200,
             "block_height": 6745358
@@ -12421,6 +12450,7 @@
           {
             "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0",
             "action": "deregistered",
+            "deposit": null,
             "tx_slot": 48093580,
             "block_time": 1649033600,
             "block_height": 7126896

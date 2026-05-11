@@ -31,6 +31,12 @@ properties:
     type: integer
     nullable: true
     description: Epoch of the most recent action - registration, update, deregistration or voting
+  deposit:
+    type: string
+    nullable: true
+    description: >-
+      Deposit in Lovelaces paid at the most recent DRep registration. `null`
+      when the DRep is not currently registered.
 
 required:
   - drep_id
@@ -42,6 +48,7 @@ required:
   - retired
   - expired
   - last_active_epoch
+  - deposit
 example:
   drep_id: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
   hex: a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d
@@ -52,3 +59,4 @@ example:
   last_active_epoch: 509
   retired: false
   expired: false
+  deposit: "500000000"

@@ -11572,6 +11572,782 @@ under which it is valid
       },
     },
   },
+  "/governance/committee": {
+    "response": {
+      "200": {
+        "example": {
+          "gov_action_id": null,
+          "is_dissolved": false,
+          "members": [
+            {
+              "cc_cold_has_script": false,
+              "cc_cold_hex": "12c9ce78ff8005436901336f8d2ac0411a1b520f0e6d7e6066907a2f",
+              "cc_cold_id": "cc_cold1zgkfeeu07qq9smfqfn0nrf2cqgr5x6jpu8x6lxgxay85t6cmt54xz",
+              "cc_hot_has_script": false,
+              "cc_hot_hex": "0269808bbf8fb495a3b8e290a5f626362236c1abf853eddf08d79a930",
+              "cc_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+              "expiration_epoch": 580,
+              "status": "authorized",
+            },
+            {
+              "cc_cold_has_script": false,
+              "cc_cold_hex": "8cc6529626c4c9fa5a195ce03c2e93a204e7193b76967e8794fc59d6",
+              "cc_cold_id": "cc_cold1zgxxx2trz0vyl5ksetnsrct5n5gznn3jmkj6dlpu4lz6lecz5h",
+              "cc_hot_has_script": null,
+              "cc_hot_hex": null,
+              "cc_hot_id": null,
+              "expiration_epoch": 580,
+              "status": "not_authorized",
+            },
+          ],
+          "proposal_index": null,
+          "proposal_tx_hash": null,
+          "quorum": {
+            "denominator": 3,
+            "numerator": 2,
+          },
+        },
+        "properties": {
+          "gov_action_id": {
+            "description": "CIP-129 Governance Action Identifier of the \`NewCommittee\` action that seated this committee. \`null\` for the Conway-genesis committee.",
+            "nullable": true,
+            "type": "string",
+          },
+          "is_dissolved": {
+            "description": "True iff an enacted \`NoConfidence\` governance action has dissolved this committee.",
+            "type": "boolean",
+          },
+          "members": {
+            "description": "Members of the committee.",
+            "items": {
+              "properties": {
+                "cc_cold_has_script": {
+                  "type": "boolean",
+                },
+                "cc_cold_hex": {
+                  "description": "Hex of the raw 28-byte cold key/script hash.",
+                  "type": "string",
+                },
+                "cc_cold_id": {
+                  "description": "CIP-129 bech32 encoded cold credential (\`cc_cold1...\`).",
+                  "type": "string",
+                },
+                "cc_hot_has_script": {
+                  "nullable": true,
+                  "type": "boolean",
+                },
+                "cc_hot_hex": {
+                  "nullable": true,
+                  "type": "string",
+                },
+                "cc_hot_id": {
+                  "description": "CIP-129 bech32 encoded current hot credential (\`cc_hot1...\`). \`null\` unless \`status\` is \`authorized\`.",
+                  "nullable": true,
+                  "type": "string",
+                },
+                "expiration_epoch": {
+                  "description": "Epoch at which this member's term expires.",
+                  "type": "integer",
+                },
+                "status": {
+                  "description": "\`authorized\` — member has a currently active hot key. \`not_authorized\` — member has never authorized a hot key. \`resigned\` — member's most recent on-chain event is a resignation certificate.",
+                  "enum": [
+                    "authorized",
+                    "not_authorized",
+                    "resigned",
+                  ],
+                  "type": "string",
+                },
+              },
+              "required": [
+                "cc_cold_id",
+                "cc_cold_hex",
+                "cc_cold_has_script",
+                "cc_hot_id",
+                "cc_hot_hex",
+                "cc_hot_has_script",
+                "status",
+                "expiration_epoch",
+              ],
+              "type": "object",
+            },
+            "type": "array",
+          },
+          "proposal_index": {
+            "description": "Index of the proposal within its transaction. \`null\` for the Conway-genesis committee.",
+            "nullable": true,
+            "type": "integer",
+          },
+          "proposal_tx_hash": {
+            "description": "Hash of the transaction containing the \`NewCommittee\` action that seated this committee. \`null\` for the Conway-genesis committee.",
+            "nullable": true,
+            "type": "string",
+          },
+          "quorum": {
+            "description": "Voting threshold of the committee.",
+            "properties": {
+              "denominator": {
+                "type": "integer",
+              },
+              "numerator": {
+                "type": "integer",
+              },
+            },
+            "required": [
+              "numerator",
+              "denominator",
+            ],
+            "type": "object",
+          },
+        },
+        "required": [
+          "proposal_tx_hash",
+          "proposal_index",
+          "gov_action_id",
+          "is_dissolved",
+          "quorum",
+          "members",
+        ],
+        "type": "object",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "404": {
+        "properties": {
+          "error": {
+            "example": "Not Found",
+            "type": "string",
+          },
+          "message": {
+            "example": "The requested component has not been found.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 404,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/committee/votes": {
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "block_height": 11045358,
+            "block_time": 1746037200,
+            "governance_type": "parameter_change",
+            "metadata_hash": "a4b7d5d34f5d8c5b71a0a5c34b7e7f8a3d2e1c0b9a8f7e6d5c4b3a2918f7e6d5",
+            "metadata_url": "https://my.cc-member/rationale.jsonld",
+            "proposal_id": "gov_action1k2jertppnnndejjcglszfqq4yzw8evzrd2nt66rr6rqlz54xp0zsq05ecsn",
+            "proposal_index": 0,
+            "proposal_tx_hash": "b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5",
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+            "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+          },
+          {
+            "block_height": 11045890,
+            "block_time": 1746070800,
+            "governance_type": "new_constitution",
+            "metadata_hash": null,
+            "metadata_url": null,
+            "proposal_id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+            "proposal_index": 1,
+            "proposal_tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+            "tx_hash": "8a91b32ec2a7bdfde2ab7a1bc5e4d3a2f1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6",
+            "vote": "abstain",
+            "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+          },
+        ],
+        "items": {
+          "properties": {
+            "block_height": {
+              "description": "Block height of the vote transaction.",
+              "type": "integer",
+            },
+            "block_time": {
+              "description": "Block creation time in UNIX time of the vote transaction.",
+              "type": "integer",
+            },
+            "governance_type": {
+              "description": "Type of the governance action being voted on.",
+              "enum": [
+                "hard_fork_initiation",
+                "new_committee",
+                "new_constitution",
+                "info_action",
+                "no_confidence",
+                "parameter_change",
+                "treasury_withdrawals",
+              ],
+              "type": "string",
+            },
+            "metadata_hash": {
+              "description": "Hex hash of the off-chain anchor document.",
+              "nullable": true,
+              "type": "string",
+            },
+            "metadata_url": {
+              "description": "Voting anchor URL — pointer to the off-chain rationale published by the voter.",
+              "nullable": true,
+              "type": "string",
+            },
+            "proposal_id": {
+              "description": "CIP-129 Governance Action Identifier of the proposal being voted on.",
+              "type": "string",
+            },
+            "proposal_index": {
+              "description": "Index of the proposal within its transaction.",
+              "type": "integer",
+            },
+            "proposal_tx_hash": {
+              "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Hash of the vote transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+            "voter_hot_id": {
+              "description": "CIP-129 bech32 encoded hot credential of the committee member that cast this vote (\`cc_hot1...\`).",
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "voter_hot_id",
+            "proposal_id",
+            "proposal_tx_hash",
+            "proposal_index",
+            "governance_type",
+            "vote",
+            "metadata_url",
+            "metadata_hash",
+            "block_height",
+            "block_time",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "/governance/committee/{cc_id}/votes": {
+    "params": {
+      "properties": {
+        "cc_id": {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "querystring": {
+      "properties": {
+        "count": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer",
+        },
+        "order": {
+          "default": "asc",
+          "enum": [
+            "asc",
+            "desc",
+          ],
+          "type": "string",
+        },
+        "page": {
+          "default": 1,
+          "maximum": 21474836,
+          "minimum": 1,
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "response": {
+      "200": {
+        "example": [
+          {
+            "block_height": 11045358,
+            "block_time": 1746037200,
+            "governance_type": "parameter_change",
+            "metadata_hash": "a4b7d5d34f5d8c5b71a0a5c34b7e7f8a3d2e1c0b9a8f7e6d5c4b3a2918f7e6d5",
+            "metadata_url": "https://my.cc-member/rationale.jsonld",
+            "proposal_id": "gov_action1k2jertppnnndejjcglszfqq4yzw8evzrd2nt66rr6rqlz54xp0zsq05ecsn",
+            "proposal_index": 0,
+            "proposal_tx_hash": "b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5",
+            "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+            "vote": "yes",
+            "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+          },
+          {
+            "block_height": 11045890,
+            "block_time": 1746070800,
+            "governance_type": "new_constitution",
+            "metadata_hash": null,
+            "metadata_url": null,
+            "proposal_id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+            "proposal_index": 1,
+            "proposal_tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+            "tx_hash": "8a91b32ec2a7bdfde2ab7a1bc5e4d3a2f1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6",
+            "vote": "abstain",
+            "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+          },
+        ],
+        "items": {
+          "properties": {
+            "block_height": {
+              "description": "Block height of the vote transaction.",
+              "type": "integer",
+            },
+            "block_time": {
+              "description": "Block creation time in UNIX time of the vote transaction.",
+              "type": "integer",
+            },
+            "governance_type": {
+              "description": "Type of the governance action being voted on.",
+              "enum": [
+                "hard_fork_initiation",
+                "new_committee",
+                "new_constitution",
+                "info_action",
+                "no_confidence",
+                "parameter_change",
+                "treasury_withdrawals",
+              ],
+              "type": "string",
+            },
+            "metadata_hash": {
+              "description": "Hex hash of the off-chain anchor document.",
+              "nullable": true,
+              "type": "string",
+            },
+            "metadata_url": {
+              "description": "Voting anchor URL — pointer to the off-chain rationale published by the voter.",
+              "nullable": true,
+              "type": "string",
+            },
+            "proposal_id": {
+              "description": "CIP-129 Governance Action Identifier of the proposal being voted on.",
+              "type": "string",
+            },
+            "proposal_index": {
+              "description": "Index of the proposal within its transaction.",
+              "type": "integer",
+            },
+            "proposal_tx_hash": {
+              "description": "Hash of the proposal transaction.",
+              "type": "string",
+            },
+            "tx_hash": {
+              "description": "Hash of the vote transaction.",
+              "type": "string",
+            },
+            "vote": {
+              "description": "The Vote. Can be one of yes, no, abstain.",
+              "enum": [
+                "yes",
+                "no",
+                "abstain",
+              ],
+              "type": "string",
+            },
+            "voter_hot_id": {
+              "description": "CIP-129 bech32 encoded hot credential of the committee member that cast this vote (\`cc_hot1...\`).",
+              "type": "string",
+            },
+          },
+          "required": [
+            "tx_hash",
+            "voter_hot_id",
+            "proposal_id",
+            "proposal_tx_hash",
+            "proposal_index",
+            "governance_type",
+            "vote",
+            "metadata_url",
+            "metadata_hash",
+            "block_height",
+            "block_time",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "400": {
+        "properties": {
+          "error": {
+            "example": "Bad Request",
+            "type": "string",
+          },
+          "message": {
+            "example": "Backend did not understand your request.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 400,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "403": {
+        "properties": {
+          "error": {
+            "example": "Forbidden",
+            "type": "string",
+          },
+          "message": {
+            "example": "Invalid project token.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 403,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "418": {
+        "properties": {
+          "error": {
+            "example": "Requested Banned",
+            "type": "string",
+          },
+          "message": {
+            "example": "IP has been auto-banned for flooding.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 418,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "429": {
+        "properties": {
+          "error": {
+            "example": "Project Over Limit",
+            "type": "string",
+          },
+          "message": {
+            "example": "Usage is over limit.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 429,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+      "500": {
+        "properties": {
+          "error": {
+            "example": "Internal Server Error",
+            "type": "string",
+          },
+          "message": {
+            "example": "An unexpected response was received from the backend.",
+            "type": "string",
+          },
+          "status_code": {
+            "example": 500,
+            "type": "integer",
+          },
+        },
+        "required": [
+          "error",
+          "message",
+          "status_code",
+        ],
+        "type": "object",
+      },
+    },
+  },
   "/governance/dreps": {
     "querystring": {
       "properties": {

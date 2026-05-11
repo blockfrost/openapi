@@ -15,6 +15,9 @@ Unreleased changes are in the `master` branch.
 
 - New `deposit` field in `/accounts/:stake_address/registrations` response
 - New `deposit` field in `/governance/dreps/:drep_id/updates` response
+- New `/governance/committee` endpoint — current constitutional committee snapshot with members, quorum, and source `NewCommittee` governance action (when applicable)
+- New `/governance/committee/votes` endpoint — paged list of all constitutional committee votes ever cast
+- New `/governance/committee/:cc_id/votes` endpoint — paged list of votes filtered by CIP-129 hot (`cc_hot1...`) or cold (`cc_cold1...`) credential
 
 ### Deprecated
 

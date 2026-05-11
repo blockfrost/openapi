@@ -51,13 +51,6 @@ properties:
     nullable: true
     example: drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
     description: Bech32 drep ID to which this account is delegated
-  deposit:
-    type: string
-    nullable: true
-    example: "2000000"
-    description: >-
-      Deposit in Lovelaces paid at the most recent stake key registration.
-      `null` when the account is not currently registered.
 
 required:
   - stake_address
@@ -72,4 +65,3 @@ required:
   - withdrawable_amount
   - pool_id
   - drep_id
-  - deposit

@@ -161,12 +161,6 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
             "example": "619154618165",
             "type": "string",
           },
-          "deposit": {
-            "description": "Deposit in Lovelaces paid at the most recent stake key registration. \`null\` when the account is not currently registered.",
-            "example": "2000000",
-            "nullable": true,
-            "type": "string",
-          },
           "drep_id": {
             "description": "Bech32 drep ID to which this account is delegated",
             "example": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
@@ -228,7 +222,6 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
           "withdrawable_amount",
           "pool_id",
           "drep_id",
-          "deposit",
         ],
         "type": "object",
       },
@@ -11763,7 +11756,6 @@ under which it is valid
           "active": true,
           "active_epoch": 420,
           "amount": "2000000",
-          "deposit": "500000000",
           "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
           "expired": false,
           "has_script": true,
@@ -11785,11 +11777,6 @@ under which it is valid
           },
           "amount": {
             "description": "The total amount of voting power this DRep is delegated.",
-            "type": "string",
-          },
-          "deposit": {
-            "description": "Deposit in Lovelaces paid at the most recent DRep registration. \`null\` when the DRep is not currently registered.",
-            "nullable": true,
             "type": "string",
           },
           "drep_id": {
@@ -11828,7 +11815,6 @@ under which it is valid
           "retired",
           "expired",
           "last_active_epoch",
-          "deposit",
         ],
         "type": "object",
       },

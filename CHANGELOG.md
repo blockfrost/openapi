@@ -13,8 +13,8 @@ Unreleased changes are in the `master` branch.
 
 ### Added
 
-- New `deposit` field in `/accounts/:stake_address`, `/accounts/:stake_address/registrations` response
-- New `deposit` field in `/governance/dreps/:drep_id`, `/governance/dreps/:drep_id/updates` response
+- New `deposit` field in `/accounts/:stake_address/registrations` response
+- New `deposit` field in `/governance/dreps/:drep_id/updates` response
 
 ### Deprecated
 

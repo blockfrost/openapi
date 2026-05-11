@@ -9391,11 +9391,6 @@
             "type": "integer",
             "nullable": true,
             "description": "Epoch of the most recent action - registration, update, deregistration or voting"
-          },
-          "deposit": {
-            "type": "string",
-            "nullable": true,
-            "description": "Deposit in Lovelaces paid at the most recent DRep registration. `null` when the DRep is not currently registered."
           }
         },
         "required": [
@@ -9407,8 +9402,7 @@
           "has_script",
           "retired",
           "expired",
-          "last_active_epoch",
-          "deposit"
+          "last_active_epoch"
         ],
         "example": {
           "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
@@ -9419,8 +9413,7 @@
           "has_script": true,
           "last_active_epoch": 509,
           "retired": false,
-          "expired": false,
-          "deposit": "500000000"
+          "expired": false
         }
       },
       "drep_delegators": {
@@ -12193,12 +12186,6 @@
             "nullable": true,
             "example": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
             "description": "Bech32 drep ID to which this account is delegated"
-          },
-          "deposit": {
-            "type": "string",
-            "nullable": true,
-            "example": "2000000",
-            "description": "Deposit in Lovelaces paid at the most recent stake key registration. `null` when the account is not currently registered."
           }
         },
         "required": [
@@ -12213,8 +12200,7 @@
           "treasury_sum",
           "withdrawable_amount",
           "pool_id",
-          "drep_id",
-          "deposit"
+          "drep_id"
         ]
       },
       "account_reward_content": {

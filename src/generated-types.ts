@@ -7230,8 +7230,7 @@ export interface components {
          *       "has_script": true,
          *       "last_active_epoch": 509,
          *       "retired": false,
-         *       "expired": false,
-         *       "deposit": "500000000"
+         *       "expired": false
          *     } */
         drep: {
             /** @description Bech32 encoded DRep address */
@@ -7258,8 +7257,6 @@ export interface components {
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;
-            /** @description Deposit in Lovelaces paid at the most recent DRep registration. `null` when the DRep is not currently registered. */
-            deposit: string | null;
         };
         /** @example [
          *       {
@@ -9029,11 +9026,6 @@ export interface components {
              * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
              */
             drep_id: string | null;
-            /**
-             * @description Deposit in Lovelaces paid at the most recent stake key registration. `null` when the account is not currently registered.
-             * @example 2000000
-             */
-            deposit: string | null;
         };
         /** @example [
          *       {

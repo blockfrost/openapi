@@ -9030,7 +9030,7 @@ export interface components {
              */
             drep_id: string | null;
             /**
-             * @description Deposit in Lovelaces paid at the most recent stake key registration. `null` when the account is not currently registered. Falls back to the `key_deposit` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the `deposit` column.
+             * @description Deposit in Lovelaces paid at the most recent stake key registration. `null` when the account is not currently registered.
              * @example 2000000
              */
             deposit: string | null;
@@ -9174,7 +9174,7 @@ export interface components {
              * @enum {string}
              */
             action: "registered" | "deregistered";
-            /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows (the refund equals the deposit paid at the corresponding registration). Falls back to the `key_deposit` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the `deposit` column. */
+            /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows (the refund equals the deposit paid at the corresponding registration). */
             deposit: string | null;
             /** @description Slot of the transaction containing the (de)registration certificate */
             tx_slot: number;

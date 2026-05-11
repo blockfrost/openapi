@@ -162,7 +162,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
             "type": "string",
           },
           "deposit": {
-            "description": "Deposit in Lovelaces paid at the most recent stake key registration. \`null\` when the account is not currently registered. Falls back to the \`key_deposit\` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the \`deposit\` column.",
+            "description": "Deposit in Lovelaces paid at the most recent stake key registration. \`null\` when the account is not currently registered.",
             "example": "2000000",
             "nullable": true,
             "type": "string",
@@ -1729,7 +1729,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
               "type": "integer",
             },
             "deposit": {
-              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` rows (the refund equals the deposit paid at the corresponding registration). Falls back to the \`key_deposit\` protocol parameter at the registration's epoch when the underlying db-sync row predates the addition of the \`deposit\` column.",
+              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` rows (the refund equals the deposit paid at the corresponding registration).",
               "nullable": true,
               "type": "string",
             },

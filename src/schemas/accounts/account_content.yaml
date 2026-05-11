@@ -57,9 +57,7 @@ properties:
     example: "2000000"
     description: >-
       Deposit in Lovelaces paid at the most recent stake key registration.
-      `null` when the account is not currently registered. Falls back to the
-      `key_deposit` protocol parameter at the registration's epoch when the
-      underlying db-sync row predates the addition of the `deposit` column.
+      `null` when the account is not currently registered.
 
 required:
   - stake_address

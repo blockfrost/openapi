@@ -15,9 +15,7 @@ items:
       description: >-
         Deposit in Lovelaces paid at this registration. `null` on
         `deregistered` rows (the refund equals the deposit paid at the
-        corresponding registration). Falls back to the `key_deposit` protocol
-        parameter at the registration's epoch when the underlying db-sync row
-        predates the addition of the `deposit` column.
+        corresponding registration).
     tx_slot:
       type: integer
       description: Slot of the transaction containing the (de)registration certificate

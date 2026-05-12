@@ -1722,7 +1722,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
               "type": "integer",
             },
             "deposit": {
-              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` rows (the refund equals the deposit paid at the corresponding registration).",
+              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` rows.",
               "nullable": true,
               "type": "string",
             },

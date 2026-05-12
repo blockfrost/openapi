@@ -9166,7 +9166,7 @@ export interface components {
              * @enum {string}
              */
             action: "registered" | "deregistered";
-            /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows (the refund equals the deposit paid at the corresponding registration). */
+            /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows. */
             deposit: string | null;
             /** @description Slot of the transaction containing the (de)registration certificate */
             tx_slot: number;

@@ -12,10 +12,7 @@ items:
     deposit:
       type: string
       nullable: true
-      description: >-
-        Deposit in Lovelaces paid at this registration. `null` on
-        `deregistered` rows (the refund equals the deposit paid at the
-        corresponding registration).
+      description: Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows.
     tx_slot:
       type: integer
       description: Slot of the transaction containing the (de)registration certificate

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 0.1.88-beta.0
+  version: 0.1.88
   title: Blockfrost.io ~ API Documentation
   x-logo:
     url: https://staging.blockfrost.io/images/logo.svg
@@ -9172,7 +9172,7 @@ components:
           deposit:
             type: string
             nullable: true
-            description: Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows (the refund equals the deposit paid at the corresponding registration).
+            description: Deposit in Lovelaces paid at this registration. `null` on `deregistered` rows.
           tx_slot:
             type: integer
             description: Slot of the transaction containing the (de)registration certificate

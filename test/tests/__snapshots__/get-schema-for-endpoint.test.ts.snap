@@ -1690,6 +1690,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
             "action": "registered",
             "block_height": 6745358,
             "block_time": 1646437200,
+            "deposit": "2000000",
             "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
             "tx_slot": 45093580,
           },
@@ -1697,6 +1698,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
             "action": "deregistered",
             "block_height": 7126896,
             "block_time": 1649033600,
+            "deposit": null,
             "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0",
             "tx_slot": 48093580,
           },
@@ -1719,6 +1721,11 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
               "description": "Block creation time in UNIX time of the transaction containing the (de)registration certificate",
               "type": "integer",
             },
+            "deposit": {
+              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` rows.",
+              "nullable": true,
+              "type": "string",
+            },
             "tx_hash": {
               "description": "Hash of the transaction containing the (de)registration certificate",
               "type": "string",
@@ -1731,6 +1738,7 @@ exports[`getSchemaForEndpoint > generateSchemas 1`] = `
           "required": [
             "tx_hash",
             "action",
+            "deposit",
             "tx_slot",
             "block_time",
             "block_height",
@@ -12420,11 +12428,13 @@ under which it is valid
           {
             "action": "registered",
             "cert_index": 0,
+            "deposit": "500000000",
             "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
           },
           {
             "action": "deregistered",
             "cert_index": 0,
+            "deposit": null,
             "tx_hash": "dd3243af975be4b5bedce4e5f5b483b2386d5ad207d05e0289c1df0eb261447e",
           },
         ],
@@ -12443,6 +12453,11 @@ under which it is valid
               "description": "Index of the certificate within the update transaction.",
               "type": "integer",
             },
+            "deposit": {
+              "description": "Deposit in Lovelaces paid at this registration. \`null\` on \`deregistered\` and \`updated\` rows.",
+              "nullable": true,
+              "type": "string",
+            },
             "tx_hash": {
               "description": "Transaction ID",
               "type": "string",
@@ -12452,6 +12467,7 @@ under which it is valid
             "tx_hash",
             "cert_index",
             "action",
+            "deposit",
           ],
           "type": "object",
         },

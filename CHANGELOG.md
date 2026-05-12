@@ -9,6 +9,13 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.88] - 2026-05-11
+
+### Added
+
+- New `deposit` field in `/accounts/:stake_address/registrations` response
+- New `deposit` field in `/governance/dreps/:drep_id/updates` response
+
 ### Deprecated
 
 - `cost_models` field in `/epochs/:number/parameters` response. Use `cost_models_raw` instead.

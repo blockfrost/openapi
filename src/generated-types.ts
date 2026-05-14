@@ -808,6 +808,167 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/governance/committee": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Constitutional committee
+         * @description Information about the currently active constitutional committee
+         *
+         *     When `is_dissolved` is `true`, the committee has been removed by an enacted `NoConfidence` governance action; `quorum` and `members` still describe the last seated committee for historical reference.
+         *
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the active constitutional committee */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["committee"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/governance/committee/votes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Constitutional committee votes
+         * @description History of all votes cast by constitutional committee members across all committees (current and past). Not scoped to the currently active committee.
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return constitutional committee votes */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["committee_votes"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/governance/committee/{cc_id}/votes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Constitutional committee member votes
+         * @description Votes cast under a given constitutional committee credential. Accepts both the CIP-129 hot bech32 (`cc_hot1...`) and the cold bech32 (`cc_cold1...`).
+         *     When queried by a cold credential, this returns votes cast by any hot key that the cold key has authorized over time (so the result aggregates across hot-key rotations).
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path: {
+                    /**
+                     * @description CIP-129 bech32 committee credential (`cc_hot1...` or `cc_cold1...`).
+                     * @example cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0
+                     */
+                    cc_id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return votes for the given committee credential */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["committee_votes"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/governance/dreps": {
         parameters: {
             query?: never;
@@ -7205,6 +7366,130 @@ export interface components {
              */
             security_param: number;
         };
+        /** @example {
+         *       "proposal_tx_hash": null,
+         *       "proposal_index": null,
+         *       "gov_action_id": null,
+         *       "is_dissolved": false,
+         *       "quorum": {
+         *         "numerator": 2,
+         *         "denominator": 3
+         *       },
+         *       "members": [
+         *         {
+         *           "cc_cold_id": "cc_cold1zgkfeeu07qq9smfqfn0nrf2cqgr5x6jpu8x6lxgxay85t6cmt54xz",
+         *           "cc_cold_hex": "12c9ce78ff8005436901336f8d2ac0411a1b520f0e6d7e6066907a2f",
+         *           "cc_cold_has_script": false,
+         *           "cc_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+         *           "cc_hot_hex": "0269808bbf8fb495a3b8e290a5f626362236c1abf853eddf08d79a930",
+         *           "cc_hot_has_script": false,
+         *           "status": "authorized",
+         *           "expiration_epoch": 580
+         *         },
+         *         {
+         *           "cc_cold_id": "cc_cold1zgxxx2trz0vyl5ksetnsrct5n5gznn3jmkj6dlpu4lz6lecz5h",
+         *           "cc_cold_hex": "8cc6529626c4c9fa5a195ce03c2e93a204e7193b76967e8794fc59d6",
+         *           "cc_cold_has_script": false,
+         *           "cc_hot_id": null,
+         *           "cc_hot_hex": null,
+         *           "cc_hot_has_script": null,
+         *           "status": "not_authorized",
+         *           "expiration_epoch": 580
+         *         }
+         *       ]
+         *     } */
+        committee: {
+            /** @description CIP-129 Governance Action Identifier of the `NewCommittee` action that seated this committee. `null` for the Conway-genesis committee. */
+            gov_action_id: string | null;
+            /** @description Hash of the transaction containing the `NewCommittee` action that seated this committee. `null` for the Conway-genesis committee. */
+            proposal_tx_hash: string | null;
+            /** @description Index of the proposal within its transaction. `null` for the Conway-genesis committee. */
+            proposal_index: number | null;
+            /** @description True iff an enacted `NoConfidence` governance action has dissolved this committee. */
+            is_dissolved: boolean;
+            /** @description Voting threshold of the committee. */
+            quorum: {
+                numerator: number;
+                denominator: number;
+            };
+            /** @description Members of the committee. */
+            members: {
+                /** @description CIP-129 bech32 encoded cold credential (`cc_cold1...`). */
+                cc_cold_id: string;
+                /** @description Hex of the raw 28-byte cold key/script hash. */
+                cc_cold_hex: string;
+                cc_cold_has_script: boolean;
+                /** @description CIP-129 bech32 encoded current hot credential (`cc_hot1...`). `null` unless `status` is `authorized`. */
+                cc_hot_id: string | null;
+                cc_hot_hex: string | null;
+                cc_hot_has_script: boolean | null;
+                /**
+                 * @description `authorized` — member has a currently active hot key. `not_authorized` — member has never authorized a hot key. `resigned` — member's most recent on-chain event is a resignation certificate.
+                 * @enum {string}
+                 */
+                status: "authorized" | "not_authorized" | "resigned";
+                /** @description Epoch at which this member's term expires. */
+                expiration_epoch: number;
+            }[];
+        };
+        /** @example [
+         *       {
+         *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
+         *         "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+         *         "proposal_id": "gov_action1k2jertppnnndejjcglszfqq4yzw8evzrd2nt66rr6rqlz54xp0zsq05ecsn",
+         *         "proposal_tx_hash": "b2a591ac219ce6dcca5847e0248015209c7cb0436aa6bd6863d0c1f152a60bc5",
+         *         "proposal_index": 0,
+         *         "governance_type": "parameter_change",
+         *         "vote": "yes",
+         *         "metadata_url": "https://my.cc-member/rationale.jsonld",
+         *         "metadata_hash": "a4b7d5d34f5d8c5b71a0a5c34b7e7f8a3d2e1c0b9a8f7e6d5c4b3a2918f7e6d5",
+         *         "block_height": 11045358,
+         *         "block_time": 1746037200
+         *       },
+         *       {
+         *         "tx_hash": "8a91b32ec2a7bdfde2ab7a1bc5e4d3a2f1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6",
+         *         "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
+         *         "proposal_id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
+         *         "proposal_tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
+         *         "proposal_index": 1,
+         *         "governance_type": "new_constitution",
+         *         "vote": "abstain",
+         *         "metadata_url": null,
+         *         "metadata_hash": null,
+         *         "block_height": 11045890,
+         *         "block_time": 1746070800
+         *       }
+         *     ] */
+        committee_votes: {
+            /** @description Hash of the vote transaction. */
+            tx_hash: string;
+            /** @description CIP-129 bech32 encoded hot credential of the committee member that cast this vote (`cc_hot1...`). */
+            voter_hot_id: string;
+            /** @description CIP-129 Governance Action Identifier of the proposal being voted on. */
+            proposal_id: string;
+            /** @description Hash of the proposal transaction. */
+            proposal_tx_hash: string;
+            /** @description Index of the proposal within its transaction. */
+            proposal_index: number;
+            /**
+             * @description Type of the governance action being voted on.
+             * @enum {string}
+             */
+            governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
+            /**
+             * @description The Vote. Can be one of yes, no, abstain.
+             * @enum {string}
+             */
+            vote: "yes" | "no" | "abstain";
+            /** @description Voting anchor URL — pointer to the off-chain rationale published by the voter. */
+            metadata_url: string | null;
+            /** @description Hex hash of the off-chain anchor document. */
+            metadata_hash: string | null;
+            /** @description Block height of the vote transaction. */
+            block_height: number;
+            /** @description Block creation time in UNIX time of the vote transaction. */
+            block_time: number;
+        }[];
         /** @example [
          *       {
          *         "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",

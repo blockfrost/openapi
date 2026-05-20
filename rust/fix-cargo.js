@@ -22,6 +22,14 @@ if (config.packageName) {
   );
 }
 
+// Drop deps that the apis/ module pulled in. The crate is models-only now.
+cargo = cargo.replace(/^url = .*\n/m, "");
+cargo = cargo.replace(/^reqwest = .*\n/m, "");
+cargo = cargo.replace(/^serde_repr = .*\n/m, "");
+// Strip the [features] section (all features are reqwest TLS toggles).
+cargo = cargo.replace(/\n\[features\][\s\S]*?(?=\n\[|\n*$)/, "\n");
+cargo = cargo.replace(/\n{3,}$/, "\n");
+
 fs.writeFileSync(cargoPath, cargo);
 
 const stripLeadingBlankLines = dir => {
@@ -49,7 +57,11 @@ if (fs.existsSync(apisDir)) {
 const libPath = path.join(__dirname, "src", "lib.rs");
 if (fs.existsSync(libPath)) {
   const lib = fs.readFileSync(libPath, "utf-8");
-  const patched = lib.replace(/^pub mod apis;\n?/m, "");
+  let patched = lib;
+  patched = patched.replace(/^pub mod apis;\n?/m, "");
+  patched = patched.replace(/^extern crate url;\n?/m, "");
+  patched = patched.replace(/^extern crate reqwest;\n?/m, "");
+  patched = patched.replace(/^extern crate serde_repr;\n?/m, "");
   if (patched !== lib) {
     fs.writeFileSync(libPath, patched);
   }

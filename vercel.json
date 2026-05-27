@@ -4,6 +4,21 @@
       "source": "/midnight",
       "destination": "/midnight/",
       "permanent": true
+    },
+    {
+      "source": "/dashboard-api",
+      "destination": "/dashboard-api/",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/dashboard-api/",
+      "destination": "https://blockfrost-dashboard-api-docs.vercel.app/"
+    },
+    {
+      "source": "/dashboard-api/:path*",
+      "destination": "https://blockfrost-dashboard-api-docs.vercel.app/:path*"
     }
   ]
 }

@@ -56,6 +56,16 @@ Feel free to open PR against the `master` branch. It is a great place to start a
 
 When you push a new commit, the documentation for your branch is automatically generated on Vercel and added to your PR as a deployment.
 
+### Dashboard API docs
+
+The Blockfrost **Dashboard API** documentation at
+[`docs.blockfrost.io/dashboard-api/`](https://docs.blockfrost.io/dashboard-api/)
+is **not** built from this repo. Its OpenAPI spec and Scalar build live
+separately and deploy as their own Vercel project. This repo only owns the
+`docs.blockfrost.io` host and reverse-proxies `/dashboard-api/*` to that
+project via a `rewrites` rule in [`vercel.json`](vercel.json) — each service's
+spec and build pipeline stays in its own repo.
+
 ## Usage
 
 You can download [`openapi.yaml`](openapi.yaml) directly from the repository or use this project as a dependency in your JavaScript/TypeScript project.

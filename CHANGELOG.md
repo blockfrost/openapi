@@ -9,6 +9,16 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.89] - 2026-06-04
+
+### Added
+
+- New fields in `/governance/dreps` response items: `amount`, `has_script`, `retired`, `expired`, `last_active_epoch`, and embedded `metadata` (matching the shape of `/governance/dreps/:drep_id/metadata`)
+- New query parameters for `/governance/dreps`:
+  - `order_by=amount` — sort by voting power (combines with `order=asc|desc`)
+  - `retired=true|false` — filter by registration state
+  - `expired=true|false` — filter by activity state
+
 ## [0.1.88] - 2026-05-11
 
 ### Added

@@ -13,33 +13,33 @@ items:
       description: The total amount of voting power this DRep is delegated.
     has_script:
       type: boolean
-      description: Flag which shows if this DRep credentials are a script hash
+      description: Flag indicating whether this DRep's credential is a script hash
     retired:
       type: boolean
       description: Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`.
     expired:
       type: boolean
-      description: Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)
+      description: Whether the DRep has been inactive for a consecutive number of epochs (determined by an epoch parameter `drep_activity`)
     last_active_epoch:
       type: integer
       nullable: true
       description: Epoch of the most recent action - registration, update, deregistration or voting
     metadata:
       type: object
+      nullable: true
       description: |
         Off-chain metadata associated with the DRep's latest registration.
-        Fields are `null` when the DRep has no registration anchor (e.g. special DReps such as
-        `drep_always_abstain` / `drep_always_no_confidence`). When an anchor exists but the
-        off-chain content could not be fetched or validated, `error` is populated.
+        `null` when the DRep has no registration anchor (e.g. special DReps such as
+        `drep_always_abstain` / `drep_always_no_confidence`). When an anchor exists but
+        the off-chain content could not be fetched or validated, `error` is populated and
+        `json_metadata` / `bytes` are `null`.
       properties:
         url:
           type: string
-          nullable: true
           example: "https://stakenuts.com/drep.json"
           description: URL to the drep metadata
         hash:
           type: string
-          nullable: true
           example: "69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c"
           description: Hash of the metadata file
         json_metadata:
@@ -127,8 +127,4 @@ example:
     retired: true
     expired: false
     last_active_epoch: 480
-    metadata:
-      url: null
-      hash: null
-      json_metadata: null
-      bytes: null
+    metadata: null

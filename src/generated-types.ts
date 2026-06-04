@@ -7539,12 +7539,7 @@ export interface components {
          *         "retired": true,
          *         "expired": false,
          *         "last_active_epoch": 480,
-         *         "metadata": {
-         *           "url": null,
-         *           "hash": null,
-         *           "json_metadata": null,
-         *           "bytes": null
-         *         }
+         *         "metadata": null
          *       }
          *     ] */
         dreps: {
@@ -7554,30 +7549,31 @@ export interface components {
             hex: string;
             /** @description The total amount of voting power this DRep is delegated. */
             amount: string;
-            /** @description Flag which shows if this DRep credentials are a script hash */
+            /** @description Flag indicating whether this DRep's credential is a script hash */
             has_script: boolean;
             /** @description Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`. */
             retired: boolean;
-            /** @description Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
+            /** @description Whether the DRep has been inactive for a consecutive number of epochs (determined by an epoch parameter `drep_activity`) */
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;
             /** @description Off-chain metadata associated with the DRep's latest registration.
-             *     Fields are `null` when the DRep has no registration anchor (e.g. special DReps such as
-             *     `drep_always_abstain` / `drep_always_no_confidence`). When an anchor exists but the
-             *     off-chain content could not be fetched or validated, `error` is populated.
+             *     `null` when the DRep has no registration anchor (e.g. special DReps such as
+             *     `drep_always_abstain` / `drep_always_no_confidence`). When an anchor exists but
+             *     the off-chain content could not be fetched or validated, `error` is populated and
+             *     `json_metadata` / `bytes` are `null`.
              *      */
             metadata: {
                 /**
                  * @description URL to the drep metadata
                  * @example https://stakenuts.com/drep.json
                  */
-                url: string | null;
+                url: string;
                 /**
                  * @description Hash of the metadata file
                  * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
                  */
-                hash: string | null;
+                hash: string;
                 /** @description Content of the JSON metadata (validated CIP-119) */
                 json_metadata: string | {
                     [key: string]: unknown;
@@ -7594,7 +7590,7 @@ export interface components {
                     /** @description Human-readable description of the error. */
                     message: string;
                 };
-            };
+            } | null;
         }[];
         /** @example {
          *       "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
@@ -7624,11 +7620,11 @@ export interface components {
              * @description Epoch of the most recent registration
              */
             active_epoch: number | null;
-            /** @description Flag which shows if this DRep credentials are a script hash */
+            /** @description Flag indicating whether this DRep's credential is a script hash */
             has_script: boolean;
             /** @description Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`. */
             retired: boolean;
-            /** @description Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
+            /** @description Whether the DRep has been inactive for a consecutive number of epochs (determined by an epoch parameter `drep_activity`) */
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;

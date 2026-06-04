@@ -987,11 +987,24 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
-                     *     not the page listing itself. By default, we return oldest first, newest last.
-                     *     Ordering in this case is based on the time of the first mint transaction.
+                    /** @description The ordering of items. Direction applied to whichever sort key is selected by `order_by`.
+                     *     By default, when sorting by registration order, we return oldest first, newest last.
                      *      */
                     order?: "asc" | "desc";
+                    /** @description Optional sort key. When omitted, DReps are ordered by their internal registration order
+                     *     (the current default). Set to `amount` to sort by voting power.
+                     *      */
+                    order_by?: "amount";
+                    /** @description Optional filter. When `true`, only returns DReps that have been deregistered.
+                     *     When `false`, only returns DReps that are currently registered.
+                     *     When omitted, both are returned.
+                     *      */
+                    retired?: boolean;
+                    /** @description Optional filter. When `true`, only returns DReps that have been inactive for longer than
+                     *     the `drep_activity` protocol parameter. When `false`, only returns DReps that are not
+                     *     expired. When omitted, both are returned.
+                     *      */
+                    expired?: boolean;
                 };
                 header?: never;
                 path?: never;
@@ -7493,11 +7506,45 @@ export interface components {
         /** @example [
          *       {
          *         "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
-         *         "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23"
+         *         "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23",
+         *         "amount": "2000000",
+         *         "has_script": false,
+         *         "retired": false,
+         *         "expired": false,
+         *         "last_active_epoch": 509,
+         *         "metadata": {
+         *           "url": "https://aaa.xyz/drep.json",
+         *           "hash": "a14a5ad4f36bddc00f92ddb39fd9ac633c0fd43f8bfa57758f9163d10ef916de",
+         *           "json_metadata": {
+         *             "@context": {
+         *               "CIP100": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/README.md#",
+         *               "CIP119": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0119/README.md#"
+         *             },
+         *             "hashAlgorithm": "blake2b-256",
+         *             "body": {
+         *               "givenName": "Ryan Williams",
+         *               "objectives": "Buy myself an island.",
+         *               "motivations": "I really would like to own an island.",
+         *               "qualifications": "I have my 100m swimming badge."
+         *             }
+         *           },
+         *           "bytes": "\\x7b0a20202240636f6e74657874223a..."
+         *         }
          *       },
          *       {
          *         "drep_id": "drep1cxayn4fgy27yaucvhamsvqj3v6835mh3tjjx6x8hdnr4",
-         *         "hex": "c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758"
+         *         "hex": "c1ba49d52822bc4ef30cbf77060251668f1a6ef15ca46d18f76cc758",
+         *         "amount": "0",
+         *         "has_script": false,
+         *         "retired": true,
+         *         "expired": false,
+         *         "last_active_epoch": 480,
+         *         "metadata": {
+         *           "url": null,
+         *           "hash": null,
+         *           "json_metadata": null,
+         *           "bytes": null
+         *         }
          *       }
          *     ] */
         dreps: {
@@ -7505,6 +7552,49 @@ export interface components {
             drep_id: string;
             /** @description The raw bytes of the DRep */
             hex: string;
+            /** @description The total amount of voting power this DRep is delegated. */
+            amount: string;
+            /** @description Flag which shows if this DRep credentials are a script hash */
+            has_script: boolean;
+            /** @description Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`. */
+            retired: boolean;
+            /** @description Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`) */
+            expired: boolean;
+            /** @description Epoch of the most recent action - registration, update, deregistration or voting */
+            last_active_epoch: number | null;
+            /** @description Off-chain metadata associated with the DRep's latest registration.
+             *     Fields are `null` when the DRep has no registration anchor (e.g. special DReps such as
+             *     `drep_always_abstain` / `drep_always_no_confidence`). When an anchor exists but the
+             *     off-chain content could not be fetched or validated, `error` is populated.
+             *      */
+            metadata: {
+                /**
+                 * @description URL to the drep metadata
+                 * @example https://stakenuts.com/drep.json
+                 */
+                url: string | null;
+                /**
+                 * @description Hash of the metadata file
+                 * @example 69c0c68cb57f4a5b4a87bad896fc274678e7aea98e200fa14a1cb40c0cab1d8c
+                 */
+                hash: string | null;
+                /** @description Content of the JSON metadata (validated CIP-119) */
+                json_metadata: string | {
+                    [key: string]: unknown;
+                } | unknown[] | number | boolean | null;
+                /** @description Content of the metadata (raw) */
+                bytes: string | null;
+                /** @description Present when metadata could not be fetched or validated. */
+                error?: {
+                    /**
+                     * @description Stable machine-readable error code.
+                     * @enum {string}
+                     */
+                    code: "HASH_MISMATCH" | "CONNECTION_ERROR" | "HTTP_RESPONSE_ERROR" | "DECODE_ERROR" | "SIZE_EXCEEDED" | "UNKNOWN_ERROR";
+                    /** @description Human-readable description of the error. */
+                    message: string;
+                };
+            };
         }[];
         /** @example {
          *       "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",

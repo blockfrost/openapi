@@ -6057,6 +6057,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/scripts/{script_hash}/utxos": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * UTXOs holding the script as a reference script
+         * @description List of UTXOs that hold the given script as a reference script (CIP-33).
+         *     These outputs can be used as reference inputs (CIP-31) in a transaction to
+         *     execute the script without including its full bytes. A single script may be
+         *     held by multiple UTXOs, potentially at different addresses.
+         *
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description The number of results displayed on one page. */
+                    count?: number;
+                    /** @description The page number for listing the results. */
+                    page?: number;
+                    /** @description The ordering of items from the point of view of the blockchain,
+                     *     not the page listing itself. By default, we return oldest first, newest last.
+                     *      */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path: {
+                    /**
+                     * @description Hash of the script
+                     * @example e1457a0c47dfb7a2f6b8fbb059bdceab163c05d34f195b87b9f2b30e
+                     */
+                    script_hash: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Return the UTXOs holding the script as a reference script */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["script_utxos"];
+                    };
+                };
+                400: components["responses"]["400"];
+                403: components["responses"]["403"];
+                404: components["responses"]["404"];
+                418: components["responses"]["418"];
+                429: components["responses"]["429"];
+                500: components["responses"]["500"];
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/scripts/datum/{datum_hash}": {
         parameters: {
             query?: never;
@@ -11274,6 +11338,57 @@ export interface components {
              * @example 172033
              */
             fee: string;
+        }[];
+        /** @example [
+         *       {
+         *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
+         *         "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
+         *         "output_index": 0,
+         *         "amount": [
+         *           {
+         *             "unit": "lovelace",
+         *             "quantity": "42000000"
+         *           }
+         *         ],
+         *         "block": "7eb8e27d18686c7db9a18f8bbcfe34e3fed6e047afaa2d969904d15e934847e6",
+         *         "data_hash": null,
+         *         "inline_datum": null,
+         *         "reference_script_hash": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
+         *       }
+         *     ] */
+        script_utxos: {
+            /**
+             * @description Bech32 encoded address of the UTXO holding the reference script
+             * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
+             */
+            address: string;
+            /** @description Transaction hash of the UTXO */
+            tx_hash: string;
+            /** @description UTXO index in the transaction */
+            output_index: number;
+            amount: {
+                /**
+                 * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
+                 * @description The unit of the value
+                 */
+                unit: string;
+                /** @description The quantity of the unit */
+                quantity: string;
+            }[];
+            /** @description Block hash of the UTXO */
+            block: string;
+            /** @description The hash of the transaction output datum */
+            data_hash: string | null;
+            /**
+             * @description CBOR encoded inline datum
+             * @example 19a6aa
+             */
+            inline_datum: string | null;
+            /**
+             * @description The hash of the reference script of the output. Equals the queried script hash.
+             * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
+             */
+            reference_script_hash: string | null;
         }[];
         /** @example {
          *       "json_value": {

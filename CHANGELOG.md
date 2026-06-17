@@ -9,6 +9,12 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.90] - 2026-06-23
+
+### Added
+
+- New `/scripts/{script_hash}/utxos` endpoint — paged list of UTXOs holding the given script as a reference script (CIP-33), usable as reference inputs (CIP-31).
+
 ## [0.1.89] - 2026-06-08
 
 ### Added

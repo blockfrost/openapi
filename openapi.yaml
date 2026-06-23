@@ -12450,7 +12450,6 @@ components:
             example: 19a6aa
           reference_script_hash:
             type: string
-            nullable: true
             description: >-
               The hash of the reference script of the output. Equals the queried
               script hash.

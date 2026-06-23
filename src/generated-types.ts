@@ -11388,7 +11388,7 @@ export interface components {
              * @description The hash of the reference script of the output. Equals the queried script hash.
              * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
              */
-            reference_script_hash: string | null;
+            reference_script_hash: string;
         }[];
         /** @example {
          *       "json_value": {

@@ -18,13 +18,13 @@ pub struct Drep {
     /// Epoch of the most recent registration
     #[serde(rename = "active_epoch", deserialize_with = "Option::deserialize")]
     pub active_epoch: Option<i32>,
-    /// Flag which shows if this DRep credentials are a script hash
+    /// Flag indicating whether this DRep's credential is a script hash
     #[serde(rename = "has_script")]
     pub has_script: bool,
     /// Registration state of the DRep. Set to `true` if the DRep has been deregistered; otherwise, `false`.
     #[serde(rename = "retired")]
     pub retired: bool,
-    /// Whether the DRep has been inactive for a consecutive number of epochs (determined by a epoch parameter `drep_activity`)
+    /// Whether the DRep has been inactive for a consecutive number of epochs (determined by an epoch parameter `drep_activity`)
     #[serde(rename = "expired")]
     pub expired: bool,
     /// Epoch of the most recent action - registration, update, deregistration or voting

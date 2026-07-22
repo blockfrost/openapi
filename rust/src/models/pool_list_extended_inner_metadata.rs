@@ -10,7 +10,7 @@ pub struct PoolListExtendedInnerMetadata {
     #[serde(rename = "hash", deserialize_with = "Option::deserialize")]
     pub hash: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<models::DrepMetadataError>>,
+    pub error: Option<Box<models::DrepsInnerMetadataError>>,
     /// Ticker of the stake pool
     #[serde(rename = "ticker", deserialize_with = "Option::deserialize")]
     pub ticker: Option<String>,

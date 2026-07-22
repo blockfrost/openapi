@@ -1,9 +1,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// DrepMetadataError : Present when metadata could not be fetched or validated.
+/// DrepsInnerMetadataError : Present when metadata could not be fetched or validated.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct DrepMetadataError {
+pub struct DrepsInnerMetadataError {
     /// Stable machine-readable error code.
     #[serde(rename = "code")]
     pub code: Code,
@@ -12,10 +12,10 @@ pub struct DrepMetadataError {
     pub message: String,
 }
 
-impl DrepMetadataError {
+impl DrepsInnerMetadataError {
     /// Present when metadata could not be fetched or validated.
-    pub fn new(code: Code, message: String) -> DrepMetadataError {
-        DrepMetadataError {
+    pub fn new(code: Code, message: String) -> DrepsInnerMetadataError {
+        DrepsInnerMetadataError {
             code,
             message,
         }

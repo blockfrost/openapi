@@ -22,7 +22,7 @@ pub struct DrepMetadata {
     #[serde(rename = "bytes", deserialize_with = "Option::deserialize")]
     pub bytes: Option<String>,
     #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
-    pub error: Option<Box<models::DrepMetadataError>>,
+    pub error: Option<Box<models::DrepsInnerMetadataError>>,
 }
 
 impl DrepMetadata {

@@ -5632,6 +5632,20 @@ export interface paths {
                      *     not the page listing itself. By default, we return oldest first, newest last.
                      *      */
                     order?: "asc" | "desc";
+                    /**
+                     * @description The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
+                     *     Has to be lower than or equal to `to` parameter.
+                     *
+                     * @example 8929261
+                     */
+                    from?: string;
+                    /**
+                     * @description The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
+                     *     Has to be higher than or equal to `from` parameter.
+                     *
+                     * @example 9999269:10
+                     */
+                    to?: string;
                 };
                 header?: never;
                 path: {

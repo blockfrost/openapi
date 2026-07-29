@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- New `/assets/{asset}/utxos` endpoint returning unspent UTxOs containing a specified native asset
+
 ## [0.1.91] - 2026-07-29
 
 ### Added

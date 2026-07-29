@@ -19,6 +19,7 @@
     "build:midnight-docs": "yarn spectaql ./spectaql.yaml && cp ./midnight-indexer-api.graphql ./docs/midnight/midnight-indexer-api.graphql",
     "generate-types": "yarn openapi-typescript ./openapi.yaml --output ./src/generated-types.ts",
     "generate-types:rust": "rimraf ./rust/src/models && openapi-generator-cli generate -i openapi.yaml -g rust -o ./rust -c rust/openapi-generator.json -t rust/templates --global-property models,modelDocs=false,apis=false,apiDocs=false,supportingFiles && node rust/fix-cargo.js",
+    "generate-types:rust:docker": "rimraf ./rust/src/models && docker run --rm -v \"$PWD:/local\" openapitools/openapi-generator-cli:v7.20.0 generate -i /local/openapi.yaml -g rust -o /local/rust -c /local/rust/openapi-generator.json -t /local/rust/templates --global-property models,modelDocs=false,apis=false,apiDocs=false,supportingFiles && node rust/fix-cargo.js",
     "generate-json-schema": "node lib/scripts/generate-json-schema.js > json-schema.json",
     "sync-version": "ts-node ./src/scripts/sync-version.ts",
     "test": "vitest",

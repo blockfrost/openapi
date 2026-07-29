@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.91] - 2026-07-29
+
 ### Added
 
 - New query parameters for `/assets/{asset}/transactions`: `from` and `to` — block-range filtering (`block_number[:tx_index]`, inclusive), matching the existing parameters of `/addresses/{address}/transactions`

@@ -5665,6 +5665,9 @@ under which it is valid
           "minimum": 1,
           "type": "integer",
         },
+        "from": {
+          "type": "string",
+        },
         "order": {
           "default": "asc",
           "enum": [
@@ -5678,6 +5681,9 @@ under which it is valid
           "maximum": 21474836,
           "minimum": 1,
           "type": "integer",
+        },
+        "to": {
+          "type": "string",
         },
       },
       "type": "object",

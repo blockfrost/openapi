@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.1.90",
+    "version": "0.1.91",
     "title": "Blockfrost.io ~ API Documentation",
     "x-logo": {
       "url": "https://staging.blockfrost.io/images/logo.svg",
@@ -7223,6 +7223,26 @@
               "default": "asc"
             },
             "description": "The ordering of items from the point of view of the blockchain,\nnot the page listing itself. By default, we return oldest first, newest last.\n"
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.\nHas to be lower than or equal to `to` parameter.\n",
+            "example": "8929261"
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.\nHas to be higher than or equal to `from` parameter.\n",
+            "example": "9999269:10"
           }
         ],
         "responses": {

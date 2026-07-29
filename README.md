@@ -42,6 +42,30 @@ Edit the source yaml files and build the package:
 yarn build
 ```
 
+### Regenerating types
+
+TypeScript types ([`src/generated-types.ts`](src/generated-types.ts)) are regenerated as part of `yarn build`, or standalone with:
+
+```console
+yarn generate-types
+```
+
+Rust types (the [`rust/`](rust/) crate) are generated from the bundled [`openapi.yaml`](openapi.yaml), so run `yarn build` (or at least `yarn bundle`) first if you have changed the source yaml files. The generation uses [openapi-generator](https://github.com/OpenAPITools/openapi-generator), which requires a Java runtime:
+
+```console
+yarn generate-types:rust
+```
+
+If you don't have Java installed, use the Docker variant, which runs the same generator version inside a container:
+
+```console
+yarn generate-types:rust:docker
+```
+
+The generator version is pinned in [`openapitools.json`](openapitools.json) — when bumping it, update the image tag in the `generate-types:rust:docker` script to match.
+
+> Note that the Rust generation emits models only (`apis=false`), so spec changes that only touch endpoints or query parameters produce no changes in the crate.
+
 ### Midnight GraphQL docs
 
 The Midnight Indexer GraphQL API documentation is generated using [SpectaQL](https://github.com/anvilco/spectaql) from the schema file [`midnight-indexer-api.graphql`](midnight-indexer-api.graphql). The SpectaQL configuration is in [`spectaql.yaml`](spectaql.yaml) and the custom theme is in [`spectaql-theme/`](spectaql-theme/).

@@ -13,6 +13,10 @@ Unreleased changes are in the `master` branch.
 
 - New `/assets/{asset}/utxos` endpoint returning unspent UTxOs containing a specified native asset
 
+### Changed
+
+- Redeemer `purpose` enums (`/txs/{hash}/redeemers`, `/scripts/{script_hash}/redeemers`, `/mempool/{hash}`) now include the Conway governance purposes `vote` and `propose`. db-sync stores these purposes since Conway, and the API already returns them; the schema now permits what the backends emit.
+
 ## [0.1.91] - 2026-07-29
 
 ### Added

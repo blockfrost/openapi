@@ -12873,7 +12873,9 @@
                 "spend",
                 "mint",
                 "cert",
-                "reward"
+                "reward",
+                "vote",
+                "propose"
               ],
               "example": "spend",
               "description": "Validation purpose"
@@ -14009,7 +14011,9 @@
                     "spend",
                     "mint",
                     "cert",
-                    "reward"
+                    "reward",
+                    "vote",
+                    "propose"
                   ],
                   "example": "spend",
                   "description": "Validation purpose"
@@ -16074,7 +16078,9 @@
                 "spend",
                 "mint",
                 "cert",
-                "reward"
+                "reward",
+                "vote",
+                "propose"
               ],
               "example": "spend",
               "description": "Validation purpose"

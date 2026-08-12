@@ -10120,6 +10120,8 @@ components:
               - mint
               - cert
               - reward
+              - vote
+              - propose
             example: spend
             description: Validation purpose
           script_hash:
@@ -11017,6 +11019,8 @@ components:
                   - mint
                   - cert
                   - reward
+                  - vote
+                  - propose
                 example: spend
                 description: Validation purpose
               unit_mem:
@@ -12567,6 +12571,8 @@ components:
               - mint
               - cert
               - reward
+              - vote
+              - propose
             example: spend
             description: Validation purpose
           redeemer_data_hash:

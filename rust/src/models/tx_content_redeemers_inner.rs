@@ -54,6 +54,10 @@ pub enum Purpose {
     Cert,
     #[serde(rename = "reward")]
     Reward,
+    #[serde(rename = "vote")]
+    Vote,
+    #[serde(rename = "propose")]
+    Propose,
 }
 
 impl Default for Purpose {

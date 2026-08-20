@@ -70,6 +70,8 @@ pub mod asset_policy_inner;
 pub use self::asset_policy_inner::AssetPolicyInner;
 pub mod asset_transactions_inner;
 pub use self::asset_transactions_inner::AssetTransactionsInner;
+pub mod asset_utxo_content_inner;
+pub use self::asset_utxo_content_inner::AssetUtxoContentInner;
 pub mod assets_inner;
 pub use self::assets_inner::AssetsInner;
 pub mod block_content;

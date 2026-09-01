@@ -9,6 +9,8 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+## [0.1.93] - 2026-09-01
+
 ### Added
 
 - New `counted` field in `/governance/proposals/{tx_hash}/{cert_index}/votes`, indicating whether the vote counts toward the proposal's tally ([#466](https://github.com/blockfrost/openapi/issues/466))

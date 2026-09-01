@@ -15316,7 +15316,16 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
       "200": {
         "example": [
           {
+            "cert_index": 0,
+            "counted": false,
+            "tx_hash": "144a086c58a7b7324fba98be44a9c1560f78970ec777ede701d097936591aa4b",
+            "vote": "no",
+            "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+            "voter_role": "drep",
+          },
+          {
             "cert_index": 2,
+            "counted": true,
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "yes",
             "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
@@ -15324,6 +15333,7 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
           },
           {
             "cert_index": 3,
+            "counted": true,
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "abstain",
             "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
@@ -15335,6 +15345,18 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
             "cert_index": {
               "description": "Index of the certificate within the voting transaction.",
               "type": "integer",
+            },
+            "counted": {
+              "description": "Whether the vote is still counted in the ledger's current vote tally
+for this proposal, reconstructed at the current chain tip. A vote stops
+being counted when the voter later casts another vote on the same
+proposal (only the latest vote counts), or — for DRep voters — when the
+DRep deregisters after casting it (re-registering does not restore
+previously dropped votes). Constitutional committee hot credential
+re-authorizations or resignations and SPO retirements are not
+reflected in this flag.
+",
+              "type": "boolean",
             },
             "tx_hash": {
               "description": "Hash of the voting transaction.",
@@ -15369,6 +15391,7 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
             "voter_role",
             "voter",
             "vote",
+            "counted",
           ],
           "type": "object",
         },
@@ -16772,7 +16795,16 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
       "200": {
         "example": [
           {
+            "cert_index": 0,
+            "counted": false,
+            "tx_hash": "144a086c58a7b7324fba98be44a9c1560f78970ec777ede701d097936591aa4b",
+            "vote": "no",
+            "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+            "voter_role": "drep",
+          },
+          {
             "cert_index": 2,
+            "counted": true,
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "yes",
             "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
@@ -16780,6 +16812,7 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
           },
           {
             "cert_index": 3,
+            "counted": true,
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "abstain",
             "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
@@ -16791,6 +16824,18 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
             "cert_index": {
               "description": "Index of the certificate within the voting transaction.",
               "type": "integer",
+            },
+            "counted": {
+              "description": "Whether the vote is still counted in the ledger's current vote tally
+for this proposal, reconstructed at the current chain tip. A vote stops
+being counted when the voter later casts another vote on the same
+proposal (only the latest vote counts), or — for DRep voters — when the
+DRep deregisters after casting it (re-registering does not restore
+previously dropped votes). Constitutional committee hot credential
+re-authorizations or resignations and SPO retirements are not
+reflected in this flag.
+",
+              "type": "boolean",
             },
             "tx_hash": {
               "description": "Hash of the voting transaction.",
@@ -16825,6 +16870,7 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
             "voter_role",
             "voter",
             "vote",
+            "counted",
           ],
           "type": "object",
         },

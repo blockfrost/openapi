@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- New `counted` field in `/governance/proposals/{tx_hash}/{cert_index}/votes` response items — whether the vote is still counted in the ledger's current vote tally for the proposal (false for votes superseded by a later vote of the same voter and for votes of DReps that deregistered after voting) ([#466](https://github.com/blockfrost/openapi/issues/466))
+
 ## [0.1.92] - 2026-08-20
 
 ### Added

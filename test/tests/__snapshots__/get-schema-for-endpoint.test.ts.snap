@@ -15326,7 +15326,7 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
             "cert_index": 3,
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "abstain",
-            "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+            "voter": "cc_hot1q0wzkpcxzzfs4mf4yk6yx7d075vqtyx2tnxsr256he6gnwq6yfy5w",
             "voter_role": "constitutional_committee",
           },
         ],
@@ -15350,7 +15350,12 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
               "type": "string",
             },
             "voter": {
-              "description": "The actual voter.",
+              "description": "The actual voter. Bech32-encoded identifier of the voting credential:
+a CIP-129 DRep ID (\`drep1...\`) for \`drep\`, a pool ID (\`pool1...\`) for \`spo\`,
+or a CIP-129 constitutional committee hot credential (\`cc_hot1...\`) for
+\`constitutional_committee\`. The CIP-129 header byte encodes whether the
+underlying credential is a key hash or a script hash.
+",
               "type": "string",
             },
             "voter_role": {
@@ -16782,7 +16787,7 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
             "cert_index": 3,
             "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
             "vote": "abstain",
-            "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+            "voter": "cc_hot1q0wzkpcxzzfs4mf4yk6yx7d075vqtyx2tnxsr256he6gnwq6yfy5w",
             "voter_role": "constitutional_committee",
           },
         ],
@@ -16806,7 +16811,12 @@ the off-chain content could not be fetched or validated, \`error\` is populated 
               "type": "string",
             },
             "voter": {
-              "description": "The actual voter.",
+              "description": "The actual voter. Bech32-encoded identifier of the voting credential:
+a CIP-129 DRep ID (\`drep1...\`) for \`drep\`, a pool ID (\`pool1...\`) for \`spo\`,
+or a CIP-129 constitutional committee hot credential (\`cc_hot1...\`) for
+\`constitutional_committee\`. The CIP-129 header byte encodes whether the
+underlying credential is a key hash or a script hash.
+",
               "type": "string",
             },
             "voter_role": {

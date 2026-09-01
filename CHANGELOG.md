@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- New `counted` field in `/governance/proposals/{tx_hash}/{cert_index}/votes`, indicating whether the vote counts toward the proposal's tally ([#466](https://github.com/blockfrost/openapi/issues/466))
+
 ### Changed
 
 - Constitutional committee voters in `/governance/proposals/{tx_hash}/{cert_index}/votes` are now CIP-129 `cc_hot1...` ids instead of raw hex ([#465](https://github.com/blockfrost/openapi/issues/465))

@@ -8298,18 +8298,28 @@ export interface components {
         }[];
         /** @example [
          *       {
+         *         "tx_hash": "144a086c58a7b7324fba98be44a9c1560f78970ec777ede701d097936591aa4b",
+         *         "cert_index": 0,
+         *         "voter_role": "drep",
+         *         "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
+         *         "vote": "no",
+         *         "counted": false
+         *       },
+         *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 2,
          *         "voter_role": "drep",
          *         "voter": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
-         *         "vote": "yes"
+         *         "vote": "yes",
+         *         "counted": true
          *       },
          *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 3,
          *         "voter_role": "constitutional_committee",
          *         "voter": "cc_hot1q0wzkpcxzzfs4mf4yk6yx7d075vqtyx2tnxsr256he6gnwq6yfy5w",
-         *         "vote": "abstain"
+         *         "vote": "abstain",
+         *         "counted": true
          *       }
          *     ] */
         proposal_votes: {
@@ -8329,6 +8339,8 @@ export interface components {
              * @enum {string}
              */
             vote: "yes" | "no" | "abstain";
+            /** @description Whether the vote counts toward the proposal's tally. Only the voter's latest vote counts, and a DRep vote stops counting if the DRep deregisters while the proposal is still live. */
+            counted: boolean;
         }[];
         /** @example {
          *       "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",

@@ -11,7 +11,7 @@ Unreleased changes are in the `master` branch.
 
 ### Changed
 
-- `voter` field of `/governance/proposals/{tx_hash}/{cert_index}/votes` now documents Bech32 identifiers for all voter roles: constitutional committee voters are returned as CIP-129 hot credentials (`cc_hot1...`) instead of an ambiguous raw hex hash that did not distinguish key hashes from script hashes ([#465](https://github.com/blockfrost/openapi/issues/465))
+- Constitutional committee voters in `/governance/proposals/{tx_hash}/{cert_index}/votes` are now CIP-129 `cc_hot1...` ids instead of raw hex ([#465](https://github.com/blockfrost/openapi/issues/465))
 
 ## [0.1.92] - 2026-08-20
 

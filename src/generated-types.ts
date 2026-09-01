@@ -8308,7 +8308,7 @@ export interface components {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 3,
          *         "voter_role": "constitutional_committee",
-         *         "voter": "53a42debdc7ffd90085ab7fd9800b63e6d1c9ac481ba6eb7b6a844e4",
+         *         "voter": "cc_hot1q0wzkpcxzzfs4mf4yk6yx7d075vqtyx2tnxsr256he6gnwq6yfy5w",
          *         "vote": "abstain"
          *       }
          *     ] */
@@ -8322,7 +8322,7 @@ export interface components {
              * @enum {string}
              */
             voter_role: "constitutional_committee" | "drep" | "spo";
-            /** @description The actual voter. */
+            /** @description The actual voter. CIP-129 Bech32 identifier: `drep1...`, `pool1...` or `cc_hot1...`. */
             voter: string;
             /**
              * @description The Vote. Can be one of yes, no, abstain.

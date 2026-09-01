@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Changed
+
+- Constitutional committee voters in `/governance/proposals/{tx_hash}/{cert_index}/votes` are now CIP-129 `cc_hot1...` ids instead of raw hex ([#465](https://github.com/blockfrost/openapi/issues/465))
+
 ## [0.1.92] - 2026-08-20
 
 ### Added

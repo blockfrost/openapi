@@ -15,7 +15,7 @@ items:
     voter:
       type: string
       description: >-
-        The actual voter. CIP-129 Bech32 identifier — `drep1...`, `pool1...` or `cc_hot1...`.
+        The actual voter. CIP-129 Bech32 identifier: `drep1...`, `pool1...` or `cc_hot1...`.
     vote:
       type: string
       enum: [yes, no, abstain]

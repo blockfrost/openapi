@@ -8322,7 +8322,7 @@ export interface components {
              * @enum {string}
              */
             voter_role: "constitutional_committee" | "drep" | "spo";
-            /** @description The actual voter. Bech32 identifier of the voting credential — `drep1...` (CIP-129), `pool1...` or `cc_hot1...` (CIP-129), depending on the voter role. */
+            /** @description The actual voter. CIP-129 Bech32 identifier — `drep1...`, `pool1...` or `cc_hot1...`. */
             voter: string;
             /**
              * @description The Vote. Can be one of yes, no, abstain.

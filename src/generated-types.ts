@@ -8322,12 +8322,7 @@ export interface components {
              * @enum {string}
              */
             voter_role: "constitutional_committee" | "drep" | "spo";
-            /** @description The actual voter. Bech32-encoded identifier of the voting credential:
-             *     a CIP-129 DRep ID (`drep1...`) for `drep`, a pool ID (`pool1...`) for `spo`,
-             *     or a CIP-129 constitutional committee hot credential (`cc_hot1...`) for
-             *     `constitutional_committee`. The CIP-129 header byte encodes whether the
-             *     underlying credential is a key hash or a script hash.
-             *      */
+            /** @description The actual voter. Bech32 identifier of the voting credential — `drep1...` (CIP-129), `pool1...` or `cc_hot1...` (CIP-129), depending on the voter role. */
             voter: string;
             /**
              * @description The Vote. Can be one of yes, no, abstain.

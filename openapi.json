@@ -11157,7 +11157,7 @@
             },
             "voter": {
               "type": "string",
-              "description": "The actual voter. Bech32-encoded identifier of the voting credential:\na CIP-129 DRep ID (`drep1...`) for `drep`, a pool ID (`pool1...`) for `spo`,\nor a CIP-129 constitutional committee hot credential (`cc_hot1...`) for\n`constitutional_committee`. The CIP-129 header byte encodes whether the\nunderlying credential is a key hash or a script hash.\n"
+              "description": "The actual voter. Bech32 identifier of the voting credential — `drep1...` (CIP-129), `pool1...` or `cc_hot1...` (CIP-129), depending on the voter role."
             },
             "vote": {
               "type": "string",

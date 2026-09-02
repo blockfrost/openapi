@@ -12,22 +12,26 @@ pub struct ProposalVotesInner {
     /// The role of the voter. Can be one of constitutional_committee, drep, spo.
     #[serde(rename = "voter_role")]
     pub voter_role: VoterRole,
-    /// The actual voter.
+    /// The actual voter. CIP-129 Bech32 identifier: `drep1...`, `pool1...` or `cc_hot1...`.
     #[serde(rename = "voter")]
     pub voter: String,
     /// The Vote. Can be one of yes, no, abstain.
     #[serde(rename = "vote")]
     pub vote: Vote,
+    /// Whether the vote counts toward the proposal's tally. Only the voter's latest vote counts, and a DRep vote stops counting if the DRep deregisters while the proposal is still live.
+    #[serde(rename = "counted")]
+    pub counted: bool,
 }
 
 impl ProposalVotesInner {
-    pub fn new(tx_hash: String, cert_index: i32, voter_role: VoterRole, voter: String, vote: Vote) -> ProposalVotesInner {
+    pub fn new(tx_hash: String, cert_index: i32, voter_role: VoterRole, voter: String, vote: Vote, counted: bool) -> ProposalVotesInner {
         ProposalVotesInner {
             tx_hash,
             cert_index,
             voter_role,
             voter,
             vote,
+            counted,
         }
     }
 }

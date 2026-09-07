@@ -164,17 +164,25 @@ export const getOnchainMetadata = (
         onchainMetadataResult = foundMetadata;
         isFound = true;
       } else {
-        // Fallback
-        // Due to previously missing and then incorrect implementation, metadata submitted as v2
-        // (i.e. "version" field encoded in CBOR was set to 2) with mistakenly text-encoded
-        // policies/asset names (which is CIP25v1 method of encoding) instead of correct CIP25v2
-        // byte-encoded keys passed as valid. (Note that the version number is a user input
-        // independent of the actual metadata content).
-        // To prevent breaking change, in case we don't find metadata for an asset under
-        // correct byte-encoded key, we fallback to CIP25v1 text-encoded format.
-        onchainMetadataResult =
-          internalOnchainMetadata[policyId][assetNameVersion1] || null;
-        isFound = false;
+        const foundHexStringMetadata = foundAssetInCbor
+          ? internalOnchainMetadata[policyId][assetNameBase] 
+          : null;
+        if (foundHexStringMetadata) {
+          onchainMetadataResult = foundHexStringMetadata;
+          isFound = true;
+        }else{
+            // Fallback
+            // Due to previously missing and then incorrect implementation, metadata submitted as v2
+            // (i.e. "version" field encoded in CBOR was set to 2) with mistakenly text-encoded
+            // policies/asset names (which is CIP25v1 method of encoding) instead of correct CIP25v2
+            // byte-encoded keys passed as valid. (Note that the version number is a user input
+            // independent of the actual metadata content).
+            // To prevent breaking change, in case we don't find metadata for an asset under
+            // correct byte-encoded key, we fallback to CIP25v1 text-encoded format.
+            onchainMetadataResult =
+              internalOnchainMetadata[policyId][assetNameVersion1] || null;
+            isFound = false;
+        }
       }
     } catch (error) {
       onchainMetadataResult = null;

@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Fixed
+
+- `drep_id` path parameter description on `/governance/dreps/{drep_id}/*` endpoints: hexadecimal DRep IDs were never accepted, only Bech32 (legacy or CIP-129)
+
 ## [0.1.93] - 2026-09-01
 
 ### Added

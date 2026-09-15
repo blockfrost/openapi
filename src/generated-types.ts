@@ -1053,7 +1053,7 @@ export interface paths {
                 header?: never;
                 path: {
                     /**
-                     * @description Bech32 or hexadecimal DRep ID.
+                     * @description Bech32 DRep ID (legacy or CIP-129).
                      * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
                      */
                     drep_id: string;
@@ -1112,7 +1112,7 @@ export interface paths {
                 header?: never;
                 path: {
                     /**
-                     * @description Bech32 or hexadecimal drep ID.
+                     * @description Bech32 DRep ID (legacy or CIP-129).
                      * @example drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
                      */
                     drep_id: string;
@@ -1162,7 +1162,7 @@ export interface paths {
                 header?: never;
                 path: {
                     /**
-                     * @description Bech32 or hexadecimal DRep ID.
+                     * @description Bech32 DRep ID (legacy or CIP-129).
                      * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
                      */
                     drep_id: string;
@@ -1221,7 +1221,7 @@ export interface paths {
                 header?: never;
                 path: {
                     /**
-                     * @description Bech32 or hexadecimal DRep ID.
+                     * @description Bech32 DRep ID (legacy or CIP-129).
                      * @example drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc
                      */
                     drep_id: string;
@@ -1280,7 +1280,7 @@ export interface paths {
                 header?: never;
                 path: {
                     /**
-                     * @description Bech32 or hexadecimal drep ID.
+                     * @description Bech32 DRep ID (legacy or CIP-129).
                      * @example drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn
                      */
                     drep_id: string;

@@ -14,9 +14,9 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pkgs.nodejs_20
+            pkgs.nodejs_24
             pkgs.openjdk21
-            (pkgs.yarn.override { nodejs = pkgs.nodejs_20; })
+            (pkgs.yarn.override { nodejs = pkgs.nodejs_24; })
           ];
 
           shellHook = ''

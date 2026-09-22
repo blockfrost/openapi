@@ -8432,7 +8432,7 @@ components:
               - 32
               - 201305
               - 8356
-              - ...
+              - '...'
             PlutusV2:
               - 100788
               - 420
@@ -8450,7 +8450,7 @@ components:
               - 32
               - 201305
               - 8356
-              - ...
+              - '...'
             PlutusV3:
               - 100788
               - 420
@@ -8468,7 +8468,7 @@ components:
               - 32
               - 201305
               - 8356
-              - ...
+              - '...'
           description: Cost models parameters for Plutus Core scripts in raw list form
         price_mem:
           type: number

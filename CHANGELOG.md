@@ -9,6 +9,10 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Removed
+
+- `/nutlink/*` endpoints (`/nutlink/{address}`, `/nutlink/{address}/tickers`, `/nutlink/{address}/tickers/{ticker}`, `/nutlink/tickers/{ticker}`)
+
 ### Fixed
 
 - `drep_id` path parameter description on `/governance/dreps/{drep_id}/*` endpoints: hexadecimal DRep IDs were never accepted, only Bech32 (legacy or CIP-129)

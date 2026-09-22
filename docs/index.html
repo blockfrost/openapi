@@ -94,22 +94,60 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
+      /* Declared before Scalar injects its own layers, so this layer wins
+         for !important declarations (earlier layer > later layer). */
+      @layer blockfrost;
+
       .section {
         outline: none !important;
+      }
+
+      /* Scalar's kepler theme forces the request example card into dark
+         mode even when the page is in light mode (.dark-mode class plus
+         !important backgrounds in @layer scalar-theme). Let the card inherit
+         the light theme instead. */
+      @layer blockfrost {
+        .light-mode .request-card.dark-mode,
+        .light-mode .request-card.dark-mode * {
+          color-scheme: light !important;
+          --scalar-background-1: inherit !important;
+          --scalar-background-2: inherit !important;
+          --scalar-background-3: inherit !important;
+          --scalar-background-accent: inherit !important;
+          --scalar-border-color: inherit !important;
+          --scalar-color-1: inherit !important;
+          --scalar-color-2: inherit !important;
+          --scalar-color-3: inherit !important;
+          --scalar-color-accent: inherit !important;
+          --scalar-color-red: inherit !important;
+          --scalar-color-green: inherit !important;
+          --scalar-color-blue: inherit !important;
+          --scalar-color-orange: inherit !important;
+          --scalar-color-purple: inherit !important;
+          --scalar-color-yellow: inherit !important;
+          --scalar-color-query: inherit !important;
+          --scalar-button-1: inherit !important;
+          --scalar-button-1-color: inherit !important;
+          --scalar-button-1-hover: inherit !important;
+          --scalar-link-color: inherit !important;
+          --scalar-link-color-hover: inherit !important;
+          --scalar-shadow-1: inherit !important;
+          --scalar-shadow-2: inherit !important;
+          --scalar-lifted-brightness: inherit !important;
+          --scalar-backdrop-brightness: inherit !important;
+          --scalar-scrollbar-color: inherit !important;
+          --scalar-scrollbar-color-active: inherit !important;
+          --scalar-code-language-color-supersede: inherit !important;
+        }
+        .light-mode .request-card.dark-mode {
+          background-color: var(--scalar-background-2) !important;
+        }
       }
     </style>
   </head>
   <body>
-    <script id="api-reference" data-url="./blockfrost-openapi.yaml"></script>
+    <div id="app"></div>
     <script>
-      var configuration = {
-        theme: 'kepler',
-        hideModels: true,
-      };
-
-      document.getElementById('api-reference').dataset.configuration =
-        JSON.stringify(configuration);
-
       const redirectionMap = {
         '#section/Tokens': '#description/tokens',
         '#section/Limits': '#description/limits',
@@ -314,6 +352,21 @@
       });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.71.0"></script>
+    <script>
+      Scalar.createApiReference('#app', {
+        url: './blockfrost-openapi.yaml',
+        theme: 'kepler',
+        hideModels: true,
+        // Scalar >= 1.41 slugifies "Cardano » Accounts" as "cardano-accounts",
+        // older versions produced "cardano--accounts". Keep the old slug so
+        // existing external links (#tag/cardano--accounts/GET/...) keep working.
+        generateTagSlug: (tag) =>
+          (tag.name ?? '')
+            .toLowerCase()
+            .replace(/[^a-z0-9 _-]/g, '')
+            .replace(/ /g, '-'),
+      });
+    </script>
   </body>
   <script
     defer

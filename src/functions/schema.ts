@@ -3,8 +3,6 @@ import path from 'path';
 import YAML from 'yaml';
 import Ajv from 'ajv';
 
-import nutlinkAddressTickers from '../custom-schemas/nutlink-address-tickers';
-import nutlinkTicker from '../custom-schemas/nutlink-ticker';
 import scriptsJsonSchema from '../custom-schemas/scripts-json';
 import txsMetadata from '../custom-schemas/txs-metadata';
 
@@ -145,14 +143,6 @@ export const getSchemaForEndpoint = (endpointName: string) => {
       // custom schemas
       if (endpointName === '/txs/{hash}/metadata') {
         responses.response[200] = txsMetadata;
-      }
-
-      if (endpointName === '/nutlink/{address}/tickers/{ticker}') {
-        responses.response[200] = nutlinkAddressTickers;
-      }
-
-      if (endpointName === '/nutlink/tickers/{ticker}') {
-        responses.response[200] = nutlinkTicker;
       }
 
       if (endpointName === '/scripts/{script_hash}/json') {

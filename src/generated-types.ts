@@ -14,7 +14,6 @@ export interface paths {
         /**
          * Root endpoint
          * @description Root endpoint has no other function than to point end users to documentation.
-         *
          */
         get: {
             parameters: {
@@ -64,7 +63,6 @@ export interface paths {
         /**
          * Backend health status
          * @description Return backend status as a boolean. Your application should handle situations when backend for the given chain is unavailable.
-         *
          */
         get: {
             parameters: {
@@ -113,7 +111,6 @@ export interface paths {
          * Current backend time
          * @description This endpoint provides the current UNIX time. Your application might
          *     use this to verify if the client clock is not out of sync.
-         *
          */
         get: {
             parameters: {
@@ -165,7 +162,6 @@ export interface paths {
          * Latest block
          * @description Return the latest block available to the backends, also known as the
          *     tip of the blockchain.
-         *
          */
         get: {
             parameters: {
@@ -219,10 +215,11 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description Ordered by tx index in the block.
+                    /**
+                     * @description Ordered by tx index in the block.
                      *     The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -274,10 +271,11 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description Ordered by tx index in the block.
+                    /**
+                     * @description Ordered by tx index in the block.
                      *     The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -321,7 +319,6 @@ export interface paths {
         /**
          * Specific block
          * @description Return the content of a requested block.
-         *
          */
         get: {
             parameters: {
@@ -373,7 +370,6 @@ export interface paths {
         /**
          * Listing of next blocks
          * @description Return the list of blocks following a specific block.
-         *
          */
         get: {
             parameters: {
@@ -430,7 +426,6 @@ export interface paths {
         /**
          * Listing of previous blocks
          * @description Return the list of blocks preceding a specific block.
-         *
          */
         get: {
             parameters: {
@@ -487,7 +482,6 @@ export interface paths {
         /**
          * Specific block in a slot
          * @description Return the content of a requested block for a specific slot.
-         *
          */
         get: {
             parameters: {
@@ -539,7 +533,6 @@ export interface paths {
         /**
          * Specific block in a slot in an epoch
          * @description Return the content of a requested block for a specific slot in an epoch.
-         *
          */
         get: {
             parameters: {
@@ -604,10 +597,11 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description Ordered by tx index in the block.
+                    /**
+                     * @description Ordered by tx index in the block.
                      *     The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -665,10 +659,11 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description Ordered by tx index in the block.
+                    /**
+                     * @description Ordered by tx index in the block.
                      *     The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -820,7 +815,6 @@ export interface paths {
          * @description Information about the currently active constitutional committee
          *
          *     When `is_dissolved` is `true`, the committee has been removed by an enacted `NoConfidence` governance action; `quorum` and `members` still describe the last seated committee for historical reference.
-         *
          */
         get: {
             parameters: {
@@ -874,9 +868,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -928,9 +923,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -987,23 +983,27 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items. Direction applied to whichever sort key is selected by `order_by`.
+                    /**
+                     * @description The ordering of items. Direction applied to whichever sort key is selected by `order_by`.
                      *     By default, when sorting by registration order, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
-                    /** @description Optional sort key. When omitted, DReps are ordered by their internal registration order
+                    /**
+                     * @description Optional sort key. When omitted, DReps are ordered by their internal registration order
                      *     (the current default). Set to `amount` to sort by voting power.
-                     *      */
+                     */
                     order_by?: "amount";
-                    /** @description Optional filter. When `true`, only returns DReps that have been deregistered.
+                    /**
+                     * @description Optional filter. When `true`, only returns DReps that have been deregistered.
                      *     When `false`, only returns DReps that are currently registered.
                      *     When omitted, both are returned.
-                     *      */
+                     */
                     retired?: boolean;
-                    /** @description Optional filter. When `true`, only returns DReps that have been inactive for longer than
+                    /**
+                     * @description Optional filter. When `true`, only returns DReps that have been inactive for longer than
                      *     the `drep_activity` protocol parameter. When `false`, only returns DReps that are not
                      *     expired. When omitted, both are returned.
-                     *      */
+                     */
                     expired?: boolean;
                 };
                 header?: never;
@@ -1104,9 +1104,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1213,9 +1214,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1272,9 +1274,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1331,10 +1334,11 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
                      *     Ordering in this case is based on the time of the first mint transaction.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1496,9 +1500,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1561,9 +1566,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1619,7 +1625,6 @@ export interface paths {
          * @description Proposal metadata information.
          *
          *     If this endpoint returns `404` or empty metadata for a known proposal, the off-chain metadata could not be fetched (e.g. unreachable URL or hash mismatch). Use the [`/governance/proposals/{gov_action_id}/metadata`](#tag/cardano--governance/GET/governance/proposals/{gov_action_id}/metadata) variant instead — it always returns the anchor `url` and `hash` along with an `error` object describing the fetch failure, so you can retrieve the metadata manually if needed.
-         *
          */
         get: {
             parameters: {
@@ -1784,9 +1789,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -1844,9 +1850,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -2323,9 +2330,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -2383,9 +2391,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -2593,7 +2602,6 @@ export interface paths {
         /**
          * Transaction stake addresses certificates
          * @description Obtain information about (de)registration of stake addresses within a transaction.
-         *
          */
         get: {
             parameters: {
@@ -2610,8 +2618,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Obtain information about (de)registration of stake addresses within a transaction.
-                 *      */
+                /** @description Obtain information about (de)registration of stake addresses within a transaction. */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -2646,7 +2653,6 @@ export interface paths {
         /**
          * Transaction delegation certificates
          * @description Obtain information about delegation certificates of a specific transaction.
-         *
          */
         get: {
             parameters: {
@@ -2800,7 +2806,6 @@ export interface paths {
         /**
          * Transaction stake pool registration and update certificates
          * @description Obtain information about stake pool registration and update certificates of a specific transaction.
-         *
          */
         get: {
             parameters: {
@@ -2852,7 +2857,6 @@ export interface paths {
         /**
          * Transaction stake pool retirement certificates
          * @description Obtain information about stake pool retirements within a specific transaction.
-         *
          */
         get: {
             parameters: {
@@ -2869,8 +2873,7 @@ export interface paths {
             };
             requestBody?: never;
             responses: {
-                /** @description Obtain information about stake pool retirements within a specific transaction.
-                 *      */
+                /** @description Obtain information about stake pool retirements within a specific transaction. */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -3166,7 +3169,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         post: {
             parameters: {
@@ -3175,12 +3177,10 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            /** @description The transaction to submit, serialized in CBOR.
-             *      */
+            /** @description The transaction to submit, serialized in CBOR. */
             requestBody: {
                 content: {
-                    /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573
-                     *      */
+                    /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573 */
                     "application/cbor": string;
                 };
             };
@@ -3219,7 +3219,6 @@ export interface paths {
         /**
          * Specific account address
          * @description Obtain information about a specific stake account.
-         *
          */
         get: {
             parameters: {
@@ -3271,7 +3270,6 @@ export interface paths {
         /**
          * Account reward history
          * @description Obtain information about the reward history of a specific account.
-         *
          */
         get: {
             parameters: {
@@ -3280,9 +3278,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3332,7 +3331,6 @@ export interface paths {
         /**
          * Account history
          * @description Obtain information about the history of a specific account.
-         *
          */
         get: {
             parameters: {
@@ -3341,9 +3339,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3401,9 +3400,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3453,7 +3453,6 @@ export interface paths {
         /**
          * Account registration history
          * @description Obtain information about the registrations and deregistrations of a specific account.
-         *
          */
         get: {
             parameters: {
@@ -3462,9 +3461,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3514,7 +3514,6 @@ export interface paths {
         /**
          * Account withdrawal history
          * @description Obtain information about the withdrawals of a specific account.
-         *
          */
         get: {
             parameters: {
@@ -3523,9 +3522,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3575,7 +3575,6 @@ export interface paths {
         /**
          * Account MIR history
          * @description Obtain information about the MIRs of a specific account.
-         *
          */
         get: {
             parameters: {
@@ -3584,9 +3583,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3637,7 +3637,6 @@ export interface paths {
          * Account associated addresses
          * @description Obtain information about the addresses of a specific account.
          *     <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
-         *
          */
         get: {
             parameters: {
@@ -3646,9 +3645,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3699,7 +3699,6 @@ export interface paths {
          * Assets associated with the account addresses
          * @description Obtain information about assets associated with addresses of a specific account.
          *     <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
-         *
          */
         get: {
             parameters: {
@@ -3708,9 +3707,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3761,7 +3761,6 @@ export interface paths {
          * Detailed information about account associated addresses
          * @description Obtain summed details about all addresses associated with a given account.
          *     <b>Be careful</b>, as an account could be part of a mangled address and does not necessarily mean the addresses are owned by user as the account.
-         *
          */
         get: {
             parameters: {
@@ -3813,7 +3812,6 @@ export interface paths {
         /**
          * Account UTXOs
          * @description UTXOs associated with the account.
-         *
          */
         get: {
             parameters: {
@@ -3822,9 +3820,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -3882,21 +3881,20 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                     /**
                      * @description The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
                      *     Has to be lower than or equal to `to` parameter.
-                     *
                      * @example 8929261
                      */
                     from?: string;
                     /**
                      * @description The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
                      *     Has to be higher than or equal to `from` parameter.
-                     *
                      * @example 9999269:10
                      */
                     to?: string;
@@ -3954,7 +3952,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         get: {
             parameters: {
@@ -3963,9 +3960,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description Ordered by the time of transaction submission.
+                    /**
+                     * @description Ordered by the time of transaction submission.
                      *     By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4013,7 +4011,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         get: {
             parameters: {
@@ -4070,7 +4067,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         get: {
             parameters: {
@@ -4079,9 +4075,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description Ordered by the time of transaction submission.
+                    /**
+                     * @description Ordered by the time of transaction submission.
                      *     By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4131,7 +4128,6 @@ export interface paths {
         /**
          * Transaction metadata labels
          * @description List of all used transaction metadata labels.
-         *
          */
         get: {
             parameters: {
@@ -4140,9 +4136,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4194,9 +4191,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4254,9 +4252,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4357,7 +4356,6 @@ export interface paths {
         /**
          * Extended information of a specific address
          * @description Obtain extended information about a specific address.
-         *
          */
         get: {
             parameters: {
@@ -4468,9 +4466,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4528,9 +4527,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4594,9 +4594,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4654,21 +4655,20 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                     /**
                      * @description The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
                      *     Has to be lower than or equal to `to` parameter.
-                     *
                      * @example 8929261
                      */
                     from?: string;
                     /**
                      * @description The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
                      *     Has to be higher than or equal to `from` parameter.
-                     *
                      * @example 9999269:10
                      */
                     to?: string;
@@ -4728,9 +4728,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4782,9 +4783,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4836,9 +4838,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4890,9 +4893,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -4987,7 +4991,6 @@ export interface paths {
         /**
          * Stake pool history
          * @description History of stake pool parameters over epochs.
-         *
          */
         get: {
             parameters: {
@@ -4996,9 +4999,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5048,7 +5052,6 @@ export interface paths {
         /**
          * Stake pool metadata
          * @description Stake pool registration metadata.
-         *
          */
         get: {
             parameters: {
@@ -5159,9 +5162,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5219,9 +5223,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5279,9 +5284,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5339,9 +5345,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5392,7 +5399,6 @@ export interface paths {
          * Assets
          * @description List of assets. If an asset is completely burned,
          *     it will stay on the list with quantity 0 (order of assets is immutable).
-         *
          */
         get: {
             parameters: {
@@ -5401,10 +5407,11 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
                      *     Ordering in this case is based on the time of the first mint transaction.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5507,9 +5514,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5568,9 +5576,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5628,21 +5637,20 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                     /**
                      * @description The block number and optionally also index from which (inclusive) to start search for results, concatenated using colon.
                      *     Has to be lower than or equal to `to` parameter.
-                     *
                      * @example 8929261
                      */
                     from?: string;
                     /**
                      * @description The block number and optionally also index where (inclusive) to end the search for results, concatenated using colon.
                      *     Has to be higher than or equal to `from` parameter.
-                     *
                      * @example 9999269:10
                      */
                     to?: string;
@@ -5702,9 +5710,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5762,21 +5771,20 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                     /**
                      * @description The block height from which (inclusive) to start search for results.
                      *     Has to be lower than or equal to `to` parameter.
-                     *
                      * @example 8929261
                      */
                     from?: string;
                     /**
                      * @description The block height where (inclusive) to end the search for results.
                      *     Has to be higher than or equal to `from` parameter.
-                     *
                      * @example 9999269
                      */
                     to?: string;
@@ -5836,9 +5844,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -5896,9 +5905,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -6103,9 +6113,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -6158,7 +6169,6 @@ export interface paths {
          *     These outputs can be used as reference inputs (CIP-31) in a transaction to
          *     execute the script without including its full bytes. A single script may be
          *     held by multiple UTXOs, potentially at different addresses.
-         *
          */
         get: {
             parameters: {
@@ -6167,9 +6177,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -6388,13 +6399,11 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         post: {
             parameters: {
                 query?: {
-                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
-                     *      */
+                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6. */
                     version?: number;
                 };
                 header: {
@@ -6403,23 +6412,22 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            /** @description The transaction to submit, serialized in CBOR.
-             *      */
+            /** @description The transaction to submit, serialized in CBOR. */
             requestBody: {
                 content: {
-                    /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573
-                     *      */
+                    /** @example 83a400818258208911f640d452c3be4ff3d89db63b41ce048c056951286e2e28bbf8a51588ab44000181825839009493315cd92eb5d8c4304e67b7e16ae36d61d34502694657811a2c8e32c728d3861e164cab28cb8f006448139c8f1740ffb8e7aa9e5232dc1a10b2531f021a00029519075820cb798b0bce50604eaf2e0dc89367896b18f0a6ef6b32b57e3c9f83f8ee71e608a1008182582073fea80d424276ad0978d4fe5310e8bc2d485f5f6bb3bf87612989f112ad5a7d5840c40425229749a9434763cf01b492057fd56d7091a6372eaa777a1c9b1ca508c914e6a4ee9c0d40fc10952ed668e9ad65378a28b149de6bd4204bd9f095b0a902a11907b0a1667469636b657281a266736f757263656b736f757263655f6e616d656576616c7565736675676961742076656e69616d206d696e7573 */
                     "application/cbor": string;
                 };
             };
             responses: {
-                /** @description <p>
+                /**
+                 * @description <p>
                  *       <div class="custom-paragraph">
                  *         Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
                  *         and<a href="https://ogmios.dev/http-api/"> API reference (EvaluateTxResponse)</a> for related errors.
                  *       </div>
                  *     </p>
-                 *      */
+                 */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -6461,13 +6469,11 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         post: {
             parameters: {
                 query?: {
-                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6.
-                     *      */
+                    /** @description Optional parameter to specify the version of the Ogmios service to use. Default is `5`. Set to `6` to use Ogmios version 6. */
                     version?: number;
                 };
                 header: {
@@ -6511,13 +6517,14 @@ export interface paths {
                 };
             };
             responses: {
-                /** @description <p>
+                /**
+                 * @description <p>
                  *       <div class="custom-paragraph">
                  *         Returns result of EvaluateTx function from Ogmios see <a class="custom-link" href="https://ogmios.dev/mini-protocols/local-tx-submission/#evaluatetx">EvaluateTx</a>
                  *         and<a href="https://ogmios.dev/api/"> API reference (EvaluateTxResponse)</a> for related errors.
                  *       </div>
                  *     </p>
-                 *      */
+                 */
                 200: {
                     headers: {
                         [name: string]: unknown;
@@ -6560,7 +6567,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         post: operations["ipfs_add"];
         delete?: never;
@@ -6583,7 +6589,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         get: {
             parameters: {
@@ -6635,13 +6640,11 @@ export interface paths {
          * @description Pinning is necessary to avoid regular garbage collection (deletion) of IPFS objects. Non-pinned objects are regularly being removed without prior notice. Pinned objects are counted in your user storage quota.
          *
          *     **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
-         *
          */
         post: {
             parameters: {
                 query?: {
-                    /** @description If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. Objects pinned to Filecoin cannot be unpinned due to its long-term storage guarantees.
-                     *      */
+                    /** @description If set to true, the object will be pinned to Filecoin as well. If not specified, the object will only be pinned to IPFS. Objects pinned to Filecoin cannot be unpinned due to its long-term storage guarantees. */
                     filecoin?: boolean;
                 };
                 header?: never;
@@ -6704,7 +6707,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         get: {
             parameters: {
@@ -6713,9 +6715,10 @@ export interface paths {
                     count?: number;
                     /** @description The page number for listing the results. */
                     page?: number;
-                    /** @description The ordering of items from the point of view of the blockchain,
+                    /**
+                     * @description The ordering of items from the point of view of the blockchain,
                      *     not the page listing itself. By default, we return oldest first, newest last.
-                     *      */
+                     */
                     order?: "asc" | "desc";
                 };
                 header?: never;
@@ -6756,7 +6759,6 @@ export interface paths {
                              *     is successful the state is changed to `pinned` or `failed` if not. The state `gc` means the
                              *     pinned item has been garbage collected due to account being over storage quota or after it has
                              *     been moved to `unpinned` state by removing the object pin.
-                             *
                              * @example pinned
                              * @enum {string}
                              */
@@ -6796,7 +6798,6 @@ export interface paths {
          *     <p>
          *       <span class="hosted">Hosted</span> Endpoint only available for hosted variant.
          *     </p>
-         *
          */
         get: {
             parameters: {
@@ -6842,7 +6843,6 @@ export interface paths {
                              *     If the object is already successfully retrieved, state is changed to `pinned` or `failed` otherwise.
                              *     When object is unpinned (i.e. after `/ipfs/pin/remove/{IPFS_path}`) it is marked for garbage collection.
                              *     State `gc` means that a previously `unpinned` item has been garbage collected due to account being over storage quota.
-                             *
                              * @example pinned
                              * @enum {string}
                              */
@@ -6886,7 +6886,6 @@ export interface paths {
          *     </p>
          *
          *     **Note:** If the object was pinned to Filecoin (using `filecoin=true`), it cannot be removed or unpinned due to Filecoin's immutable and persistent storage guarantees. Please ensure careful consideration when pinning objects to Filecoin, as the action is irreversible.
-         *
          */
         post: {
             parameters: {
@@ -6989,7 +6988,6 @@ export interface paths {
         /**
          * Blockfrost endpoint usage metrics
          * @description History of your Blockfrost usage metrics per endpoint in the past 30 days.
-         *
          */
         get: {
             parameters: {
@@ -7081,7 +7079,6 @@ export interface paths {
          * Query summary of blockchain eras
          * @description Returns start and end of each era along with
          *     parameters that can vary between hard forks.
-         *
          */
         get: {
             parameters: {
@@ -7213,14 +7210,17 @@ export interface components {
              */
             confirmations: number;
         };
-        /** @example [
+        /**
+         * @example [
          *       "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
          *       "4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036",
          *       "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f",
          *       "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
-         *     ] */
+         *     ]
+         */
         block_content_txs: string[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
          *         "cbor": "a10081825820cccfe2be401c85342497f6e1e4a241629790b0fb7f2af5f18441779d11f25b1f5840c38a93d63faac9335ecc2f24ead7ca2d46a6637f354ee707bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305"
@@ -7229,7 +7229,8 @@ export interface components {
          *         "tx_hash": "4eef6bb7755d8afbeac526b799f3e32a624691d166657e9d862aaeb66682c036",
          *         "cbor": "bb06eb8192af2fa6a676fb72f8772cd1c42b491ec6dfc798c76b61c55dc4eecab362e71ffab26305"
          *       }
-         *     ] */
+         *     ]
+         */
         block_content_txs_cbor: {
             /** @description Hash of the transaction */
             tx_hash: string;
@@ -7237,7 +7238,8 @@ export interface components {
             cbor: string;
         }[];
         block_content_array: components["schemas"]["block_content"][];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv",
          *         "transactions": [
@@ -7254,7 +7256,8 @@ export interface components {
          *           }
          *         ]
          *       }
-         *     ] */
+         *     ]
+         */
         block_content_addresses: {
             /** @description Address that was affected in the specified block */
             address: string;
@@ -7315,7 +7318,8 @@ export interface components {
              */
             security_param: number;
         };
-        /** @example {
+        /**
+         * @example {
          *       "proposal_tx_hash": null,
          *       "proposal_index": null,
          *       "gov_action_id": null,
@@ -7346,7 +7350,8 @@ export interface components {
          *           "expiration_epoch": 580
          *         }
          *       ]
-         *     } */
+         *     }
+         */
         committee: {
             /** @description CIP-129 Governance Action Identifier of the `NewCommittee` action that seated this committee. `null` for the Conway-genesis committee. */
             gov_action_id: string | null;
@@ -7381,7 +7386,8 @@ export interface components {
                 expiration_epoch: number;
             }[];
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "voter_hot_id": "cc_hot1qf4xq9mlra5j68w8zjz2lvf3kc3rtsdtu98ka7zx4u6jvqyy39ww0",
@@ -7408,7 +7414,8 @@ export interface components {
          *         "block_height": 11045890,
          *         "block_time": 1746070800
          *       }
-         *     ] */
+         *     ]
+         */
         committee_votes: {
             /** @description Hash of the vote transaction. */
             tx_hash: string;
@@ -7439,7 +7446,8 @@ export interface components {
             /** @description Block creation time in UNIX time of the vote transaction. */
             block_time: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "drep_id": "drep1mvdu8slennngja7w4un6knwezufra70887zuxpprd64jxfveahn",
          *         "hex": "db1bc3c3f99ce68977ceaf27ab4dd917123ef9e73f85c304236eab23",
@@ -7477,7 +7485,8 @@ export interface components {
          *         "last_active_epoch": 480,
          *         "metadata": null
          *       }
-         *     ] */
+         *     ]
+         */
         dreps: {
             /** @description The Bech32 encoded DRep address */
             drep_id: string;
@@ -7493,12 +7502,13 @@ export interface components {
             expired: boolean;
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;
-            /** @description Off-chain metadata associated with the DRep's latest registration.
+            /**
+             * @description Off-chain metadata associated with the DRep's latest registration.
              *     `null` when the DRep has no registration anchor (e.g. special DReps such as
              *     `drep_always_abstain` / `drep_always_no_confidence`). When an anchor exists but
              *     the off-chain content could not be fetched or validated, `error` is populated and
              *     `json_metadata` / `bytes` are `null`.
-             *      */
+             */
             metadata: {
                 /**
                  * @description URL to the drep metadata
@@ -7528,7 +7538,8 @@ export interface components {
                 };
             } | null;
         }[];
-        /** @example {
+        /**
+         * @example {
          *       "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
          *       "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
          *       "amount": "2000000",
@@ -7538,7 +7549,8 @@ export interface components {
          *       "last_active_epoch": 509,
          *       "retired": false,
          *       "expired": false
-         *     } */
+         *     }
+         */
         drep: {
             /** @description Bech32 encoded DRep address */
             drep_id: string;
@@ -7565,7 +7577,8 @@ export interface components {
             /** @description Epoch of the most recent action - registration, update, deregistration or voting */
             last_active_epoch: number | null;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha",
          *         "amount": "1137959159981411"
@@ -7578,14 +7591,16 @@ export interface components {
          *         "address": "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck",
          *         "amount": "18605647"
          *       }
-         *     ] */
+         *     ]
+         */
         drep_delegators: {
             /** @description Bech32 encoded stake addresses */
             address: string;
             /** @description Currently delegated amount */
             amount: string;
         }[];
-        /** @example {
+        /**
+         * @example {
          *       "drep_id": "drep15cfxz9exyn5rx0807zvxfrvslrjqfchrd4d47kv9e0f46uedqtc",
          *       "hex": "a61261172624e8333ceff098648d90f8e404e2e36d5b5f5985cbd35d",
          *       "url": "https://aaa.xyz/drep.json",
@@ -7649,7 +7664,8 @@ export interface components {
          *         }
          *       },
          *       "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6"
-         *     } */
+         *     }
+         */
         drep_metadata: {
             /** @description Bech32 encoded addresses */
             drep_id: string;
@@ -7682,7 +7698,8 @@ export interface components {
                 message: string;
             };
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "f4097fbdb87ab7c7ab44b30d4e2b81713a058488975d1ab8b05c381dd946a393",
          *         "cert_index": 0,
@@ -7695,7 +7712,8 @@ export interface components {
          *         "action": "deregistered",
          *         "deposit": null
          *       }
-         *     ] */
+         *     ]
+         */
         drep_updates: {
             /** @description Transaction ID */
             tx_hash: string;
@@ -7709,7 +7727,8 @@ export interface components {
             /** @description Deposit in Lovelaces paid at this registration. `null` on `deregistered` and `updated` rows. */
             deposit: string | null;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 2,
@@ -7726,7 +7745,8 @@ export interface components {
          *         "proposal_cert_index": 1,
          *         "vote": "abstain"
          *       }
-         *     ] */
+         *     ]
+         */
         drep_votes: {
             /** @description Hash of the vote transaction. */
             tx_hash: string;
@@ -7744,7 +7764,8 @@ export interface components {
              */
             vote: "yes" | "no" | "abstain";
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
          *         "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
@@ -7757,7 +7778,8 @@ export interface components {
          *         "cert_index": 4,
          *         "governance_type": "no_confidence"
          *       }
-         *     ] */
+         *     ]
+         */
         proposals: {
             /** @description Governance Action Identifier (CIP-0129) */
             id: string;
@@ -7771,7 +7793,8 @@ export interface components {
              */
             governance_type: "hard_fork_initiation" | "new_committee" | "new_constitution" | "info_action" | "no_confidence" | "parameter_change" | "treasury_withdrawals";
         }[];
-        /** @example {
+        /**
+         * @example {
          *       "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
          *       "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
          *       "cert_index": 1,
@@ -7786,7 +7809,8 @@ export interface components {
          *       "dropped_epoch": null,
          *       "expired_epoch": null,
          *       "expiration": 120
-         *     } */
+         *     }
+         */
         proposal: {
             /** @description Governance Action Identifier (CIP-0129) */
             id: string;
@@ -8061,7 +8085,8 @@ export interface components {
                 min_fee_ref_script_cost_per_byte: number | null;
             };
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "stake_address": "stake1ux3g2c9dx2nhhehyrezyxpkstartcqmu9hk63qgfkccw5rqttygt7",
          *         "amount": "454541212442"
@@ -8070,7 +8095,8 @@ export interface components {
          *         "stake_address": "stake1xx2g2c9dx2nhhehyrezyxpkstoppcqmu9hk63qgfkccw5rqttygt2",
          *         "amount": "97846969"
          *       }
-         *     ] */
+         *     ]
+         */
         proposal_withdrawals: {
             /**
              * @description Bech32 stake address
@@ -8080,7 +8106,8 @@ export interface components {
             /** @description Withdrawal amount in Lovelaces */
             amount: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "144a086c58a7b7324fba98be44a9c1560f78970ec777ede701d097936591aa4b",
          *         "cert_index": 0,
@@ -8105,7 +8132,8 @@ export interface components {
          *         "vote": "abstain",
          *         "counted": true
          *       }
-         *     ] */
+         *     ]
+         */
         proposal_votes: {
             /** @description Hash of the voting transaction. */
             tx_hash: string;
@@ -8126,7 +8154,8 @@ export interface components {
             /** @description Whether the vote counts toward the proposal's tally. Only the voter's latest vote counts, and a DRep vote stops counting if the DRep deregisters while the proposal is still live. */
             counted: boolean;
         }[];
-        /** @example {
+        /**
+         * @example {
          *       "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
          *       "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
          *       "cert_index": 2,
@@ -8206,7 +8235,8 @@ export interface components {
          *         "hashAlgorithm": "blake2b-256"
          *       },
          *       "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6d6423222c0a2020202022434950313038223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130382f524541444d452e6d6423222c0a202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d222c0a2020202022626f6479223a207b0a20202020202022406964223a20224349503130383a626f6479222c0a2020202020202240636f6e74657874223a207b0a2020202020202020227265666572656e636573223a207b0a2020202020202020202022406964223a20224349503130383a7265666572656e636573222c0a202020202020202020202240636f6e7461696e6572223a202240736574222c0a202020202020202020202240636f6e74657874223a207b0a20202020202020202020202022476f7665726e616e63654d65746164617461223a20224349503130303a476f7665726e616e63654d657461646174615265666572656e6365222c0a202020202020202020202020224f74686572223a20224349503130303a4f746865725265666572656e6365222c0a202020202020202020202020226c6162656c223a20224349503130303a7265666572656e63652d6c6162656c222c0a20202020202020202020202022757269223a20224349503130303a7265666572656e63652d757269222c0a202020202020202020202020227265666572656e636548617368223a207b0a202020202020202020202020202022406964223a20224349503130383a7265666572656e636548617368222c0a20202020202020202020202020202240636f6e74657874223a207b0a202020202020202020202020202020202268617368446967657374223a20224349503130383a68617368446967657374222c0a202020202020202020202020202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d220a20202020202020202020202020207d0a2020202020202020202020207d0a202020202020202020207d0a20202020202020207d2c0a2020202020202020227469746c65223a20224349503130383a7469746c65222c0a2020202020202020226162737472616374223a20224349503130383a6162737472616374222c0a2020202020202020226d6f7469766174696f6e223a20224349503130383a6d6f7469766174696f6e222c0a202020202020202022726174696f6e616c65223a20224349503130383a726174696f6e616c65220a2020202020207d0a202020207d2c0a2020202022617574686f7273223a207b0a20202020202022406964223a20224349503130303a617574686f7273222c0a2020202020202240636f6e7461696e6572223a202240736574222c0a2020202020202240636f6e74657874223a207b0a2020202020202020226e616d65223a2022687474703a2f2f786d6c6e732e636f6d2f666f61662f302e312f6e616d65222c0a2020202020202020227769746e657373223a207b0a2020202020202020202022406964223a20224349503130303a7769746e657373222c0a202020202020202020202240636f6e74657874223a207b0a202020202020202020202020227769746e657373416c676f726974686d223a20224349503130303a7769746e657373416c676f726974686d222c0a202020202020202020202020227075626c69634b6579223a20224349503130303a7075626c69634b6579222c0a202020202020202020202020227369676e6174757265223a20224349503130303a7369676e6174757265220a202020202020202020207d0a20202020202020207d0a2020202020207d0a202020207d0a20207d2c0a20202268617368416c676f726974686d223a2022626c616b6532622d323536222c0a202022626f6479223a207b0a20202020227469746c65223a202248617264666f726b20746f2050726f746f636f6c2076657273696f6e203130222c0a20202020226162737472616374223a20224c6574277320686176652073616e63686f4e657420696e2066756c6c20676f7665726e616e636520617320736f6f6e20617320706f737369626c65222c0a20202020226d6f7469766174696f6e223a2022505639206973206e6f742061732066756e2061732050563130222c0a2020202022726174696f6e616c65223a20224c65742773206b6565702074657374696e67207374756666222c0a20202020227265666572656e636573223a205b0a2020202020207b0a2020202020202020224074797065223a20224f74686572222c0a2020202020202020226c6162656c223a202248617264666f726b20746f2050563130222c0a202020202020202022757269223a2022220a2020202020207d0a202020205d0a20207d2c0a202022617574686f7273223a205b0a202020207b0a202020202020226e616d65223a20224361726c6f73222c0a202020202020227769746e657373223a207b0a2020202020202020227769746e657373416c676f726974686d223a202265643235353139222c0a2020202020202020227075626c69634b6579223a202237656130396133346165626231336339383431633731333937623163616266656335646466393530343035323933646565343936636163326634333734383061222c0a2020202020202020227369676e6174757265223a20226134373639383562346363306434353766323437373937363131373939613666366138306663386362376563396463623561383232333838386430363138653330646531363566336438363963346130643931303764386135623631326164376335653432343431393037663562393137393666306437313837643634613031220a2020202020207d0a202020207d0a20205d0a7d"
-         *     } */
+         *     }
+         */
         proposal_metadata: {
             /** @description Governance Action Identifier (CIP-0129) */
             id: string;
@@ -8231,7 +8261,8 @@ export interface components {
             /** @description Content of the metadata (raw) */
             bytes: string;
         };
-        /** @example {
+        /**
+         * @example {
          *       "id": "gov_action1zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygsq6dmejn",
          *       "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
          *       "cert_index": 2,
@@ -8311,7 +8342,8 @@ export interface components {
          *         "hashAlgorithm": "blake2b-256"
          *       },
          *       "bytes": "\\x7b0a20202240636f6e74657874223a207b0a2020202022406c616e6775616765223a2022656e2d7573222c0a2020202022434950313030223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130302f524541444d452e6d6423222c0a2020202022434950313038223a202268747470733a2f2f6769746875622e636f6d2f63617264616e6f2d666f756e646174696f6e2f434950732f626c6f622f6d61737465722f4349502d303130382f524541444d452e6d6423222c0a202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d222c0a2020202022626f6479223a207b0a20202020202022406964223a20224349503130383a626f6479222c0a2020202020202240636f6e74657874223a207b0a2020202020202020227265666572656e636573223a207b0a2020202020202020202022406964223a20224349503130383a7265666572656e636573222c0a202020202020202020202240636f6e7461696e6572223a202240736574222c0a202020202020202020202240636f6e74657874223a207b0a20202020202020202020202022476f7665726e616e63654d65746164617461223a20224349503130303a476f7665726e616e63654d657461646174615265666572656e6365222c0a202020202020202020202020224f74686572223a20224349503130303a4f746865725265666572656e6365222c0a202020202020202020202020226c6162656c223a20224349503130303a7265666572656e63652d6c6162656c222c0a20202020202020202020202022757269223a20224349503130303a7265666572656e63652d757269222c0a202020202020202020202020227265666572656e636548617368223a207b0a202020202020202020202020202022406964223a20224349503130383a7265666572656e636548617368222c0a20202020202020202020202020202240636f6e74657874223a207b0a202020202020202020202020202020202268617368446967657374223a20224349503130383a68617368446967657374222c0a202020202020202020202020202020202268617368416c676f726974686d223a20224349503130303a68617368416c676f726974686d220a20202020202020202020202020207d0a2020202020202020202020207d0a202020202020202020207d0a20202020202020207d2c0a2020202020202020227469746c65223a20224349503130383a7469746c65222c0a2020202020202020226162737472616374223a20224349503130383a6162737472616374222c0a2020202020202020226d6f7469766174696f6e223a20224349503130383a6d6f7469766174696f6e222c0a202020202020202022726174696f6e616c65223a20224349503130383a726174696f6e616c65220a2020202020207d0a202020207d2c0a2020202022617574686f7273223a207b0a20202020202022406964223a20224349503130303a617574686f7273222c0a2020202020202240636f6e7461696e6572223a202240736574222c0a2020202020202240636f6e74657874223a207b0a2020202020202020226e616d65223a2022687474703a2f2f786d6c6e732e636f6d2f666f61662f302e312f6e616d65222c0a2020202020202020227769746e657373223a207b0a2020202020202020202022406964223a20224349503130303a7769746e657373222c0a202020202020202020202240636f6e74657874223a207b0a202020202020202020202020227769746e657373416c676f726974686d223a20224349503130303a7769746e657373416c676f726974686d222c0a202020202020202020202020227075626c69634b6579223a20224349503130303a7075626c69634b6579222c0a202020202020202020202020227369676e6174757265223a20224349503130303a7369676e6174757265220a202020202020202020207d0a20202020202020207d0a2020202020207d0a202020207d0a20207d2c0a20202268617368416c676f726974686d223a2022626c616b6532622d323536222c0a202022626f6479223a207b0a20202020227469746c65223a202248617264666f726b20746f2050726f746f636f6c2076657273696f6e203130222c0a20202020226162737472616374223a20224c6574277320686176652073616e63686f4e657420696e2066756c6c20676f7665726e616e636520617320736f6f6e20617320706f737369626c65222c0a20202020226d6f7469766174696f6e223a2022505639206973206e6f742061732066756e2061732050563130222c0a2020202022726174696f6e616c65223a20224c65742773206b6565702074657374696e67207374756666222c0a20202020227265666572656e636573223a205b0a2020202020207b0a2020202020202020224074797065223a20224f74686572222c0a2020202020202020226c6162656c223a202248617264666f726b20746f2050563130222c0a202020202020202022757269223a2022220a2020202020207d0a202020205d0a20207d2c0a202022617574686f7273223a205b0a202020207b0a202020202020226e616d65223a20224361726c6f73222c0a202020202020227769746e657373223a207b0a2020202020202020227769746e657373416c676f726974686d223a202265643235353139222c0a2020202020202020227075626c69634b6579223a202237656130396133346165626231336339383431633731333937623163616266656335646466393530343035323933646565343936636163326634333734383061222c0a2020202020202020227369676e6174757265223a20226134373639383562346363306434353766323437373937363131373939613666366138306663386362376563396463623561383232333838386430363138653330646531363566336438363963346130643931303764386135623631326164376335653432343431393037663562393137393666306437313837643634613031220a2020202020207d0a202020207d0a20205d0a7d"
-         *     } */
+         *     }
+         */
         proposal_metadata_v2: {
             /** @description Governance Action Identifier (CIP-0129) */
             id: string;
@@ -8717,11 +8749,13 @@ export interface components {
              */
             amount: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       "d0fa315687e99ccdc96b14cc2ea74a767405d64427b648c470731a9b69e4606e",
          *       "38bc6efb92a830a0ed22a64f979d120d26483fd3c811f6622a8c62175f530878",
          *       "f3258fcd8b975c061b4fcdcfcbb438807134d6961ec278c200151274893b6b7d"
-         *     ] */
+         *     ]
+         */
         epoch_block_content: string[];
         tx_content: {
             /**
@@ -8754,7 +8788,8 @@ export interface components {
              * @example 1
              */
             index: number;
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000"
@@ -8763,7 +8798,8 @@ export interface components {
              *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
              *         "quantity": "12"
              *       }
-             *     ] */
+             *     ]
+             */
             output_amount: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -8866,7 +8902,8 @@ export interface components {
                  * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                  */
                 address: string;
-                /** @example [
+                /**
+                 * @example [
                  *       {
                  *         "unit": "lovelace",
                  *         "quantity": "42000000"
@@ -8875,7 +8912,8 @@ export interface components {
                  *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
                  *         "quantity": "12"
                  *       }
-                 *     ] */
+                 *     ]
+                 */
                 amount: {
                     /**
                      * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -8927,7 +8965,8 @@ export interface components {
                  * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                  */
                 address: string;
-                /** @example [
+                /**
+                 * @example [
                  *       {
                  *         "unit": "lovelace",
                  *         "quantity": "42000000"
@@ -8936,7 +8975,8 @@ export interface components {
                  *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
                  *         "quantity": "12"
                  *       }
-                 *     ] */
+                 *     ]
+                 */
                 amount: {
                     /**
                      * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -9094,9 +9134,11 @@ export interface components {
              * @example stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f
              */
             reward_account: string;
-            /** @example [
+            /**
+             * @example [
              *       "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
-             *     ] */
+             *     ]
+             */
             owners: string[];
             metadata: {
                 /**
@@ -9180,7 +9222,8 @@ export interface components {
              */
             retiring_epoch: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "label": "1967",
          *         "json_metadata": {
@@ -9199,7 +9242,8 @@ export interface components {
          *           ]
          *         }
          *       }
-         *     ] */
+         *     ]
+         */
         tx_content_metadata: {
             /** @description Metadata label */
             label: string;
@@ -9208,13 +9252,15 @@ export interface components {
                 [key: string]: unknown;
             };
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "label": "1968",
          *         "cbor_metadata": "\\xa100a16b436f6d62696e6174696f6e8601010101010c",
          *         "metadata": "a100a16b436f6d62696e6174696f6e8601010101010c"
          *       }
-         *     ] */
+         *     ]
+         */
         tx_content_metadata_cbor: {
             /** @description Metadata label */
             label: string;
@@ -9277,9 +9323,11 @@ export interface components {
              */
             witness_hash: string;
         }[];
-        /** @example {
+        /**
+         * @example {
          *       "cbor": "84a40081825820203e5b61e0949ffc8fe594727cf7ed73c7396cc2bd212af9a680c9423b5880eb00018282583900f0c60254ecb0addd4c7e40c28fd05b65014ab4c8ecece06c7dcee5a0724bf93336a8225e7ef152b41aea955173be91af19250edea1ddafab1a000f42408258390014beadb876d0a2a593fe2f1b539389e00731290910170e9a1be78e847d2ccdc7af469706878018739bcfde9ae23f009c4ae38aee0a4b4f3a1b0000000253fa0f93021a0002922d031a0303c827a100818258207d3ae39f9a1c916ac7c13f10c7d67c70b870c286a1af71485455c5022a3f391d5840e2f481acd1601a3f39fa976317bba685ddd774621a92611edaaa3df9f48a3b13d8b25ecb2f28b031c1602512418efed3033e463a0dcd22a856c808033cc9e00ff5f6"
-         *     } */
+         *     }
+         */
         tx_content_cbor: {
             /** @description CBOR serialized transaction */
             cbor: string;
@@ -9346,7 +9394,8 @@ export interface components {
              */
             drep_id: string | null;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "epoch": 215,
          *         "amount": "12695385",
@@ -9383,7 +9432,8 @@ export interface components {
          *         "pool_id": "pool1cytwr0n7eas6du2h2xshl8ypa1yqr18f0erlhhjcuczysiunjcs",
          *         "type": "pool_deposit_refund"
          *       }
-         *     ] */
+         *     ]
+         */
         account_reward_content: {
             /** @description Epoch of the associated reward */
             epoch: number;
@@ -9397,7 +9447,8 @@ export interface components {
              */
             type: "leader" | "member" | "pool_deposit_refund";
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "active_epoch": 210,
          *         "amount": "12695385",
@@ -9408,7 +9459,8 @@ export interface components {
          *         "amount": "22695385",
          *         "pool_id": "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy"
          *       }
-         *     ] */
+         *     ]
+         */
         account_history_content: {
             /**
              * @description Epoch in which the stake was active
@@ -9420,7 +9472,8 @@ export interface components {
             /** @description Bech32 ID of pool being delegated to */
             pool_id: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "active_epoch": 210,
          *         "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
@@ -9439,7 +9492,8 @@ export interface components {
          *         "block_time": 1649033600,
          *         "block_height": 7126896
          *       }
-         *     ] */
+         *     ]
+         */
         account_delegation_content: {
             /**
              * @description Epoch in which the delegation becomes active
@@ -9459,7 +9513,8 @@ export interface components {
             /** @description Block height of the transaction containing the delegation */
             block_height: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
          *         "action": "registered",
@@ -9476,7 +9531,8 @@ export interface components {
          *         "block_time": 1649033600,
          *         "block_height": 7126896
          *       }
-         *     ] */
+         *     ]
+         */
         account_registration_content: {
             /** @description Hash of the transaction containing the (de)registration certificate */
             tx_hash: string;
@@ -9494,7 +9550,8 @@ export interface components {
             /** @description Block height of the transaction containing the (de)registration certificate */
             block_height: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "48a9625c841eea0dd2bb6cf551eabe6523b7290c9ce34be74eedef2dd8f7ecc5",
          *         "amount": "454541212442",
@@ -9509,7 +9566,8 @@ export interface components {
          *         "block_time": 1649033600,
          *         "block_height": 7126896
          *       }
-         *     ] */
+         *     ]
+         */
         account_withdrawal_content: {
             /** @description Hash of the transaction containing the withdrawal */
             tx_hash: string;
@@ -9522,7 +9580,8 @@ export interface components {
             /** @description Block height of the transaction containing the withdrawal */
             block_height: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "69705bba1d687a816ff5a04ec0c358a1f1ef075ab7f9c6cc2763e792581cec6d",
          *         "amount": "2193707473",
@@ -9537,7 +9596,8 @@ export interface components {
          *         "block_time": 1649033600,
          *         "block_height": 7126896
          *       }
-         *     ] */
+         *     ]
+         */
         account_mir_content: {
             /** @description Hash of the transaction containing the MIR */
             tx_hash: string;
@@ -9550,7 +9610,8 @@ export interface components {
             /** @description Block height of the transaction containing the MIR */
             block_height: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1qx2kd28nq8ac5prwg32hhvudlwggpgfp8utlyqxu6wqgz62f79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sy0f4qd"
          *       },
@@ -9563,12 +9624,14 @@ export interface components {
          *       {
          *         "address": "addr1q8f7gxrprank3drhx8k5grlux7ene0nlwun8y9thu8mc3yjf79qsdmm5dsknt9ecr5w468r9ey0fxwkdrwh08ly3tu9sls6vnt"
          *       }
-         *     ] */
+         *     ]
+         */
         account_addresses_content: {
             /** @description Address associated with the stake key */
             address: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "unit": "d5e6bf0500378d4f0da4e8dde6becec7621cd8cbf5cbb9b87013d4cc537061636542756433343132",
          *         "quantity": "1"
@@ -9577,7 +9640,8 @@ export interface components {
          *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
          *         "quantity": "125"
          *       }
-         *     ] */
+         *     ]
+         */
         account_addresses_assets: {
             /**
              * Format: Concatenation of asset policy_id and hex-encoded asset_name
@@ -9593,7 +9657,8 @@ export interface components {
              * @example stake1u9l5q5jwgelgagzyt6nuaasefgmn8pd25c8e9qpeprq0tdcp0e3uk
              */
             stake_address: string;
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000"
@@ -9602,7 +9667,8 @@ export interface components {
              *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
              *         "quantity": "12"
              *       }
-             *     ] */
+             *     ]
+             */
             received_sum: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -9612,7 +9678,8 @@ export interface components {
                 /** @description The quantity of the unit */
                 quantity: string;
             }[];
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000"
@@ -9621,7 +9688,8 @@ export interface components {
              *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
              *         "quantity": "12"
              *       }
-             *     ] */
+             *     ]
+             */
             sent_sum: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -9637,7 +9705,8 @@ export interface components {
              */
             tx_count: number;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
          *         "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
@@ -9687,7 +9756,8 @@ export interface components {
          *         "inline_datum": null,
          *         "reference_script_hash": null
          *       }
-         *     ] */
+         *     ]
+         */
         account_utxo_content: {
             /**
              * @description Bech32 encoded addresses
@@ -9727,7 +9797,8 @@ export interface components {
              */
             reference_script_hash: string | null;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1q8zsjx7vxkl4esfejafhxthyew8c54c9ch95gkv3nz37sxrc9ty742qncmffaesxqarvqjmxmy36d9aht2duhmhvekgq3jd3w2",
          *         "tx_hash": "bd78e0e73fb1691f08746a331bd764d11552c3a36ef766d4f1a3bbdc7f29918d",
@@ -9749,7 +9820,8 @@ export interface components {
          *         "block_height": 7900557,
          *         "block_time": 1666118180
          *       }
-         *     ] */
+         *     ]
+         */
         account_transactions_content: {
             /** @description Bech32 address */
             address: string;
@@ -9762,11 +9834,13 @@ export interface components {
             /** @description Block creation time in UNIX time */
             block_time: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
          *       }
-         *     ] */
+         *     ]
+         */
         mempool_content: {
             /** @description Hash of the transaction */
             tx_hash: string;
@@ -9778,7 +9852,8 @@ export interface components {
                  * @example 1e043f100dce12d107f679685acd2fc0610e10f72a92d412794c9773d11d8477
                  */
                 hash: string;
-                /** @example [
+                /**
+                 * @example [
                  *       {
                  *         "unit": "lovelace",
                  *         "quantity": "42000000"
@@ -9787,7 +9862,8 @@ export interface components {
                  *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
                  *         "quantity": "12"
                  *       }
-                 *     ] */
+                 *     ]
+                 */
                 output_amount: {
                     /**
                      * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -9906,7 +9982,8 @@ export interface components {
                  * @example addr1q9ld26v2lv8wvrxxmvg90pn8n8n5k6tdst06q2s856rwmvnueldzuuqmnsye359fqrk8hwvenjnqultn7djtrlft7jnq7dy7wv
                  */
                 address: string;
-                /** @example [
+                /**
+                 * @example [
                  *       {
                  *         "unit": "lovelace",
                  *         "quantity": "42000000"
@@ -9915,7 +9992,8 @@ export interface components {
                  *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
                  *         "quantity": "12"
                  *       }
-                 *     ] */
+                 *     ]
+                 */
                 amount: {
                     /**
                      * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -9975,16 +10053,19 @@ export interface components {
                 unit_steps: string;
             }[];
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dce628516157f0"
          *       }
-         *     ] */
+         *     ]
+         */
         mempool_addresses_content: {
             /** @description Hash of the transaction */
             tx_hash: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "label": "1990",
          *         "cip10": null,
@@ -10000,7 +10081,8 @@ export interface components {
          *         "cip10": "nut.link metadata oracles data points",
          *         "count": "16321"
          *       }
-         *     ] */
+         *     ]
+         */
         tx_metadata_labels: {
             /** @description Metadata label */
             label: string;
@@ -10009,7 +10091,8 @@ export interface components {
             /** @description The count of metadata entries with a specific label */
             count: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
          *         "json_metadata": {
@@ -10036,7 +10119,8 @@ export interface components {
          *         "tx_hash": "4237501da3cfdd53ade91e8911e764bd0699d88fd43b12f44a1f459b89bc91be",
          *         "json_metadata": null
          *       }
-         *     ] */
+         *     ]
+         */
         tx_metadata_label_json: {
             /** @description Transaction hash that contains the specific metadata */
             tx_hash: string;
@@ -10045,7 +10129,8 @@ export interface components {
                 [key: string]: unknown;
             } | unknown[] | number | boolean | null;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "257d75c8ddb0434e9b63e29ebb6241add2b835a307aa33aedba2effe09ed4ec8",
          *         "cbor_metadata": null,
@@ -10061,7 +10146,8 @@ export interface components {
          *         "cbor_metadata": "\\xa100a16b436f6d62696e6174696f6e8601010101010c",
          *         "metadata": "a100a16b436f6d62696e6174696f6e8601010101010c"
          *       }
-         *     ] */
+         *     ]
+         */
         tx_metadata_label_cbor: {
             /** @description Transaction hash that contains the specific metadata */
             tx_hash: string;
@@ -10079,7 +10165,8 @@ export interface components {
              * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
              */
             address: string;
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000"
@@ -10088,7 +10175,8 @@ export interface components {
              *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
              *         "quantity": "12"
              *       }
-             *     ] */
+             *     ]
+             */
             amount: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -10121,7 +10209,8 @@ export interface components {
              * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
              */
             address: string;
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000",
@@ -10134,7 +10223,8 @@ export interface components {
              *         "decimals": null,
              *         "has_nft_onchain_metadata": true
              *       }
-             *     ] */
+             *     ]
+             */
             amount: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -10171,7 +10261,8 @@ export interface components {
              * @example addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz
              */
             address: string;
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000"
@@ -10180,7 +10271,8 @@ export interface components {
              *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
              *         "quantity": "12"
              *       }
-             *     ] */
+             *     ]
+             */
             received_sum: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -10190,7 +10282,8 @@ export interface components {
                 /** @description The quantity of the unit */
                 quantity: string;
             }[];
-            /** @example [
+            /**
+             * @example [
              *       {
              *         "unit": "lovelace",
              *         "quantity": "42000000"
@@ -10199,7 +10292,8 @@ export interface components {
              *         "unit": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
              *         "quantity": "12"
              *       }
-             *     ] */
+             *     ]
+             */
             sent_sum: {
                 /**
                  * Format: Lovelace or concatenation of asset policy_id and hex-encoded asset_name
@@ -10215,7 +10309,8 @@ export interface components {
              */
             tx_count: number;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
          *         "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
@@ -10265,7 +10360,8 @@ export interface components {
          *         "inline_datum": null,
          *         "reference_script_hash": null
          *       }
-         *     ] */
+         *     ]
+         */
         address_utxo_content: {
             /**
              * @description Bech32 encoded addresses - useful when querying by payment_cred
@@ -10305,12 +10401,15 @@ export interface components {
              */
             reference_script_hash: string | null;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
          *       "1a0570af966fb355a7160e4f82d5a80b8681b7955f5d44bec0dde628516157f0"
-         *     ] */
+         *     ]
+         */
         address_txs_content: string[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
          *         "tx_index": 6,
@@ -10329,7 +10428,8 @@ export interface components {
          *         "block_height": 564654,
          *         "block_time": 1834505492
          *       }
-         *     ] */
+         *     ]
+         */
         address_transactions_content: {
             /** @description Hash of the transaction */
             tx_hash: string;
@@ -10340,13 +10440,16 @@ export interface components {
             /** @description Block creation time in UNIX time */
             block_time: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy",
          *       "pool1hn7hlwrschqykupwwrtdfkvt2u4uaxvsgxyh6z63703p2knj288",
          *       "pool1ztjyjfsh432eqetadf82uwuxklh28xc85zcphpwq6mmezavzad2"
-         *     ] */
+         *     ]
+         */
         pool_list: string[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "pool_id": "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q",
          *         "hex": "2f355f79ee007502d116ecb07e36f985b34cebf2d84118f5c6b455a1",
@@ -10480,7 +10583,8 @@ export interface components {
          *         },
          *         "metadata": null
          *       }
-         *     ] */
+         *     ]
+         */
         pool_list_extended: {
             /**
              * @description Bech32 encoded pool ID
@@ -10567,7 +10671,8 @@ export interface components {
                 homepage: string | null;
             } | null;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "pool_id": "pool19u64770wqp6s95gkajc8udheske5e6ljmpq33awxk326zjaza0q",
          *         "epoch": 225
@@ -10580,7 +10685,8 @@ export interface components {
          *         "pool_id": "pool1wvccajt4eugjtf3k0ja3exjqdj7t8egsujwhcw4tzj4rzsxzw5w",
          *         "epoch": 231
          *       }
-         *     ] */
+         *     ]
+         */
         pool_list_retire: {
             /**
              * @description Bech32 encoded pool ID
@@ -10656,15 +10762,19 @@ export interface components {
              * @example stake1uxkptsa4lkr55jleztw43t37vgdn88l6ghclfwuxld2eykgpgvg3f
              */
             reward_account: string;
-            /** @example [
+            /**
+             * @example [
              *       "stake1u98nnlkvkk23vtvf9273uq7cph5ww6u2yq2389psuqet90sv4xv9v"
-             *     ] */
+             *     ]
+             */
             owners: string[];
-            /** @example [
+            /**
+             * @example [
              *       "9f83e5484f543e05b52e99988272a31da373f3aab4c064c76db96643a355d9dc",
              *       "7ce3b8c433bf401a190d58c8c483d8e3564dfd29ae8633c8b1b3e6c814403e95",
              *       "3e6e1200ce92977c3fe5996bd4d7d7e192bcb7e231bc762f9f240c76766535b9"
-             *     ] */
+             *     ]
+             */
             registration: string[];
             retirement: string[];
             /** @description Last valid Calidus key for the pool */
@@ -10823,7 +10933,8 @@ export interface components {
              */
             port: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "stake1ux4vspfvwuus9uwyp5p3f0ky7a30jq5j80jxse0fr7pa56sgn8kha",
          *         "live_stake": "1137959159981411"
@@ -10836,21 +10947,25 @@ export interface components {
          *         "address": "stake1u8lr2pnrgf8f7vrs9lt79hc3sxm8s2w4rwvgpncks3axx6q93d4ck",
          *         "live_stake": "18605647"
          *       }
-         *     ] */
+         *     ]
+         */
         pool_delegators: {
             /** @description Bech32 encoded stake addresses */
             address: string;
             /** @description Currently delegated amount */
             live_stake: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       "d8982ca42cfe76b747cc681d35d671050a9e41e9cfe26573eb214e94fe6ff21d",
          *       "026436c539e2ce84c7f77ffe669f4e4bbbb3b9c53512e5857dcba8bb0b4e9a8c",
          *       "bcc8487f419b8c668a18ea2120822a05df6dfe1de1f0fac3feba88cf760f303c",
          *       "86bf7b4a274e0f8ec9816171667c1b4a0cfc661dc21563f271acea9482b62df7"
-         *     ] */
+         *     ]
+         */
         pool_blocks: string[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad",
          *         "cert_index": 0,
@@ -10866,7 +10981,8 @@ export interface components {
          *         "cert_index": 1,
          *         "action": "registered"
          *       }
-         *     ] */
+         *     ]
+         */
         pool_updates: {
             /** @description Transaction ID */
             tx_hash: string;
@@ -10878,13 +10994,15 @@ export interface components {
              */
             action: "registered" | "deregistered";
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "b302de601defdf11a5261ed31a263804dac4a582a888c998ce24dec5",
          *         "cert_index": 2,
          *         "vote": "yes"
          *       }
-         *     ] */
+         *     ]
+         */
         pool_votes: {
             /** @description Hash of the proposal transaction. */
             tx_hash: string;
@@ -10896,7 +11014,8 @@ export interface components {
              */
             vote: "yes" | "no" | "abstain";
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "asset": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
          *         "quantity": "1"
@@ -10909,7 +11028,8 @@ export interface components {
          *         "asset": "6804edf9712d2b619edb6ac86861fe93a730693183a262b165fcc1ba1bc99cad",
          *         "quantity": "18605647"
          *       }
-         *     ] */
+         *     ]
+         */
         assets: {
             /**
              * Format: Concatenation of the policy_id and hex-encoded asset_name
@@ -10955,27 +11075,27 @@ export interface components {
              * @example 1
              */
             mint_or_burn_count: number;
-            /** @description On-chain metadata which SHOULD adhere to the valid standards,
+            /**
+             * @description On-chain metadata which SHOULD adhere to the valid standards,
              *     based on which we perform the look up and display the asset
              *     (best effort)
-             *      */
+             */
             onchain_metadata: {
                 [key: string]: unknown;
             } | null;
             /**
              * @description If on-chain metadata passes validation, we display the standard
              *     under which it is valid
-             *
              * @enum {string|null}
              */
             onchain_metadata_standard?: "CIP25v1" | "CIP25v2" | "CIP68v1" | "CIP68v2" | "CIP68v3" | null;
-            /** @description Arbitrary plutus data (CIP68).
-             *      */
+            /** @description Arbitrary plutus data (CIP68). */
             onchain_metadata_extra?: string | null;
-            /** @description Off-chain metadata fetched from GitHub based on network.
+            /**
+             * @description Off-chain metadata fetched from GitHub based on network.
              *     Mainnet: https://github.com/cardano-foundation/cardano-token-registry/
              *     Testnet: https://github.com/input-output-hk/metadata-registry-testnet/
-             *      */
+             */
             metadata: {
                 /**
                  * @description Asset name
@@ -11006,7 +11126,8 @@ export interface components {
                 decimals: number | null;
             } | null;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "2dd15e0ef6e6a17841cb9541c27724072ce4d4b79b91e58432fbaa32d9572531",
          *         "amount": "10",
@@ -11022,7 +11143,8 @@ export interface components {
          *         "amount": "5",
          *         "action": "burned"
          *       }
-         *     ] */
+         *     ]
+         */
         asset_history: {
             /** @description Hash of the transaction containing the asset action */
             tx_hash: string;
@@ -11034,13 +11156,16 @@ export interface components {
             /** @description Asset amount of the specific action */
             amount: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
          *       "52e748c4dec58b687b90b0b40d383b9fe1f24c1a833b7395cdf07dd67859f46f",
          *       "e8073fd5318ff43eca18a852527166aa8008bee9ee9e891f585612b7e4ba700b"
-         *     ] */
+         *     ]
+         */
         asset_txs: string[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "tx_hash": "8788591983aa73981fc92d6cddbbe643959f5a784e84b8bee0db15823f575a5b",
          *         "tx_index": 6,
@@ -11059,7 +11184,8 @@ export interface components {
          *         "block_height": 564654,
          *         "block_time": 1834505492
          *       }
-         *     ] */
+         *     ]
+         */
         asset_transactions: {
             /** @description Hash of the transaction */
             tx_hash: string;
@@ -11073,7 +11199,8 @@ export interface components {
              */
             block_time: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
          *         "quantity": "1"
@@ -11086,14 +11213,16 @@ export interface components {
          *         "address": "addr1q8zup8m9ue3p98kxlxl9q8rnyan8hw3ul282tsl9s326dfj088lvedv4zckcj24arcpasr0gua4c5gq4zw2rpcpjk2lq8cmd9l",
          *         "quantity": "18605647"
          *       }
-         *     ] */
+         *     ]
+         */
         asset_addresses: {
             /** @description Address containing the specific asset */
             address: string;
             /** @description Asset quantity on the specific address */
             quantity: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1qxfdlum57a0083mnth9y583jvdcv5a9nwj5lzv9v34t9tl7wmz90ahznykuhr4ykwvfrge8yc63c6lpf7345yd5h59nq885d05",
          *         "tx_hash": "47abf925faa462fe7ddbf906e65b4f8a27da52c3638ec4ee4fffb2298096aced",
@@ -11116,7 +11245,8 @@ export interface components {
          *         "inline_datum_json": null,
          *         "reference_script_hash": null
          *       }
-         *     ] */
+         *     ]
+         */
         asset_utxo_content: {
             /**
              * @description Bech32 encoded address holding the UTxO
@@ -11156,14 +11286,15 @@ export interface components {
              */
             inline_datum: string | null;
             /** @description JSON representation of the inline datum */
-            inline_datum_json: Record<string, never>;
+            inline_datum_json: Record<string, never> | null;
             /**
              * @description The hash of the reference script of the output
              * @example 13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1
              */
             reference_script_hash: string | null;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "asset": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb38a76e7574636f696e",
          *         "quantity": "1"
@@ -11176,14 +11307,16 @@ export interface components {
          *         "asset": "b0d07d45fe9514f80213f4020e5a61241458be626841cde717cb574636f696e",
          *         "quantity": "18605647"
          *       }
-         *     ] */
+         *     ]
+         */
         asset_policy: {
             /** @description Concatenation of the policy_id and hex-encoded asset_name */
             asset: string;
             /** @description Current asset quantity */
             quantity: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "script_hash": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
          *       },
@@ -11193,7 +11326,8 @@ export interface components {
          *       {
          *         "script_hash": "a6e63c0ff05c96943d1cc30bf53112ffff0f34b45986021ca058ec54"
          *       }
-         *     ] */
+         *     ]
+         */
         scripts: {
             /** @description Script hash */
             script_hash: string;
@@ -11216,7 +11350,8 @@ export interface components {
              */
             serialised_size: number | null;
         };
-        /** @example {
+        /**
+         * @example {
          *       "json": {
          *         "type": "atLeast",
          *         "scripts": [
@@ -11235,16 +11370,19 @@ export interface components {
          *         ],
          *         "required": 2
          *       }
-         *     } */
+         *     }
+         */
         script_json: {
             /** @description JSON contents of the `timelock` script, null for `plutus` scripts */
             json: string | {
                 [key: string]: unknown;
             } | unknown[] | number | boolean | null;
         };
-        /** @example {
+        /**
+         * @example {
          *       "cbor": "4e4d01000033222220051200120011"
-         *     } */
+         *     }
+         */
         script_cbor: {
             /** @description CBOR contents of the `plutus` script, null for `timelocks` */
             cbor: string | null;
@@ -11293,7 +11431,8 @@ export interface components {
              */
             fee: string;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "address": "addr1qxqs59lphg8g6qndelq8xwqn60ag3aeyfcp33c2kdp46a09re5df3pzwwmyq946axfcejy5n4x0y99wqpgtp2gd0k09qsgy6pz",
          *         "tx_hash": "39a7a284c2a0948189dc45dec670211cd4d72f7b66c5726c08d9b3df11e44d58",
@@ -11309,7 +11448,8 @@ export interface components {
          *         "inline_datum": null,
          *         "reference_script_hash": "13a3efd825703a352a8f71f4e2758d08c28c564e8dfcce9f77776ad1"
          *       }
-         *     ] */
+         *     ]
+         */
         script_utxos: {
             /**
              * @description Bech32 encoded address of the UTXO holding the reference script
@@ -11344,32 +11484,38 @@ export interface components {
              */
             reference_script_hash: string;
         }[];
-        /** @example {
+        /**
+         * @example {
          *       "json_value": {
          *         "int": 42
          *       }
-         *     } */
+         *     }
+         */
         script_datum: {
             /** @description JSON content of the datum */
             json_value: {
                 [key: string]: unknown;
             };
         };
-        /** @example {
+        /**
+         * @example {
          *       "cbor": "19a6aa"
-         *     } */
+         *     }
+         */
         script_datum_cbor: {
             /** @description CBOR serialized datum */
             cbor: string;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "xpub": "d507c8f866691bd96e131334c355188b1a1d0b2fa0ab11545075aab332d77d9eb19657ad13ee581b56b0f8d744d66ca356b93d42fe176b3de007d53e9c4c4e7a",
          *         "role": 0,
          *         "index": 0,
          *         "address": "addr1q90sqnljxky88s0jsnps48jd872p7znzwym0jpzqnax6qs5nfrlkaatu28n0qzmqh7f2cpksxhpc9jefx3wrl0a2wu8q5amen7"
          *       }
-         *     ] */
+         *     ]
+         */
         utils_addresses_xpub: {
             /** @description Script hash */
             xpub: string;
@@ -11380,7 +11526,8 @@ export interface components {
             /** @description Derived address */
             address: string;
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "time": 1612543884,
          *         "calls": 42
@@ -11389,14 +11536,16 @@ export interface components {
          *         "time": 1614523884,
          *         "calls": 6942
          *       }
-         *     ] */
+         *     ]
+         */
         metrics: {
             /** @description Starting time of the call count interval (ends midnight UTC) in UNIX time */
             time: number;
             /** @description Sum of all calls for a particular day */
             calls: number;
         }[];
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "time": 1612543814,
          *         "calls": 182,
@@ -11422,7 +11571,8 @@ export interface components {
          *         "calls": 89794,
          *         "endpoint": "block"
          *       }
-         *     ] */
+         *     ]
+         */
         metrics_endpoints: {
             /** @description Starting time of the call count interval (ends midnight UTC) in UNIX time */
             time: number;
@@ -11477,7 +11627,8 @@ export interface components {
                 active: string;
             };
         };
-        /** @example [
+        /**
+         * @example [
          *       {
          *         "start": {
          *           "time": 0,
@@ -11512,11 +11663,13 @@ export interface components {
          *           "safe_zone": 129600
          *         }
          *       }
-         *     ] */
+         *     ]
+         */
         "network-eras": {
-            /** @description Start of the blockchain era,
+            /**
+             * @description Start of the blockchain era,
              *     relative to the start of the network
-             *      */
+             */
             start: {
                 /** @description Time in seconds relative to the start time of the network */
                 time: number;
@@ -11525,9 +11678,10 @@ export interface components {
                 /** @description Epoch number */
                 epoch: number;
             };
-            /** @description End of the blockchain era,
+            /**
+             * @description End of the blockchain era,
              *     relative to the start of the network
-             *      */
+             */
             end: {
                 /** @description Time in seconds relative to the start time of the network */
                 time: number;
@@ -11546,9 +11700,10 @@ export interface components {
                 safe_zone: number;
             };
         }[];
-        /** @description On-chain metadata stored in the minting transaction under label 721,
+        /**
+         * @description On-chain metadata stored in the minting transaction under label 721,
          *     which adheres to https://cips.cardano.org/cips/cip25/
-         *      */
+         */
         asset_onchain_metadata_cip25: {
             /**
              * @description Name of the asset
@@ -11592,9 +11747,10 @@ export interface components {
         } & {
             [key: string]: unknown;
         };
-        /** @description On-chain metadata stored in the datum of the reference NFT output
+        /**
+         * @description On-chain metadata stored in the datum of the reference NFT output
          *     which adheres to 333 FT Standard https://cips.cardano.org/cips/cip68/
-         *      */
+         */
         asset_onchain_metadata_cip68_ft_333: {
             /**
              * @description Name of the asset
@@ -11624,9 +11780,10 @@ export interface components {
         } & {
             [key: string]: unknown;
         };
-        /** @description On-chain metadata stored in the datum of the reference NFT output
+        /**
+         * @description On-chain metadata stored in the datum of the reference NFT output
          *     which adheres to 222 NFT Standard https://cips.cardano.org/cips/cip68/
-         *      */
+         */
         asset_onchain_metadata_cip68_nft_222: {
             /**
              * @description Name of the asset
@@ -11670,9 +11827,10 @@ export interface components {
         } & {
             [key: string]: unknown;
         };
-        /** @description On-chain metadata stored in the datum of the reference NFT output
+        /**
+         * @description On-chain metadata stored in the datum of the reference NFT output
          *     which adheres to 222 NFT Standard https://cips.cardano.org/cips/cip68/
-         *      */
+         */
         asset_onchain_metadata_cip68_rft_444: {
             /**
              * @description Name of the asset
@@ -11994,7 +12152,6 @@ export interface components {
         } & (components["schemas"]["Signer"] & components["schemas"]["Stake"]);
         /**
          * @description Signer registered to a signature round.
-         *
          * @example {
          *       "party_id": "1234567890",
          *       "stake": 1234
@@ -12013,7 +12170,6 @@ export interface components {
         };
         /**
          * @description This message holds the registered signers at a given epoch.
-         *
          * @example {
          *       "registered_at": 420,
          *       "signing_at": 422,
@@ -12084,7 +12240,6 @@ export interface components {
         /**
          * @description This message holds a Signer Single Signature with the
          *     list of won indexes in the lottery.
-         *
          * @example {
          *       "entity_type": {
          *         "MithrilStakeDistribution": 246

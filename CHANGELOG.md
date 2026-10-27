@@ -9,11 +9,18 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Changed
+
+- Midnight Indexer API docs updated to the deployed v4.4 schema, with beta items marked and a WebSocket close codes section
+
 ### Removed
 
 - `/nutlink/*` endpoints (`/nutlink/{address}`, `/nutlink/{address}/tickers`, `/nutlink/{address}/tickers/{ticker}`, `/nutlink/tickers/{ticker}`)
+- Unused `src/schemas/midnight/*` OpenAPI schemas
 
 ### Fixed
+
+- Midnight docs examples for transaction fees and the shielded transactions subscription, which did not validate against the schema
 
 - `drep_id` path parameter description on `/governance/dreps/{drep_id}/*` endpoints: hexadecimal DRep IDs were never accepted, only Bech32 (legacy or CIP-129)
 

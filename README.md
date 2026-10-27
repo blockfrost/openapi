@@ -72,7 +72,14 @@ The Midnight Indexer GraphQL API documentation is generated using [SpectaQL](htt
 
 To update the GraphQL schema, download the version matching the deployed Midnight Indexer from the [Midnight Indexer repository](https://github.com/midnightntwrk/midnight-indexer/blob/main/indexer-api/graphql/) and replace the local file:
 
-Then rebuild with `yarn bundle` (SpectaQL runs as part of the bundle step) to regenerate the docs in `docs/midnight/`.
+```bash
+curl -fsSL -o midnight-indexer-api.graphql \
+  https://raw.githubusercontent.com/midnightntwrk/midnight-indexer/<DEPLOYED_TAG_OR_COMMIT>/indexer-api/graphql/schema-v4.graphql
+```
+
+Then rebuild with `yarn bundle` (SpectaQL runs as part of the bundle step) to regenerate the docs in `docs/midnight/`. Also update the deployed version in the `info.description` of `spectaql.yaml`, and check that the example queries there still validate against the new schema.
+
+SpectaQL ignores custom directives, so before rendering, [`src/scripts/midnight-docs-schema.ts`](src/scripts/midnight-docs-schema.ts) writes a copy of the schema to `.cache/spectaql/` with a **Beta** note prepended to every item marked `@beta`. The schema published at `docs/midnight/midnight-indexer-api.graphql` is copied unchanged.
 
 Feel free to open PR against the `master` branch. It is a great place to start any discussion for new features and changes to the Blockfrost API.
 

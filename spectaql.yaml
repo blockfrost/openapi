@@ -95,7 +95,7 @@ info:
         Example:
         ```json
         {
-          "query": "query GetBlock($offset: BlockOffset) { block(offset: $offset) { hash height } }",
+          "query": "query GetBlock(\$offset: BlockOffset) { block(offset: \$offset) { hash height } }",
           "variables": { "offset": { "height": 100 } }
         }
         ```
@@ -276,7 +276,18 @@ info:
         | `4429` | Close reason `Rate limit exceeded`: too many `subscribe` messages for your project from the same IP address. |
         | `1013` | `WebSocket send queue exceeded`: too many messages were queued for the connection, usually because the client isn't reading them fast enough. |
 
-        In all of these cases, reconnect and resume with the subscription's `offset`, `id`, or `index` argument so that you don't miss events.
+        In all of these cases, reconnect and subscribe again. To avoid missing events, resume from the last event you processed with the subscription's cursor argument:
+
+        | Subscription | Resume with |
+        |--------------|-------------|
+        | `blocks`, `contractActions` | `offset` (a `BlockOffset`) |
+        | `dustLedgerEvents`, `zswapLedgerEvents` | `id` |
+        | `contractEvents` | `id`, or `filter.fromBlock` |
+        | `shieldedTransactions` | `index` |
+        | `unshieldedTransactions` | `transactionId` |
+        | `shieldedNullifierTransactions`, `dustNullifierTransactions` | `fromBlock` |
+        | `dustGenerations` | Subscribe again with a newer `blockHash`; each subscription returns a complete snapshot at that block. |
+        | `bridgePoolUpdates`, `bridgeBalance` | No cursor. Both emit the current state when you subscribe, but updates sent while you were disconnected are not replayed. |
 
     - title: Query Limits
       description: |
@@ -349,7 +360,7 @@ info:
           "id": "1",
           "type": "subscribe",
           "payload": {
-            "query": "subscription($sid: HexEncoded!) { shieldedTransactions(sessionId: $sid) { ... on RelevantTransaction { transaction { hash zswapStartIndex zswapEndIndex } zswapCollapsedUpdate { startIndex endIndex update } } ... on ShieldedTransactionsProgress { highestZswapEndIndex highestCheckedZswapEndIndex highestRelevantZswapEndIndex } } }",
+            "query": "subscription(\$sid: HexEncoded!) { shieldedTransactions(sessionId: \$sid) { ... on RelevantTransaction { transaction { hash zswapStartIndex zswapEndIndex } zswapCollapsedUpdate { startIndex endIndex update } } ... on ShieldedTransactionsProgress { highestZswapEndIndex highestCheckedZswapEndIndex highestRelevantZswapEndIndex } } }",
             "variables": { "sid": "SESSION_ID_HEX" }
           }
         }

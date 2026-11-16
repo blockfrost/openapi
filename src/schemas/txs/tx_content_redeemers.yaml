@@ -8,7 +8,7 @@ items:
       description: Index of the redeemer within the transaction
     purpose:
       type: string
-      enum: [spend, mint, cert, reward, vote, propose]
+      enum: [spend, mint, cert, reward, vote, propose, guard]
       example: "spend"
       description: Validation purpose
     script_hash:

@@ -11399,7 +11399,7 @@
                 "addInteger-cpu-arguments-slope": 0
               }
             },
-            "description": "Cost models parameters for Plutus Core scripts. Deprecated, use `cost_models_raw` instead."
+            "description": "Cost models parameters for Plutus Core scripts, PlutusV1 to PlutusV3 only. Deprecated, use `cost_models_raw` instead."
           },
           "cost_models_raw": {
             "additionalProperties": true,
@@ -12567,7 +12567,8 @@
                 "cert",
                 "reward",
                 "vote",
-                "propose"
+                "propose",
+                "guard"
               ],
               "example": "spend",
               "description": "Validation purpose"
@@ -13705,7 +13706,8 @@
                     "cert",
                     "reward",
                     "vote",
-                    "propose"
+                    "propose",
+                    "guard"
                   ],
                   "example": "spend",
                   "description": "Validation purpose"
@@ -15659,7 +15661,8 @@
               "timelock",
               "plutusV1",
               "plutusV2",
-              "plutusV3"
+              "plutusV3",
+              "plutusV4"
             ],
             "example": "plutusV1",
             "description": "Type of the script language"
@@ -15772,7 +15775,8 @@
                 "cert",
                 "reward",
                 "vote",
-                "propose"
+                "propose",
+                "guard"
               ],
               "example": "spend",
               "description": "Validation purpose"

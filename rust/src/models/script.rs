@@ -34,6 +34,8 @@ pub enum Type {
     PlutusV2,
     #[serde(rename = "plutusV3")]
     PlutusV3,
+    #[serde(rename = "plutusV4")]
+    PlutusV4,
 }
 
 impl Default for Type {

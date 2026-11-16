@@ -8502,7 +8502,7 @@ export interface components {
             nonce: string;
             /**
              * @deprecated
-             * @description Cost models parameters for Plutus Core scripts. Deprecated, use `cost_models_raw` instead.
+             * @description Cost models parameters for Plutus Core scripts, PlutusV1 to PlutusV3 only. Deprecated, use `cost_models_raw` instead.
              * @example {
              *       "PlutusV1": {
              *         "addInteger-cpu-arguments-intercept": 197209,
@@ -9237,7 +9237,7 @@ export interface components {
              * @example spend
              * @enum {string}
              */
-            purpose: "spend" | "mint" | "cert" | "reward" | "vote" | "propose";
+            purpose: "spend" | "mint" | "cert" | "reward" | "vote" | "propose" | "guard";
             /**
              * @description Script hash
              * @example ec26b89af41bef0f7585353831cb5da42b5b37185e0c8a526143b824
@@ -9962,7 +9962,7 @@ export interface components {
                  * @example spend
                  * @enum {string}
                  */
-                purpose: "spend" | "mint" | "cert" | "reward" | "vote" | "propose";
+                purpose: "spend" | "mint" | "cert" | "reward" | "vote" | "propose" | "guard";
                 /**
                  * @description The budget in Memory to run a script
                  * @example 1700
@@ -11209,7 +11209,7 @@ export interface components {
              * @example plutusV1
              * @enum {string}
              */
-            type: "timelock" | "plutusV1" | "plutusV2" | "plutusV3";
+            type: "timelock" | "plutusV1" | "plutusV2" | "plutusV3" | "plutusV4";
             /**
              * @description The size of the CBOR serialised script, if a Plutus script
              * @example 3119
@@ -11265,7 +11265,7 @@ export interface components {
              * @example spend
              * @enum {string}
              */
-            purpose: "spend" | "mint" | "cert" | "reward" | "vote" | "propose";
+            purpose: "spend" | "mint" | "cert" | "reward" | "vote" | "propose" | "guard";
             /**
              * @description Datum hash of the redeemer
              * @example 923918e403bf43c34b4ef6b48eb2ee04babed17320d8d1b9ff9ad086e86f44ec

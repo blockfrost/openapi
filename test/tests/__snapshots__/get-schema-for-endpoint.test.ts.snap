@@ -9178,7 +9178,7 @@ under which it is valid
           "cost_models": {
             "additionalProperties": true,
             "deprecated": true,
-            "description": "Cost models parameters for Plutus Core scripts. Deprecated, use \`cost_models_raw\` instead.",
+            "description": "Cost models parameters for Plutus Core scripts, PlutusV1 to PlutusV3 only. Deprecated, use \`cost_models_raw\` instead.",
             "example": {
               "PlutusV1": {
                 "addInteger-cpu-arguments-intercept": 197209,
@@ -10559,7 +10559,7 @@ under which it is valid
           "cost_models": {
             "additionalProperties": true,
             "deprecated": true,
-            "description": "Cost models parameters for Plutus Core scripts. Deprecated, use \`cost_models_raw\` instead.",
+            "description": "Cost models parameters for Plutus Core scripts, PlutusV1 to PlutusV3 only. Deprecated, use \`cost_models_raw\` instead.",
             "example": {
               "PlutusV1": {
                 "addInteger-cpu-arguments-intercept": 197209,
@@ -19045,6 +19045,7 @@ State \`gc\` means that a previously \`unpinned\` item has been garbage collecte
                     "reward",
                     "vote",
                     "propose",
+                    "guard",
                   ],
                   "example": "spend",
                   "type": "string",
@@ -24175,6 +24176,7 @@ relative to the start of the network
               "plutusV1",
               "plutusV2",
               "plutusV3",
+              "plutusV4",
             ],
             "example": "plutusV1",
             "type": "string",
@@ -24694,6 +24696,7 @@ relative to the start of the network
                 "reward",
                 "vote",
                 "propose",
+                "guard",
               ],
               "example": "spend",
               "type": "string",
@@ -26993,6 +26996,7 @@ relative to the start of the network
                 "reward",
                 "vote",
                 "propose",
+                "guard",
               ],
               "example": "spend",
               "type": "string",

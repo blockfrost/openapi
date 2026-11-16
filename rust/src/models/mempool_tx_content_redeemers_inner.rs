@@ -42,6 +42,8 @@ pub enum Purpose {
     Vote,
     #[serde(rename = "propose")]
     Propose,
+    #[serde(rename = "guard")]
+    Guard,
 }
 
 impl Default for Purpose {

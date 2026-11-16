@@ -9,8 +9,13 @@ Unreleased changes are in the `master` branch.
 
 ## [Unreleased]
 
+### Added
+
+- `plutusV4` script type and `guard` redeemer purpose (Dijkstra era)
+
 ### Changed
 
+- Deprecated `cost_models` in epoch parameters documented as PlutusV1 to PlutusV3 only
 - Midnight Indexer API docs updated to the deployed v4.4 schema, with beta items marked and a WebSocket close codes section
 
 ### Removed
